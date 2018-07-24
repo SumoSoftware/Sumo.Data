@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Sumo.Procedure.CodeGen": {
+      "commandName": "Project",
+      "commandLineArgs": "-destination \"C:\\CodeGenOutput\" -namespace \"Tuzo\""
+    }
+  }
+}

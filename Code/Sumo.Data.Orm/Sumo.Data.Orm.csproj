@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Sumo.Data.Orm</AssemblyName>
+        <Authors>Mark Lauter</Authors>
+        <Company>Sumo Software Corporation</Company>
+        <Product>Sumo Software Data Access Library - ORM</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DocumentationFile>bin\Release\netstandard2.0\Sumo.Data.Orm.xml</DocumentationFile>
+      <NoWarn>1701;1702;1705</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <NoWarn>1701;1702;1705;1591</NoWarn>
+      <DocumentationFile>bin\Debug\netstandard2.0\Sumo.Data.Orm.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Sumo.Data.Schema\Sumo.Data.Schema.csproj" />
+      <ProjectReference Include="..\Sumo.Data\Sumo.Data.csproj" />
+    </ItemGroup>
+
+</Project>

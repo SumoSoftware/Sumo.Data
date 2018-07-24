@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>Sumo.Data.SqlServer</id>
+        <version>3.1.0</version>
+        <title>Sumo Software Data Access Library - Microsoft SQL Server</title>
+        <authors>Mark Lauter</authors>
+        <owners>Sumo Software Corporation</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>http://sumosoftware.com/</licenseUrl>
+        <projectUrl>http://sumosoftware.com/dal</projectUrl>
+        <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
+        <description>Microsoft SQL Server implementation of the SDAL framework for ADO database access.</description>
+        <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
+        <copyright>Copyright 2018 Sumo Software Corporation</copyright>
+        <tags>Database SDAPI SDAL SQL Server Azure Db</tags>
+        <repository type="git" url="https://sumosoftware.visualstudio.com/Sumo.Data/_git/Sumo.Data" />
+        <dependencies>
+            <group targetFramework=".NETStandard2.0">
+                <dependency id="Sumo.Data" version="3.1.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.RetryProxy" version="1.0.4" exclude="Build,Analyzers" />
+                <dependency id="System.Data.SqlClient" version="4.5" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+    </metadata>
+    <!--<files>
+        <file src="bin\release\netstandard2.0\*.dll" target="lib\netstandard1.2" />
+        <file src="bin\release\netstandard2.0\*.xml" target="" />
+        <file src="bin\release\netstandard2.0\*.json" target="" />
+    </files>-->
+</package>

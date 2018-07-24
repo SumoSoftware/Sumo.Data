@@ -1,0 +1,10 @@
+﻿using Sumo.Data.Attributes;
+using System;
+
+namespace {Namespace}.{Schema}
+{
+    public sealed class {Procedure}
+    {
+{Properties}
+    }
+}

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Sumo.Data.Sqlite</AssemblyName>
+        <Authors>Mark Lauter</Authors>
+        <Company>Sumo Software Corporation</Company>
+        <Product>Sumo Software Data Access Library - Sqlite Implementation</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DocumentationFile>bin\Release\netstandard2.0\Sumo.Data.Sqlite.xml</DocumentationFile>
+      <NoWarn>1701;1702;1705</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <NoWarn>1701;1702;1705;1591</NoWarn>
+      <DocumentationFile>bin\Debug\netstandard2.0\Sumo.Data.Sqlite.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Sumo.Data\Sumo.Data.csproj" />
+        <ProjectReference Include="..\Sumo.RetryProxy\Sumo.Retry.csproj" />
+    </ItemGroup>
+
+</Project>

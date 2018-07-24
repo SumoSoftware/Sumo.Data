@@ -1,0 +1,2 @@
+﻿{Attribute}
+public {Type} {Name} { get; set; }

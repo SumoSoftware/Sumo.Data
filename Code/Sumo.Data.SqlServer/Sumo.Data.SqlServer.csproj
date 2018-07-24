@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Sumo.Data.SqlServer</AssemblyName>
+        <Authors>Mark Lauter</Authors>
+        <Company>Sumo Software Corporation</Company>
+        <Product>Sumo Software Data Access Library - Sql Server Implementation</Product>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <DocumentationFile>bin\Debug\netstandard2.0\Sumo.Data.SqlServer.xml</DocumentationFile>
+        <NoWarn>1701;1702;1705;1591</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DocumentationFile>bin\Release\netstandard2.0\Sumo.Data.SqlServer.xml</DocumentationFile>
+      <NoWarn>1701;1702;1705</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="Sumo.Data.SqlServer.3.0.9.nupkg" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Sumo.Data\Sumo.Data.csproj" />
+        <ProjectReference Include="..\Sumo.RetryProxy\Sumo.Retry.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Types\" />
+    </ItemGroup>
+
+</Project>

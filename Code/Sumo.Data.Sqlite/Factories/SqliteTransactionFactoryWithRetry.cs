@@ -1,0 +1,37 @@
+﻿using Sumo.Data.Exceptions.Sqlite;
+using Sumo.Retry;
+using System;
+using System.Data;
+using System.Data.Common;
+
+namespace Sumo.Data.Factories.Sqlite
+{
+    public class SqliteTransactionFactoryWithRetry : ITransactionFactory
+    {
+        private readonly ITransactionFactory _proxy;
+        
+        public SqliteTransactionFactoryWithRetry(RetryOptions retryOptions)
+        {
+            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+
+            _proxy = RetryProxy.Create<ITransactionFactory>(
+                new SqliteTransactionFactory(),
+                retryOptions,
+                new SqliteTransientErrorTester());
+        }
+
+        public SqliteTransactionFactoryWithRetry(int maxAttempts, TimeSpan timeout) :
+            this(new RetryOptions(maxAttempts, timeout))
+        { }
+
+        public DbTransaction BeginTransaction(DbConnection dbConnection)
+        {
+            return _proxy.BeginTransaction(dbConnection);
+        }
+
+        public DbTransaction BeginTransaction(DbConnection dbConnection, IsolationLevel isolationLevel)
+        {
+            return _proxy.BeginTransaction(dbConnection, isolationLevel);
+        }
+    }
+}

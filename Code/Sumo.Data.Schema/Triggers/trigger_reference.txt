@@ -1,0 +1,1 @@
+﻿https://www.sqlite.org/lang_createtrigger.html

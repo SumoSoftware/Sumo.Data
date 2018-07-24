@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>Sumo.RetryProxy</id>
+        <version>1.0.4</version>
+        <title>Sumo Software Retry Proxy</title>
+        <authors>Mark Lauter</authors>
+        <owners>Sumo Software Corporation</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>http://sumosoftware.com/</licenseUrl>
+        <projectUrl>http://sumosoftware.com/dal</projectUrl>
+        <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
+        <description>Proxy that allows methods from any Interface/Class combo to be wrapped in a retry loop.</description>
+        <releaseNotes>Initial release</releaseNotes>
+        <copyright>Copyright 2018 Sumo Software Corporation</copyright>
+        <tags>DispatchProxy RetryProxy Retry</tags>
+        <repository type="git" url="https://sumosoftware.visualstudio.com/Sumo.Data/_git/Sumo.Data" />
+        <dependencies>
+            <group targetFramework=".NETStandard2.0">
+                <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+    </metadata>
+    <!--<files>
+        <file src="bin\release\netstandard2.0\*.dll" target="lib\netstandard1.2" />
+        <file src="bin\release\netstandard2.0\*.xml" target="" />
+        <file src="bin\release\netstandard2.0\*.json" target="" />
+    </files>-->
+</package>
