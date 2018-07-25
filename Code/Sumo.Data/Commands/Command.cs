@@ -146,7 +146,8 @@ namespace Sumo.Data.Commands
             if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
             _command.CommandText = sql;
 
-            return (T)_command.ExecuteScalar();
+            var result = _command.ExecuteScalar();
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
         public async Task<T> ExecuteScalarAsync<T>(string sql, DbTransaction dbTransaction = null)

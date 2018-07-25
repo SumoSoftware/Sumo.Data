@@ -23,12 +23,12 @@ namespace Sumo.Data.Queries.Sqlite
             this(dbConnection, new RetryOptions(maxAttempts, timeout))
         { }
 
-        public DataSet Read(Query query, DbTransaction dbTransaction = null)
+        public DataSet Read(QueryExpression query, DbTransaction dbTransaction = null)
         {
             return _proxy.Read(query, dbTransaction);
         }
 
-        public Task<DataSet> ReadAsync(Query query, DbTransaction dbTransaction = null)
+        public Task<DataSet> ReadAsync(QueryExpression query, DbTransaction dbTransaction = null)
         {
             return _proxy.ReadAsync(query, dbTransaction);
         }

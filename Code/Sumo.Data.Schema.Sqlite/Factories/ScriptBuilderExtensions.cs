@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace Sumo.Data.Schema.Sqlite
+namespace Sumo.Data.Schema.Factories.Sqlite
 {
     // sqlite keywords reference: https://www.sqlite.org/lang_keywords.html
 

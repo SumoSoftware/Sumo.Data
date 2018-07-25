@@ -47,7 +47,7 @@ namespace Sumo.Data.Expressions
 
     public interface ISubQueryExpression : IExpression
     {
-        Query SubQuery { get; }
+        QueryExpression SubQuery { get; }
     }
 
     public interface IContainedExpression : IColumnExpression, ISubQueryExpression // sql 'in'

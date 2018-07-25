@@ -13,24 +13,19 @@ namespace Sumo.Data.Types.Sqlite
 
         public static SqliteType ToDbType(this Type type)
         {
-            if (type == typeof(Guid))
-                return SqliteType.Text;
-
-            if (type.IsArray)
-            {
-                if (type == typeof(byte[]) || type == typeof(char[]))
-                {
-                    return SqliteType.Blob;
-                }
-                else
-                {
-                    return type.GetElementType().ToDbType();
-                }
-            }
-
             var typeCode = Type.GetTypeCode(type);
             switch (typeCode)
             {
+                case TypeCode.Object:
+                    if (type == typeof(Byte[]) || type == typeof(Object))
+                    {
+                        return SqliteType.Blob;
+                    }
+                    else if (type == typeof(Char[]) || type == typeof(Guid) || type == typeof(TimeSpan))
+                    {
+                        return SqliteType.Text;
+                    }
+                    throw new NotSupportedException(type.FullName);
                 case TypeCode.Int16:
                 case TypeCode.Int32:
                 case TypeCode.Int64:
@@ -40,25 +35,16 @@ namespace Sumo.Data.Types.Sqlite
                 case TypeCode.Boolean:
                 case TypeCode.SByte:
                 case TypeCode.Byte:
-                case TypeCode.Char:
-                    return SqliteType.Integer;
-
+                case TypeCode.Char: return SqliteType.Integer;
                 case TypeCode.Decimal:
                 case TypeCode.Single:
-                case TypeCode.Double:
-                    return SqliteType.Real;
-
+                case TypeCode.Double: return SqliteType.Real;
                 case TypeCode.DateTime:
-                case TypeCode.String:
-                    return SqliteType.Text;
-
+                case TypeCode.String: return SqliteType.Text;
                 case TypeCode.DBNull:
                 case TypeCode.Empty:
-                    throw new NotSupportedException($"{nameof(type)} can't be {typeCode}.");
-
-                case TypeCode.Object:
                 default:
-                    return SqliteType.Blob;
+                    throw new NotSupportedException($"{type.FullName} returned unsupported TypeCode.{typeCode.ToString()}");
             }
         }
 

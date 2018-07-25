@@ -14,7 +14,7 @@ namespace Sumo.Data.Queries
         { }
 
         private SqlStatement _sqlStatement;
-        private Query _query;
+        private QueryExpression _query;
 
         private class SqlStatement
         {
@@ -27,13 +27,13 @@ namespace Sumo.Data.Queries
             public string Sql { get; }
             public Dictionary<string, object> Parameters { get; }
 
-            public static implicit operator SqlStatement(Query query)
+            public static implicit operator SqlStatement(QueryExpression query)
             {
                 return new SqlStatement(query.ToString(), query.Expression.GetParameters());
             }
         }
 
-        private SqlStatement GetSqlStatement(Query query)
+        private SqlStatement GetSqlStatement(QueryExpression query)
         {
             //tood: add iequatable to the query, table and expression classes
             if (!query.Equals(_query))
@@ -44,7 +44,7 @@ namespace Sumo.Data.Queries
             return _sqlStatement;
         }
 
-        public DataSet Read(Query query, DbTransaction dbTransaction = null)
+        public DataSet Read(QueryExpression query, DbTransaction dbTransaction = null)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
 
@@ -54,7 +54,7 @@ namespace Sumo.Data.Queries
             return ExecuteCommand(dbTransaction);
         }
 
-        public async Task<DataSet> ReadAsync(Query query, DbTransaction dbTransaction = null)
+        public async Task<DataSet> ReadAsync(QueryExpression query, DbTransaction dbTransaction = null)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
 

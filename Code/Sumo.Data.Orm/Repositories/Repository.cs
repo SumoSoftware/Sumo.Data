@@ -1,4 +1,5 @@
-﻿using Sumo.Data.Orm.Factories;
+﻿using Sumo.Data.Commands;
+using Sumo.Data.Orm.Factories;
 using Sumo.Data.Orm.Types;
 using Sumo.Data.Queries;
 using Sumo.Data.Types;
@@ -68,14 +69,173 @@ namespace Sumo.Data.Orm.Repositories
             return result;
         }
 
-        public T Write<T>(T entity) where T : class
+        private Dictionary<string, object> GetWriteParameters<T>() where T : class
         {
-            throw new NotImplementedException();
+            var result = new Dictionary<string, object>(EntityInfoCache<T>.EntityWriteParameterNames.Length);
+            for (var i = 0; i < EntityInfoCache<T>.EntityWriteParameterNames.Length; ++i)
+            {
+                result[EntityInfoCache<T>.EntityWriteParameterNames[i]] = null;
+            }
+            return result;
         }
 
-        public Task<T> WriteAsync<T>(T entity) where T : class
+        private void SetWriteParameters<T>(T entity, Dictionary<string, object> parameters) where T : class
         {
-            throw new NotImplementedException();
+            for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
+            {
+                parameters[EntityInfoCache<T>.EntityWriteParameterNames[i]] =
+                    EntityInfoCache<T>.NonAutoIncrementProperties[i].GetValue(entity) ?? DBNull.Value;
+            }
+        }
+
+        public void Write<T>(T entity) where T : class
+        {
+            var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
+            using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
+            using (var command = new Command(connection, _factorySet.ParameterFactory))
+            using (var transaction = _factorySet.TransactionFactory.BeginTransaction(connection))
+            {
+                try
+                {
+                    var tableExists = command.ExecuteScalar<bool>(tableExistsSql, transaction);
+                    if (!tableExists)
+                    {
+                        var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                        var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                        command.Execute(createTableSql, transaction);
+                    }
+                    var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                    var parameters = GetWriteParameters<T>();
+                    SetWriteParameters(entity, parameters);
+                    var rowsInserted = command.Execute(insertSql, parameters, transaction);
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public async Task WriteAsync<T>(T entity) where T : class
+        {
+            await Task.Run(async () =>
+            {
+                var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
+                using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
+                using (var command = new Command(connection, _factorySet.ParameterFactory))
+                using (var transaction = _factorySet.TransactionFactory.BeginTransaction(connection))
+                {
+                    try
+                    {
+                        var tableExists = await command.ExecuteScalarAsync<bool>(tableExistsSql, transaction);
+                        if (!tableExists)
+                        {
+                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                            await command.ExecuteAsync(createTableSql, transaction);
+                        }
+                        var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                        var parameters = GetWriteParameters<T>();
+                        SetWriteParameters(entity, parameters);
+                        var rowsInserted = await command.ExecuteAsync(insertSql, parameters, transaction);
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            });
+        }
+
+        public void Write<T>(T[] entities) where T : class
+        {
+            var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
+            using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
+            using (var command = new Command(connection, _factorySet.ParameterFactory))
+            using (var transaction = _factorySet.TransactionFactory.BeginTransaction(connection))
+            {
+                try
+                {
+                    var tableExists = command.ExecuteScalar<bool>(tableExistsSql, transaction);
+                    if (!tableExists)
+                    {
+                        var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                        var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                        command.Execute(createTableSql, transaction);
+                    }
+                    var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                    var parameters = GetWriteParameters<T>();
+                    for (var i = 0; i < entities.Length; ++i)
+                    {
+                        var entity = entities[i];
+                        SetWriteParameters(entity, parameters);
+                        var rowsInserted = command.Execute(insertSql, parameters, transaction);
+                    }
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public async Task WriteAsync<T>(T[] entities) where T : class
+        {
+            await Task.Run(async () =>
+            {
+                var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
+                using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
+                using (var command = new Command(connection, _factorySet.ParameterFactory))
+                using (var transaction = _factorySet.TransactionFactory.BeginTransaction(connection))
+                {
+                    try
+                    {
+                        var tableExists = await command.ExecuteScalarAsync<bool>(tableExistsSql, transaction);
+                        if (!tableExists)
+                        {
+                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                            await command.ExecuteAsync(createTableSql, transaction);
+                        }
+                        var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                        var parameters = GetWriteParameters<T>();
+                        for (var i = 0; i < entities.Length; ++i)
+                        {
+                            var entity = entities[i];
+                            SetWriteParameters(entity, parameters);
+                            var rowsInserted = await command.ExecuteAsync(insertSql, parameters, transaction);
+                        }
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            });
         }
     }
 }

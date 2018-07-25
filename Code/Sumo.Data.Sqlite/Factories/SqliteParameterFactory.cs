@@ -4,7 +4,7 @@ using System.Data.Common;
 
 namespace Sumo.Data.Factories.Sqlite
 {
-    public sealed class SqliteParameterFactory: IParameterFactory
+    public sealed class SqliteParameterFactory : IParameterFactory
     {
         public DbParameter CreateParameter(string name, object value, ParameterDirection direction)
         {

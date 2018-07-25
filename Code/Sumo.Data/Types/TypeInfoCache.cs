@@ -131,12 +131,10 @@ namespace Sumo.Data.Types
     {
         static QueryParametersTypeInfoCache()
         {
-            var type = typeof(T);
-            FullName = type.FullName;
-            Name = type.Name;
+            FullName = TypeInfoCache<T>.FullName;
+            Name = TypeInfoCache<T>.Name;
 
-            Parameters = type.GetProperties()
-                .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null)
+            Parameters = TypeInfoCache<T>.Properties
                 .Where(p => p.GetGetMethod(false) != null)
                 .ToArray();
 

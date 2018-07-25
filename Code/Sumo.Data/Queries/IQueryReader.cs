@@ -6,7 +6,7 @@ namespace Sumo.Data.Queries
 {
     public interface IQueryReader: IReader
     {
-        DataSet Read(Query query, DbTransaction dbTransaction = null);
-        Task<DataSet> ReadAsync(Query query, DbTransaction dbTransaction = null);
+        DataSet Read(QueryExpression query, DbTransaction dbTransaction = null);
+        Task<DataSet> ReadAsync(QueryExpression query, DbTransaction dbTransaction = null);
     }
 }

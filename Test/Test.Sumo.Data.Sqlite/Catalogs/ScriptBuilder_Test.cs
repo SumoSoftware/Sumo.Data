@@ -3,7 +3,7 @@ using Sumo.Data.Commands;
 using Sumo.Data.Factories;
 using Sumo.Data.Factories.Sqlite;
 using Sumo.Data.Schema;
-using Sumo.Data.Schema.Sqlite;
+using Sumo.Data.Schema.Factories.Sqlite;
 using System.Data;
 
 namespace Sumo.Data.Sqlite.Catalogs

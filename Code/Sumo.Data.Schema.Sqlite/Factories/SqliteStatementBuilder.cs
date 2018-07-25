@@ -1,10 +1,11 @@
-﻿using Sumo.Data.Orm.Factories;
+﻿using Sumo.Data.Names.Sqlite;
+using Sumo.Data.Orm.Factories;
 using Sumo.Data.Orm.Types;
 using Sumo.Data.Types;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sumo.Data.Schema.Sqlite
+namespace Sumo.Data.Schema.Factories.Sqlite
 {
     // if we have problems in android this might be why - can't pass non-string values as parameters?
     //https://stackoverflow.com/questions/18746149/android-sqlite-selection-args-with-int-values
@@ -15,7 +16,7 @@ namespace Sumo.Data.Schema.Sqlite
     {
         public string GetExistsStatement<T>() where T : class
         {
-            return $"select case when [tbl_name]={TypeInfoCache<T>.Name} then 1 else 0 end as [exists] from [sqlite_master] where [tbl_name]={TypeInfoCache<T>.Name} and [type]='table';";
+            return $"select case when exists (select * from [sqlite_master] where [tbl_name]='{TypeInfoCache<T>.Name}' and [type]='table') then 1 else 0 end as [exists]";
         }
 
         public string GetInsertStatement<T>() where T : class
@@ -32,7 +33,7 @@ namespace Sumo.Data.Schema.Sqlite
             for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 if (i > 0) builder.Append(", ");
-                builder.Append("?");
+                builder.Append(new SqliteParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name));
             }
             builder.Append(");");
 
@@ -53,7 +54,7 @@ namespace Sumo.Data.Schema.Sqlite
             for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
             {
                 if (i > 0) builder.Append(" and ");
-                builder.Append($"[{TypeInfoCache<T>.ReadWriteProperties[i].Name}]=?");
+                builder.Append($"[{TypeInfoCache<T>.ReadWriteProperties[i].Name}]={new SqliteParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name)}");
             }
 
             return builder.ToString();

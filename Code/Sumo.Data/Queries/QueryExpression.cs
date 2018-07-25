@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Sumo.Data.Queries
 {
-    public sealed class Query 
+    public sealed class QueryExpression 
     {
-        public Query(IFromTable table, IExpression expression)
+        public QueryExpression(IFromTable table, IExpression expression)
         {
             Table = table ?? throw new ArgumentNullException(nameof(table));
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));
