@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Schema.Properties;
+using Test.Sumo.Data.Schema.Properties;
 using System.Data;
 
 namespace Sumo.Data.Schema
