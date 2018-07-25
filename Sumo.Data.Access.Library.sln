@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{106A68
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D85B3B5A-05D9-4A56-A470-5C52167DD486}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Tests", "Test\Sumo.Data.Tests\Sumo.Data.Tests.csproj", "{04CB505B-8E06-4690-A55B-420F71FC173E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data", "Test\Test.Sumo.Data\Test.Sumo.Data.csproj", "{04CB505B-8E06-4690-A55B-420F71FC173E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.SqlServer", "Code\Sumo.Data.SqlServer\Sumo.Data.SqlServer.csproj", "{78D4A4FD-5096-4696-AAE9-12A48D26BD2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Retry", "Code\Sumo.RetryProxy\Sumo.Retry.csproj", "{20E52F8A-5A41-459E-8088-34EE798D1333}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.SqlServer.Tests", "Test\Sumo.Data.SqlServer.Tests\Sumo.Data.SqlServer.Tests.csproj", "{DDC0B097-9721-4AF0-98C0-1F1DD2CA4DFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data.SqlServer", "Test\Test.Sumo.Data.SqlServer\Test.Sumo.Data.SqlServer.csproj", "{DDC0B097-9721-4AF0-98C0-1F1DD2CA4DFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Schema.SqlServer", "Code\Sumo.Data.Schema.SqlServer\Sumo.Data.Schema.SqlServer.csproj", "{C896EBC4-9575-418A-8EAE-840D96403F64}"
 EndProject
@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGeneration", "CodeGener
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Procedure.CodeGen", "Code\Sumo.Procedure.CodeGen\Sumo.Procedure.CodeGen.csproj", "{3CF85B3A-0624-49D8-9A69-1E9211CC04F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.RetryProxy.Tests", "Test\Sumo.RetryProxy.Tests\Sumo.RetryProxy.Tests.csproj", "{BE755D7C-DDC6-4591-8A45-476F351A60C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.RetryProxy", "Test\Test.Sumo.RetryProxy\Test.Sumo.RetryProxy.csproj", "{BE755D7C-DDC6-4591-8A45-476F351A60C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Sqlite", "Code\Sumo.Data.Sqlite\Sumo.Data.Sqlite.csproj", "{E558F4FE-F23D-4B89-A59E-DA0F299C226A}"
 EndProject
@@ -31,11 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Orm", "Code\Sumo.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Schema", "Code\Sumo.Data.Schema\Sumo.Data.Schema.csproj", "{D7ADDA13-2C18-41BA-B106-948F166F1B15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Schema.Tests", "Test\Sumo.Data.Schema.Tests\Sumo.Data.Schema.Tests.csproj", "{485B464A-8C4A-4CC5-80E6-202EF34AB2F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data.Schema", "Test\Test.Sumo.Data.Schema\Test.Sumo.Data.Schema.csproj", "{485B464A-8C4A-4CC5-80E6-202EF34AB2F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Schema.Sqlite", "Code\Sumo.Data.Schema.Sqlite\Sumo.Data.Schema.Sqlite.csproj", "{A641948B-F36B-4454-8CD7-5122CEB20431}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.Data.Sqlite.Tests", "Test\Sumo.Data.Sqlite.Tests\Sumo.Data.Sqlite.Tests.csproj", "{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data.Sqlite", "Test\Test.Sumo.Data.Sqlite\Test.Sumo.Data.Sqlite.csproj", "{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
