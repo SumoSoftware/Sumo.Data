@@ -4,6 +4,7 @@ using Sumo.Data.Factories;
 using Sumo.Data.Factories.Sqlite;
 using Sumo.Data.Orm.Factories;
 using Sumo.Data.Schema.Factories.Sqlite;
+using System.Threading.Tasks;
 
 namespace Test.Sumo.Data.Sqlite.Commands
 {
@@ -52,6 +53,26 @@ namespace Test.Sumo.Data.Sqlite.Commands
 
                 sql = sqlBuilder.GetExistsStatement<DoesNotExist>();
                 exists = command.ExecuteScalar<bool>(sql);
+                Assert.IsFalse(exists);
+            }
+        }
+
+        [TestMethod]
+        public async Task ExecuteScalorAsync()
+        {
+            IParameterFactory parameterFactory = new SqliteParameterFactory();
+            IConnectionFactory connectionFactory = new SqliteConnectionFactory();
+            ISqlStatementBuilder sqlBuilder = new SqliteStatementBuilder();
+
+            using (var connection = connectionFactory.Open(_connectionString))
+            using (var command = new Command(connection, parameterFactory))
+            {
+                var sql = sqlBuilder.GetExistsStatement<Test>();
+                var exists = await command.ExecuteScalarAsync<bool>(sql);
+                Assert.IsTrue(exists);
+
+                sql = sqlBuilder.GetExistsStatement<DoesNotExist>();
+                exists = await command.ExecuteScalarAsync<bool>(sql);
                 Assert.IsFalse(exists);
             }
         }

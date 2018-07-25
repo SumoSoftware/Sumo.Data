@@ -126,7 +126,8 @@ namespace Sumo.Data.Commands
             if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
 
-            return (T)_command.ExecuteScalar();
+            var result = _command.ExecuteScalar();
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
         public async Task<T> ExecuteScalarAsync<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
@@ -136,7 +137,8 @@ namespace Sumo.Data.Commands
             if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
 
-            return (T)(await _command.ExecuteScalarAsync());
+            var result = await _command.ExecuteScalarAsync();
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
         public T ExecuteScalar<T>(string sql, DbTransaction dbTransaction = null)
@@ -157,7 +159,8 @@ namespace Sumo.Data.Commands
             if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
             _command.CommandText = sql;
 
-            return (T)(await _command.ExecuteScalarAsync());
+            var result = await _command.ExecuteScalarAsync();
+            return (T)Convert.ChangeType(result, typeof(T));
         }
 
         #region IDisposable Support
