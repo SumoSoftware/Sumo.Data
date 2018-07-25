@@ -1,5 +1,4 @@
-﻿using Sumo.Data.Names.Sqlite;
-using Sumo.Data.Orm.Attributes;
+﻿using Sumo.Data.Orm.Attributes;
 using Sumo.Data.Types;
 using System.Linq;
 using System.Reflection;
@@ -32,12 +31,12 @@ namespace Sumo.Data.Orm.Types
                 .Where(p => p.GetCustomAttribute<RequiredAttribute>() != null)
                 .ToArray();
 
-            EntityWriteParameterNames = NonAutoIncrementProperties.Select((p) => new SqliteParameterName(p.Name).ToString()).ToArray();
+            //EntityWriteParameterNames = NonAutoIncrementProperties.Select((p) => new SqliteParameterName(p.Name).ToString()).ToArray();
         }
 
         public readonly static PropertyInfo[] PrimaryKeyProperties;
         public readonly static PropertyInfo[] NonAutoIncrementProperties;
-        public readonly static string[] EntityWriteParameterNames;
+        //public readonly static string[] EntityWriteParameterNames;
         public readonly static PropertyInfo[] UniqueProperties;
         public readonly static PropertyInfo[] RequiredProperties;
     }

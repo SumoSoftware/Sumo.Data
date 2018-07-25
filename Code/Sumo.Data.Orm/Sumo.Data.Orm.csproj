@@ -20,7 +20,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Sumo.Data.Schema\Sumo.Data.Schema.csproj" />
-      <ProjectReference Include="..\Sumo.Data.Sqlite\Sumo.Data.Sqlite.csproj" />
       <ProjectReference Include="..\Sumo.Data\Sumo.Data.csproj" />
     </ItemGroup>
 

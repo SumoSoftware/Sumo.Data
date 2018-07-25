@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Sumo.Data.Schema</id>
-        <version>1.0.0</version>
-        <title>Sumo Software Data Access Library - Schema</title>
+        <id>Sumo.Data.Schema.Sqlite</id>
+        <version>4.0.0</version>
+        <title>Sumo Software Data Access Library - Schema 4 Sqlite</title>
+
         <authors>Mark Lauter</authors>
         <owners>Sumo Software Corporation</owners>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <licenseUrl>http://sumosoftware.com/</licenseUrl>
-        <projectUrl>http://sumosoftware.com/dal</projectUrl>
+        <copyright>Copyright 2018 Sumo Software Corporation</copyright>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <licenseUrl>https://github.com/SumoSoftware/Data/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
+
         <description>Schema creation library.</description>
         <releaseNotes>.NetStandard 2.0.</releaseNotes>
-        <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <tags>Database SDAPI SDAL Schema</tags>
         <repository type="git" url="https://sumosoftware.visualstudio.com/Sumo.Data/_git/Sumo.Data" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.0.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Schema" version="4.0.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Orm" version="4.0.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Sqlite" version="4.0.0" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
