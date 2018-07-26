@@ -1,6 +1,5 @@
-﻿using Sumo.Data.Orm.Attributes;
+﻿using Sumo.Data.Schema.Attributes;
 using Sumo.Data.Types;
-using System.Data.Common;
 using System.Reflection;
 
 namespace Sumo.Data.Schema.Factories.Sqlite

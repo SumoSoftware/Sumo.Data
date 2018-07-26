@@ -1,0 +1,1 @@
+﻿implement factories - see Schema.Sqlite project for samples

@@ -10,15 +10,15 @@ namespace Sumo.Data.Expressions
     public class SortExpression : ISortExpression, IEquatable<SortExpression>
     {
         private readonly IItemName _columnName;
-        private readonly SortDirections _sortDirection;
+        private readonly Directions _sortDirection;
 
-        public SortExpression(IItemName columnName, SortDirections sortDirection = SortDirections.Ascending)
+        public SortExpression(IItemName columnName, Directions sortDirection = Directions.Ascending)
         {
             _columnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
             _sortDirection = sortDirection;
         }
 
-        public void Join(IItemName columnName, SortDirections sortDirection = SortDirections.Ascending)
+        public void Join(IItemName columnName, Directions sortDirection = Directions.Ascending)
         {
             NextExpression = new SortExpression(columnName, sortDirection);
         }

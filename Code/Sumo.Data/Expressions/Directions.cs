@@ -1,6 +1,6 @@
 ﻿namespace Sumo.Data.Expressions
 {
-    public enum SortDirections
+    public enum Directions
     {
         Ascending = 1,
         Descending = 2
@@ -8,13 +8,13 @@
 
     public static class SortDirectionsExtensions
     {
-        public static string ToSqlString(this SortDirections sortDirection)
+        public static string ToSqlString(this Directions sortDirection)
         {
             switch (sortDirection)
             {
-                case SortDirections.Descending:
+                case Directions.Descending:
                     return "DESC";
-                case SortDirections.Ascending:
+                case Directions.Ascending:
                 default:
                     return "ASC";
             }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Sumo.Data.Expressions;
 
 namespace Sumo.Data.Schema
 {

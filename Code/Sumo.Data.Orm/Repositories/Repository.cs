@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sumo.Data.Orm.Repositories
 {
-    public class Repository : IRepository
+    public abstract class Repository : IRepository
     {
         private readonly IFactorySet _factorySet;
         private readonly string _connectionString;
@@ -71,10 +71,10 @@ namespace Sumo.Data.Orm.Repositories
 
         private Dictionary<string, object> GetWriteParameters<T>() where T : class
         {
-            var result = new Dictionary<string, object>(EntityInfoCache<T>.EntityWriteParameterNames.Length);
-            for (var i = 0; i < EntityInfoCache<T>.EntityWriteParameterNames.Length; ++i)
+            var result = new Dictionary<string, object>(EntityInfoCache<T>.NonAutoIncrementProperties.Length);
+            for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
-                result[EntityInfoCache<T>.EntityWriteParameterNames[i]] = null;
+                result[_factorySet.ParameterFactory.GetWriteParameterName<T>(i)] = null;
             }
             return result;
         }
@@ -83,7 +83,7 @@ namespace Sumo.Data.Orm.Repositories
         {
             for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
-                parameters[EntityInfoCache<T>.EntityWriteParameterNames[i]] =
+                parameters[_factorySet.ParameterFactory.GetWriteParameterName<T>(i)] =
                     EntityInfoCache<T>.NonAutoIncrementProperties[i].GetValue(entity) ?? DBNull.Value;
             }
         }

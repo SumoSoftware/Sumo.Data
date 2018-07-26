@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sumo.Data.Expressions;
+using System;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -275,18 +276,6 @@ namespace Sumo.Data.Schema.Factories.Sqlite
             builder.Append($" {column.Direction.ToSqlString()}");
 
             return builder.ToString();
-        }
-
-        internal static string ToSqlString(this Directions direction)
-        {
-            switch (direction)
-            {
-                case Directions.Descending:
-                    return "desc";
-                case Directions.Ascending:
-                default:
-                    return "asc";
-            }
         }
     }
 }

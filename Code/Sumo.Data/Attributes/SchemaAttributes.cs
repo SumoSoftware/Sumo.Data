@@ -1,7 +1,7 @@
-﻿using Sumo.Data.Schema;
+﻿using Sumo.Data.Expressions;
 using System;
 
-namespace Sumo.Data.Orm.Attributes
+namespace Sumo.Data.Attributes
 {
     /// <summary>
     /// Indicates this item is part of the primary key.
