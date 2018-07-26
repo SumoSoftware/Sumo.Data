@@ -11,7 +11,7 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <licenseUrl>https://github.com/SumoSoftware/Data/blob/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
-        <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
+        <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
 
         <description>Schema creation library.</description>
         <releaseNotes>.NetStandard 2.0.</releaseNotes>
