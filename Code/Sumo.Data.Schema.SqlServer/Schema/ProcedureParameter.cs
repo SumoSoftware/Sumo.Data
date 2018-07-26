@@ -31,7 +31,7 @@ namespace Sumo.Data.Schema.SqlServer
         {
             get
             {
-                var sqlType = DataType.ToDbType();
+                var sqlType = DataType.ToSqlDbType();
                 return sqlType.ToType().Name;
             }
         }

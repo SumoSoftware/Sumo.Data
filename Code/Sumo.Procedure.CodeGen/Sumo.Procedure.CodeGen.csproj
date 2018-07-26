@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Sumo.Data.Schema.SqlServer" Version="4.0.1-beta" />
   </ItemGroup>
 
   <ItemGroup>

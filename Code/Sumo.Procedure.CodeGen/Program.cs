@@ -1,4 +1,5 @@
-﻿using Sumo.Procedure.CodeGen.Application;
+﻿using Sumo.Data.Schema.SqlServer;
+using Sumo.Procedure.CodeGen.Application;
 using Sumo.Procedure.CodeGen.Properties;
 using System;
 using System.Collections.Generic;
