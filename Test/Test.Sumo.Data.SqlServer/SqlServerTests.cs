@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.Attributes;
 using Sumo.Data.Factories.SqlServer;
-using Sumo.Data.Orm;
+using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Procedures;
 using Sumo.Data.SqlServer.Application;
 using System.Linq;

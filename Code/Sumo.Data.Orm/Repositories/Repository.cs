@@ -1,4 +1,5 @@
 ﻿using Sumo.Data.Commands;
+using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Orm.Factories;
 using Sumo.Data.Orm.Types;
 using Sumo.Data.Queries;

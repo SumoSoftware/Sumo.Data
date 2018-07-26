@@ -4,7 +4,7 @@ using System.Data;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Orm
+namespace Sumo.Data.Orm.Extensions
 {
     public static class OrmReadExtensions
     {

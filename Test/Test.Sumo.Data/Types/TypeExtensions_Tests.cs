@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Sumo.Data.Orm;
+using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Support;
 using System.Threading.Tasks;
 

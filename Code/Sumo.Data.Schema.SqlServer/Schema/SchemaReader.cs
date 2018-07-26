@@ -1,7 +1,7 @@
 ﻿using Sumo.Data.Factories;
 using Sumo.Data.Factories.SqlServer;
 using Sumo.Data.Names;
-using Sumo.Data.Orm;
+using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Queries;
 using Sumo.Data.Schema.SqlServer.Properties;
 using Sumo.Retry;
