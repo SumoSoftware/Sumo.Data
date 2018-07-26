@@ -16,7 +16,7 @@ namespace Sumo.Data.Queries.Sqlite
         public SqliteQueryReaderWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
         {
             var instance = new QueryReader(dbConnection, new SqliteParameterFactory(), new SqliteDataAdapterFactory());
-            _proxy = RetryProxy.Create<IQueryReader>(instance, retryOptions, new SqliteTransientErrorTester());
+            _proxy = Retry.Create<IQueryReader>(instance, retryOptions, new SqliteTransientErrorTester());
         }
 
         public SqliteQueryReaderWithRetry(DbConnection dbConnection, int maxAttempts, TimeSpan timeout) :

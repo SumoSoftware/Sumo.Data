@@ -15,7 +15,7 @@ namespace Sumo.Data.Procedures.Sqlite
         public SqliteReadProcedureWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
         {
             var instance = new ReadProcedure(dbConnection, new SqliteParameterFactory(), new SqliteDataAdapterFactory());
-            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryOptions, new SqliteTransientErrorTester());
+            _proxy = Retry.Create<IReadProcedure>(instance, retryOptions, new SqliteTransientErrorTester());
         }
 
         public SqliteReadProcedureWithRetry(DbConnection dbConnection, IDataAdapterFactory dataAdapterFactory, int maxAttempts, TimeSpan timeout) :

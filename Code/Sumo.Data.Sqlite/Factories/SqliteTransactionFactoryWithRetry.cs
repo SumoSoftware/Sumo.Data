@@ -14,7 +14,7 @@ namespace Sumo.Data.Factories.Sqlite
         {
             if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
 
-            _proxy = RetryProxy.Create<ITransactionFactory>(
+            _proxy = Retry.Create<ITransactionFactory>(
                 new SqliteTransactionFactory(),
                 retryOptions,
                 new SqliteTransientErrorTester());
