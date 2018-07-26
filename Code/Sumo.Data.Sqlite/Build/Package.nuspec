@@ -16,7 +16,7 @@
         <description>Sqlite implementation of the SDAL framework for ADO database access.</description>
         <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
         <tags>Database SDAPI SDAL SQL Sqlite</tags>
-        <repository type="git" url="https://sumosoftware.visualstudio.com/Sumo.Data/_git/Sumo.Data" />
+        <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="Sumo.Data" version="4.0.0" exclude="Build,Analyzers" />
