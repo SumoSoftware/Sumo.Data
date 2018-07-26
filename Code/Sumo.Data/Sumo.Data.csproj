@@ -22,11 +22,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Data.Common" Version="4.3.0" />
+      <Compile Remove="Common\**" />
+      <EmbeddedResource Remove="Common\**" />
+      <None Remove="Common\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common\" />
+        <PackageReference Include="System.Data.Common" Version="4.3.0" />
     </ItemGroup>
 
 </Project>
