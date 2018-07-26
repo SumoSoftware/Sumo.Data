@@ -20,7 +20,7 @@
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="Sumo.Data" version="4.0.0" exclude="Build,Analyzers" />
-                <dependency id="Sumo.RetryProxy" version="4.0.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="4.0.0" exclude="Build,Analyzers" />
                 <dependency id="System.Data.SqlClient" version="4.5" exclude="Build,Analyzers" />
             </group>
         </dependencies>

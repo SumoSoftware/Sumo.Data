@@ -77,7 +77,7 @@ namespace Sumo.Data.Retry
             var canRetryTester = new CanRetryProxySubjectException();
             try
             {
-                var retryProxy = RetryProxy.Create<IRetryProxySubject>(null, options, canRetryTester);
+                var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(null, options, canRetryTester);
             }
             catch (ArgumentNullException ex)
             {
@@ -95,7 +95,7 @@ namespace Sumo.Data.Retry
             var canRetryTester = new CanRetryProxySubjectException();
             try
             {
-                var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, null, canRetryTester);
+                var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, null, canRetryTester);
             }
             catch (ArgumentNullException ex)
             {
@@ -113,7 +113,7 @@ namespace Sumo.Data.Retry
             var canRetryTester = new CanRetryProxySubjectException();
             try
             {
-                var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, options, null);
+                var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, options, null);
             }
             catch (ArgumentNullException ex)
             {
@@ -130,7 +130,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanRetryProxySubjectException();
             var retryOptions = new RetryOptions(5, TimeSpan.FromSeconds(5));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             var result = retryProxy.Succeed();
             Assert.AreEqual("succeed", result);
         }
@@ -141,7 +141,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanRetryProxySubjectException();
             var retryOptions = new RetryOptions(5, TimeSpan.FromSeconds(5));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             var result = await retryProxy.SucceedAsync();
             Assert.AreEqual("succeed", result);
         }
@@ -155,7 +155,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanNotRetryProxySubjectException();
             var retryOptions = new RetryOptions(5, TimeSpan.FromSeconds(5));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             try
             {
                 var result = retryProxy.Fail();
@@ -176,7 +176,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanRetryProxySubjectException();
             var retryOptions = new RetryOptions(5, TimeSpan.FromSeconds(60));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             try
             {
                 var result = retryProxy.Fail();
@@ -197,7 +197,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanRetryProxySubjectException();
             var retryOptions = new RetryOptions(int.MaxValue, TimeSpan.FromSeconds(1));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             try
             {
                 var result = retryProxy.Fail();
@@ -220,7 +220,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanNotRetryProxySubjectException();
             var retryOptions = new RetryOptions(5, TimeSpan.FromSeconds(5));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             //Assert.ThrowsException<RetryNotAllowedException>()
             try
             {
@@ -242,7 +242,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanRetryProxySubjectException();
             var retryOptions = new RetryOptions(5, TimeSpan.FromSeconds(60));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             try
             {
                 var result = await retryProxy.FailAsync();
@@ -263,7 +263,7 @@ namespace Sumo.Data.Retry
             var instance = new RetryProxySubject();
             var retryTest = new CanRetryProxySubjectException();
             var retryOptions = new RetryOptions(10000, TimeSpan.FromSeconds(1));
-            var retryProxy = RetryProxy.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
+            var retryProxy = Sumo.Retry.Create<IRetryProxySubject>(instance, retryOptions, retryTest);
             try
             {
                 var result = await retryProxy.FailAsync();

@@ -15,7 +15,7 @@ namespace Sumo.Data.Procedures.SqlServer
         public SqlServerReadProcedureWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
         {
             var instance = new ReadProcedure(dbConnection, new SqlServerParameterFactory(), new SqlServerDataAdapterFactory());
-            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = Retry.Create<IReadProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
         }
 
         public SqlServerReadProcedureWithRetry(DbConnection dbConnection, IDataAdapterFactory dataAdapterFactory, int maxAttempts, TimeSpan timeout) :

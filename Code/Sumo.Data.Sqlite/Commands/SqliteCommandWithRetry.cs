@@ -16,7 +16,7 @@ namespace Sumo.Data.Sqlite.Commands
         public SqliteCommandWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
         {
             var instance = new Command(dbConnection, new SqliteParameterFactory());
-            _proxy = RetryProxy.Create<ICommand>(instance, retryOptions, new SqliteTransientErrorTester());
+            _proxy = Retry.Create<ICommand>(instance, retryOptions, new SqliteTransientErrorTester());
         }
 
         public SqliteCommandWithRetry(DbConnection dbConnection, int maxAttempts, TimeSpan timeout) :

@@ -2,10 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>Sumo.Retry.Proxy</AssemblyName>
+        <AssemblyName>Sumo.Retry</AssemblyName>
         <Authors>Mark Lauter</Authors>
         <Company>Sumo Software Corporation</Company>
         <Product>Sumo Software Data Access Library - Core</Product>
+        <RootNamespace>Sumo.RetryProxy</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
