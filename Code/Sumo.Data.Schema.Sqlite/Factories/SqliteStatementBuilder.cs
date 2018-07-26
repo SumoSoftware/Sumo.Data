@@ -1,6 +1,5 @@
-﻿using Sumo.Data.Names.Sqlite;
-using Sumo.Data.Orm.Factories;
-using Sumo.Data.Orm.Types;
+﻿using Sumo.Data.Factories;
+using Sumo.Data.Names.Sqlite;
 using Sumo.Data.Types;
 using System.Collections.Generic;
 using System.Text;

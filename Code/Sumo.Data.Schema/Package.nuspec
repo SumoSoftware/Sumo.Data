@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Sumo.Data</id>
-        <version>4.0.0</version>
-        <title>Sumo Software Data Access Library - Core</title>
+        <id>Sumo.Data.Schema</id>
+        <version>4.0.1</version>
+        <title>Data Access Library - Schema Builder</title>
 
-        <authors>Mark Lauter</authors>
+        <authors>Sumo Software Corporation</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,13 +13,14 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
 
-        <description>Core framework for ADO database access. Custom implementations: Microsoft SQL Server (Sumo.Data.SqlServer), Oracle (Sumo.Data.Oracle), MySql (Sumo.Data.MySql), and Firebird (Sumo.Data.Firebird).</description>
-        <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
-        <tags>Database SDAPI SDAL SQL</tags>
+        <description>Database schema creation library.</description>
+        <releaseNotes>.NetStandard 2.0.</releaseNotes>
+        <tags>Database SDAPI SDAL Schema</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.0.1" exclude="Build,Analyzers" />
+                <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

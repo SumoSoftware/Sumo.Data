@@ -14,7 +14,7 @@ namespace Sumo.Data.Factories.SqlServer
         {
             if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
 
-            _proxy = Retry.Create<IConnectionFactory>(
+            _proxy = RetryProxy.Create<IConnectionFactory>(
                 new SqlServerConnectionFactory(),
                 retryOptions,
                 new SqlServerTransientErrorTester());

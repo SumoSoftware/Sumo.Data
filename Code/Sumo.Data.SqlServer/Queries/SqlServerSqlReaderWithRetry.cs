@@ -17,7 +17,7 @@ namespace Sumo.Data.Queries.SqlServer
         public SqlServerSqlReaderWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
         {
             var instance = new SqlReader(dbConnection, new SqlServerParameterFactory(), new SqlServerDataAdapterFactory());
-            _proxy = Retry.Create<ISqlReader>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = RetryProxy.Create<ISqlReader>(instance, retryOptions, new SqlServerTransientErrorTester());
         }
 
         public SqlServerSqlReaderWithRetry(DbConnection dbConnection, IDataAdapterFactory dataAdapterFactory, int maxAttempts, TimeSpan timeout) :

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Sumo.Data.Schema.SqlServer</id>
-        <version>4.0.0</version>
-        <title>Sumo Software Data Access Library - Schema Reader 4 Sql Server</title>
+        <id>Sumo.Data</id>
+        <version>4.0.1</version>
+        <title>Data Access Library - Core</title>
 
-        <authors>Mark Lauter</authors>
+        <authors>Sumo Software Corporation</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,16 +13,13 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
 
-        <description>Very basic schema reader for Microsoft SQL Server.</description>
-        <releaseNotes>Fixed missing resources file.</releaseNotes>
-        <tags>Database SDAPI SDAL SQL Server Azure Db Schema</tags>
+        <description>Core framework for ADO database access. Custom implementations: Microsoft SQL Server (Sumo.Data.SqlServer), Oracle (Sumo.Data.Oracle), MySql (Sumo.Data.MySql), and Firebird (Sumo.Data.Firebird).</description>
+        <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
+        <tags>Database SDAPI SDAL SQL</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="Sumo.Data" version="4.0.0" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.Orm" version="4.0.0" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.SqlServer" version="4.0.0" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry.Proxy" version="4.0.0" exclude="Build,Analyzers" />
+                <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

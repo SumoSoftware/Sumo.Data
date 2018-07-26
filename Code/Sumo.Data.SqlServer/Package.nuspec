@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Sumo.Retry</id>
-        <version>4.0.0</version>
-        <title>Sumo Software Retry Proxy</title>
+        <id>Sumo.Data.SqlServer</id>
+        <version>4.0.1</version>
+        <title>Data Access Library - Microsoft SQL Server</title>
 
-        <authors>Mark Lauter</authors>
+        <authors>Sumo Software Corporation</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,13 +13,15 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nugetsumo.png</iconUrl>
 
-        <description>Proxy that allows methods from any Interface/Class combo to be wrapped in a retry loop.</description>
-        <releaseNotes>Initial release</releaseNotes>
-        <tags>DispatchProxy RetryProxy Retry</tags>
+        <description>Microsoft SQL Server implementation of the SDAL framework for ADO database access.</description>
+        <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
+        <tags>Database SDAPI SDAL SQL Server Azure Db</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="System.Reflection.DispatchProxy" version="4.5" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.0.1" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="4.0.1" exclude="Build,Analyzers" />
+                <dependency id="System.Data.SqlClient" version="4.5" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
