@@ -6,26 +6,36 @@ using Sumo.Data.Orm.Repositories;
 using Sumo.Data.Schema.Factories.Sqlite;
 using Sumo.Retry;
 using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Test.Sumo.Data.Orm.Sqlite
 {
     [TestClass]
     public class Repository_Test
     {
+        [AssemblyInitialize]
+        public static void ClassInitialize(TestContext testContext)
+        {
+        }
 
-        private readonly string _connectionString = "Filename=./sqlite.db; Mode=ReadWriteCreate";
+
 
         private IFactorySet GetFactorySet()
         {
             var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
 
+            var parameterFactory = new SqliteParameterFactory();
+
             return new FactorySet(
                 new SqliteConnectionFactoryWithRetry(retryOptions),
                 new SqliteDataAdapterFactory(),
-                new SqliteParameterFactory(),
+                parameterFactory,
                 new SqliteTransactionFactoryWithRetry(retryOptions),
                 new SqliteScriptBuilder(),
-                new SqliteStatementBuilder());
+                new SqliteStatementBuilder(parameterFactory));
         }
 
         public class Person
@@ -45,17 +55,78 @@ namespace Test.Sumo.Data.Orm.Sqlite
         [TestMethod]
         public void Write()
         {
-            var factorySet = GetFactorySet();
-            IRepository repository = new Repository(factorySet, _connectionString);
-
-            var person = new Person
+            var fileName = $"{nameof(Write)}.db";
+            var _connectionString = $"Filename=./{fileName}; Mode=ReadWriteCreate";
+            try
             {
-                Age = 10,
-                FirstName = "Bobby",
-                LastName = "Jones"
-            };
+                var factorySet = GetFactorySet();
+                IRepository repository = new Repository(factorySet, _connectionString);
 
-            repository.Write(person);
+                var person = new Person
+                {
+                    Age = 10,
+                    FirstName = "Bobby",
+                    LastName = "Jones"
+                };
+
+                repository.Write(person);
+            }
+            finally
+            {
+                File.Delete($@".\{fileName}");
+            }
+        }
+
+        [TestMethod]
+        public async Task WriteAsync()
+        {
+            var fileName = $"{nameof(WriteAsync)}.db";
+            var _connectionString = $"Filename=./{fileName}; Mode=ReadWriteCreate";
+            try
+            {
+                var factorySet = GetFactorySet();
+                IRepository repository = new Repository(factorySet, _connectionString);
+
+                var person = new Person
+                {
+                    Age = 10,
+                    FirstName = "Bobby",
+                    LastName = "Jones"
+                };
+
+                await repository.WriteAsync(person);
+            }
+            finally
+            {
+                File.Delete($@".\{fileName}");
+            }
+        }
+
+        [TestMethod]
+        public void Read()
+        {
+            var fileName = $"{nameof(Read)}.db";
+            var _connectionString = $"Filename=./{fileName}; Mode=ReadWriteCreate";
+            try
+            {
+                var factorySet = GetFactorySet();
+                IRepository repository = new Repository(factorySet, _connectionString);
+
+                var person = new Person
+                {
+                    Age = 10,
+                    FirstName = "Bobby",
+                    LastName = "Jones"
+                };
+
+                repository.Write(person);
+
+                var persons = repository.Read<Person>(new Dictionary<string, object> { ["LastName"] = "Jones" });
+            }
+            finally
+            {
+                File.Delete($@".\{fileName}");
+            }
         }
     }
 }

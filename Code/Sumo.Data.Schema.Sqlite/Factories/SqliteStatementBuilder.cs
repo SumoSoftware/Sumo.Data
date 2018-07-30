@@ -1,6 +1,8 @@
 ﻿using Sumo.Data.Factories;
+using Sumo.Data.Factories.Sqlite;
 using Sumo.Data.Names.Sqlite;
 using Sumo.Data.Types;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,6 +15,14 @@ namespace Sumo.Data.Schema.Factories.Sqlite
     //https://www.sqlite.org/fileformat2.html#storage_of_the_sql_database_schema
     public class SqliteStatementBuilder : ISqlStatementBuilder
     {
+        public SqliteStatementBuilder(IParameterFactory parameterFactory)
+        {
+            _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
+        }
+
+        private readonly IParameterFactory _parameterFactory;
+
+
         public string GetExistsStatement<T>() where T : class
         {
             return $"select case when exists (select * from [sqlite_master] where [tbl_name]='{TypeInfoCache<T>.Name}' and [type]='table') then 1 else 0 end as [exists]";
@@ -32,13 +42,14 @@ namespace Sumo.Data.Schema.Factories.Sqlite
             for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 if (i > 0) builder.Append(", ");
-                builder.Append(new SqliteParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name));
+                var name = _parameterFactory.GetParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name, i);
+                builder.Append(name);
             }
             builder.Append(");");
 
             return builder.ToString();
         }
-        
+
         public string GetSelectStatement<T>(Dictionary<string, object> parameters) where T : class
         {
             var builder = new StringBuilder();
@@ -50,10 +61,12 @@ namespace Sumo.Data.Schema.Factories.Sqlite
                 builder.Append($"[{TypeInfoCache<T>.ReadWriteProperties[i].Name}]");
             }
             builder.Append($" from [{TypeInfoCache<T>.Name}] where ");
-            for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
+            var index = 0;
+            foreach(var kvp in parameters)
             {
-                if (i > 0) builder.Append(" and ");
-                builder.Append($"[{TypeInfoCache<T>.ReadWriteProperties[i].Name}]={new SqliteParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name)}");
+                if (index > 0) builder.Append(" and ");
+                var parameterName = _parameterFactory.GetParameterName(kvp.Key, index);
+                builder.Append($"[{kvp.Key}]={parameterName}");
             }
 
             return builder.ToString();

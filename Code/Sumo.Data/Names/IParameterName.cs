@@ -4,5 +4,6 @@ namespace Sumo.Data.Names
 {
     public interface IParameterName : IItemName, IEquatable<IParameterName>
     {
+        int Index { get; }
     }
 }

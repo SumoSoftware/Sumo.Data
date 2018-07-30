@@ -10,7 +10,7 @@ namespace Sumo.Data.Names
         public void Constructor()
         {
             var name = "name";
-            var parameterName = new ParameterName(name);
+            var parameterName = new ParameterName(name, -1);
             Assert.AreEqual(name, parameterName.Name);
         }
 
@@ -19,7 +19,7 @@ namespace Sumo.Data.Names
         public void Constructor_NullArgument()
         {
             string name = null;
-            var parameterName = new ParameterName(name);
+            var parameterName = new ParameterName(name, -1);
         }
 
         [TestMethod]
@@ -27,14 +27,14 @@ namespace Sumo.Data.Names
         public void Constructor_StringEmptyArgument()
         {
             string name = string.Empty;
-            var parameterName = new ParameterName(name);
+            var parameterName = new ParameterName(name, -1);
         }
 
         [TestMethod]
         public void InstanceToString()
         {
             var name = "name";
-            var parameterName = new ParameterName(name);
+            var parameterName = new ParameterName(name,-1);
             Assert.AreEqual($"@{name}", parameterName.ToString());
         }
 
@@ -42,7 +42,7 @@ namespace Sumo.Data.Names
         public void InterfaceToString()
         {
             var name = "name";
-            IParameterName parameterName = new ParameterName(name);
+            IParameterName parameterName = new ParameterName(name, -1);
             Assert.AreEqual($"@{name}", parameterName.ToString());
         }
 
@@ -50,7 +50,7 @@ namespace Sumo.Data.Names
         public void ImplicitStringOperator()
         {
             var name = "name";
-            var parameterName = new ParameterName(name);
+            var parameterName = new ParameterName(name,-1);
             string parameterNameString = parameterName;
             Assert.AreEqual($"@{name}", parameterNameString);
         }

@@ -4,7 +4,14 @@
     {
         protected ParameterName() : base() { }
 
-        public ParameterName(string name) : base(name) { }
+        public ParameterName(string name) : this(name, -1) { }
+
+        public ParameterName(string name, int index) : base(name)
+        {
+            Index = index;
+        }
+
+        public int Index { get; } = -1;
 
         public bool Equals(IParameterName other)
         {
@@ -13,7 +20,7 @@
 
         public override string ToString()
         {
-            return $"@{Name}";
+            return Index != -1 ? $"@{Name}_{Index}" : $"@{Name}";
         }
 
         public static implicit operator string(ParameterName parameterName)

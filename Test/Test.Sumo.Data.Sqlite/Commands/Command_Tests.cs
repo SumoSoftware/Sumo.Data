@@ -41,7 +41,7 @@ namespace Test.Sumo.Data.Sqlite.Commands
         {
             IParameterFactory parameterFactory = new SqliteParameterFactory();
             IConnectionFactory connectionFactory = new SqliteConnectionFactory();
-            ISqlStatementBuilder sqlBuilder = new SqliteStatementBuilder();
+            ISqlStatementBuilder sqlBuilder = new SqliteStatementBuilder(parameterFactory);
 
             using (var connection = connectionFactory.Open(_connectionString))
             using (var command = new Command(connection, parameterFactory))
@@ -61,7 +61,7 @@ namespace Test.Sumo.Data.Sqlite.Commands
         {
             IParameterFactory parameterFactory = new SqliteParameterFactory();
             IConnectionFactory connectionFactory = new SqliteConnectionFactory();
-            ISqlStatementBuilder sqlBuilder = new SqliteStatementBuilder();
+            ISqlStatementBuilder sqlBuilder = new SqliteStatementBuilder(parameterFactory);
 
             using (var connection = connectionFactory.Open(_connectionString))
             using (var command = new Command(connection, parameterFactory))

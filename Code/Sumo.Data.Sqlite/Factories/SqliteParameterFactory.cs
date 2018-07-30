@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using Sumo.Data.Names;
 using Sumo.Data.Names.Sqlite;
 using Sumo.Data.Types.Sqlite;
 using System.Data;
@@ -23,9 +24,9 @@ namespace Sumo.Data.Factories.Sqlite
             return new SqliteParameter(name, SqlDbType.BigInt) { Direction = ParameterDirection.ReturnValue };
         }
 
-        public string GetParameterName(string name)
+        public string GetParameterName(string name, int index)
         {
-            return new SqliteParameterName(name).ToString();
+            return new ParameterName(name, index).ToString();
         }
 
         public string GetWriteParameterName<T>(int parameterIndex) where T : class

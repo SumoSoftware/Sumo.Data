@@ -75,12 +75,12 @@ namespace Sumo.Data.Procedures
 
         internal virtual string GetReturnValueParameterName()
         {
-            return new ParameterName("Return_Value");
+            return _parameterFactory.GetParameterName("Return_Value", -1);
         }
 
         internal virtual string GetParameterName(PropertyInfo property)
         {
-            return new ParameterName(property.Name);
+            return _parameterFactory.GetParameterName(property.Name, -1);
         }
 
         internal object GetOutputParameterValue(PropertyInfo property)

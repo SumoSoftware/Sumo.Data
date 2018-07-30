@@ -28,9 +28,10 @@ namespace Sumo.Data.Commands
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
+            var index = 0;
             foreach (var item in parameters)
             {
-                var name = _parameterFactory.GetParameterName(item.Key);
+                var name = _parameterFactory.GetParameterName(item.Key, index++);
                 var value = item.Value ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
                 _command.Parameters.Add(parameter);
@@ -41,9 +42,10 @@ namespace Sumo.Data.Commands
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
+            var index = 0;
             foreach (var item in parameters)
             {
-                var name = _parameterFactory.GetParameterName(item.Key);
+                var name = _parameterFactory.GetParameterName(item.Key, index++);
                 var parameter = _command.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 parameter.Value = item.Value ?? DBNull.Value;

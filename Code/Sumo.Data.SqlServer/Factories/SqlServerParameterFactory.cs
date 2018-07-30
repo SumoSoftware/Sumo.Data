@@ -23,9 +23,9 @@ namespace Sumo.Data.Factories.SqlServer
             return new SqlParameter(name, SqlDbType.BigInt) { Direction = ParameterDirection.ReturnValue };
         }
 
-        public string GetParameterName(string name)
+        public string GetParameterName(string name, int index)
         {
-            return new ParameterName(name).ToString();
+            return new ParameterName(name, index).ToString();
         }
 
         public string GetWriteParameterName<T>(int parameterIndex) where T : class

@@ -26,9 +26,10 @@ namespace Sumo.Data.Queries
 
         protected void InternalPrepare(Dictionary<string, object> queryParams)
         {
+            var index = -1;
             foreach (var item in queryParams)
             {
-                var name = new ParameterName(item.Key).ToString();
+                var name = _parameterFactory.GetParameterName(item.Key, index++).ToString();
                 var value = item.Value ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
                 _command.Parameters.Add(parameter);
@@ -37,9 +38,10 @@ namespace Sumo.Data.Queries
 
         protected void InternalSetParameterValues(Dictionary<string, object> queryParams)
         {
+            var index = -1;
             foreach (var item in queryParams)
             {
-                var name = new ParameterName(item.Key).ToString();
+                var name = _parameterFactory.GetParameterName(item.Key, index++).ToString();
                 var parameter = _command.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 parameter.Value = item.Value ?? DBNull.Value;
