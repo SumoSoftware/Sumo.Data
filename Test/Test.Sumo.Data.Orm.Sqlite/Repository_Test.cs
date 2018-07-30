@@ -9,19 +9,16 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Reflection;
 
 namespace Test.Sumo.Data.Orm.Sqlite
 {
     [TestClass]
     public class Repository_Test
     {
-        [AssemblyInitialize]
-        public static void ClassInitialize(TestContext testContext)
-        {
-        }
-
-
+        //[AssemblyInitialize]
+        //public static void ClassInitialize(TestContext testContext)
+        //{
+        //}
 
         private IFactorySet GetFactorySet()
         {
@@ -41,7 +38,7 @@ namespace Test.Sumo.Data.Orm.Sqlite
         public class Person
         {
             [PrimaryKey]
-            public int Id { get; set; } = -1;
+            public long Id { get; set; } = -1;
 
             public int Age { get; set; }
 
@@ -106,6 +103,7 @@ namespace Test.Sumo.Data.Orm.Sqlite
         public void Read()
         {
             var fileName = $"{nameof(Read)}.db";
+            File.Delete($@".\{fileName}");
             var _connectionString = $"Filename=./{fileName}; Mode=ReadWriteCreate";
             try
             {

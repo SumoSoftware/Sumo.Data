@@ -21,11 +21,38 @@ namespace Sumo.Data.Orm.Extensions
                 var property = TypeInfoCache<T>.Properties[i];
                 if (!row.IsNull(property.Name))
                 {
-                    property.SetValue(result, row[property.Name]);
+                    //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
+                    var columnValue = row[property.Name];
+                    var value = property.PropertyType == columnValue.GetType() ?
+                        columnValue :
+                        Convert.ChangeType(columnValue, property.PropertyType);
+                    property.SetValue(result, value);
                 }
             }
             return result;
         }
+
+        //public static T ToObject<T>(this DataRow row, types) where T : class
+        //{
+        //    // allows activator to use non-public constructors
+        //    var result = (T)Activator.CreateInstance(
+        //        typeof(T),
+        //        BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
+        //        null, null, null);
+        //    //var result = Activator.CreateInstance<T>();
+        //    for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)
+        //    {
+        //        var property = TypeInfoCache<T>.Properties[i];
+        //        if (!row.IsNull(property.Name))
+        //        {
+        //            var columnValue = row[property.Name];
+        //            columnValue.
+        //            var value = Convert.ChangeType(row[property.Name], property.PropertyType);
+        //            property.SetValue(result, value);
+        //        }
+        //    }
+        //    return result;
+        //}
 
         // for string, datetime, and numeric types
         public static object[] ToObjectArray(this DataRowCollection rows)

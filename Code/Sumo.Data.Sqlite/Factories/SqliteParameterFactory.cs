@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
 using Sumo.Data.Names;
-using Sumo.Data.Names.Sqlite;
 using Sumo.Data.Types.Sqlite;
 using System.Data;
 using System.Data.Common;

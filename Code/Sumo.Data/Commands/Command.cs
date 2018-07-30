@@ -1,5 +1,4 @@
 ﻿using Sumo.Data.Factories;
-using Sumo.Data.Names;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,7 +27,7 @@ namespace Sumo.Data.Commands
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
-            var index = 0;
+            var index = -1;
             foreach (var item in parameters)
             {
                 var name = _parameterFactory.GetParameterName(item.Key, index++);
@@ -42,7 +41,7 @@ namespace Sumo.Data.Commands
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
-            var index = 0;
+            var index = -1;
             foreach (var item in parameters)
             {
                 var name = _parameterFactory.GetParameterName(item.Key, index++);

@@ -1,6 +1,5 @@
 ﻿using Sumo.Data.Attributes;
 using Sumo.Data.Factories;
-using Sumo.Data.Names;
 using Sumo.Data.Types;
 using System;
 using System.Data;

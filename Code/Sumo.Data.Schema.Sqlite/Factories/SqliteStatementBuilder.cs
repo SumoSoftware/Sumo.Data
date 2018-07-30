@@ -1,6 +1,4 @@
 ﻿using Sumo.Data.Factories;
-using Sumo.Data.Factories.Sqlite;
-using Sumo.Data.Names.Sqlite;
 using Sumo.Data.Types;
 using System;
 using System.Collections.Generic;
@@ -42,7 +40,7 @@ namespace Sumo.Data.Schema.Factories.Sqlite
             for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 if (i > 0) builder.Append(", ");
-                var name = _parameterFactory.GetParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name, i);
+                var name = _parameterFactory.GetParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name, i - 1);
                 builder.Append(name);
             }
             builder.Append(");");
@@ -61,8 +59,8 @@ namespace Sumo.Data.Schema.Factories.Sqlite
                 builder.Append($"[{TypeInfoCache<T>.ReadWriteProperties[i].Name}]");
             }
             builder.Append($" from [{TypeInfoCache<T>.Name}] where ");
-            var index = 0;
-            foreach(var kvp in parameters)
+            var index = -1;
+            foreach (var kvp in parameters)
             {
                 if (index > 0) builder.Append(" and ");
                 var parameterName = _parameterFactory.GetParameterName(kvp.Key, index);
