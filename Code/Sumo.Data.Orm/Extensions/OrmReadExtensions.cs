@@ -22,8 +22,11 @@ namespace Sumo.Data.Orm.Extensions
                 if (!row.IsNull(property.Name))
                 {
                     //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
+                    //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 
                     var columnValue = row[property.Name];
-                    var value = property.PropertyType == columnValue.GetType() ?
+                    var isNullable = property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+                    var propertyType = isNullable ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
+                    var value = propertyType == columnValue.GetType() ?
                         columnValue :
                         Convert.ChangeType(columnValue, property.PropertyType);
                     property.SetValue(result, value);
