@@ -27,4 +27,8 @@
         <ProjectReference Include="..\Sumo.RetryProxy\Sumo.Retry.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Names\" />
+    </ItemGroup>
+
 </Project>
