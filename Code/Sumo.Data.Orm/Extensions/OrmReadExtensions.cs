@@ -13,7 +13,7 @@ namespace Sumo.Data.Orm.Extensions
             // allows activator to use non-public constructors
             var result = (T)Activator.CreateInstance(
                 typeof(T),
-                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public,
+                BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
                 null, null, null);
             //var result = Activator.CreateInstance<T>();
             for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)

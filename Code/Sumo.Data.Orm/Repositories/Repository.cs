@@ -1,4 +1,5 @@
 ﻿using Sumo.Data.Commands;
+using Sumo.Data.Orm.Exceptions;
 using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Orm.Factories;
 using Sumo.Data.Queries;
@@ -88,7 +89,7 @@ namespace Sumo.Data.Orm.Repositories
             }
         }
 
-        public void Write<T>(T entity) where T : class
+        public void Write<T>(T entity, bool autoCreateTable = true) where T : class
         {
             var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
             using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
@@ -100,9 +101,16 @@ namespace Sumo.Data.Orm.Repositories
                     var tableExists = command.ExecuteScalar<bool>(tableExistsSql, transaction);
                     if (!tableExists)
                     {
-                        var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                        var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
-                        command.Execute(createTableSql, transaction);
+                        if (autoCreateTable)
+                        {
+                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                            command.Execute(createTableSql, transaction);
+                        }
+                        else
+                        {
+                            throw new TableNotFoundException(TypeInfoCache<T>.Name);
+                        }
                     }
                     var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
                     var parameters = GetWriteParameters<T>();
@@ -122,7 +130,7 @@ namespace Sumo.Data.Orm.Repositories
             }
         }
 
-        public async Task WriteAsync<T>(T entity) where T : class
+        public async Task WriteAsync<T>(T entity, bool autoCreateTable = true) where T : class
         {
             await Task.Run(async () =>
             {
@@ -136,9 +144,16 @@ namespace Sumo.Data.Orm.Repositories
                         var tableExists = await command.ExecuteScalarAsync<bool>(tableExistsSql, transaction);
                         if (!tableExists)
                         {
-                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
-                            await command.ExecuteAsync(createTableSql, transaction);
+                            if (autoCreateTable)
+                            {
+                                var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                                var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                                await command.ExecuteAsync(createTableSql, transaction);
+                            }
+                            else
+                            {
+                                throw new TableNotFoundException(TypeInfoCache<T>.Name);
+                            }
                         }
                         var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
                         var parameters = GetWriteParameters<T>();
@@ -159,7 +174,7 @@ namespace Sumo.Data.Orm.Repositories
             });
         }
 
-        public void Write<T>(T[] entities) where T : class
+        public void Write<T>(T[] entities, bool autoCreateTable = true) where T : class
         {
             var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
             using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
@@ -171,9 +186,16 @@ namespace Sumo.Data.Orm.Repositories
                     var tableExists = command.ExecuteScalar<bool>(tableExistsSql, transaction);
                     if (!tableExists)
                     {
-                        var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                        var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
-                        command.Execute(createTableSql, transaction);
+                        if (autoCreateTable)
+                        {
+                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                            command.Execute(createTableSql, transaction);
+                        }
+                        else
+                        {
+                            throw new TableNotFoundException(TypeInfoCache<T>.Name);
+                        }
                     }
                     var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
                     var parameters = GetWriteParameters<T>();
@@ -197,7 +219,7 @@ namespace Sumo.Data.Orm.Repositories
             }
         }
 
-        public async Task WriteAsync<T>(T[] entities) where T : class
+        public async Task WriteAsync<T>(T[] entities, bool autoCreateTable = true) where T : class
         {
             await Task.Run(async () =>
             {
@@ -211,9 +233,16 @@ namespace Sumo.Data.Orm.Repositories
                         var tableExists = await command.ExecuteScalarAsync<bool>(tableExistsSql, transaction);
                         if (!tableExists)
                         {
-                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
-                            await command.ExecuteAsync(createTableSql, transaction);
+                            if (autoCreateTable)
+                            {
+                                var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
+                                var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                                await command.ExecuteAsync(createTableSql, transaction);
+                            }
+                            else
+                            {
+                                throw new TableNotFoundException(TypeInfoCache<T>.Name);
+                            }
                         }
                         var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
                         var parameters = GetWriteParameters<T>();
