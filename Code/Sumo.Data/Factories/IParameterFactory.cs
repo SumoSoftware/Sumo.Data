@@ -11,6 +11,8 @@ namespace Sumo.Data.Factories
 
         DbParameter CreateReturnParameter(string name);
 
+        string GetParameterName(string name);
+
         string GetWriteParameterName<T>(int parameterIndex) where T : class;
     }
 }

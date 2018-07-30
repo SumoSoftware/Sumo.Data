@@ -30,7 +30,7 @@ namespace Sumo.Data.Commands
 
             foreach (var item in parameters)
             {
-                var name = new ParameterName(item.Key).ToString();
+                var name = _parameterFactory.GetParameterName(item.Key);
                 var value = item.Value ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
                 _command.Parameters.Add(parameter);
@@ -43,7 +43,7 @@ namespace Sumo.Data.Commands
 
             foreach (var item in parameters)
             {
-                var name = new ParameterName(item.Key).ToString();
+                var name = _parameterFactory.GetParameterName(item.Key);
                 var parameter = _command.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 parameter.Value = item.Value ?? DBNull.Value;

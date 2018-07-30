@@ -66,7 +66,7 @@ namespace Sumo.Data.Sqlite.Catalogs
             index.AddColumn(ssnColumn);
             index.IsUnique = true;
 
-            var builder = new ScriptBuilder();
+            var builder = new SqliteScriptBuilder();
             var sql = builder.BuildDbCreateScript(catalog);
         }
 
@@ -84,7 +84,7 @@ namespace Sumo.Data.Sqlite.Catalogs
             colName.MaxLength = 256;
             colName.IsNullable = false;
 
-            var builder = new ScriptBuilder();
+            var builder = new SqliteScriptBuilder();
             var sql = builder.BuildDbCreateScript(catalog);
 
             IParameterFactory parameterFactory = new SqliteParameterFactory();

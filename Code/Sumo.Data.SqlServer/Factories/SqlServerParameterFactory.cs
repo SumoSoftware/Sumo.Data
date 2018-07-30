@@ -1,4 +1,5 @@
-﻿using Sumo.Data.Types.SqlServer;
+﻿using Sumo.Data.Names;
+using Sumo.Data.Types.SqlServer;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -20,6 +21,11 @@ namespace Sumo.Data.Factories.SqlServer
         public DbParameter CreateReturnParameter(string name)
         {
             return new SqlParameter(name, SqlDbType.BigInt) { Direction = ParameterDirection.ReturnValue };
+        }
+
+        public string GetParameterName(string name)
+        {
+            return new ParameterName(name).ToString();
         }
 
         public string GetWriteParameterName<T>(int parameterIndex) where T : class

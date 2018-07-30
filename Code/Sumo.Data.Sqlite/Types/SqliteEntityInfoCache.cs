@@ -17,7 +17,7 @@ namespace Sumo.Data.Types.Sqlite
 
             EntityWriteParameterNames = nonAutoIncrementProperties
                 .OrderBy(p => p.Name)
-                .Select((p) => new SqliteParameterName(p.Name).ToString())
+                .Select((p) => p.Name)
                 .ToArray();
         }
 

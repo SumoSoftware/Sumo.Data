@@ -17,7 +17,7 @@ namespace Sumo.Data.Types.SqlServer
 
             EntityWriteParameterNames = nonAutoIncrementProperties
                 .OrderBy(p => p.Name)
-                .Select((p) => new ParameterName(p.Name).ToString())
+                .Select((p) => p.Name)
                 .ToArray();
         }
 

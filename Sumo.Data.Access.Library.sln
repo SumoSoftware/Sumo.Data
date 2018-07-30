@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Schema.Sqlite", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data.Sqlite", "Test\Test.Sumo.Data.Sqlite\Test.Sumo.Data.Sqlite.csproj", "{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Sumo.Data.Orm.Sqlite", "Test\Test.Sumo.Data.Orm.Sqlite\Test.Sumo.Data.Orm.Sqlite.csproj", "{D696BFCE-F062-4403-8100-65F382B8281F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D696BFCE-F062-4403-8100-65F382B8281F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D696BFCE-F062-4403-8100-65F382B8281F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D696BFCE-F062-4403-8100-65F382B8281F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D696BFCE-F062-4403-8100-65F382B8281F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{485B464A-8C4A-4CC5-80E6-202EF34AB2F3} = {D85B3B5A-05D9-4A56-A470-5C52167DD486}
 		{A641948B-F36B-4454-8CD7-5122CEB20431} = {106A688D-51E7-4417-8533-E7AFD2925147}
 		{0EACD6C5-FCFB-4727-BE1A-25F09FDAB107} = {D85B3B5A-05D9-4A56-A470-5C52167DD486}
+		{D696BFCE-F062-4403-8100-65F382B8281F} = {D85B3B5A-05D9-4A56-A470-5C52167DD486}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE1F19B6-C30A-4700-88BB-81F4ACC08215}

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Sumo.Data.Schema.Factories.Sqlite
 {
-    public class ScriptBuilder : IScriptBuilder
+    public class SqliteScriptBuilder : IScriptBuilder
     {
         public string BuildDbCreateScript(Catalog catalog)
         {

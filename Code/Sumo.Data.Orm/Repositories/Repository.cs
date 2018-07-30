@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sumo.Data.Orm.Repositories
 {
-    public abstract class Repository : IRepository
+    public class Repository : IRepository
     {
         private readonly IFactorySet _factorySet;
         private readonly string _connectionString;
