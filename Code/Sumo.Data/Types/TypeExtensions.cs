@@ -109,12 +109,6 @@ namespace Sumo.Data.Types
             }
         }
 
-        public static DbType ToDbType(this string typeName)
-        {
-            if (!Enum.TryParse(typeName, true, out DbType dbType)) throw new ArgumentOutOfRangeException($"{nameof(typeName)}:{typeName}");
-            return dbType;
-        }
-
         //https://docs.microsoft.com/en-us/dotnet/api/system.data.dbtype?view=netframework-4.7.2
         //https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
         public static Type ToType(this DbType dbType)
@@ -158,12 +152,6 @@ namespace Sumo.Data.Types
             return type
                 .ToDbType()
                 .ToSqlDbType();
-        }
-
-        public static SqlDbType ToSqlDbType(this string typeName)
-        {
-            if (!Enum.TryParse(typeName, true, out SqlDbType sqlDbType)) throw new ArgumentOutOfRangeException($"{nameof(typeName)}:{typeName}");
-            return sqlDbType;
         }
 
         public static SqlDbType ToSqlDbType(this DbType dbType)
@@ -242,5 +230,94 @@ namespace Sumo.Data.Types
                     throw new NotSupportedException(sqlDbType.ToString());
             }
         }
+
+
+        //public static DbType ToDbType(this TypeCode typeCode)
+        //{
+        //    // no TypeCode equivalent for TimeSpan or DateTimeOffset
+        //    switch (typeCode)
+        //    {
+        //        case TypeCode.Boolean:
+        //            return DbType.Boolean;
+        //        case TypeCode.Byte:
+        //            return DbType.Byte;
+        //        case TypeCode.Char:
+        //            return DbType.StringFixedLength;    // ???
+        //        case TypeCode.DateTime: // Used for Date, DateTime and DateTime2 DbTypes
+        //            return DbType.DateTime;
+        //        case TypeCode.Decimal:
+        //            return DbType.Decimal;
+        //        case TypeCode.Double:
+        //            return DbType.Double;
+        //        case TypeCode.Int16:
+        //            return DbType.Int16;
+        //        case TypeCode.Int32:
+        //            return DbType.Int32;
+        //        case TypeCode.Int64:
+        //            return DbType.Int64;
+        //        case TypeCode.SByte:
+        //            return DbType.SByte;
+        //        case TypeCode.Single:
+        //            return DbType.Single;
+        //        case TypeCode.String:
+        //            return DbType.String;
+        //        case TypeCode.UInt16:
+        //            return DbType.UInt16;
+        //        case TypeCode.UInt32:
+        //            return DbType.UInt32;
+        //        case TypeCode.UInt64:
+        //            return DbType.UInt64;
+        //        case TypeCode.DBNull:
+        //        case TypeCode.Empty:
+        //        case TypeCode.Object:
+        //        default:
+        //            return DbType.Object;
+        //    }
+        //}
+
+        //public static Type ToType(this TypeCode typeCode)
+        //{
+        //    switch (typeCode)
+        //    {
+        //        case TypeCode.Boolean:
+        //            return typeof(bool);
+        //        case TypeCode.Byte:
+        //            return typeof(byte);
+        //        case TypeCode.Char:
+        //            return typeof(char);
+        //        case TypeCode.DateTime:
+        //            return typeof(DateTime);
+        //        case TypeCode.Decimal:
+        //            return typeof(decimal);
+        //        case TypeCode.Double:
+        //            return typeof(double);
+        //        case TypeCode.Int16:
+        //            return typeof(Int16);
+        //        case TypeCode.Int32:
+        //            return typeof(Int32);
+        //        case TypeCode.Int64:
+        //            return typeof(Int64);
+        //        case TypeCode.SByte:
+        //            return typeof(sbyte);
+        //        case TypeCode.Single:
+        //            return typeof(Single);
+        //        case TypeCode.String:
+        //            return typeof(string);
+        //        case TypeCode.UInt16:
+        //            return typeof(UInt16);
+        //        case TypeCode.UInt32:
+        //            return typeof(UInt32);
+        //        case TypeCode.UInt64:
+        //            return typeof(UInt64);
+        //        case TypeCode.DBNull:
+        //            return typeof(DBNull);
+        //        case TypeCode.Empty:
+        //            return null;
+        //        case TypeCode.Object:
+        //        default:
+        //            return typeof(object);
+        //    }
+        //}
+
     }
 }
