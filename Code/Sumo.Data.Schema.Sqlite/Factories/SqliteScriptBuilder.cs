@@ -1,5 +1,4 @@
-﻿using Sumo.Data.Attributes;
-using Sumo.Data.Schema.Attributes;
+﻿using Sumo.Data.Schema.Attributes;
 using Sumo.Data.Types;
 using System.Reflection;
 

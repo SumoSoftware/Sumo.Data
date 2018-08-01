@@ -1,7 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.Factories.Sqlite;
 using Sumo.Data.Orm.Factories;
-using Sumo.Data.Attributes;
 using Sumo.Data.Orm.Repositories;
 using Sumo.Data.Schema.Factories.Sqlite;
 using Sumo.Retry;
