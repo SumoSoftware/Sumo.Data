@@ -12,7 +12,6 @@ namespace Sumo.Data.Retry
     public class RetryProxy_Tests
     {
         #region async and task continuation experimentation
-        [TestMethod]
         public async Task Test()
         {
             var stopwatch = new Stopwatch();
@@ -44,7 +43,6 @@ namespace Sumo.Data.Retry
             return result;
         }
 
-        [TestMethod]
         public async Task Test2()
         {
             var stopwatch = new Stopwatch();

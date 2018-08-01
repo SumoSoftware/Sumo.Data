@@ -22,7 +22,7 @@ namespace Sumo.Data.Orm.Repositories
             _connectionString = connectionString;
         }
 
-        public T Read<T>(object searchKey) where T : class
+        public T Read<T>(object searchKey) where T : class, new()
         {
             if (searchKey == null) throw new ArgumentNullException(nameof(searchKey));
             if (EntityInfoCache<T>.PrimaryKeyProperties.Length > 1) throw new NotSupportedException($"{TypeInfoCache<T>.FullName} has a multi-part primary key. Use method 'T[] Read<T>(Dictionary<string, object> parameters) where T : class' instead.");
@@ -33,7 +33,7 @@ namespace Sumo.Data.Orm.Repositories
             return results != null && results.Length > 0 ? results[0] : null;
         }
 
-        public async Task<T> ReadAsync<T>(object searchKey) where T : class
+        public async Task<T> ReadAsync<T>(object searchKey) where T : class, new()
         {
             if (searchKey == null) throw new ArgumentNullException(nameof(searchKey));
             if (EntityInfoCache<T>.PrimaryKeyProperties.Length > 1) throw new NotSupportedException($"{TypeInfoCache<T>.FullName} has a multi-part primary key. Use method 'T[] Read<T>(Dictionary<string, object> parameters) where T : class' instead.");
@@ -44,7 +44,7 @@ namespace Sumo.Data.Orm.Repositories
             return results != null && results.Length > 0 ? results[0] : null;
         }
 
-        public T[] Read<T>(Dictionary<string, object> parameters) where T : class
+        public T[] Read<T>(Dictionary<string, object> parameters) where T : class, new()
         {
             T[] result = null;
             using (var connection = _factorySet.ConnectionFactory.Open(_connectionString))
@@ -57,7 +57,7 @@ namespace Sumo.Data.Orm.Repositories
             return result;
         }
 
-        public async Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters) where T : class
+        public async Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters) where T : class, new()
         {
             T[] result = null;
             using (var connection = await _factorySet.ConnectionFactory.OpenAsync(_connectionString))

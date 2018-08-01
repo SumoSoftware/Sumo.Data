@@ -11,11 +11,11 @@ namespace Sumo.Data.Orm.Repositories
         void Write<T>(T[] entities, bool autoCreateTable = true) where T : class;
         Task WriteAsync<T>(T[] entities, bool autoCreateTable = true) where T : class;
 
-        T Read<T>(object searchKey) where T : class;
-        Task<T> ReadAsync<T>(object searchKey) where T : class;
+        T Read<T>(object searchKey) where T : class, new();
+        Task<T> ReadAsync<T>(object searchKey) where T : class, new();
 
-        T[] Read<T>(Dictionary<string, object> parameters) where T : class;
-        Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters) where T : class;
+        T[] Read<T>(Dictionary<string, object> parameters) where T : class, new();
+        Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters) where T : class, new();
     }
 }
 
