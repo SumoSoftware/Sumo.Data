@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.Schema.SqlServer</id>
-        <version>4.1.0</version>
+        <version>4.2.0</version>
         <title>Data Access Library - Schema Reader 4 Sql Server</title>
 
         <authors>Sumo Software Corporation</authors>
@@ -19,9 +19,9 @@
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="Sumo.Data" version="4.1.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.Schema" version="4.1.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.SqlServer" version="4.1.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.2.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Schema" version="4.2.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.SqlServer" version="4.2.0-beta" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
