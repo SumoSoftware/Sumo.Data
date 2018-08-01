@@ -8,14 +8,14 @@ namespace Sumo.Data.Orm.Extensions
 {
     public static class OrmReadExtensions
     {
-        public static T ToObject<T>(this DataRow row) where T : class, new()
+        public static T ToObject<T>(this DataRow row) where T : class
         {
             // allows activator to use non-public constructors
-            //var result = (T)Activator.CreateInstance(
-            //    typeof(T),
-            //    BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
-            //    null, null, null);
-            var result = Activator.CreateInstance<T>();
+            var result = (T)Activator.CreateInstance(
+                typeof(T),
+                BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
+                null, null, null);
+            //var result = Activator.CreateInstance<T>();
             for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)
             {
                 var property = TypeInfoCache<T>.Properties[i];
@@ -68,6 +68,13 @@ namespace Sumo.Data.Orm.Extensions
             return result;
         }
 
+
+        /// <summary>
+        ///  for value types
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="rows"></param>
+        /// <returns></returns>
         public static T[] ToValueArray<T>(this DataRowCollection rows) where T: struct
         {
             var result = new T[rows.Count];
@@ -85,7 +92,7 @@ namespace Sumo.Data.Orm.Extensions
             return result;
         }
 
-        public static TInterface[] ToArray<TInterface, TClass>(this DataRowCollection rows) where TClass : class, TInterface, new()
+        public static TInterface[] ToArray<TInterface, TClass>(this DataRowCollection rows) where TClass : class, TInterface
         {
             var result = new TInterface[rows.Count];
             for (var i = 0; i < rows.Count; ++i)
@@ -95,7 +102,7 @@ namespace Sumo.Data.Orm.Extensions
             return result;
         }
 
-        public static T[] ToArray<T>(this DataRowCollection rows) where T : class, new()
+        public static T[] ToArray<T>(this DataRowCollection rows) where T : class
         {
             var result = new T[rows.Count];
             for (var i = 0; i < rows.Count; ++i)
@@ -105,7 +112,7 @@ namespace Sumo.Data.Orm.Extensions
             return result;
         }
 
-        public static async Task<T[]> ToArrayAsync<T>(this DataRowCollection rows) where T : class, new()
+        public static async Task<T[]> ToArrayAsync<T>(this DataRowCollection rows) where T : class
         {
             return await Task.Run(() =>
             {
@@ -118,7 +125,7 @@ namespace Sumo.Data.Orm.Extensions
             });
         }
 
-        public static T[] ToArrayParallel<T>(this DataRowCollection rows) where T : class, new()
+        public static T[] ToArrayParallel<T>(this DataRowCollection rows) where T : class
         {
             var result = new T[rows.Count];
             Parallel.For(0, rows.Count, i =>
