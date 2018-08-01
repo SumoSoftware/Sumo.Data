@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.SqlExpressions
 {
     //todo: implement IEquatable on table classes
     public class FromTable : SelectTable, IFromTable

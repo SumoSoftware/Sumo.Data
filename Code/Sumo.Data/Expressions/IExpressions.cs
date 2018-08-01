@@ -1,5 +1,5 @@
 ﻿using Sumo.Data.Names;
-using Sumo.Data.Queries;
+using Sumo.Data.SqlExpressions;
 using System.Collections.Generic;
 
 namespace Sumo.Data.Expressions
@@ -47,7 +47,7 @@ namespace Sumo.Data.Expressions
 
     public interface ISubQueryExpression : IExpression
     {
-        QueryExpression SubQuery { get; }
+        SqlExpression SubQuery { get; }
     }
 
     public interface IContainedExpression : IColumnExpression, ISubQueryExpression // sql 'in'

@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.Readers
 {
     [TestClass]
-    public class QueryReader_Tests
+    public class Reader_Tests
     {
         [TestMethod]
         public void NotFinished()

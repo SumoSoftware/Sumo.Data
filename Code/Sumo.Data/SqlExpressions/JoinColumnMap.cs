@@ -3,7 +3,7 @@ using Sumo.Data.Names;
 using System;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.SqlExpressions
 {
     public class JoinColumn : IEquatable<JoinColumn>
     {

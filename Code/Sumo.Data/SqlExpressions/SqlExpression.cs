@@ -2,11 +2,11 @@
 using System;
 using System.Text;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.SqlExpressions
 {
-    public sealed class QueryExpression 
+    public sealed class SqlExpression 
     {
-        public QueryExpression(IFromTable table, IExpression expression)
+        public SqlExpression(IFromTable table, IExpression expression)
         {
             Table = table ?? throw new ArgumentNullException(nameof(table));
             Expression = expression ?? throw new ArgumentNullException(nameof(expression));

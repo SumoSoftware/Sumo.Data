@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.Names;
+using Sumo.Data.SqlExpressions;
 using System;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.Readers
 {
     [TestClass]
     public class FromTable_Tests
@@ -140,8 +141,8 @@ namespace Sumo.Data.Queries
             var fromColumn1 = "fromCol1";
             var fromColumn2 = "fromCol2";
             var fromAlias2 = "fromAlias2";
-            var columns = new IItemName[]  {
-                new ItemName(fromColumn1),
+            var columns = new IColumnName[]  {
+                new ColumnName(fromColumn1),
                 new ColumnName(fromColumn2, fromAlias2)
             };
             IFromTable fromTable = new FromTable(tableName, columns);

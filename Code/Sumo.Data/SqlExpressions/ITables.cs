@@ -2,7 +2,7 @@
 using Sumo.Data.Names;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.SqlExpressions
 {
     public interface ISelectTable
     {

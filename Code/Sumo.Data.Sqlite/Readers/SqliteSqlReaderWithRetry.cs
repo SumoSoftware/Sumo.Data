@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Queries.Sqlite
+namespace Sumo.Data.Readers.Sqlite
 {
     public sealed class SqliteSqlReaderWithRetry : ISqlReader
     {

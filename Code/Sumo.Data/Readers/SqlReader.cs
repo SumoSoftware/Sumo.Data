@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.Readers
 {
     public class SqlReader : Reader, ISqlReader
     {

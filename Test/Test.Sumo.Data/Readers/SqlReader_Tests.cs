@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.Readers
 {
     [TestClass]
     public class SqlReader_Tests

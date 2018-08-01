@@ -14,13 +14,13 @@ namespace Sumo.Data.Commands
         {
             _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
             _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
-            _command = _dbConnection.CreateCommand();
-            _command.CommandType = CommandType.Text;
+            _dbCommand = _dbConnection.CreateCommand();
+            _dbCommand.CommandType = CommandType.Text;
         }
 
         protected readonly DbConnection _dbConnection;
         protected readonly IParameterFactory _parameterFactory;
-        protected readonly DbCommand _command;
+        protected readonly DbCommand _dbCommand;
         protected bool IsPrepared { get; private set; } = false;
 
         protected void InternalPrepare(Dictionary<string, object> parameters)
@@ -33,7 +33,7 @@ namespace Sumo.Data.Commands
                 var name = _parameterFactory.GetParameterName(item.Key, index++);
                 var value = item.Value ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
-                _command.Parameters.Add(parameter);
+                _dbCommand.Parameters.Add(parameter);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Sumo.Data.Commands
             foreach (var item in parameters)
             {
                 var name = _parameterFactory.GetParameterName(item.Key, index++);
-                var parameter = _command.Parameters[name];
+                var parameter = _dbCommand.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 parameter.Value = item.Value ?? DBNull.Value;
             }
@@ -64,7 +64,7 @@ namespace Sumo.Data.Commands
             var didPrepare = !IsPrepared;
             if (!IsPrepared)
             {
-                _command.CommandText = sql;
+                _dbCommand.CommandText = sql;
                 if (parameters != null) InternalPrepare(parameters);
                 //todo: can't prepare for MS Sql Server unless all the params have an explicit type set from DbType enumeration
                 //Command.Prepare();
@@ -86,48 +86,48 @@ namespace Sumo.Data.Commands
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
-            _command.CommandText = sql;
-            return _command.ExecuteNonQuery();
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+            _dbCommand.CommandText = sql;
+            return _dbCommand.ExecuteNonQuery();
         }
 
         public async Task<int> ExecuteAsync(string sql, DbTransaction dbTransaction = null)
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
-            _command.CommandText = sql;
-            return await _command.ExecuteNonQueryAsync();
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+            _dbCommand.CommandText = sql;
+            return await _dbCommand.ExecuteNonQueryAsync();
         }
 
         public int Execute(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
 
-            return _command.ExecuteNonQuery();
+            return _dbCommand.ExecuteNonQuery();
         }
 
         public async Task<int> ExecuteAsync(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
 
-            return await _command.ExecuteNonQueryAsync();
+            return await _dbCommand.ExecuteNonQueryAsync();
         }
 
         public T ExecuteScalar<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
 
-            var result = _command.ExecuteScalar();
+            var result = _dbCommand.ExecuteScalar();
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
@@ -135,10 +135,10 @@ namespace Sumo.Data.Commands
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
 
-            var result = await _command.ExecuteScalarAsync();
+            var result = await _dbCommand.ExecuteScalarAsync();
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
@@ -146,10 +146,10 @@ namespace Sumo.Data.Commands
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
-            _command.CommandText = sql;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+            _dbCommand.CommandText = sql;
 
-            var result = _command.ExecuteScalar();
+            var result = _dbCommand.ExecuteScalar();
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
@@ -157,10 +157,10 @@ namespace Sumo.Data.Commands
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
-            _command.CommandText = sql;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+            _dbCommand.CommandText = sql;
 
-            var result = await _command.ExecuteScalarAsync();
+            var result = await _dbCommand.ExecuteScalarAsync();
             return (T)Convert.ChangeType(result, typeof(T));
         }
 
@@ -173,7 +173,7 @@ namespace Sumo.Data.Commands
             {
                 if (disposing)
                 {
-                    _command.Dispose();
+                    _dbCommand.Dispose();
                 }
                 _disposedValue = true;
             }

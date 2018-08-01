@@ -1,9 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.Expressions;
 using Sumo.Data.Names;
+using Sumo.Data.SqlExpressions;
 using System;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.Readers
 {
     [TestClass]
     public class JoinColumn_Tests

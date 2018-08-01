@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Queries.SqlServer
+namespace Sumo.Data.Readers.SqlServer
 {
     public sealed class SqlServerSqlReaderWithRetry : ISqlReader
     {

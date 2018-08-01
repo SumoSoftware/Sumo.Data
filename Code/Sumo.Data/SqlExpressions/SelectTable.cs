@@ -1,7 +1,7 @@
 ﻿using Sumo.Data.Names;
 using System;
 
-namespace Sumo.Data.Queries
+namespace Sumo.Data.SqlExpressions
 {
     //todo: implement IEquatable on table classes
     public abstract class SelectTable : ISelectTable
