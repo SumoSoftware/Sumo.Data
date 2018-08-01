@@ -1,4 +1,5 @@
 ﻿using Sumo.Data.Factories;
+using Sumo.Data.Schema.Types;
 using Sumo.Data.Types;
 using System;
 using System.Collections.Generic;

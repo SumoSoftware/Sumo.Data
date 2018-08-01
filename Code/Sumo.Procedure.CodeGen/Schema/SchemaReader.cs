@@ -2,13 +2,13 @@
 using Sumo.Data.Factories.SqlServer;
 using Sumo.Data.Names;
 using Sumo.Data.Orm.Extensions;
-using Sumo.Data.Readers;
-using Sumo.Data.Schema.SqlServer.Properties;
+using Sumo.Data.Queries;
+using Sumo.Procedure.CodeGen.Properties;
 using Sumo.Retry;
 using System;
 using System.Linq;
 
-namespace Sumo.Data.Schema.SqlServer
+namespace Sumo.Procedure.CodeGen
 {
     public static class SchemaReader
     {

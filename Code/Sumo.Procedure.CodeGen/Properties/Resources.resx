@@ -117,6 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GetProcedureParametersSql" xml:space="preserve">
+    <value>SELECT 
+	SPECIFIC_SCHEMA as [Schema], 
+	SPECIFIC_NAME as [Procedure], 
+	RIGHT(PARAMETER_NAME, LEN(PARAMETER_NAME) - 1) as [Name], 
+	DATA_TYPE as [DataType], 
+	PARAMETER_MODE as [Direction], 
+	ORDINAL_POSITION as [Order], 
+	CHARACTER_MAXIMUM_LENGTH as [MaxLength], 
+	CHARACTER_SET_NAME as [Encoding]
+FROM INFORMATION_SCHEMA.PARAMETERS
+order by SPECIFIC_SCHEMA, SPECIFIC_NAME, ORDINAL_POSITION</value>
+  </data>
+  <data name="GetProceduresSql" xml:space="preserve">
+    <value>SELECT [SPECIFIC_NAME] as [Name], [specific_schema] as [Schema]  FROM INFORMATION_SCHEMA.ROUTINES
+order by 2, 1</value>
+  </data>
+  <data name="GetSchemasSql" xml:space="preserve">
+    <value>SELECT [schema_name] as [Name] FROM INFORMATION_SCHEMA.SCHEMATA
+where 
+	[schema_owner] = 'dbo'
+	and [schema_name] not like 'db_%'
+order by 1</value>
+  </data>
+  <data name="GetTablesSql" xml:space="preserve">
+    <value>SELECT [table_name] as [Name], [table_schema] as [Schema]  FROM INFORMATION_SCHEMA.TABLES
+where 
+	[table_schema] != 'sys'
+	and [table_type] = 'BASE TABLE'
+order by 2, 1</value>
+  </data>
   <data name="ProcedureTemplate" xml:space="preserve">
     <value>using Sumo.Data.Attributes;
 using System;

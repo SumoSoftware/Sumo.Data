@@ -1,5 +1,6 @@
 ﻿using Sumo.Data.Factories;
 using Sumo.Data.Schema;
+using Sumo.Data.Schema.Factories;
 
 namespace Sumo.Data.Orm.Factories
 {
@@ -7,7 +8,7 @@ namespace Sumo.Data.Orm.Factories
     {
         IConnectionFactory ConnectionFactory { get; }
         IDataAdapterFactory DataAdapterFactory { get; }
-        IParameterFactory ParameterFactory { get; }
+        ISchemaParameterFactory ParameterFactory { get; }
         ITransactionFactory TransactionFactory { get; }
         IScriptBuilder ScriptBuilder { get; }
         ISqlStatementBuilder SqlStatementBuilder { get; }

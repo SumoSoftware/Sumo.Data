@@ -61,6 +61,61 @@ namespace Sumo.Procedure.CodeGen.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT 
+        ///	SPECIFIC_SCHEMA as [Schema], 
+        ///	SPECIFIC_NAME as [Procedure], 
+        ///	RIGHT(PARAMETER_NAME, LEN(PARAMETER_NAME) - 1) as [Name], 
+        ///	DATA_TYPE as [DataType], 
+        ///	PARAMETER_MODE as [Direction], 
+        ///	ORDINAL_POSITION as [Order], 
+        ///	CHARACTER_MAXIMUM_LENGTH as [MaxLength], 
+        ///	CHARACTER_SET_NAME as [Encoding]
+        ///FROM INFORMATION_SCHEMA.PARAMETERS
+        ///order by SPECIFIC_SCHEMA, SPECIFIC_NAME, ORDINAL_POSITION.
+        /// </summary>
+        internal static string GetProcedureParametersSql {
+            get {
+                return ResourceManager.GetString("GetProcedureParametersSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT [SPECIFIC_NAME] as [Name], [specific_schema] as [Schema]  FROM INFORMATION_SCHEMA.ROUTINES
+        ///order by 2, 1.
+        /// </summary>
+        internal static string GetProceduresSql {
+            get {
+                return ResourceManager.GetString("GetProceduresSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT [schema_name] as [Name] FROM INFORMATION_SCHEMA.SCHEMATA
+        ///where 
+        ///	[schema_owner] = &apos;dbo&apos;
+        ///	and [schema_name] not like &apos;db_%&apos;
+        ///order by 1.
+        /// </summary>
+        internal static string GetSchemasSql {
+            get {
+                return ResourceManager.GetString("GetSchemasSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT [table_name] as [Name], [table_schema] as [Schema]  FROM INFORMATION_SCHEMA.TABLES
+        ///where 
+        ///	[table_schema] != &apos;sys&apos;
+        ///	and [table_type] = &apos;BASE TABLE&apos;
+        ///order by 2, 1.
+        /// </summary>
+        internal static string GetTablesSql {
+            get {
+                return ResourceManager.GetString("GetTablesSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to using Sumo.Data.Attributes;
         ///using System;
         ///

@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sumo.Data.Schema.Attributes;
 
 namespace Test.Sumo.Data.Orm.Sqlite
 {
@@ -24,7 +25,7 @@ namespace Test.Sumo.Data.Orm.Sqlite
         {
             var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
 
-            var parameterFactory = new SqliteParameterFactory();
+            var parameterFactory = new SqliteSchemaParameterFactory();
 
             return new FactorySet(
                 new SqliteConnectionFactoryWithRetry(retryOptions),

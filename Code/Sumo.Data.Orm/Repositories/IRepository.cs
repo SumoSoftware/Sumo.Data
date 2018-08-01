@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sumo.Data.Expressions;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
@@ -18,7 +19,8 @@ namespace Sumo.Data.Orm.Repositories
         T[] Read<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null) where T : class;
         Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null) where T : class;
 
-        //todo: add read methods that support Sumo.Data.Expressions
+        T[] Read<T>(IExpression expression, DbTransaction dbTransaction = null);
+        Task<T[]> ReadAsync<T>(IExpression expression, DbTransaction dbTransaction = null);
     }
 }
 

@@ -20,9 +20,8 @@
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="Sumo.Data" version="4.1.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.Orm" version="4.1.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Schema" version="4.1.0-beta" exclude="Build,Analyzers" />
                 <dependency id="Sumo.Data.SqlServer" version="4.1.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="4.1.0-beta" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

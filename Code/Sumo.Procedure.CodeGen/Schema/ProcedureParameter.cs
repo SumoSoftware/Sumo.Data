@@ -2,7 +2,7 @@
 using Sumo.Data.Names;
 using Sumo.Data.Types;
 
-namespace Sumo.Data.Schema.SqlServer
+namespace Sumo.Procedure.CodeGen
 {
     public class ProcedureParameter : EntityName
     {

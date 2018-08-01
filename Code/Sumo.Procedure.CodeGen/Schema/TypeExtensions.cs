@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Sumo.Data.Schema.SqlServer
+namespace Sumo.Procedure.CodeGen
 {
     internal static class TypeExtensions
     {

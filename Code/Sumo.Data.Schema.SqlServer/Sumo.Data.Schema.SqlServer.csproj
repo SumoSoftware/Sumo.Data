@@ -26,25 +26,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
+        <ProjectReference Include="..\Sumo.Data.Schema\Sumo.Data.Schema.csproj" />
         <ProjectReference Include="..\Sumo.Data.SqlServer\Sumo.Data.SqlServer.csproj" />
         <ProjectReference Include="..\Sumo.Data\Sumo.Data.csproj" />
-        <ProjectReference Include="..\Sumo.RetryProxy\Sumo.Retry.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Properties\Resources.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Resources.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Update="Properties\Resources.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
+      <Folder Include="Properties\" />
     </ItemGroup>
 
 </Project>

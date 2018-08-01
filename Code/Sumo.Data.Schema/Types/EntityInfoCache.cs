@@ -1,8 +1,9 @@
-﻿using Sumo.Data.Attributes;
+﻿using Sumo.Data.Schema.Attributes;
+using Sumo.Data.Types;
 using System.Linq;
 using System.Reflection;
 
-namespace Sumo.Data.Types
+namespace Sumo.Data.Schema.Types
 {
     public static class EntityInfoCache<T> where T : class
     {

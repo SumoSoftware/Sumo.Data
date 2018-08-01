@@ -1,12 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
 using Sumo.Data.Names;
-using Sumo.Data.Types.Sqlite;
 using System.Data;
 using System.Data.Common;
 
 namespace Sumo.Data.Factories.Sqlite
 {
-    public sealed class SqliteParameterFactory : IParameterFactory
+    public class SqliteParameterFactory : IParameterFactory
     {
         public DbParameter CreateParameter(string name, object value, ParameterDirection direction)
         {
@@ -26,11 +25,6 @@ namespace Sumo.Data.Factories.Sqlite
         public string GetParameterName(string name, int index)
         {
             return new ParameterName(name, index).ToString();
-        }
-
-        public string GetWriteParameterName<T>(int parameterIndex) where T : class
-        {
-            return SqliteEntityInfoCache<T>.EntityWriteParameterNames[parameterIndex];
         }
     }
 }

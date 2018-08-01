@@ -1,12 +1,13 @@
-﻿using Sumo.Data.Attributes;
+﻿using Sumo.Data.Schema.Attributes;
+using Sumo.Data.Types;
 using System.Linq;
 using System.Reflection;
 
-namespace Sumo.Data.Types.SqlServer
+namespace Sumo.Data.Schema.Sqlite.Types
 {
-    internal static class SqlServerEntityInfoCache<T> where T : class
+    internal static class SqliteEntityInfoCache<T> where T : class
     {
-        static SqlServerEntityInfoCache()
+        static SqliteEntityInfoCache()
         {
             var nonAutoIncrementProperties = TypeInfoCache<T>
                 .Properties

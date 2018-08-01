@@ -1,7 +1,8 @@
 ﻿using Sumo.Data.Expressions;
 using System;
 
-namespace Sumo.Data.Attributes
+// these attributes allow an sql based ORM to create tables
+namespace Sumo.Data.Schema.Attributes
 {
     /// <summary>
     /// Indicates this item is part of the primary key.

@@ -1,7 +1,7 @@
 ﻿using Sumo.Data.Names;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Schema.SqlServer
+namespace Sumo.Procedure.CodeGen
 {
     public class Schema
     {

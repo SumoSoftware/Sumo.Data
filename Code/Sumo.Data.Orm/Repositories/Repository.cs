@@ -1,8 +1,13 @@
 ﻿using Sumo.Data.Commands;
+using Sumo.Data.Expressions;
+using Sumo.Data.Factories;
 using Sumo.Data.Orm.Exceptions;
 using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Orm.Factories;
 using Sumo.Data.Readers;
+using Sumo.Data.Schema;
+using Sumo.Data.Schema.Factories;
+using Sumo.Data.Schema.Types;
 using Sumo.Data.Types;
 using System;
 using System.Collections.Generic;
@@ -16,7 +21,26 @@ namespace Sumo.Data.Orm.Repositories
         private readonly IFactorySet _factorySet;
         private readonly string _connectionString;
 
-        public Repository(IFactorySet factorySet, string connectionString)
+        public Repository(
+            IConnectionFactory connectionFactory,
+            IDataAdapterFactory dataAdapterFactory,
+            ISchemaParameterFactory parameterFactory,
+            ITransactionFactory transactionFactory,
+            IScriptBuilder scriptBuilder,
+            ISqlStatementBuilder sqlStatementBuilder,
+            string connectionString) : this(
+                new FactorySet(
+                    connectionFactory,
+                    dataAdapterFactory,
+                    parameterFactory,
+                    transactionFactory,
+                    scriptBuilder,
+                    sqlStatementBuilder),
+                connectionString)
+        {
+        }
+
+        public Repository(IFactorySet factorySet, string connectionString) : base()
         {
             _factorySet = factorySet ?? throw new ArgumentNullException(nameof(factorySet));
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
@@ -283,6 +307,16 @@ namespace Sumo.Data.Orm.Repositories
                     }
                 }
             });
+        }
+
+        public T[] Read<T>(IExpression expression, DbTransaction dbTransaction = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T[]> ReadAsync<T>(IExpression expression, DbTransaction dbTransaction = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

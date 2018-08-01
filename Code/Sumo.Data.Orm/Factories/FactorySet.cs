@@ -1,5 +1,6 @@
 ﻿using Sumo.Data.Factories;
 using Sumo.Data.Schema;
+using Sumo.Data.Schema.Factories;
 using System;
 
 namespace Sumo.Data.Orm.Factories
@@ -8,8 +9,8 @@ namespace Sumo.Data.Orm.Factories
     {
         public FactorySet(
             IConnectionFactory connectionFactory, 
-            IDataAdapterFactory dataAdapterFactory, 
-            IParameterFactory parameterFactory, 
+            IDataAdapterFactory dataAdapterFactory,
+            ISchemaParameterFactory parameterFactory, 
             ITransactionFactory transactionFactory,
             IScriptBuilder scriptBuilder,
             ISqlStatementBuilder sqlStatementBuilder) : base()
@@ -24,7 +25,7 @@ namespace Sumo.Data.Orm.Factories
 
         public IConnectionFactory ConnectionFactory { get; }
         public IDataAdapterFactory DataAdapterFactory { get; }
-        public IParameterFactory ParameterFactory { get; }
+        public ISchemaParameterFactory ParameterFactory { get; }
         public ITransactionFactory TransactionFactory { get; }
         public IScriptBuilder ScriptBuilder { get; }
         public ISqlStatementBuilder SqlStatementBuilder { get; }

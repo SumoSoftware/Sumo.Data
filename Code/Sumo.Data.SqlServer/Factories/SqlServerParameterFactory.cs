@@ -1,12 +1,11 @@
 ﻿using Sumo.Data.Names;
-using Sumo.Data.Types.SqlServer;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Sumo.Data.Factories.SqlServer
 {
-    public sealed class SqlServerParameterFactory: IParameterFactory
+    public class SqlServerParameterFactory: IParameterFactory
     {
         public DbParameter CreateParameter(string name, object value, ParameterDirection direction)
         {
@@ -28,9 +27,9 @@ namespace Sumo.Data.Factories.SqlServer
             return new ParameterName(name, index).ToString();
         }
 
-        public string GetWriteParameterName<T>(int parameterIndex) where T : class
-        {
-            return SqlServerEntityInfoCache<T>.EntityWriteParameterNames[parameterIndex];
-        }
+        //public string GetWriteParameterName<T>(int parameterIndex) where T : class
+        //{
+        //    return SqlServerEntityInfoCache<T>.EntityWriteParameterNames[parameterIndex];
+        //}
     }
 }
