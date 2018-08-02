@@ -22,10 +22,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\Sumo.Data.Schema\Sumo.Data.Schema.csproj" />
         <ProjectReference Include="..\Sumo.Data.SqlServer\Sumo.Data.SqlServer.csproj" />
         <ProjectReference Include="..\Sumo.Data\Sumo.Data.csproj" />

@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.Orm</id>
-        <version>4.2.0</version>
-        <title>Data Access Library - ORM</title>
+        <version>4.2.1</version>
+        <title>Sumo.Data - ORM Foundations</title>
         
         <authors>Sumo Software Corporation</authors>
         <owners>Sumo Software Corporation</owners>
@@ -13,14 +13,14 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
         
-        <description>ORM add-on to the SDAL IOC framework for ADO database access.</description>
+        <description>Sumo.Data.Orm is a light-weight, IoC capable ORM. Database specific support libraries are available. SQLite: Sumo.Data.Sqlite and Sumo.Data.Schema.Sqlite. Microsoft Sql Server: Sumo.Data.SqlServer and Sumo.Data.Schema.SqlServer.</description>
         <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
-        <tags>Database SDAPI SDAL ORM</tags>
+        <tags>database db orm ioc sumo sql ado</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="Sumo.Data" version="4.2.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.Schema" version="4.2.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.2.1-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Schema" version="4.2.1-beta" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.SqlServer</id>
-        <version>4.2.0</version>
-        <title>Data Access Library - Microsoft SQL Server</title>
+        <version>4.2.1</version>
+        <title>Sumo.Data - Microsoft Sql Server Implementation</title>
 
         <authors>Sumo Software Corporation</authors>
         <owners>Sumo Software Corporation</owners>
@@ -13,14 +13,14 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
 
-        <description>Microsoft SQL Server implementation of the SDAL framework for ADO database access.</description>
+        <description>Sumo.Data.SqlServer is a Microsoft SQL Server specific implementation of Sumo.Data. Sumo.Data is an IoC capable database access framework.</description>
         <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
-        <tags>Database SDAPI SDAL SQL Server Azure Db</tags>
+        <tags>database db orm ioc sumo sql server ado</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
-                <dependency id="Sumo.Data" version="4.2.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="4.2.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.2.1-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="4.2.1-beta" exclude="Build,Analyzers" />
                 <dependency id="System.Data.SqlClient" version="4.5" exclude="Build,Analyzers" />
             </group>
         </dependencies>
