@@ -21,6 +21,21 @@ namespace Sumo.Retry
             return result;
         }
 
+        public static TInterface Create<TInterface, TImplementation>(RetryOptions options, ICanRetryTester canRetryTester) 
+            where TInterface : class 
+            where TImplementation: class, new()
+        {
+            var result = Create<TInterface, RetryProxy>();
+
+            var instance = Activator.CreateInstance<TImplementation>();
+            var proxy = (result as RetryProxy);
+            proxy._instance = instance ?? throw new ArgumentNullException(nameof(instance));
+            proxy._options = options ?? throw new ArgumentNullException(nameof(options));
+            proxy._canRetryTester = canRetryTester ?? throw new ArgumentNullException(nameof(canRetryTester));
+
+            return result;
+        }
+
         private object _instance;
         private RetryOptions _options;
         private ICanRetryTester _canRetryTester = null;
