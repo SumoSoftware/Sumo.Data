@@ -17,9 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Sumo.Data.Orm" Version="4.2.0-beta" />
-    <PackageReference Include="Sumo.Data.SqlServer" Version="4.2.0-beta" />
-    <PackageReference Include="Sumo.Retry" Version="4.2.0-beta" />
+    <PackageReference Include="Sumo.Data.Orm" Version="4.2.1-beta" />
+    <PackageReference Include="Sumo.Data.SqlServer" Version="4.2.1-beta" />
   </ItemGroup>
 
   <ItemGroup>

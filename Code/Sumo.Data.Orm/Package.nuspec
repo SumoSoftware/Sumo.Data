@@ -19,6 +19,7 @@
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
+                <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
                 <dependency id="Sumo.Data" version="4.2.1-beta" exclude="Build,Analyzers" />
                 <dependency id="Sumo.Data.Schema" version="4.2.1-beta" exclude="Build,Analyzers" />
             </group>
