@@ -4,6 +4,11 @@ using System.Collections.Generic;
 namespace Sumo.Data.Schema
 {
     //https://docs.microsoft.com/en-us/dotnet/api/microsoft.data.sqlite?view=msdata-sqlite-2.0.0
+    
+    /// <summary>
+    /// A catalog is a collection of schemas. It's the root entity of any database.
+    /// </summary>
+    [Serializable]
     public class Catalog : Entity
     {
         public Catalog() { }

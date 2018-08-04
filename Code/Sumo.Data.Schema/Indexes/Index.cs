@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Sumo.Data.Schema
 {
+    [Serializable]
     public class Index : Entity
     {
         public Index() : base() { }

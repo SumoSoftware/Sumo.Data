@@ -2,6 +2,7 @@
 using Sumo.Data.Commands;
 using Sumo.Data.Factories;
 using Sumo.Data.Factories.Sqlite;
+using Sumo.Data.Schema.Factories;
 using Sumo.Data.Schema.Factories.Sqlite;
 using System.Threading.Tasks;
 

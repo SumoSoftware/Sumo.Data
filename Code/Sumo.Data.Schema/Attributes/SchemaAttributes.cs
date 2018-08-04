@@ -108,5 +108,4 @@ namespace Sumo.Data.Schema.Attributes
             ReferenceColumn = referenceColumn;
         }
     }
-
 }

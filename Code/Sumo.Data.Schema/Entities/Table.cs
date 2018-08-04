@@ -4,6 +4,11 @@ using System.Data;
 
 namespace Sumo.Data.Schema
 {
+    /// <summary>
+    /// A table is the basic building block of a schema. It represents an entity or class within a larger model. 
+    /// A table is an agregate of columns, keys, indexes, and constraints
+    /// </summary>
+    [Serializable]
     public class Table : Entity
     {
         public Table() : base() { }

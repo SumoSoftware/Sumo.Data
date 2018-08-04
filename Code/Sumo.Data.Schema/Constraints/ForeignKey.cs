@@ -1,5 +1,8 @@
-﻿namespace Sumo.Data.Schema
+﻿using System;
+
+namespace Sumo.Data.Schema
 {
+    [Serializable]
     public class ForeignKey 
     {
         public string Schema { get; set; } = null;

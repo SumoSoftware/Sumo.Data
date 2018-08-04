@@ -1,9 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Data;
 
 namespace Sumo.Data.Schema
 {
+    /// <summary>
+    /// A column is the basic building block of a table. It represents an element or property of a modeled entity or class.
+    /// </summary>
+    [Serializable]
     public class Column : Entity
     {
         public Column() : base() { }

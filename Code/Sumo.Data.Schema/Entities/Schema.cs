@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace Sumo.Data.Schema
 {
+    /// <summary>
+    /// A schema is a namespace within a catalog. DBO is a a well known. It stands for database owner.
+    /// In Oracle schemas are called databases. Oracle is weird. Don't use Oracle.
+    /// </summary>
+    [Serializable]
     public class Schema : Entity
     {
         public Schema() : base() { }

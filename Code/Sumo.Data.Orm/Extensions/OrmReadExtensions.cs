@@ -57,7 +57,11 @@ namespace Sumo.Data.Orm.Extensions
         //    return result;
         //}
 
-        // for string, datetime, and numeric types
+        /// <summary>
+        /// for binary types
+        /// </summary>
+        /// <param name="rows"></param>
+        /// <returns></returns>
         public static object[] ToObjectArray(this DataRowCollection rows)
         {
             var result = new object[rows.Count];
@@ -70,7 +74,7 @@ namespace Sumo.Data.Orm.Extensions
 
 
         /// <summary>
-        ///  for value types
+        /// for value types like string, datetime, and numeric types 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="rows"></param>
@@ -92,12 +96,19 @@ namespace Sumo.Data.Orm.Extensions
             return result;
         }
 
-        public static TInterface[] ToArray<TInterface, TClass>(this DataRowCollection rows) where TClass : class, TInterface
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TInterface"></typeparam>
+        /// <typeparam name="TImplentation">The type to use to for the interface implementation. Must have public or protected constructor.</typeparam>
+        /// <param name="rows"></param>
+        /// <returns></returns>
+        public static TInterface[] ToArray<TInterface, TImplentation>(this DataRowCollection rows) where TImplentation : class, TInterface
         {
             var result = new TInterface[rows.Count];
             for (var i = 0; i < rows.Count; ++i)
             {
-                result[i] = rows[i].ToObject<TClass>();
+                result[i] = rows[i].ToObject<TImplentation>();
             }
             return result;
         }

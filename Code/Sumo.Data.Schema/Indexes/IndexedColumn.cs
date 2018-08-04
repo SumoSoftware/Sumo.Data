@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Sumo.Data.Expressions;
+using System;
 
 namespace Sumo.Data.Schema
 {
+    [Serializable]
     public class IndexedColumn : Entity
     {
         public IndexedColumn() : base() { }

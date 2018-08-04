@@ -232,6 +232,7 @@ namespace Sumo.Data.Types
         }
 
 
+        // am i a code horder. yes i am.
         //public static DbType ToDbType(this TypeCode typeCode)
         //{
         //    // no TypeCode equivalent for TimeSpan or DateTimeOffset

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace Sumo.Data.Schema
 {
+    /// <summary>
+    /// Entity is the base class for all all database entities. An entity is any database item with a name. 
+    /// For example, Catalog, Schema, Table, Column, etc.
+    /// </summary>
+    [Serializable]
     public class Entity
     {
         public Entity() { }
@@ -37,7 +42,7 @@ namespace Sumo.Data.Schema
 
         protected virtual bool IsNameValid(string name)
         {
-            return !name.Contains(" ");
+            return !string.IsNullOrEmpty(name)&& !string.IsNullOrWhiteSpace(name) && !name.Contains(" ");
         }
 
         public static implicit operator string(Entity name)
