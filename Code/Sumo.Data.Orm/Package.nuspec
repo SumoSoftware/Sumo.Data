@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.Orm</id>
-        <version>4.2.1</version>
+        <version>4.2.2</version>
         <title>Sumo.Data - ORM Foundations</title>
         
         <authors>Sumo Software Corporation</authors>
@@ -20,8 +20,8 @@
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data" version="4.2.1-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data.Schema" version="4.2.1-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.2.2-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Schema" version="4.2.2-beta" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
