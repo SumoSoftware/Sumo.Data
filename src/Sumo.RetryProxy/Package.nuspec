@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Sumo.Data</id>
+        <id>Sumo.Retry</id>
         <version>4.2.2</version>
-        <title>Sumo.Data - Foundations</title>
+        <title>Sumo.Retry - Retry Proxy Pattern</title>
 
-        <authors>Sumo Software Corporation</authors>
+        <authors>Mark Lauter</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,15 +13,14 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
 
-        <description>Sumo.Data is an IoC capable database access framework. It provides foundation interfaces and classes for database-independent  data access. Sumo.Data.Sqlite and Sumo.Data.SqlServer provide database specific implementations of Sumo.Data. Sumo.Data is a core foundation library for Sumo.Data.Orm, a light-weight, IoC capable ORM.</description>
-        
-        <releaseNotes>Release 3 is a complete rewrite targeting .NetStandard 2.0.</releaseNotes>
-        <tags>database db orm ioc sumo sql ado</tags>
+        <description>Sumo.Retry uses DispatchProxy to create a retry pattern for any interface and implementation combination. RetryProxy wraps all the methods defined in an interface with retry logic. User can provide custom implementation of a test class that ensures the particular exception is eligible for retry, such as a Sql Server transient error.</description>
+        <releaseNotes>Initial release</releaseNotes>
+        <tags>DispatchProxy RetryProxy Retry Pattern</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
-                <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
+                <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

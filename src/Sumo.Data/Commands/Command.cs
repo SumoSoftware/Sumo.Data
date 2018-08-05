@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sumo.Data.Commands
 {
-    //todo add tests
+    //todo: add tests
     public class Command : ICommand
     {
         public Command(DbConnection dbConnection, IParameterFactory parameterFactory)

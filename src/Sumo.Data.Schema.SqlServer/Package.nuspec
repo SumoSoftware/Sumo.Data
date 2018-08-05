@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Sumo.Retry</id>
+        <id>Sumo.Data.Schema.SqlServer</id>
         <version>4.2.2</version>
-        <title>Sumo.Retry - Retry Proxy Pattern</title>
+        <title>Sumo.Data.Schema - Microsoft Sql Server Implementation</title>
 
-        <authors>Sumo Software Corporation</authors>
+        <authors>Mark Lauter</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -13,14 +13,16 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
 
-        <description>Sumo.Retry uses DispatchProxy to create a retry pattern for any interface and implementation combination. RetryProxy wraps all the methods defined in an interface with retry logic. User can provide custom implementation of a test class that ensures the particular exception is eligible for retry, such as a Sql Server transient error.</description>
-        <releaseNotes>Initial release</releaseNotes>
-        <tags>DispatchProxy RetryProxy Retry Pattern</tags>
+        <description>Sumo.Data.Schema.SqlServer is a Microsoft SQL Server specific implementation of Sumo.Data.Schema. Sumo.Data.Schema is an IoC capable add-on library for Sumo.Data.</description>
+        <releaseNotes>Fixed missing resources file.</releaseNotes>
+        <tags>database db orm ioc sumo sql server ado schema</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
-                <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="4.2.2-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.Schema" version="4.2.2-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data.SqlServer" version="4.2.2-beta" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

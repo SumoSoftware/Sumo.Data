@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sumo.Data.Commands;
 using Sumo.Data.Factories;
 using Sumo.Data.Factories.Sqlite;
 using Sumo.Data.Readers;
@@ -33,9 +34,15 @@ namespace Sumo.Data.Sqlite.Queries
             IConnectionFactory connectionFactory = new SqliteConnectionFactory();
 
             using (var connection = connectionFactory.Open(_connectionString))
+            using (var command = new Command(connection, parameterFactory))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select * from Test");
+                command.Execute("drop table if exists ReadTest");
+                command.Execute("create table if not exists ReadTest(TestColumn text)");
+                command.Execute("insert into ReadTest values('one')");
+                command.Execute("insert into ReadTest values('two')");
+
+                var dataSet = reader.Read("select * from ReadTest");
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);
@@ -50,12 +57,19 @@ namespace Sumo.Data.Sqlite.Queries
             IConnectionFactory connectionFactory = new SqliteConnectionFactory();
 
             using (var connection = connectionFactory.Open(_connectionString))
+            using (var command = new Command(connection, parameterFactory))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select count(*) from Test");
+                command.Execute("drop table if exists ReadCountTest");
+                command.Execute("create table if not exists ReadCountTest(TestColumn text)");
+                command.Execute("insert into ReadCountTest values('one')");
+                command.Execute("insert into ReadCountTest values('two')");
+
+                var dataSet = reader.Read("select count(*) from ReadCountTest");
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
-                Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);
+                Assert.AreEqual(1, dataSet.Tables[0].Rows.Count);
+                Assert.AreEqual(2L, (long)dataSet.Tables[0].Rows[0][0]);
             }
         }
 
@@ -72,9 +86,15 @@ namespace Sumo.Data.Sqlite.Queries
             IConnectionFactory connectionFactory = new SqliteConnectionFactory();
 
             using (var connection = connectionFactory.Open(_connectionString))
+            using (var command = new Command(connection, parameterFactory))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select * from Test where TestId=@TestId", new Dictionary<string, object> { ["TestId"] = 1 });
+                command.Execute("drop table if exists ReadWParamsTest");
+                command.Execute("create table if not exists ReadWParamsTest(TestId integer primary key autoincrement, TestValue text)");
+                command.Execute("insert into ReadWParamsTest(TestValue) values('one')");
+                command.Execute("insert into ReadWParamsTest(TestValue) values('two')");
+
+                var dataSet = reader.Read("select * from ReadWParamsTest where TestId=@TestId", new Dictionary<string, object> { ["TestId"] = 1 });
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.AreEqual(1, dataSet.Tables[0].Rows.Count);

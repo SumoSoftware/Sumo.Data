@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Code\Sumo.Data.Schema\Sumo.Data.Schema.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data.Schema\Sumo.Data.Schema.csproj" />
   </ItemGroup>
 
   <ItemGroup>

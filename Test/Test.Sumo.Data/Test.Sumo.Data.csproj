@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Code\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
-    <ProjectReference Include="..\..\Code\Sumo.Data\Sumo.Data.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data\Sumo.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

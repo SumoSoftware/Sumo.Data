@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Code\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
-    <ProjectReference Include="..\..\Code\Sumo.Data.SqlServer\Sumo.Data.SqlServer.csproj" />
-    <ProjectReference Include="..\..\Code\Sumo.Data\Sumo.Data.csproj" />
-    <ProjectReference Include="..\..\Code\Sumo.RetryProxy\Sumo.Retry.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data.SqlServer\Sumo.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data\Sumo.Data.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.RetryProxy\Sumo.Retry.csproj" />
   </ItemGroup>
 
   <ItemGroup>
