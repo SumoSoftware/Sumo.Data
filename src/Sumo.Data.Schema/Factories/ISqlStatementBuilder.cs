@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sumo.Data.Schema.Factories
+namespace Sumo.Data.Schema
 {
     public interface ISqlStatementBuilder
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sumo.Data.Generator.Models
+﻿namespace Sumo.Data.Generator.Models
 {
     public class Manifest
     {

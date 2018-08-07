@@ -2,7 +2,7 @@
 using System;
 
 // these attributes allow an sql based ORM to create tables
-namespace Sumo.Data.Schema.Attributes
+namespace Sumo.Data.Schema
 {
     /// <summary>
     /// Indicates this item is part of the primary key.

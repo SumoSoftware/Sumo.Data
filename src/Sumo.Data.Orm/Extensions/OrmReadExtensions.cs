@@ -72,7 +72,6 @@ namespace Sumo.Data
             return result;
         }
 
-
         /// <summary>
         /// for value types like string, datetime, and numeric types 
         /// </summary>

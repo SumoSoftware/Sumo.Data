@@ -26,13 +26,25 @@ namespace Sumo.Data.Schema
         public static byte[] ToBytes(this Entity entity)
         {
             byte[] result = null;
-            using (var stream = new MemoryStream())
+            using (var stream = (MemoryStream)entity.ToStream())
             {
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, entity);
                 stream.Flush();
                 stream.Position = 0;
                 result = stream.ToArray();
+            }
+            return result;
+        }
+
+        public static T FromBytes<T>(this byte[] bytes) where T : Entity
+        {
+            var result = default(T);
+            using (var stream = new MemoryStream(bytes))
+            {
+                var formatter = new BinaryFormatter();
+                stream.Position = 0;
+                result = (T)formatter.Deserialize(stream);
             }
             return result;
         }
@@ -52,16 +64,18 @@ namespace Sumo.Data.Schema
             return result;
         }
 
-        public static T FromBytes<T>(this byte[] bytes) where T : Entity
+        /// <summary>
+        /// user provides stream
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="stream"></param>
+        /// <returns>MemoryStream - remember to dispose!</returns>
+        public static void ToStream(this Entity entity, Stream stream)
         {
-            var result = default(T);
-            using (var stream = new MemoryStream(bytes))
-            {
-                var formatter = new BinaryFormatter();
-                stream.Position = 0;
-                result = (T)formatter.Deserialize(stream);
-            }
-            return result;
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(stream, entity);
+            stream.Flush();
+            stream.Position = 0;
         }
 
         public static T FromStream<T>(this Stream stream) where T : Entity

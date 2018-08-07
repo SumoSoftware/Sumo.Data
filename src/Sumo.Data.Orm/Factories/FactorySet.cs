@@ -1,6 +1,5 @@
 ﻿using Sumo.Data.Factories;
 using Sumo.Data.Schema;
-using Sumo.Data.Schema.Factories;
 using System;
 
 namespace Sumo.Data.Orm.Factories

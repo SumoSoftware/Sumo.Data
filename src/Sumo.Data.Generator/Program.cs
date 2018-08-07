@@ -2,7 +2,6 @@
 using Sumo.Data.Factories.SqlServer;
 using Sumo.Data.Procedures;
 using System;
-using System.Linq;
 using System.Data;
 
 namespace Sumo.Data.Generator

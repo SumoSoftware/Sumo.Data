@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Sumo.Data.Schema.Attributes;
+using Sumo.Data.Schema;
 
 namespace Test.Sumo.Data.Orm.Sqlite
 {

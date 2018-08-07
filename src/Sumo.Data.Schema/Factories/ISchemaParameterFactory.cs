@@ -1,6 +1,6 @@
 ﻿using Sumo.Data.Factories;
 
-namespace Sumo.Data.Schema.Factories
+namespace Sumo.Data.Schema
 {
     public interface ISchemaParameterFactory : IParameterFactory
     {

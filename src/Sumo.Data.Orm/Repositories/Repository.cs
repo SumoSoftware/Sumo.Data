@@ -5,8 +5,6 @@ using Sumo.Data.Orm.Exceptions;
 using Sumo.Data.Orm.Factories;
 using Sumo.Data.Readers;
 using Sumo.Data.Schema;
-using Sumo.Data.Schema.Factories;
-using Sumo.Data.Schema.Types;
 using Sumo.Data.Types;
 using System;
 using System.Collections.Generic;
