@@ -2,7 +2,6 @@
 using Sumo.Data.Expressions;
 using Sumo.Data.Factories;
 using Sumo.Data.Orm.Exceptions;
-using Sumo.Data.Orm.Extensions;
 using Sumo.Data.Orm.Factories;
 using Sumo.Data.Readers;
 using Sumo.Data.Schema;
