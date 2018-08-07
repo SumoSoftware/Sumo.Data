@@ -10,25 +10,25 @@ namespace Sumo.Data.Types
         [TestMethod]
         public void FullName()
         {
-            Assert.AreEqual(typeof(TestTypeFullAppendix).FullName, TypeInfoCache<TestTypeFullAppendix>.FullName);
+            Assert.AreEqual(typeof(TestTypePrefixAndCustomName).FullName, TypeInfoCache<TestTypePrefixAndCustomName>.FullName);
         }
 
         [TestMethod]
         public void SerializableParameters()
         {
-            Assert.AreEqual(4, TypeInfoCache<TestTypeFullAppendix>.Properties.Length);
-            Assert.AreEqual(nameof(TestTypeFullAppendix.ReadWriteProperty), TypeInfoCache<TestTypeFullAppendix>.Properties[0].Name);
-            Assert.AreEqual(nameof(TestTypeFullAppendix.ReadPrivateWriteProperty), TypeInfoCache<TestTypeFullAppendix>.Properties[1].Name);
-            Assert.AreEqual(nameof(TestTypeFullAppendix.ReadProperty), TypeInfoCache<TestTypeFullAppendix>.Properties[2].Name);
-            Assert.AreEqual(nameof(TestTypeFullAppendix.OutputParameter), TypeInfoCache<TestTypeFullAppendix>.Properties[3].Name);
+            Assert.AreEqual(4, TypeInfoCache<TestTypePrefixAndCustomName>.Properties.Length);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadWriteProperty), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[0].Name);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadPrivateWriteProperty), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[1].Name);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadProperty), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[2].Name);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.OutputParameter), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[3].Name);
         }
 
         [TestMethod]
         public void TypeCodes()
         {
-            Assert.AreEqual(TypeInfoCache<TestTypeFullAppendix>.Properties.Length, TypeInfoCache<TestTypeFullAppendix>.TypeCodes.Length);
-            Assert.AreEqual(TypeCode.String, TypeInfoCache<TestTypeFullAppendix>.TypeCodes[0]);
-            Assert.AreEqual(TypeCode.Int32, TypeInfoCache<TestTypeFullAppendix>.TypeCodes[3]);
+            Assert.AreEqual(TypeInfoCache<TestTypePrefixAndCustomName>.Properties.Length, TypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes.Length);
+            Assert.AreEqual(TypeCode.String, TypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes[0]);
+            Assert.AreEqual(TypeCode.Int32, TypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes[3]);
         }
 
         [TestMethod]

@@ -9,20 +9,20 @@ namespace Sumo.Data.Types
         [TestMethod]
         public void FullName()
         {
-            Assert.AreEqual(typeof(TestTypeFullAppendix).FullName, QueryParametersTypeInfoCache<TestTypeFullAppendix>.FullName);
+            Assert.AreEqual(typeof(TestTypePrefixAndCustomName).FullName, QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.FullName);
         }
 
         [TestMethod]
         public void Parameters()
         {
-            Assert.AreEqual(4, QueryParametersTypeInfoCache<TestTypeFullAppendix>.Parameters.Length);
+            Assert.AreEqual(4, QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.Parameters.Length);
         }
 
         [TestMethod]
         public void TypeCodes()
         {
-            Assert.AreEqual(QueryParametersTypeInfoCache<TestTypeFullAppendix>.Parameters.Length,
-                QueryParametersTypeInfoCache<TestTypeFullAppendix>.TypeCodes.Length);
+            Assert.AreEqual(QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.Parameters.Length,
+                QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes.Length);
         }
     }
 }

@@ -9,14 +9,14 @@ namespace Sumo.Data.Types
         [TestMethod]
         public void FullName()
         {
-            Assert.AreEqual(typeof(TestTypeFullAppendix).FullName, ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.FullName);
+            Assert.AreEqual(typeof(TestTypePrefixAndCustomName).FullName, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.FullName);
         }
 
         [TestMethod]
         public void InputParameters()
         {
-            Assert.AreEqual(3, ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.InputParameters.Length);
-            Assert.AreEqual(nameof(TestTypeFullAppendix.ReadWriteProperty), ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.InputParameters[0].Name);
+            Assert.AreEqual(3, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputParameters.Length);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadWriteProperty), ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputParameters[0].Name);
         }
 
         [TestMethod]
@@ -29,37 +29,36 @@ namespace Sumo.Data.Types
         [TestMethod]
         public void OutputParameters()
         {
-            Assert.AreEqual(1, ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.OutputParameters.Length);
-            Assert.AreEqual(nameof(TestTypeFullAppendix.OutputParameter), ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.OutputParameters[0].Name);
+            Assert.AreEqual(1, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputParameters.Length);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.OutputParameter), ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputParameters[0].Name);
         }
 
         [TestMethod]
         public void InputTypeCodes()
         {
-            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.InputParameters.Length, 
-                ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.InputTypeCodes.Length);
+            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputParameters.Length, 
+                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputTypeCodes.Length);
         }
 
         [TestMethod]
         public void InputOutputTypeCodes()
         {
-            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.InputOutputParameters.Length, 
-                ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.InputOutputTypeCodes.Length);
+            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputOutputParameters.Length, 
+                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputOutputTypeCodes.Length);
         }
 
         [TestMethod]
         public void OutputTypeCodes()
         {
-            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.OutputParameters.Length,
-                ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.OutputTypeCodes.Length);
+            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputParameters.Length,
+                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputTypeCodes.Length);
         }
 
         [TestMethod]
         public void ProcedureName()
         {
-            Assert.AreEqual($"[prefix].[{nameof(TestTypeFullAppendix)}].[suffix]", ProcedureParametersTypeInfoCache<TestTypeFullAppendix>.ProcedureName);
             Assert.AreEqual($"[prefix].[{nameof(TestTypePrefix)}]", ProcedureParametersTypeInfoCache<TestTypePrefix>.ProcedureName);
-            Assert.AreEqual($"[{nameof(TestTypeSuffix)}].[suffix]", ProcedureParametersTypeInfoCache<TestTypeSuffix>.ProcedureName);
+            Assert.AreEqual($"[prefix].[test_name]", ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.ProcedureName);
         }
     }
 }

@@ -25,7 +25,8 @@ namespace Sumo.Data.Support
     }
 
     [EntityPrefix("prefix")]
-    public class TestTypeFullAppendix
+    [EntityName("test_name")]
+    public class TestTypePrefixAndCustomName
     {
         public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
         public string ReadPrivateWriteProperty { get; private set; } = "ReadPrivateWriteProperty";
@@ -38,17 +39,6 @@ namespace Sumo.Data.Support
 
     [EntityPrefix("prefix")]
     public class TestTypePrefix
-    {
-        public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
-        public string ReadPrivateWriteProperty { get; private set; } = "ReadPrivateWriteProperty";
-        public string ReadProperty { get; } = "ReadProperty";
-        [IgnoreProperty]
-        public string IgnoreProperty { get; set; } = "IgnoreProperty";
-        [OutputParameter]
-        public string OutputParameter { get; set; } = "OutputParameter";
-    }
-
-    public class TestTypeSuffix
     {
         public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
         public string ReadPrivateWriteProperty { get; private set; } = "ReadPrivateWriteProperty";
