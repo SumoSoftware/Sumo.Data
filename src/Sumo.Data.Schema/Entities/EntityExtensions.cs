@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.IO.Compression;
 
 namespace Sumo.Data.Schema
 {
@@ -50,32 +52,31 @@ namespace Sumo.Data.Schema
         }
 
         /// <summary>
-        /// user is responsible for disposing stream!
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>MemoryStream - remember to dispose!</returns>
-        public static Stream ToStream(this Entity entity)
-        {
-            var result = new MemoryStream();
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(result, entity);
-            result.Flush();
-            result.Position = 0;
-            return result;
-        }
-
-        /// <summary>
         /// user provides stream
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="stream"></param>
         /// <returns>MemoryStream - remember to dispose!</returns>
-        public static void ToStream(this Entity entity, Stream stream)
+        public static void WriteToStream(this Entity entity, Stream stream)
         {
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+
             var formatter = new BinaryFormatter();
             formatter.Serialize(stream, entity);
             stream.Flush();
             stream.Position = 0;
+        }
+
+        /// <summary>
+        /// user is responsible for disposing stream!
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>MemoryStream - remember to dispose!</returns>
+        public static MemoryStream ToStream(this Entity entity)
+        {
+            var result = new MemoryStream();
+            entity.WriteToStream(result);
+            return result;
         }
 
         public static T FromStream<T>(this Stream stream) where T : Entity
@@ -85,6 +86,53 @@ namespace Sumo.Data.Schema
             stream.Position = 0;
             result = (T)formatter.Deserialize(stream);
             return result;
+        }
+
+        /// <summary>
+        /// user is responsible for disposing stream!
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns>MemoryStream - remember to dispose!</returns>
+        public static MemoryStream ToCompressedStream(this Entity entity)
+        {
+            var result = new MemoryStream();
+
+            using (var gzipStream = new GZipStream(result, CompressionMode.Compress, true))
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(gzipStream, entity);
+                gzipStream.Flush();
+            }
+            result.Position = 0;
+
+            return result;
+        }
+
+        public static T FromCompressedStream<T>(this Stream stream) where T : Entity
+        {
+            var result = default(T);
+
+            using (var gzipStream = new GZipStream(stream, CompressionMode.Decompress, true))
+            {
+                stream.Position = 0;
+                var formatter = new BinaryFormatter();
+                result = (T)formatter.Deserialize(gzipStream);
+            }
+
+            return result;
+        }
+
+        public static void WriteToCompressedStream(this Entity entity, Stream stream)
+        {
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+
+            using (var gzipStream = new GZipStream(stream, CompressionMode.Compress, true))
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(gzipStream, entity);
+                gzipStream.Flush();
+            }
+            stream.Position = 0;
         }
     }
 }

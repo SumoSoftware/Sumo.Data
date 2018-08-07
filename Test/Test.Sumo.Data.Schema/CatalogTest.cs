@@ -303,11 +303,80 @@ namespace Sumo.Data.Schema
 
                     Assert.AreEqual(stream1.Length, stream2.Length);
 
-                    var bytes1 = ((MemoryStream)stream1).ToArray();
-                    var bytes2 = ((MemoryStream)stream2).ToArray();
+                    var bytes1 = stream1.ToArray();
+                    var bytes2 = stream2.ToArray();
                     Assert.IsTrue(bytes1.SequenceEqual(bytes2));
                 }
             }            
+        }
+
+        [TestMethod]
+        public void Entity_ToCompressedStream()
+        {
+            var catalog = new Catalog("company_catalog", _owner);
+            var schema = catalog.AddSchema(_owner);
+
+            var jobTable = schema.AddTable("job");
+            var jobPkColumn = jobTable.AddColumn("id", DbType.Int32);
+            jobPkColumn.IsPrimaryKey = true;
+            jobPkColumn.PrimaryKey.IsAutoIncrement = true;
+
+            var jobNameColumn = jobTable.AddColumn("name", DbType.String);
+            jobNameColumn.MaxLength = 256;
+            jobNameColumn.IsUnique = true;
+
+            var employeeTable = schema.AddTable("employee");
+            employeeTable.AddComment("employees and their date of employment");
+
+            var pkColumn = employeeTable.AddColumn("id", DbType.Int32);
+            pkColumn.IsPrimaryKey = true;
+            pkColumn.PrimaryKey.IsAutoIncrement = true;
+
+            var jobIdColumn = employeeTable.AddColumn("job_id", DbType.Int32);
+            jobIdColumn.HasForeignKey = true;
+            jobIdColumn.ForeignKey.Schema = schema.Name;
+            jobIdColumn.ForeignKey.Table = jobTable.Name;
+            jobIdColumn.ForeignKey.Column = jobPkColumn.Name;
+
+            var firstNameColumn = employeeTable.AddColumn("first_name", DbType.String);
+            firstNameColumn.MaxLength = 256;
+            firstNameColumn.IsNullable = false;
+
+            var lastNameColumn = employeeTable.AddColumn("last_name", DbType.String);
+            lastNameColumn.MaxLength = 256;
+            lastNameColumn.IsNullable = false;
+
+            var ssnColumn = employeeTable.AddColumn("ssn", DbType.String);
+            ssnColumn.MaxLength = 11;
+            ssnColumn.IsNullable = false;
+
+            var doeColumn = employeeTable.AddColumn("doe", DbType.Date);
+            doeColumn.AddComment("date of employment");
+            doeColumn.IsNullable = false;
+
+            var dobColumn = employeeTable.AddColumn("dob", DbType.Date);
+
+            var index = employeeTable.AddIndex("employee_name_idx");
+            index.AddColumn(lastNameColumn, Directions.Ascending);
+            index.AddColumn(firstNameColumn);
+            index.AddColumn(ssnColumn);
+            index.IsUnique = true;
+
+            using (var stream1 = catalog.ToCompressedStream())
+            {
+                var cat = stream1.FromCompressedStream<Catalog>();
+                using (var stream2 = cat.ToCompressedStream())
+                {
+                    stream1.Position = 0;
+                    stream2.Position = 0;
+
+                    Assert.AreEqual(stream1.Length, stream2.Length);
+
+                    var bytes1 = stream1.ToArray();
+                    var bytes2 = stream2.ToArray();
+                    Assert.IsTrue(bytes1.SequenceEqual(bytes2));
+                }
+            }
         }
     }
 }
