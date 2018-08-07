@@ -18,6 +18,18 @@ namespace Sumo.Data.Procedures
             _command.CommandType = CommandType.StoredProcedure;
         }
 
+        internal Procedure(IConnectionFactory factory)
+        {
+            _parameterFactory = factory.ParameterFactory;
+
+            //TODO: Should this be moved to encapsulate the actual execute emthod?  Right now dispose will do cleanup
+            _dbConnection = factory.Open();
+            _command = _dbConnection.CreateCommand();
+            _command.CommandType = CommandType.StoredProcedure;
+            
+            
+        }
+
         private readonly DbConnection _dbConnection;
         internal readonly DbCommand _command;
         internal readonly IParameterFactory _parameterFactory;

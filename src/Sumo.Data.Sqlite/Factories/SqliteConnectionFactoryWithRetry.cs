@@ -8,7 +8,20 @@ namespace Sumo.Data.Factories.Sqlite
 {
     public class SqliteConnectionFactoryWithRetry : IConnectionFactory
     {
+        private string _connectionString;
+        public SqliteConnectionFactoryWithRetry(String connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         private readonly IConnectionFactory _proxy;
+
+        IParameterFactory _parameterFactory = new SqliteParameterFactory();
+        public IParameterFactory ParameterFactory => _parameterFactory;
+
+        IDataAdapterFactory _dataAdapterFactory = new SqliteDataAdapterFactory();
+        public IDataAdapterFactory DataAdapterFactory => _dataAdapterFactory;
+
 
         public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions)
         {
@@ -32,6 +45,18 @@ namespace Sumo.Data.Factories.Sqlite
         public async Task<DbConnection> OpenAsync(string connectionString)
         {
             return await _proxy.OpenAsync(connectionString);
+        }
+
+        public DbConnection Open()
+        {
+            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless Open");
+            return Open(_connectionString);
+        }
+
+        public Task<DbConnection> OpenAsync()
+        {
+            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless OpenAsync");
+            return OpenAsync(_connectionString);
         }
     }
 }
