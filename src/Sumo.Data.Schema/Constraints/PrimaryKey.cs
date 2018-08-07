@@ -14,5 +14,8 @@ namespace Sumo.Data.Schema
         public ConflictClauses? ConflictClause { get; set; } = null;
 
         public bool IsAutoIncrement { get; set; } = true;
+
+        public long Seed { get; set; } = 0;
+        public long Step { get; set; } = 0;
     }
 }

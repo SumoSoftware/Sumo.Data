@@ -108,7 +108,19 @@ namespace Sumo.Data.Schema
             return result;
         }
 
-        public static T FromCompressedStream<T>(this Stream stream) where T : Entity
+        public static void Write(this  Stream stream, Entity entity)
+        {
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(stream, entity);
+        }
+
+        public static T ReadFromStream<T>(this Stream stream) where T : Entity
+        {
+            var formatter = new BinaryFormatter();
+            return (T)formatter.Deserialize(stream);
+        }
+
+        public static T FromBytes<T>(this byte[] bytes) where T : Entity
         {
             var result = default(T);
 
