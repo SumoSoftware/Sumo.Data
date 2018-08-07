@@ -8,6 +8,14 @@ using System.Linq;
 
 namespace Sumo.Data.SqlServer
 {
+    // todo: create stored procedure tests until the correct folder
+    // todo: move tests from this unit into appropriate units and delete this unit
+
+    /// <summary>
+    /// stored procedure is in the Test schema and is named Get
+    /// sql would look like this
+    /// exec [Test].[Get] @Id, @Out;
+    /// </summary>
     [EntityPrefix("Test")]
     public sealed class Get
     {
