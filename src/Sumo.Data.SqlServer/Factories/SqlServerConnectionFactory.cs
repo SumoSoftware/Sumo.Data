@@ -7,6 +7,26 @@ namespace Sumo.Data.Factories.SqlServer
 {
     public sealed class SqlServerConnectionFactory : IConnectionFactory
     {
+        private string _connectionString;
+        public SqlServerConnectionFactory(String connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        public SqlServerConnectionFactory()
+        {
+
+        }
+
+
+        IParameterFactory _paramFactory = new SqlServerParameterFactory();
+        public IParameterFactory ParameterFactory => _paramFactory;
+
+
+        IDataAdapterFactory _adapterFacotry = new SqlServerDataAdapterFactory();
+        public IDataAdapterFactory DataAdapterFactory => _adapterFacotry;
+
+
         public DbConnection Open(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
@@ -56,6 +76,18 @@ namespace Sumo.Data.Factories.SqlServer
             }
 
             return connection;
+        }
+
+        public DbConnection Open()
+        {
+            if(String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless Open");
+            return Open(_connectionString);
+        }
+
+        public Task<DbConnection> OpenAsync()
+        {
+            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless OpenAsync");
+            return OpenAsync(_connectionString);
         }
     }
 }

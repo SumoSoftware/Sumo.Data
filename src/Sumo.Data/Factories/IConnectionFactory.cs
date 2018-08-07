@@ -7,6 +7,14 @@ namespace Sumo.Data.Factories
     {
         DbConnection Open(string connectionString);
 
+        DbConnection Open();
+
         Task<DbConnection> OpenAsync(string connectionString);
+
+        Task<DbConnection> OpenAsync();
+
+        IParameterFactory ParameterFactory { get; }
+
+        IDataAdapterFactory DataAdapterFactory { get; }
     }
 }

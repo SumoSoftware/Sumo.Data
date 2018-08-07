@@ -13,6 +13,11 @@ namespace Sumo.Data.Procedures
             _dataAdapter = dataAdapterFactory.CreateDataAdapter(_command);
         }
 
+        public ReadProcedure(IConnectionFactory factory) : base(factory)
+        {
+            _dataAdapter = factory.DataAdapterFactory.CreateDataAdapter(_command);
+        }
+
         internal readonly DbDataAdapter _dataAdapter;
 
         private DataSet ExecuteCommand<P>(P procedureParams, DbTransaction dbTransaction) where P : class
