@@ -2,6 +2,7 @@
 using Sumo.Data.Factories.SqlServer;
 using Sumo.Data.Procedures;
 using System;
+using System.Linq;
 using System.Data;
 
 namespace Sumo.Data.Generator
@@ -19,8 +20,10 @@ namespace Sumo.Data.Generator
 
         static void Main(string[] args)
         {
-            IConnectionFactory connectionFactory;        
-            connectionFactory = new SqlServerConnectionFactory(/*ADD YOUR CONNECTION STRING*/);
+            IConnectionFactory connectionFactory;
+
+            //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
+            connectionFactory = new SqlServerConnectionFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
 
             var prm = new usp_MOB_GetSyncData()
             {
@@ -38,7 +41,7 @@ namespace Sumo.Data.Generator
                 {
                     Console.WriteLine(tbl.TableName);
                 }
-            }            
+            }
 
             Console.ReadKey();
         }

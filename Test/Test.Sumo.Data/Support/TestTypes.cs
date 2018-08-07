@@ -13,7 +13,6 @@ namespace Sumo.Data.Support
     }
 
     [EntityPrefix("prefix")]
-    [EntitySuffix("suffix")]
     public class TestTypeParameterSize
     {
         [OutputParameter(256)]
@@ -26,7 +25,6 @@ namespace Sumo.Data.Support
     }
 
     [EntityPrefix("prefix")]
-    [EntitySuffix("suffix")]
     public class TestTypeFullAppendix
     {
         public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
@@ -50,7 +48,6 @@ namespace Sumo.Data.Support
         public string OutputParameter { get; set; } = "OutputParameter";
     }
 
-    [EntitySuffix("suffix")]
     public class TestTypeSuffix
     {
         public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
