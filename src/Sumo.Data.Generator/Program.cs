@@ -1,5 +1,6 @@
 ﻿using Sumo.Data.SqlServer;
 using System;
+using System.Linq;
 using System.Data;
 
 namespace Sumo.Data.Generator
