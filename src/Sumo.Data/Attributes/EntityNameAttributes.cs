@@ -23,14 +23,4 @@ namespace Sumo.Data.Attributes
 
         public string Prefix { get; }
     }
-
-    public class EntitySuffixAttribute : Attribute
-    {
-        public EntitySuffixAttribute(string suffix )
-        {
-            Suffix = suffix;
-        }
-
-        public string Suffix { get; }
-    }
 }

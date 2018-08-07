@@ -72,10 +72,6 @@ namespace Sumo.Data.Types
             {
                 ProcedureName = $"[{prefix.Prefix}].{ProcedureName}";
             }
-            if (suffix != null && !string.IsNullOrEmpty(suffix.Suffix))
-            {
-                ProcedureName = $"{ProcedureName}.[{suffix.Suffix}]";
-            }
 
             var properties = type.GetProperties()
                 .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null);
