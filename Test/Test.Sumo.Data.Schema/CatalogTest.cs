@@ -77,6 +77,9 @@ namespace Sumo.Data.Schema
             public List<Person> Employees { get; set; }
         }
 
+        /// <summary>
+        /// testing general binary serialization - basically a learning scratch pad
+        /// </summary>
         [TestMethod]
         public void Binary()
         {
