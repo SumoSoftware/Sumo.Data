@@ -65,14 +65,12 @@ namespace Sumo.Data.Types
 
             var prefix = type.GetCustomAttribute<EntityPrefixAttribute>();
             var suffix = type.GetCustomAttribute<EntitySuffixAttribute>();
-            ProcedureName = $"[{type.Name}]";
+            var name = type.GetCustomAttribute<EntityNameAttribute>();
+
+            ProcedureName = name != null ? $"[{name}]" : $"[{type.Name}]";
             if (prefix != null && !string.IsNullOrEmpty(prefix.Prefix))
             {
                 ProcedureName = $"[{prefix.Prefix}].{ProcedureName}";
-            }
-            if (suffix != null && !string.IsNullOrEmpty(suffix.Suffix))
-            {
-                ProcedureName = $"{ProcedureName}.[{suffix.Suffix}]";
             }
 
             var properties = type.GetProperties()
