@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Schema.Builders
+namespace Sumo.Data.Schema
 {
     public class CSharpCodeGen : INotifyPropertyChanged
     {

@@ -4,17 +4,22 @@ namespace Sumo.Data.Schema.Sqlite
 {
     public class SqliteScriptBuilder : IScriptBuilder
     {
-        public string BuildDbCreateScript(Catalog catalog)
+        public string BuildAlterTableScript(Table table, Column[] columnsToAdd, Column[] columnsToRemove)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string BuildCreateScript(Catalog catalog)
         {
             return catalog.ToCreateScript(true);
         }
 
-        public string BuildDbCreateScript(Schema schema)
+        public string BuildCreateScript(Schema schema)
         {
             return schema.ToCreateScript(true);
         }
 
-        public string BuildDbCreateScript(Table table)
+        public string BuildCreateScript(Table table)
         {
             return table.ToCreateScript(true);
         }
