@@ -1,5 +1,4 @@
 ﻿using Sumo.Data.Schema;
-using Sumo.Data.Types;
 using System;
 using System.Data;
 using System.IO;

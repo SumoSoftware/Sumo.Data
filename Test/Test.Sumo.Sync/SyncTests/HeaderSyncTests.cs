@@ -1,7 +1,4 @@
-﻿using Sumo.Data.Factories;
-using Sumo.Data.Factories.SqlServer;
-using Sumo.Data.Procedures;
-using Sumo.Data.Schema;
+﻿using Sumo.Data.Schema;
 using Sumo.Data;
 using System.Linq;
 using System;
@@ -10,7 +7,7 @@ using System.IO;
 using System.Text;
 using Sumo.Data.Schema.SqlServer.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Attributes;
+using Sumo.Data.SqlServer;
 
 namespace Test.Sumo.Sync.SyncTests
 {
@@ -39,11 +36,11 @@ namespace Test.Sumo.Sync.SyncTests
         [TestMethod]
         public void FullTest()
         {
-            IConnectionFactory connectionFactory;
+            IDataComponentFactory connectionFactory;
             var entFactory = new EntityFactory();
 
             //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
-            connectionFactory = new SqlServerConnectionFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
+            connectionFactory = new SqlServerDataComponentFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
 
             var prm = new SyncProcParams()
             {

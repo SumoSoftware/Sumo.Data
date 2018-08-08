@@ -22,7 +22,7 @@ namespace Sumo.Data.Generator
 
         static void Main(string[] args)
         {
-            IConnectionFactory connectionFactory;
+            IDataComponentFactory connectionFactory;
             var entFactory = new EntityFactory();
             var codeGen = new CSharpCodeGen();
 
