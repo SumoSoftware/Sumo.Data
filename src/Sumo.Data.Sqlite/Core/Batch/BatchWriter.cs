@@ -18,7 +18,7 @@ namespace Sumo.Data.Sqlite.Core.Batch
         {
             var bldr = new SqliteScriptBuilder();
             var cmd = connection.CreateCommand();
-            cmd.CommandText = bldr.BuildDbCreateScript(table);
+            cmd.CommandText = bldr.BuildCreateScript(table);
             connection.Open();
             cmd.ExecuteNonQuery();
             connection.Close();
