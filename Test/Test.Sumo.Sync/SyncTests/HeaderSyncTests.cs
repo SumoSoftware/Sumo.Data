@@ -8,6 +8,8 @@ using System.Text;
 using Sumo.Data.Schema.SqlServer.Factories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.SqlServer;
+using Sumo.Data.Sqlite.Core.Batch;
+using Sumo.Data.Sqlite;
 
 namespace Test.Sumo.Sync.SyncTests
 {
@@ -37,10 +39,20 @@ namespace Test.Sumo.Sync.SyncTests
         public void FullTest()
         {
             IDataComponentFactory connectionFactory;
+            IDataComponentFactory sqliteConnectionFactory;
             var entFactory = new EntityFactory();
+
+            var outputFileName = @"L:\SQLITEDB1.sqlite";
+            var sqlLiteConnectionString = $"Data Source={outputFileName}";
+
+            if (System.IO.File.Exists(outputFileName))
+            {
+                System.IO.File.Delete(outputFileName);
+            }
 
             //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
             connectionFactory = new SqlServerDataComponentFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
+            sqliteConnectionFactory = new SqliteDataComponentFactory(sqlLiteConnectionString);
 
             var prm = new SyncProcParams()
             {
@@ -61,7 +73,8 @@ namespace Test.Sumo.Sync.SyncTests
                     var manifest = ds.Tables[ds.Tables.Count - 1].Rows.ToArray<Manifest>();
 
                     var binaryWriter = new BinaryWriter(outputStream);
-                    binaryWriter.Write(manifest.Length);
+                    var count = manifest.Length;
+                    binaryWriter.Write(count);
 
                     foreach (var manifestTbl in manifest)
                     {
@@ -77,18 +90,29 @@ namespace Test.Sumo.Sync.SyncTests
 
                 outputStream.Seek(0, SeekOrigin.Begin);
 
+                var recordCount = 0;
+
+                var sqliteConnection = sqliteConnectionFactory.Open();
+
                 var binaryReader = new BinaryReader(outputStream);
                 var tableCount = binaryReader.ReadInt32();
                 for (var idx = 0; idx < tableCount; ++idx)
                 {
+                    var batchWriter = new BatchWriter();
+                    
                     var tbl = outputStream.ReadFromStream<Table>();
+
+                    batchWriter.Init(tbl, sqliteConnection);
+                    batchWriter.Begin();
                     var rowCount = binaryReader.ReadInt32();
                     for(var rowIdx = 0; rowIdx < rowCount; ++rowIdx)
                     {
-                        var values = binaryReader.ReadFromStream(tbl);
+                        var values = binaryReader.ReadRowFromStream(tbl);
+                        batchWriter.Execute(values);
+                        recordCount++;
                         /* Code to write the object array  to SQLite in a transaction */
                     }
-                    
+                    batchWriter.End();                    
                 }
             }
         }

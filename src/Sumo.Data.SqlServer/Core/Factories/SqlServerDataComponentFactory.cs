@@ -7,12 +7,7 @@ namespace Sumo.Data.SqlServer
 {
     public class SqlServerDataComponentFactory : DataComponentFactory
     {
-        public SqlServerDataComponentFactory() : this(string.Empty)
-        {
-            _transactionFactory = new TransactionFactory();
-            _dataAdapterFactory = new SqlServerDataAdapterFactory();
-            _parameterFactory = new SqlServerParameterFactory();
-        }
+        public SqlServerDataComponentFactory() : this(string.Empty) { }
 
         public SqlServerDataComponentFactory(string connectionString) : base()
         {
@@ -26,12 +21,7 @@ namespace Sumo.Data.SqlServer
             _parameterFactory = new SqlServerParameterFactory();
         }
 
-        public SqlServerDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty)
-        {
-            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
-            _dataAdapterFactory = new SqlServerDataAdapterFactory();
-            _parameterFactory = new SqlServerParameterFactory();
-        }
+        public SqlServerDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
 
         public SqlServerDataComponentFactory(RetryOptions retryOptions, string connectionString) : base()
         {
@@ -39,6 +29,10 @@ namespace Sumo.Data.SqlServer
                 string.IsNullOrEmpty(connectionString) ?
                 new SqlServerConnectionFactoryWithRetry(retryOptions) :
                 new SqlServerConnectionFactoryWithRetry(retryOptions, connectionString);
+
+            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
+            _dataAdapterFactory = new SqlServerDataAdapterFactory();
+            _parameterFactory = new SqlServerParameterFactory();
         }
 
         private readonly IConnectionFactory _connectionFactory;

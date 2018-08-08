@@ -121,7 +121,7 @@ namespace Sumo.Data.Schema
         public void Entity_FromJson()
         {
             var json = Resources.CatalogJson;
-            var cat = json.FromJson<Catalog>();
+            var cat = json.ToEntity<Catalog>();
         }
 
         [TestMethod]
@@ -177,7 +177,7 @@ namespace Sumo.Data.Schema
             index.IsUnique = true;
 
             var json1 = catalog.ToJson();
-            var cat = json1.FromJson<Catalog>();
+            var cat = json1.ToEntity<Catalog>();
             var json2 = cat.ToJson();
             Assert.AreEqual(json1, json2);
         }
@@ -235,7 +235,7 @@ namespace Sumo.Data.Schema
             index.IsUnique = true;
 
             var bytes1 = catalog.ToBytes();
-            var cat = bytes1.FromBytes<Catalog>();
+            var cat = bytes1.ToEntity<Catalog>();
             var bytes2 = cat.ToBytes();
             Assert.IsTrue(bytes1.SequenceEqual(bytes2));
         }
@@ -294,7 +294,7 @@ namespace Sumo.Data.Schema
 
             using (var stream1 = catalog.ToStream())
             {
-                var cat = stream1.FromStream<Catalog>();
+                var cat = stream1.ToEntity<Catalog>();
                 using (var stream2 = cat.ToStream())
                 {
                     stream1.Position = 0;
@@ -363,7 +363,7 @@ namespace Sumo.Data.Schema
 
             using (var stream1 = catalog.ToCompressedStream())
             {
-                var cat = stream1.FromCompressedStream<Catalog>();
+                var cat = stream1.ToEntityFromCompressedStream<Catalog>();
                 using (var stream2 = cat.ToCompressedStream())
                 {
                     stream1.Position = 0;

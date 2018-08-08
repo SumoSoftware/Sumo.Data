@@ -160,15 +160,6 @@ namespace Sumo.Data.Schema.Sqlite
             builder.Append($" {typeName}");
             switch (column.DataType)
             {
-                case DbType.AnsiString:
-                case DbType.AnsiStringFixedLength:
-                case DbType.Binary:
-                case DbType.String:
-                case DbType.StringFixedLength:
-                case DbType.Xml:
-                    builder.Append($" ({(column.MaxLength.HasValue ? column.MaxLength.Value.ToString() : "MAX")})");
-                    break;
-
                 case DbType.Currency:
                 case DbType.Decimal:
                 case DbType.Double:
@@ -185,7 +176,7 @@ namespace Sumo.Data.Schema.Sqlite
                 {
                     builder.Append($" on conflict {column.PrimaryKey.ConflictClause.Value.ToString().ToLower()}");
                 }
-                if (column.PrimaryKey.IsAutoIncrement)
+                if (column.PrimaryKey.IsAutoIncrement && false)
                 {
                     builder.Append(" autoincrement");
                 }
