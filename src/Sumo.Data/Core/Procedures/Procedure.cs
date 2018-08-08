@@ -34,7 +34,6 @@ namespace Sumo.Data
             {
                 _dbCommand.CommandText = ProcedureParametersTypeInfoCache<P>.ProcedureName;
                 InternalPrepare(procedureParams);
-                //todo: can't prepare unless all the params have an explicit type set from DbType enumeration
                 _dbCommand.Prepare();
                 IsPrepared = true;
             }

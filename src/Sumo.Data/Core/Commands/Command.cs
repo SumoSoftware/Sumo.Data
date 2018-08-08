@@ -69,7 +69,6 @@ namespace Sumo.Data
             {
                 _dbCommand.CommandText = sql;
                 if (parameters != null) InternalPrepare(parameters);
-                //todo: can't prepare for MS Sql Server unless all the params have an explicit type set from DbType enumeration
                 _dbCommand.Prepare();
                 IsPrepared = true;
             }
