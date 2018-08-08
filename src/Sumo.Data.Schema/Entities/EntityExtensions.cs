@@ -8,6 +8,7 @@ namespace Sumo.Data.Schema
 {
     public static class EntityExtensions
     {
+        #region json
         private static readonly JsonSerializerSettings _settings = new JsonSerializerSettings()
         {
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
@@ -24,16 +25,14 @@ namespace Sumo.Data.Schema
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
+        #endregion
 
+        #region bytes
         public static byte[] ToBytes(this Entity entity)
         {
             byte[] result = null;
-            using (var stream = (MemoryStream)entity.ToStream())
+            using (var stream = entity.ToStream())
             {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, entity);
-                stream.Flush();
-                stream.Position = 0;
                 result = stream.ToArray();
             }
             return result;
@@ -50,7 +49,9 @@ namespace Sumo.Data.Schema
             }
             return result;
         }
+        #endregion
 
+        #region streams
         /// <summary>
         /// user provides stream
         /// </summary>
@@ -82,10 +83,25 @@ namespace Sumo.Data.Schema
         public static T FromStream<T>(this Stream stream) where T : Entity
         {
             var result = default(T);
-            var formatter = new BinaryFormatter();
             stream.Position = 0;
+            var formatter = new BinaryFormatter();
             result = (T)formatter.Deserialize(stream);
             return result;
+        }
+        #endregion
+
+        #region compressed streams
+        public static void WriteToCompressedStream(this Entity entity, Stream stream)
+        {
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+
+            using (var gzipStream = new GZipStream(stream, CompressionMode.Compress, true))
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(gzipStream, entity);
+                gzipStream.Flush();
+            }
+            stream.Position = 0;
         }
 
         /// <summary>
@@ -96,15 +112,7 @@ namespace Sumo.Data.Schema
         public static MemoryStream ToCompressedStream(this Entity entity)
         {
             var result = new MemoryStream();
-
-            using (var gzipStream = new GZipStream(result, CompressionMode.Compress, true))
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(gzipStream, entity);
-                gzipStream.Flush();
-            }
-            result.Position = 0;
-
+            entity.WriteToCompressedStream(result);
             return result;
         }
 
@@ -121,18 +129,6 @@ namespace Sumo.Data.Schema
 
             return result;
         }
-
-        public static void WriteToCompressedStream(this Entity entity, Stream stream)
-        {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-
-            using (var gzipStream = new GZipStream(stream, CompressionMode.Compress, true))
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(gzipStream, entity);
-                gzipStream.Flush();
-            }
-            stream.Position = 0;
-        }
+        #endregion
     }
 }
