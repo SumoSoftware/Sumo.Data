@@ -28,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Names\" />
+      <Folder Include="Core\Names\" />
     </ItemGroup>
 
 </Project>
