@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Sumo.Data
 {
-    public interface IReader : IDisposable
+    public interface IReader : IPreparable, IDisposable
     {
-        bool Prepare(string sql, Dictionary<string, object> queryParams = null);
-        void SetParameterValues(string sql, Dictionary<string, object> queryParams = null);
+        DbDataReader ExecuteReader(DbTransaction dbTransaction);
+        Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction);
+        Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction, CancellationToken cancellationToken);
     }
 }

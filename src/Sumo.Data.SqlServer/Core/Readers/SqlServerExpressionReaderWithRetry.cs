@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sumo.Data.SqlServer
@@ -32,14 +33,14 @@ namespace Sumo.Data.SqlServer
             return _proxy.ReadAsync(query, dbTransaction);
         }
 
-        public bool Prepare(string sql, Dictionary<string, object> queryParams = null)
+        public bool Prepare(string sql, Dictionary<string, object> parameters = null)
         {
-            return _proxy.Prepare(sql, queryParams);
+            return _proxy.Prepare(sql, parameters);
         }
 
-        public void SetParameterValues(string sql, Dictionary<string, object> queryParams = null)
+        public void SetParameterValues(string sql, Dictionary<string, object> parameters = null)
         {
-            _proxy.SetParameterValues(sql, queryParams);
+            _proxy.SetParameterValues(sql, parameters);
         }
 
         public void Dispose()
@@ -55,6 +56,21 @@ namespace Sumo.Data.SqlServer
         public Task<DataSet> ReadAsync(IExpression expression, DbTransaction dbTransaction = null)
         {
             return _proxy.ReadAsync(expression, dbTransaction);
+        }
+
+        public DbDataReader ExecuteReader(DbTransaction dbTransaction)
+        {
+            return _proxy.ExecuteReader(dbTransaction);
+        }
+
+        public Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction)
+        {
+            return _proxy.ExecuteReaderAsync(dbTransaction);
+        }
+
+        public Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction, CancellationToken cancellationToken)
+        {
+            return _proxy.ExecuteReaderAsync(dbTransaction, cancellationToken);
         }
     }
 }

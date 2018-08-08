@@ -1,15 +1,16 @@
 ﻿using Sumo.Retry;
+using System;
 
 namespace Sumo.Data.Sqlite
 {
     public class SqliteDataComponentFactory : DataComponentFactory
     {
-        public SqliteDataComponentFactory() : this(string.Empty) { }
+        public SqliteDataComponentFactory() : this(String.Empty) { }
 
         public SqliteDataComponentFactory(string connectionString) : base()
         {
             _connectionFactory =
-                string.IsNullOrEmpty(connectionString) ?
+                String.IsNullOrEmpty(connectionString) ?
                 new SqliteConnectionFactory() :
                 new SqliteConnectionFactory(connectionString);
 
@@ -18,12 +19,12 @@ namespace Sumo.Data.Sqlite
             _parameterFactory = new SqliteParameterFactory();
         }
 
-        public SqliteDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
+        public SqliteDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, String.Empty) { }
 
         public SqliteDataComponentFactory(RetryOptions retryOptions, string connectionString) : base()
         {
             _connectionFactory =
-                string.IsNullOrEmpty(connectionString) ?
+                String.IsNullOrEmpty(connectionString) ?
                 new SqliteConnectionFactoryWithRetry(retryOptions) :
                 new SqliteConnectionFactoryWithRetry(retryOptions, connectionString);
 

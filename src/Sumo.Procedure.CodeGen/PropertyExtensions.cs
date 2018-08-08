@@ -29,7 +29,7 @@ namespace Sumo.Procedure.CodeGen
                     var match = Regex.Match(line, item.Key);
                     if (match.Success) line = line.Replace(item.Key, value).TrimEnd();
                 }
-                if (!string.IsNullOrEmpty(line)) _builder.AppendLine($"        {line}");
+                if (!String.IsNullOrEmpty(line)) _builder.AppendLine($"        {line}");
             }
 
             return _builder.ToString();

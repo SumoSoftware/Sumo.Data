@@ -29,7 +29,7 @@ namespace Sumo.Data.Names
         [TestMethod]
         public void Constructor_AliasStringEmptyArgument()
         {
-            string alias = string.Empty;
+            string alias = String.Empty;
             var name = "name";
             var aliasedColumnName = new ColumnName(name, alias);
             Assert.AreEqual($"[{name}]", aliasedColumnName.ToString());
@@ -49,7 +49,7 @@ namespace Sumo.Data.Names
         public void Constructor_AliasProvided_NameStringEmptyArgument()
         {
             string alias = "alias";
-            string name = string.Empty;
+            string name = String.Empty;
             var aliasedColumnName = new ColumnName(name, alias);
         }
         #endregion

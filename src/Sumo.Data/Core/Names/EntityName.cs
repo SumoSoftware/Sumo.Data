@@ -10,12 +10,12 @@ namespace Sumo.Data.Names
 
         public EntityName(string name) : base(name)
         {
-            Schema = string.Empty;
+            Schema = String.Empty;
         }
 
         public EntityName(string schema, string name) : base(name)
         {
-            if (string.IsNullOrEmpty(schema)) throw new ArgumentNullException(nameof(schema));
+            if (String.IsNullOrEmpty(schema)) throw new ArgumentNullException(nameof(schema));
 
             Schema = schema;
         }
@@ -47,7 +47,7 @@ namespace Sumo.Data.Names
         public override string ToString()
         {
             var builder = new StringBuilder();
-            if (!string.IsNullOrEmpty(Schema)) builder.Append($"[{Schema}].");
+            if (!String.IsNullOrEmpty(Schema)) builder.Append($"[{Schema}].");
             builder.Append($"[{Name}]");
             return builder.ToString();
         }
@@ -64,12 +64,12 @@ namespace Sumo.Data.Names
 
         public static implicit operator string(EntityName entityName)
         {
-            return entityName != null ? entityName.ToString() : string.Empty ;
+            return entityName != null ? entityName.ToString() : String.Empty ;
         }
 
         public static implicit operator EntityName(string entityName)
         {
-            return string.IsNullOrEmpty(entityName) ? null : new EntityName(entityName);
+            return String.IsNullOrEmpty(entityName) ? null : new EntityName(entityName);
         }
     }
 }

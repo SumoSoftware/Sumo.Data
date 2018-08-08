@@ -23,7 +23,7 @@ namespace Sumo.Data.Schema
 
         public Schema AddSchema(string name, string owner = null)
         {
-            return AddSchema(new Schema(name) { Owner = string.IsNullOrEmpty(owner) ? DefaultOwner : new Entity(owner) });
+            return AddSchema(new Schema(name) { Owner = String.IsNullOrEmpty(owner) ? DefaultOwner : new Entity(owner) });
         }
 
         public Schema AddSchema(Schema schema)
@@ -37,7 +37,7 @@ namespace Sumo.Data.Schema
 
         public override string ToString()
         {
-            return $"{(DefaultOwner != null ? $"{DefaultOwner}." : string.Empty)}{base.ToString()}, Schemas: {(Schemas != null ? Schemas.Count : 0)}";
+            return $"{(DefaultOwner != null ? $"{DefaultOwner}." : String.Empty)}{base.ToString()}, Schemas: {(Schemas != null ? Schemas.Count : 0)}";
         }
     }
 }

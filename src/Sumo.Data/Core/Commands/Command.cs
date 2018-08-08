@@ -1,92 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace Sumo.Data
 {
     //todo: add tests
-    public class Command : ICommand
+    public class Command : Preparable, ICommand
     {
-        public Command(DbConnection dbConnection, IParameterFactory parameterFactory)
-        {
-            _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
-            if (dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
-            _dbCommand = dbConnection.CreateCommand();
-            _dbCommand.CommandType = CommandType.Text;
-        }
-
-        public Command(string sql, DbConnection dbConnection, IParameterFactory parameterFactory) : this(dbConnection, parameterFactory)
+        public Command(string sql, DbConnection dbConnection, IParameterFactory parameterFactory) : base(dbConnection, parameterFactory)
         {
             _dbCommand.CommandText = sql;
         }
 
-        protected readonly DbCommand _dbCommand;
-        protected readonly IParameterFactory _parameterFactory;
-        protected bool IsPrepared { get; private set; } = false;
-
-        protected void InternalPrepare(Dictionary<string, object> parameters)
+        public Command(DbConnection dbConnection, IParameterFactory parameterFactory) : base(dbConnection, parameterFactory)
         {
-            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
-
-            var index = -2;
-            foreach (var item in parameters)
-            {
-                var name = _parameterFactory.GetParameterName(item.Key, ++index);
-                var value = item.Value ?? DBNull.Value;
-                var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
-                _dbCommand.Parameters.Add(parameter);
-            }
         }
 
-        protected void InternalSetParameterValues(Dictionary<string, object> parameters)
+        public Command(IDataComponentFactory factory) : base(factory)
         {
-            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
-
-            var index = -2;
-            foreach (var item in parameters)
-            {
-                var name = _parameterFactory.GetParameterName(item.Key, ++index);
-                var parameter = _dbCommand.Parameters[name];
-                if (parameter == null) throw new InvalidOperationException($"Parameter with name '{name}' not found.");
-                parameter.Value = item.Value ?? DBNull.Value;
-            }
-        }
-
-        /// <summary>
-        /// returns did prepare
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public bool Prepare(string sql, Dictionary<string, object> parameters = null)
-        {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
-
-            var didPrepare = !IsPrepared;
-            if (!IsPrepared)
-            {
-                _dbCommand.CommandText = sql;
-                if (parameters != null) InternalPrepare(parameters);
-                _dbCommand.Prepare();
-                IsPrepared = true;
-            }
-
-            return didPrepare;
-        }
-
-        public void SetParameterValues(string sql, Dictionary<string, object> parameters = null)
-        {
-            if (!Prepare(sql, parameters) && (parameters != null))
-            {
-                InternalSetParameterValues(parameters);
-            }
         }
 
         public int Execute(string sql, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -95,7 +32,7 @@ namespace Sumo.Data
 
         public async Task<int> ExecuteAsync(string sql, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -104,7 +41,7 @@ namespace Sumo.Data
 
         public int Execute(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -114,7 +51,7 @@ namespace Sumo.Data
 
         public Task<int> ExecuteAsync(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -124,7 +61,7 @@ namespace Sumo.Data
 
         public T ExecuteScalar<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -135,7 +72,7 @@ namespace Sumo.Data
 
         public async Task<T> ExecuteScalarAsync<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -146,7 +83,7 @@ namespace Sumo.Data
 
         public T ExecuteScalar<T>(string sql, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -157,7 +94,7 @@ namespace Sumo.Data
 
         public async Task<T> ExecuteScalarAsync<T>(string sql, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -223,29 +160,5 @@ namespace Sumo.Data
             var result = await _dbCommand.ExecuteScalarAsync();
             return (T)Convert.ChangeType(result, typeof(T));
         }
-
-
-        #region IDisposable Support
-        private bool _disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    _dbCommand.Dispose();
-                }
-                _disposedValue = true;
-            }
-        }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-        }
-        #endregion
     }
 }

@@ -10,12 +10,12 @@ namespace Sumo.Data
         public Procedure(DbConnection dbConnection, IParameterFactory parameterFactory)
         {
             _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
-            if ( dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
+            if (dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
             _dbCommand = dbConnection.CreateCommand();
             _dbCommand.CommandType = CommandType.StoredProcedure;
         }
 
-        public Procedure(IDataComponentFactory factory) :this(factory.Open(), factory)
+        public Procedure(IDataComponentFactory factory) : this(factory.Open(), factory)
         {
             _ownsConnection = true;
         }
@@ -25,7 +25,7 @@ namespace Sumo.Data
         internal readonly DbCommand _dbCommand;
         internal readonly IParameterFactory _parameterFactory;
 
-        protected bool IsPrepared { get; private set; } = false;
+        public bool IsPrepared { get; private set; } = false;
 
         public bool Prepare<P>(P procedureParams) where P : class
         {

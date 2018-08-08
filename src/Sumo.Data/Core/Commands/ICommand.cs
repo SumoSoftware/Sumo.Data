@@ -5,11 +5,8 @@ using System.Threading.Tasks;
 
 namespace Sumo.Data
 {
-    public interface ICommand : IDisposable
+    public interface ICommand : IPreparable, IDisposable
     {
-        bool Prepare(string sql, Dictionary<string, object> queryParams = null);
-        void SetParameterValues(string sql, Dictionary<string, object> queryParams = null);
-
         int Execute(string sql, DbTransaction dbTransaction = null);
         Task<int> ExecuteAsync(string sql, DbTransaction dbTransaction = null);
 

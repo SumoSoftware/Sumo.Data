@@ -1,6 +1,7 @@
 ﻿using Sumo.Data.Attributes;
 using Sumo.Data.Names;
 using Sumo.Data.Types;
+using System;
 
 namespace Sumo.Procedure.CodeGen
 {
@@ -22,7 +23,7 @@ namespace Sumo.Procedure.CodeGen
         {
             get
             {
-                return Direction != "INOUT" ? string.Empty : "[InputOutputParameter]";
+                return Direction != "INOUT" ? String.Empty : "[InputOutputParameter]";
             }
         }
 

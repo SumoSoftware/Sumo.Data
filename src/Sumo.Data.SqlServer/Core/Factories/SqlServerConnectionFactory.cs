@@ -17,7 +17,7 @@ namespace Sumo.Data.SqlServer
 
         public DbConnection Open(string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
 
             var connection = new SqlConnection(connectionString);
             try
@@ -42,7 +42,7 @@ namespace Sumo.Data.SqlServer
 
         public async Task<DbConnection> OpenAsync(string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
 
             var connection = new SqlConnection(connectionString);
             try

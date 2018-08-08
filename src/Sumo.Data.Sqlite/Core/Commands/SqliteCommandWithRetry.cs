@@ -95,14 +95,14 @@ namespace Sumo.Data.Sqlite
             return _proxy.ExecuteScalarAsync<T>(dbTransaction);
         }
 
-        public bool Prepare(string sql, Dictionary<string, object> queryParams = null)
+        public bool Prepare(string sql, Dictionary<string, object> parameters = null)
         {
-            return _proxy.Prepare(sql, queryParams);
+            return _proxy.Prepare(sql, parameters);
         }
 
-        public void SetParameterValues(string sql, Dictionary<string, object> queryParams = null)
+        public void SetParameterValues(string sql, Dictionary<string, object> parameters = null)
         {
-            _proxy.SetParameterValues(sql, queryParams);
+            _proxy.SetParameterValues(sql, parameters);
         }
     }
 }

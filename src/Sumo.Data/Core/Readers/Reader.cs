@@ -1,83 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Sumo.Data
 {
-    public class Reader : IReader
+    public class Reader : Preparable, IReader
     {
-        public Reader(DbConnection dbConnection, IParameterFactory parameterFactory, IDataAdapterFactory dataAdapterFactory)
+        public Reader(DbConnection dbConnection, IParameterFactory parameterFactory) : base(dbConnection, parameterFactory)
+        {
+            throw new NotSupportedException($"{nameof(Reader)} doesn't support the constructor with this signature: {nameof(Reader)}({nameof(DbConnection)} {nameof(dbConnection)}, {nameof(IParameterFactory)} {nameof(parameterFactory)})");
+        }
+
+        public Reader(IDataComponentFactory factory) : base(factory)
+        {
+            throw new NotSupportedException($"{nameof(Reader)} doesn't support the constructor with this signature: {nameof(Reader)}({nameof(IDataComponentFactory)} {nameof(factory)})");
+        }
+
+        public Reader(DbConnection dbConnection, IParameterFactory parameterFactory, IDataAdapterFactory dataAdapterFactory) : base(dbConnection, parameterFactory)
         {
             _dataAdapterFactory = dataAdapterFactory ?? throw new ArgumentNullException(nameof(dataAdapterFactory));
-            _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
-            if (dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
-            _dbCommand = dbConnection.CreateCommand();
-            _dbCommand.CommandType = CommandType.Text;
         }
 
-        protected readonly DbCommand _dbCommand;
-        protected readonly IParameterFactory _parameterFactory;
+        public Reader(DbConnection dbConnection, IDataComponentFactory factory) : base(factory)
+        {
+            _dataAdapterFactory = factory;
+        }
+
         protected readonly IDataAdapterFactory _dataAdapterFactory;
-        protected bool IsPrepared { get; private set; } = false;
-
-        protected void InternalPrepare(Dictionary<string, object> parameters)
-        {
-            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
-
-            var index = -2;
-            foreach (var item in parameters)
-            {
-                var name = _parameterFactory.GetParameterName(item.Key, ++index).ToString();
-                var value = item.Value ?? DBNull.Value;
-                var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
-                _dbCommand.Parameters.Add(parameter);
-            }
-        }
-
-        protected void InternalSetParameterValues(Dictionary<string, object> parameters)
-        {
-            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
-
-            var index = -2;
-            foreach (var item in parameters)
-            {
-                var name = _parameterFactory.GetParameterName(item.Key, ++index).ToString();
-                var parameter = _dbCommand.Parameters[name];
-                if (parameter == null) throw new InvalidOperationException($"Parameter with name '{name}' not found.");
-                parameter.Value = item.Value ?? DBNull.Value;
-            }
-        }
-
-        /// <summary>
-        /// returns did prepare
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public bool Prepare(string sql, Dictionary<string, object> parameters = null)
-        {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
-
-            var didPrepare = !IsPrepared;
-            if (!IsPrepared)
-            {
-                _dbCommand.CommandText = sql;
-                if (parameters != null) InternalPrepare(parameters);
-                _dbCommand.Prepare();
-                IsPrepared = true;
-            }
-
-            return didPrepare;
-        }
-
-        public void SetParameterValues(string sql, Dictionary<string, object> parameters = null)
-        {
-            if (!Prepare(sql, parameters) && (parameters != null))
-            {
-                InternalSetParameterValues(parameters);
-            }
-        }
 
         protected DataSet ExecuteCommand(DbTransaction dbTransaction)
         {
@@ -91,27 +42,27 @@ namespace Sumo.Data
             return result;
         }
 
-        #region IDisposable Support
-        private bool _disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
+        public DbDataReader ExecuteReader(DbTransaction dbTransaction)
         {
-            if (!_disposedValue)
-            {
-                if (disposing)
-                {
-                    _dbCommand.Dispose();
-                }
-                _disposedValue = true;
-            }
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+
+            return _dbCommand.ExecuteReader();
         }
 
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
+        public Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction)
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+
+            return _dbCommand.ExecuteReaderAsync();
         }
-        #endregion
+
+        public Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction, CancellationToken cancellationToken)
+        {
+            if (cancellationToken == null) throw new ArgumentNullException(nameof(cancellationToken));
+
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+
+            return _dbCommand.ExecuteReaderAsync(cancellationToken);
+        }
     }
 }

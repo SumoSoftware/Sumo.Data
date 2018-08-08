@@ -19,7 +19,7 @@ namespace Sumo.Data.Sqlite
 
         public DbConnection Open(string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
 
             var connection = new SqliteConnection(connectionString);
             try
@@ -37,7 +37,7 @@ namespace Sumo.Data.Sqlite
 
         public async Task<DbConnection> OpenAsync(string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
 
             var connection = new SqliteConnection(connectionString);
             try

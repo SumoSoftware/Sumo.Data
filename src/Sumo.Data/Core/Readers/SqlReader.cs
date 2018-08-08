@@ -14,32 +14,53 @@ namespace Sumo.Data
 
         public DataSet Read(string sql, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            _dbCommand.CommandText = sql;
+            Prepare(sql);
             return ExecuteCommand(dbTransaction);
         }
 
-        public async Task<DataSet> ReadAsync(string sql, DbTransaction dbTransaction = null)
+        public Task<DataSet> ReadAsync(string sql, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            return await Task.Run(() => { return Read(sql, dbTransaction); });
+            return Task.Run(() => { return Read(sql, dbTransaction); });
         }
 
-        public DataSet Read(string sql, Dictionary<string, object> queryParams, DbTransaction dbTransaction = null)
+        public DataSet Read(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            SetParameterValues(sql, queryParams);
+            SetParameterValues(sql, parameters);
             return ExecuteCommand(dbTransaction);
         }
 
-        public async Task<DataSet> ReadAsync(string sql, Dictionary<string, object> queryParams, DbTransaction dbTransaction = null)
+        public async Task<DataSet> ReadAsync(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            return await Task.Run(() => { return Read(sql, queryParams, dbTransaction); });
+            return await Task.Run(() => { return Read(sql, parameters, dbTransaction); });
+        }
+
+        public DataSet Read(DbTransaction dbTransaction = null)
+        {
+            return ExecuteCommand(dbTransaction);
+        }
+
+        public Task<DataSet> ReadAsync(DbTransaction dbTransaction = null)
+        {
+            return Task.Run(() => { return Read(dbTransaction); });
+        }
+
+        public DataSet Read(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            InternalSetParameterValues(parameters);
+            return ExecuteCommand(dbTransaction);
+        }
+
+        public Task<DataSet> ReadAsync(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return Task.Run(() => { return Read(parameters, dbTransaction); });
         }
     }
 }

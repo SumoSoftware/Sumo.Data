@@ -19,7 +19,7 @@ namespace Sumo.Data.Orm
         public Repository(IFactorySet factorySet, string connectionString) : base()
         {
             _factorySet = factorySet ?? throw new ArgumentNullException(nameof(factorySet));
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
             _connectionString = connectionString;
         }
 

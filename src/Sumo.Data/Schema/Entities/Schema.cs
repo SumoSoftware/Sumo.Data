@@ -32,7 +32,7 @@ namespace Sumo.Data.Schema
 
         public override string ToString()
         {
-            return $"{(Owner != null ? $"{Owner}." : string.Empty)}{base.ToString()}, Tables: {(Tables != null ? Tables.Count : 0)}";
+            return $"{(Owner != null ? $"{Owner}." : String.Empty)}{base.ToString()}, Tables: {(Tables != null ? Tables.Count : 0)}";
         }
     }
 }

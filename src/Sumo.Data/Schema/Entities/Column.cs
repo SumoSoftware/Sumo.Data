@@ -128,7 +128,7 @@ namespace Sumo.Data.Schema
 
         public override string ToString()
         {
-            return $"{base.ToString()} {DataType}{(IsPrimaryKey ? " PK" : (!IsNullable ? " NOT NULL" : string.Empty))}{(string.IsNullOrEmpty(Default) ? string.Empty : $" {Default}")}";
+            return $"{base.ToString()} {DataType}{(IsPrimaryKey ? " PK" : (!IsNullable ? " NOT NULL" : String.Empty))}{(String.IsNullOrEmpty(Default) ? String.Empty : $" {Default}")}";
         }
     }
 }

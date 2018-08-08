@@ -1,4 +1,6 @@
-﻿namespace Sumo.Data
+﻿using System;
+
+namespace Sumo.Data
 {
     public enum LogicalOperators
     {
@@ -33,7 +35,7 @@
 
         public static string ToSqlString(this RelationalOperators relationalOperator)
         {
-            var result = string.Empty;
+            var result = String.Empty;
             switch (relationalOperator)
             {
                 case RelationalOperators.Equal:

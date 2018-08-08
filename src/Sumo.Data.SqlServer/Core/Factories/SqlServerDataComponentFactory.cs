@@ -1,15 +1,16 @@
 ﻿using Sumo.Retry;
+using System;
 
 namespace Sumo.Data.SqlServer
 {
     public class SqlServerDataComponentFactory : DataComponentFactory
     {
-        public SqlServerDataComponentFactory() : this(string.Empty) { }
+        public SqlServerDataComponentFactory() : this(String.Empty) { }
 
         public SqlServerDataComponentFactory(string connectionString) : base()
         {
             _connectionFactory =
-                string.IsNullOrEmpty(connectionString) ?
+                String.IsNullOrEmpty(connectionString) ?
                 new SqlServerConnectionFactory() :
                 new SqlServerConnectionFactory(connectionString);
 
@@ -18,12 +19,12 @@ namespace Sumo.Data.SqlServer
             _parameterFactory = new SqlServerParameterFactory();
         }
 
-        public SqlServerDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
+        public SqlServerDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, String.Empty) { }
 
         public SqlServerDataComponentFactory(RetryOptions retryOptions, string connectionString) : base()
         {
             _connectionFactory =
-                string.IsNullOrEmpty(connectionString) ?
+                String.IsNullOrEmpty(connectionString) ?
                 new SqlServerConnectionFactoryWithRetry(retryOptions) :
                 new SqlServerConnectionFactoryWithRetry(retryOptions, connectionString);
 

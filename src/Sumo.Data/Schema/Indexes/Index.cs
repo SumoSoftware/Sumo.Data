@@ -36,7 +36,7 @@ namespace Sumo.Data.Schema
 
         public void AddCoveringColumn(string name)
         {
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (CoveringColumns == null) CoveringColumns = new List<Entity>();
 
             CoveringColumns.Add(new Entity(name));
@@ -45,7 +45,7 @@ namespace Sumo.Data.Schema
         public override string ToString()
         {
             
-            return $"{base.ToString()}{(IsUnique ? " UNIQUE" : string.Empty)}{(IndexedColumns != null ? $" ON {string.Join(", ", IndexedColumns)}" : string.Empty)}";
+            return $"{base.ToString()}{(IsUnique ? " UNIQUE" : String.Empty)}{(IndexedColumns != null ? $" ON {string.Join(", ", IndexedColumns)}" : String.Empty)}";
         }
     }
 }

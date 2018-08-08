@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sumo.Data.SqlServer
@@ -21,9 +22,9 @@ namespace Sumo.Data.SqlServer
             this(dbConnection, new RetryOptions(maxAttempts, timeout))
         { }
 
-        public bool Prepare(string sql, Dictionary<string, object> queryParams = null)
+        public bool Prepare(string sql, Dictionary<string, object> parameters = null)
         {
-            return _proxy.Prepare(sql, queryParams);
+            return _proxy.Prepare(sql, parameters);
         }
 
         public DataSet Read(string sql, DbTransaction dbTransaction = null)
@@ -46,14 +47,49 @@ namespace Sumo.Data.SqlServer
             return _proxy.ReadAsync(sql, parameters, dbTransaction);
         }
 
-        public void SetParameterValues(string sql, Dictionary<string, object> queryParams = null)
+        public void SetParameterValues(string sql, Dictionary<string, object> parameters = null)
         {
-            _proxy.SetParameterValues(sql, queryParams);
+            _proxy.SetParameterValues(sql, parameters);
         }
 
         public void Dispose()
         {
             _proxy.Dispose();
+        }
+
+        public DbDataReader ExecuteReader(DbTransaction dbTransaction)
+        {
+            return _proxy.ExecuteReader(dbTransaction);
+        }
+
+        public Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction)
+        {
+            return _proxy.ExecuteReaderAsync(dbTransaction);
+        }
+
+        public Task<DbDataReader> ExecuteReaderAsync(DbTransaction dbTransaction, CancellationToken cancellationToken)
+        {
+            return _proxy.ExecuteReaderAsync(dbTransaction, cancellationToken);
+        }
+
+        public DataSet Read(DbTransaction dbTransaction = null)
+        {
+            return _proxy.Read(dbTransaction);
+        }
+
+        public Task<DataSet> ReadAsync(DbTransaction dbTransaction = null)
+        {
+            return _proxy.ReadAsync(dbTransaction);
+        }
+
+        public DataSet Read(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return _proxy.Read(parameters, dbTransaction);
+        }
+
+        public Task<DataSet> ReadAsync(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return _proxy.ReadAsync(parameters, dbTransaction);
         }
     }
 }

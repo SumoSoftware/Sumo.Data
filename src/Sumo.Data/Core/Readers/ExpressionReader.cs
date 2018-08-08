@@ -63,11 +63,13 @@ namespace Sumo.Data
 
         public DataSet Read(IExpression expression, DbTransaction dbTransaction = null)
         {
+            //todo: implement method
             throw new NotImplementedException();
         }
 
         public Task<DataSet> ReadAsync(IExpression expression, DbTransaction dbTransaction = null)
         {
+            //todo: implement method
             throw new NotImplementedException();
         }
     }
