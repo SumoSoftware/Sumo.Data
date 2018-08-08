@@ -11,7 +11,8 @@ namespace Sumo.Data.Schema.Sqlite
     // read schema-name stufff here: https://www.sqlite.org/lang_createtable.html
     // schema name that isn't 'MAIN' must specify an attached database
     // and read attached database stuff here: https://www.sqlite.org/lang_attach.html
-    //todo: add attached database support
+    
+    // todo: add attached database support
     internal static class ScriptBuilderExtensions
     {
         internal static string ToCreateScript(this Catalog catalog, bool checkExists = false)
@@ -101,7 +102,7 @@ namespace Sumo.Data.Schema.Sqlite
             if (schema != null && schema.Name.ToLower().CompareTo("temp") == 0) builder.Append(" temp");
             builder.Append(" table");
             if (checkExists) builder.Append(" if not exists");
-            if(schema != null)
+            if (schema != null)
                 builder.AppendLine($" [{schema.Name}].[{table.Name}] (");
             else
                 builder.AppendLine($" [{table.Name}] (");
@@ -111,7 +112,7 @@ namespace Sumo.Data.Schema.Sqlite
                 var columns = table.Columns.OrderBy((c) => c.OrdinalPosition);
                 foreach (var column in columns)
                 {
-                    if(column.OrdinalPosition > 1) builder.AppendLine(",");
+                    if (column.OrdinalPosition > 1) builder.AppendLine(",");
                     builder.Append("  ");
                     builder.Append(column.ToCreateScript());
                 }
@@ -166,7 +167,7 @@ namespace Sumo.Data.Schema.Sqlite
                 case DbType.String:
                 case DbType.StringFixedLength:
                 case DbType.Xml:
-                    builder.Append($" ({(column.MaxLength.HasValue ? column.MaxLength.Value.ToString() : "MAX")})");
+                    if (column.MaxLength.HasValue) builder.Append($" ({column.MaxLength.Value.ToString()})");
                     break;
 
                 case DbType.Currency:
@@ -244,7 +245,7 @@ namespace Sumo.Data.Schema.Sqlite
             if (index.IsUnique) builder.Append(" unique");
             builder.Append(" index");
             if (checkExists) builder.Append(" if not exists");
-            if(schema != null)
+            if (schema != null)
                 builder.Append($" [{schema.Name}].[{index.Name}] on [{table.Name}] (");
             else
                 builder.Append($" [{index.Name}] on [{table.Name}] (");
@@ -252,7 +253,7 @@ namespace Sumo.Data.Schema.Sqlite
             if (index.IndexedColumns != null)
             {
                 var columns = index.IndexedColumns.OrderBy((c) => c.OrdinalPosition);
-                foreach(var column in columns)
+                foreach (var column in columns)
                 {
                     builder.Append(column.OrdinalPosition > 1 ? ", " : string.Empty);
                     builder.Append(column.ToCreateScript(table));

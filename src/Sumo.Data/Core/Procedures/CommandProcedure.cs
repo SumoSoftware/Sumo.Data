@@ -12,8 +12,8 @@ namespace Sumo.Data
         public long Execute<P>(P procedureParams, DbTransaction dbTransaction = null) where P : class
         {
             SetParameterValues(procedureParams);
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
-            _command.ExecuteNonQuery();
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+            _dbCommand.ExecuteNonQuery();
             FillOutputParameters(procedureParams);
             return GetProcedureResult();
         }
@@ -23,8 +23,8 @@ namespace Sumo.Data
             return await Task.Run(async () =>
             {
                 SetParameterValues(procedureParams);
-                if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
-                await _command.ExecuteNonQueryAsync();
+                if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
+                await _dbCommand.ExecuteNonQueryAsync();
                 FillOutputParameters(procedureParams);
                 return GetProcedureResult();
             });

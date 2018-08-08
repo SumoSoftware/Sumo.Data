@@ -9,11 +9,10 @@ namespace Sumo.Data
     {
         public Procedure(DbConnection dbConnection, IParameterFactory parameterFactory)
         {
-            if( dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
-
             _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
-            _command = dbConnection.CreateCommand();
-            _command.CommandType = CommandType.StoredProcedure;
+            if ( dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
+            _dbCommand = dbConnection.CreateCommand();
+            _dbCommand.CommandType = CommandType.StoredProcedure;
         }
 
         public Procedure(IDataComponentFactory factory) :this(factory.Open(), factory)
@@ -22,20 +21,22 @@ namespace Sumo.Data
         }
 
         private readonly bool _ownsConnection = false;
-        internal readonly DbCommand _command;
+
+        internal readonly DbCommand _dbCommand;
         internal readonly IParameterFactory _parameterFactory;
 
-        private bool _isPrepared = false;
+        protected bool IsPrepared { get; private set; } = false;
 
         public bool Prepare<P>(P procedureParams) where P : class
         {
-            var result = !_isPrepared;
-            if (!_isPrepared)
+            var result = !IsPrepared;
+            if (!IsPrepared)
             {
-                _command.CommandText = ProcedureParametersTypeInfoCache<P>.ProcedureName;
+                _dbCommand.CommandText = ProcedureParametersTypeInfoCache<P>.ProcedureName;
                 InternalPrepare(procedureParams);
-                _command.Prepare();
-                _isPrepared = true;
+                //todo: can't prepare unless all the params have an explicit type set from DbType enumeration
+                _dbCommand.Prepare();
+                IsPrepared = true;
             }
             return result;
         }
@@ -90,7 +91,7 @@ namespace Sumo.Data
             if (property == null) throw new ArgumentNullException(nameof(property));
 
             var paramName = GetParameterName(property);
-            var parameter = _command.Parameters[paramName];
+            var parameter = _dbCommand.Parameters[paramName];
 
             if (parameter == null) throw new ArgumentException($"Parameter with name '{paramName}' not found.");
 
@@ -99,7 +100,7 @@ namespace Sumo.Data
 
         internal long GetProcedureResult()
         {
-            var parameter = _command.Parameters[GetReturnValueParameterName()];
+            var parameter = _dbCommand.Parameters[GetReturnValueParameterName()];
             return parameter != null ? Convert.ToInt64(parameter.Value) : 0L;
         }
 
@@ -111,7 +112,7 @@ namespace Sumo.Data
                 var name = GetParameterName(property);
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
-                _command.Parameters.Add(parameter);
+                _dbCommand.Parameters.Add(parameter);
             }
 
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.InputOutputParameters.Length; ++i)
@@ -120,7 +121,7 @@ namespace Sumo.Data
                 var name = GetParameterName(property);
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.InputOutput, GetParameterSize(property));
-                _command.Parameters.Add(parameter);
+                _dbCommand.Parameters.Add(parameter);
             }
 
             //todo: see SqlServerProcedureHelper.vb line 55 for how to do list based input parameters (table input to procedures)
@@ -131,11 +132,11 @@ namespace Sumo.Data
                 var name = GetParameterName(property);
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Output, GetParameterSize(property));
-                _command.Parameters.Add(parameter);
+                _dbCommand.Parameters.Add(parameter);
             }
 
             var returnParameter = _parameterFactory.CreateReturnParameter(GetReturnValueParameterName());
-            _command.Parameters.Add(returnParameter);
+            _dbCommand.Parameters.Add(returnParameter);
         }
 
         internal void InternalSetParameterValues<P>(P procedureParams) where P : class
@@ -144,7 +145,7 @@ namespace Sumo.Data
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputParameters[i];
                 var name = GetParameterName(property);
-                var parameter = _command.Parameters[name];
+                var parameter = _dbCommand.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 parameter.Value = value;
@@ -154,7 +155,7 @@ namespace Sumo.Data
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputOutputParameters[i];
                 var name = GetParameterName(property);
-                var parameter = _command.Parameters[name];
+                var parameter = _dbCommand.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 parameter.Value = value;
@@ -172,8 +173,8 @@ namespace Sumo.Data
             {
                 if (disposing)
                 {
-                    var connection = _command.Connection;
-                    _command.Dispose();
+                    var connection = _dbCommand.Connection;
+                    _dbCommand.Dispose();
                     if (_ownsConnection)
                     {
                         connection.Close();

@@ -1,6 +1,6 @@
 ﻿namespace Sumo.Data.Schema.Sqlite
 {
-    public class SqliteSchemaParameterFactory : ISchemaParameterFactory
+    public class SqliteSchemaParameterNames : ISchemaParameterNames
     {
         public string GetWriteParameterName<T>(int parameterIndex) where T : class
         {

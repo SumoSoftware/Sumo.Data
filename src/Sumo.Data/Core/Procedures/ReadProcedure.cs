@@ -9,25 +9,25 @@ namespace Sumo.Data
         public ReadProcedure(DbConnection dbConnection, IParameterFactory parameterFactory, IDataAdapterFactory dataAdapterFactory) :
             base(dbConnection, parameterFactory)
         {
-            _dataAdapter = dataAdapterFactory.CreateDataAdapter(_command);
+            _dataAdapter = dataAdapterFactory.CreateDataAdapter(_dbCommand);
         }
 
         public ReadProcedure(IDataComponentFactory factory) : base(factory)
         {
-            _dataAdapter = factory.CreateDataAdapter(_command);
+            _dataAdapter = factory.CreateDataAdapter(_dbCommand);
         }
 
         public ReadProcedure(DbConnection dbConnection, IDataComponentFactory factory) :
             base(dbConnection, factory)
         {
-            _dataAdapter = factory.CreateDataAdapter(_command);
+            _dataAdapter = factory.CreateDataAdapter(_dbCommand);
         }
 
         internal readonly DbDataAdapter _dataAdapter;
 
         private DataSet ExecuteCommand<P>(P procedureParams, DbTransaction dbTransaction) where P : class
         {
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             var result = new DataSet();
             _dataAdapter.Fill(result);
             FillOutputParameters(procedureParams);

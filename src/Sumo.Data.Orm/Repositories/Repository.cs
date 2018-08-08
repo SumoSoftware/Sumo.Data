@@ -11,7 +11,7 @@ namespace Sumo.Data.Orm
         private readonly IFactorySet _factorySet;
         private readonly string _connectionString;
 
-        public Repository(IDataComponentFactory dataProviderFactory, ISchemaParameterFactory schemaParameterFactory, IScriptBuilder scriptBuilder, ISqlStatementBuilder sqlStatementBuilder, string connectionString) :
+        public Repository(IDataComponentFactory dataProviderFactory, ISchemaParameterNames schemaParameterFactory, IScriptBuilder scriptBuilder, ISqlStatementBuilder sqlStatementBuilder, string connectionString) :
             this(new FactorySet(dataProviderFactory, schemaParameterFactory, scriptBuilder, sqlStatementBuilder), connectionString)
         {
         }

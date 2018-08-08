@@ -35,6 +35,11 @@ namespace Sumo.Data.Sqlite
             return _proxy.Execute(sql, parameters, dbTransaction);
         }
 
+        public int Execute(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return _proxy.Execute(parameters, dbTransaction);
+        }
+
         public Task<int> ExecuteAsync(string sql, DbTransaction dbTransaction = null)
         {
             return _proxy.ExecuteAsync(sql, dbTransaction);
@@ -43,6 +48,11 @@ namespace Sumo.Data.Sqlite
         public Task<int> ExecuteAsync(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
             return _proxy.ExecuteAsync(sql, parameters, dbTransaction);
+        }
+
+        public Task<int> ExecuteAsync(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return _proxy.ExecuteAsync(parameters, dbTransaction);
         }
 
         public T ExecuteScalar<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
@@ -55,6 +65,16 @@ namespace Sumo.Data.Sqlite
             return _proxy.ExecuteScalar<T>(sql, dbTransaction);
         }
 
+        public T ExecuteScalar<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return _proxy.ExecuteScalar<T>(parameters, dbTransaction);
+        }
+
+        public T ExecuteScalar<T>(DbTransaction dbTransaction = null)
+        {
+            return _proxy.ExecuteScalar<T>(dbTransaction);
+        }
+
         public Task<T> ExecuteScalarAsync<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
             return _proxy.ExecuteScalarAsync<T>(sql, parameters, dbTransaction);
@@ -63,6 +83,16 @@ namespace Sumo.Data.Sqlite
         public Task<T> ExecuteScalarAsync<T>(string sql, DbTransaction dbTransaction = null)
         {
             return _proxy.ExecuteScalarAsync<T>(sql, dbTransaction);
+        }
+
+        public Task<T> ExecuteScalarAsync<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
+        {
+            return _proxy.ExecuteScalarAsync<T>(parameters, dbTransaction);
+        }
+
+        public Task<T> ExecuteScalarAsync<T>(DbTransaction dbTransaction = null)
+        {
+            return _proxy.ExecuteScalarAsync<T>(dbTransaction);
         }
 
         public bool Prepare(string sql, Dictionary<string, object> queryParams = null)

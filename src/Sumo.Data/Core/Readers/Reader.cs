@@ -9,39 +9,42 @@ namespace Sumo.Data
     {
         public Reader(DbConnection dbConnection, IParameterFactory parameterFactory, IDataAdapterFactory dataAdapterFactory)
         {
-            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
-            _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
             _dataAdapterFactory = dataAdapterFactory ?? throw new ArgumentNullException(nameof(dataAdapterFactory));
-            _command = _dbConnection.CreateCommand();
-            _command.CommandType = CommandType.Text;
+            _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
+            if (dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
+            _dbCommand = dbConnection.CreateCommand();
+            _dbCommand.CommandType = CommandType.Text;
         }
 
-        protected readonly DbConnection _dbConnection;
+        protected readonly DbCommand _dbCommand;
         protected readonly IParameterFactory _parameterFactory;
-        protected readonly DbCommand _command;
         protected readonly IDataAdapterFactory _dataAdapterFactory;
         protected bool IsPrepared { get; private set; } = false;
 
-        protected void InternalPrepare(Dictionary<string, object> queryParams)
+        protected void InternalPrepare(Dictionary<string, object> parameters)
         {
-            var index = -1;
-            foreach (var item in queryParams)
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+
+            var index = -2;
+            foreach (var item in parameters)
             {
-                var name = _parameterFactory.GetParameterName(item.Key, index++).ToString();
+                var name = _parameterFactory.GetParameterName(item.Key, ++index).ToString();
                 var value = item.Value ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
-                _command.Parameters.Add(parameter);
+                _dbCommand.Parameters.Add(parameter);
             }
         }
 
-        protected void InternalSetParameterValues(Dictionary<string, object> queryParams)
+        protected void InternalSetParameterValues(Dictionary<string, object> parameters)
         {
-            var index = -1;
-            foreach (var item in queryParams)
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+
+            var index = -2;
+            foreach (var item in parameters)
             {
-                var name = _parameterFactory.GetParameterName(item.Key, index++).ToString();
-                var parameter = _command.Parameters[name];
-                if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
+                var name = _parameterFactory.GetParameterName(item.Key, ++index).ToString();
+                var parameter = _dbCommand.Parameters[name];
+                if (parameter == null) throw new InvalidOperationException($"Parameter with name '{name}' not found.");
                 parameter.Value = item.Value ?? DBNull.Value;
             }
         }
@@ -50,39 +53,39 @@ namespace Sumo.Data
         /// returns did prepare
         /// </summary>
         /// <param name="sql"></param>
-        /// <param name="queryParams"></param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
-        public bool Prepare(string sql, Dictionary<string, object> queryParams = null)
+        public bool Prepare(string sql, Dictionary<string, object> parameters = null)
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            var result = !IsPrepared;
+            var didPrepare = !IsPrepared;
             if (!IsPrepared)
             {
-                _command.CommandText = sql;
-                InternalPrepare(queryParams);
+                _dbCommand.CommandText = sql;
+                if (parameters != null) InternalPrepare(parameters);
                 //todo: can't prepare unless all the params have an explicit type set from DbType enumeration
-                //Command.Prepare();
+                _dbCommand.Prepare();
                 IsPrepared = true;
             }
 
-            return result;
+            return didPrepare;
         }
 
-        public void SetParameterValues(string sql, Dictionary<string, object> queryParams = null)
+        public void SetParameterValues(string sql, Dictionary<string, object> parameters = null)
         {
-            if (!Prepare(sql, queryParams))
+            if (!Prepare(sql, parameters) && (parameters != null))
             {
-                InternalSetParameterValues(queryParams);
+                InternalSetParameterValues(parameters);
             }
         }
 
         protected DataSet ExecuteCommand(DbTransaction dbTransaction)
         {
-            if (_command.Transaction != dbTransaction) _command.Transaction = dbTransaction;
+            if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
 
             var result = new DataSet();
-            using (var dataAdapter = _dataAdapterFactory.CreateDataAdapter(_command))
+            using (var dataAdapter = _dataAdapterFactory.CreateDataAdapter(_dbCommand))
             {
                 dataAdapter.Fill(result);
             }
@@ -98,7 +101,7 @@ namespace Sumo.Data
             {
                 if (disposing)
                 {
-                    _command.Dispose();
+                    _dbCommand.Dispose();
                 }
                 _disposedValue = true;
             }
