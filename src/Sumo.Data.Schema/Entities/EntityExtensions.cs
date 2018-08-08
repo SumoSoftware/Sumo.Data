@@ -120,20 +120,7 @@ namespace Sumo.Data.Schema
             return (T)formatter.Deserialize(stream);
         }
 
-        public static T FromBytes<T>(this byte[] bytes) where T : Entity
-        {
-            var result = default(T);
-
-            using (var gzipStream = new GZipStream(stream, CompressionMode.Decompress, true))
-            {
-                stream.Position = 0;
-                var formatter = new BinaryFormatter();
-                result = (T)formatter.Deserialize(gzipStream);
-            }
-
-            return result;
-        }
-
+     
         public static void WriteToCompressedStream(this Entity entity, Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Sumo.Data.Types;
 using System.Text;
 
 namespace Sumo.Data.Schema.SqlServer.Factories
