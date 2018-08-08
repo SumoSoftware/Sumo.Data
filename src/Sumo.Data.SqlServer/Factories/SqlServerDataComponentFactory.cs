@@ -15,6 +15,10 @@ namespace Sumo.Data.SqlServer
                 string.IsNullOrEmpty(connectionString) ?
                 new SqlServerConnectionFactory() :
                 new SqlServerConnectionFactory(connectionString);
+
+            _transactionFactory = new TransactionFactory();
+            _dataAdapterFactory = new SqlServerDataAdapterFactory();
+            _parameterFactory = new SqlServerParameterFactory();
         }
 
         public SqlServerDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }

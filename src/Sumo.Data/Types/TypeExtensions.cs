@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 
 namespace Sumo.Data
 {
@@ -142,6 +143,95 @@ namespace Sumo.Data
                 case DbType.UInt16: return typeof(UInt16);
                 case DbType.UInt32: return typeof(UInt32);
                 case DbType.UInt64: return typeof(UInt64);
+                default:
+                    throw new NotSupportedException(dbType.ToString());
+            }
+        }
+
+        public static Object Read(this BinaryReader reader, DbType dbType)
+        {
+            switch (dbType)
+            {
+                case DbType.AnsiStringFixedLength:
+                case DbType.String:
+                case DbType.AnsiString:
+                case DbType.StringFixedLength: return reader.ReadString();
+                case DbType.Boolean: return reader.ReadBoolean();
+                case DbType.Byte: return reader.ReadByte();
+                case DbType.Date:
+                case DbType.DateTime:
+                case DbType.DateTime2:
+                    {
+                        var ticks = reader.ReadInt64();
+                        var dt = new DateTime(ticks);
+                        return dt.ToLocalTime();
+                    }
+                case DbType.DateTimeOffset:
+                    {
+                        var offset = reader.ReadInt64();
+                        var ticks = reader.ReadInt64();
+                        var dt = new DateTimeOffset(ticks, new TimeSpan(offset));
+                        return dt.ToLocalTime();
+                    }
+                case DbType.Currency:
+                case DbType.VarNumeric:
+                case DbType.Decimal: return reader.ReadDecimal();
+                case DbType.Double: return reader.ReadDouble(); 
+                case DbType.Guid: return new Guid(reader.ReadString());
+                case DbType.Int16: return reader.ReadUInt16();
+                case DbType.Int32: return reader.ReadInt32();
+                case DbType.Int64: return reader.ReadInt64();
+                case DbType.SByte: return reader.ReadSByte();
+                case DbType.Single: return reader.ReadSingle();
+                case DbType.UInt16: return reader.ReadUInt16();
+                case DbType.UInt32: return reader.ReadUInt32();
+                case DbType.UInt64: return reader.ReadUInt64();
+                case DbType.Object:
+                case DbType.Time:
+                case DbType.Binary:
+                case DbType.Xml:
+                default:
+                    throw new NotSupportedException(dbType.ToString());
+            }
+
+            throw new NotSupportedException(dbType.ToString());
+        }
+
+
+        public static void Write(this Object value, BinaryWriter writer, DbType dbType)
+        {
+            switch (dbType)
+            {
+                case DbType.AnsiStringFixedLength:
+                case DbType.String:
+                case DbType.AnsiString:
+                case DbType.StringFixedLength: writer.Write((string)value); break;
+                case DbType.Boolean: writer.Write((Boolean)value); break;
+                case DbType.Byte: writer.Write((Byte)value); break;
+                case DbType.Date:
+                case DbType.DateTime:
+                case DbType.DateTime2: writer.Write(((DateTime)value).ToUniversalTime().Ticks); break;
+                case DbType.DateTimeOffset:
+                    writer.Write(((DateTimeOffset)value).Offset.Ticks);
+                    writer.Write(((DateTimeOffset)value).UtcTicks);
+                    return;
+                case DbType.Currency:
+                case DbType.VarNumeric:
+                case DbType.Decimal: writer.Write((decimal)value); break;
+                case DbType.Double: writer.Write((Double)value); break;
+                case DbType.Guid: writer.Write(value.ToString()); break;
+                case DbType.Int16: writer.Write((Int16)value); break;
+                case DbType.Int32: writer.Write((Int32)value); break;
+                case DbType.Int64: writer.Write((Int64)value); break;
+                case DbType.SByte: writer.Write((SByte)value); break;
+                case DbType.Single: writer.Write((Single)value); break;
+                case DbType.UInt16: writer.Write((UInt16)value); break;
+                case DbType.UInt32: writer.Write((UInt32)value); break;
+                case DbType.UInt64: writer.Write((UInt64)value); break;
+                case DbType.Object:
+                case DbType.Time:
+                case DbType.Binary:
+                case DbType.Xml:
                 default:
                     throw new NotSupportedException(dbType.ToString());
             }
