@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Exceptions.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public class SumoDataSqlServerException : SumoDataException
     {

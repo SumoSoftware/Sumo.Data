@@ -1,7 +1,4 @@
-﻿using Sumo.Data.Exceptions.SqlServer;
-using Sumo.Data.Expressions;
-using Sumo.Data.Factories.SqlServer;
-using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.SqlExpressions;
 using Sumo.Retry;
 using System;
 using System.Collections.Generic;
@@ -9,7 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerExpressionReaderWithRetry : IExpressionReader
     {

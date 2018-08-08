@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Procedures
+namespace Sumo.Data
 {
     public interface IProcedure : IDisposable
     {

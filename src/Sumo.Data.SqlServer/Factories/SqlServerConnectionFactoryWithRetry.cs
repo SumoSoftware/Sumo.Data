@@ -1,29 +1,22 @@
-﻿using Sumo.Data.Exceptions.SqlServer;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Factories.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerConnectionFactoryWithRetry : IConnectionFactory
     {
-
-        private string _connectionString;
-        public SqlServerConnectionFactoryWithRetry(String connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
-
         private readonly IConnectionFactory _proxy;
 
-        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions)
+        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions) : this(retryOptions, null) { }
+
+        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions, string connectionString = null)
         {
             if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
-                new SqlServerConnectionFactory(),
+                string.IsNullOrEmpty(connectionString) ? new SqlServerConnectionFactory() : new SqlServerConnectionFactory(connectionString),
                 retryOptions,
                 new SqlServerTransientErrorTester());
         }
@@ -32,14 +25,9 @@ namespace Sumo.Data.Factories.SqlServer
             this(new RetryOptions(maxAttempts, timeout))
         { }
 
-
-
-        IParameterFactory _paramFactory = new SqlServerParameterFactory();
-        public IParameterFactory ParameterFactory => _paramFactory;
-
-
-        IDataAdapterFactory _adapterFacotry = new SqlServerDataAdapterFactory();
-        public IDataAdapterFactory DataAdapterFactory => _adapterFacotry;
+        public SqlServerConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, string connectionString) :
+            this(new RetryOptions(maxAttempts, timeout), connectionString)
+        { }
 
         public DbConnection Open(string connectionString)
         {
@@ -53,14 +41,12 @@ namespace Sumo.Data.Factories.SqlServer
 
         public DbConnection Open()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless Open");
-            return Open(_connectionString);
+            return _proxy.Open();
         }
 
         public Task<DbConnection> OpenAsync()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless OpenAsync");
-            return OpenAsync(_connectionString);
+            return _proxy.OpenAsync();
         }
     }
 }

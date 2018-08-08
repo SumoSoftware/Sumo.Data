@@ -3,7 +3,7 @@ using Sumo.Retry;
 using System;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Exceptions.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public class SqliteTransientErrorTester : ICanRetryTester
     {

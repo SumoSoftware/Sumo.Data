@@ -3,28 +3,19 @@ using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Factories.Sqlite
+namespace Sumo.Data.Sqlite
 {
     //https://github.com/aspnet/Microsoft.Data.Sqlite/wiki/Connection-Strings
     //https://www.sqlite.org/uri.html
     public class SqliteConnectionFactory : IConnectionFactory
     {
-        private readonly String _connectionString;
+        public SqliteConnectionFactory() { }
+
+        private readonly string _connectionString;
         public SqliteConnectionFactory(string connectionString)
         {
             _connectionString = connectionString;
         }
-
-        public SqliteConnectionFactory()
-        {
-
-        }
-
-        IParameterFactory _parameterFactory = new SqliteParameterFactory();
-        public IParameterFactory ParameterFactory => _parameterFactory;
-
-        IDataAdapterFactory _dataAdapterFactory = new SqliteDataAdapterFactory();
-        public IDataAdapterFactory DataAdapterFactory => _dataAdapterFactory;
 
         public DbConnection Open(string connectionString)
         {
@@ -64,13 +55,13 @@ namespace Sumo.Data.Factories.Sqlite
 
         public DbConnection Open()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless Open");
+            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqliteConnectionFactory)} with a connection string to use parameterless Open");
             return Open(_connectionString);
         }
 
         public Task<DbConnection> OpenAsync()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless OpenAsync");
+            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqliteConnectionFactory)} with a connection string to use parameterless OpenAsync");
             return OpenAsync(_connectionString);
         }
     }

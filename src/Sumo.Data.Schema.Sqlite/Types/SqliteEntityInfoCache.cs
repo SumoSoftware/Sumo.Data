@@ -1,8 +1,7 @@
-﻿using Sumo.Data.Types;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 
-namespace Sumo.Data.Schema.Sqlite.Types
+namespace Sumo.Data.Schema.Sqlite
 {
     internal static class SqliteEntityInfoCache<T> where T : class
     {

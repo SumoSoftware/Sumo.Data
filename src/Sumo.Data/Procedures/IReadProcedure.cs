@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Procedures
+namespace Sumo.Data
 {
     public interface IReadProcedure : IProcedure
     {

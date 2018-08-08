@@ -1,5 +1,4 @@
-﻿using Sumo.Data.Types;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 
 namespace Sumo.Data.Schema

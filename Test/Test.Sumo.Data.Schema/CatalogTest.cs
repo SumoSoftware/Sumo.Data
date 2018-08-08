@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Data;

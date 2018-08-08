@@ -1,9 +1,8 @@
-﻿using Sumo.Data.Expressions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Orm.Repositories
+namespace Sumo.Data.Orm
 {
     public interface IRepository
     {

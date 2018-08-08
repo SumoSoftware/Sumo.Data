@@ -2,7 +2,7 @@
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace Sumo.Data.Factories.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerDataAdapterFactory : IDataAdapterFactory
     {

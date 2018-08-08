@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.Common;
 
-namespace Sumo.Data.Factories
+namespace Sumo.Data
 {
     public class TransactionFactory : ITransactionFactory
     {

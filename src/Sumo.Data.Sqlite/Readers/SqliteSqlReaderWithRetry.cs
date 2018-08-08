@@ -1,14 +1,11 @@
-﻿using Sumo.Data.Exceptions.Sqlite;
-using Sumo.Data.Factories;
-using Sumo.Data.Factories.Sqlite;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public sealed class SqliteSqlReaderWithRetry : ISqlReader
     {

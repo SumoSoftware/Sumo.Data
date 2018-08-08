@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Exceptions
+namespace Sumo.Data
 {
     public class SumoDataException : Exception
     {

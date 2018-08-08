@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Exceptions.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public class SumoDataSqliteException : SumoDataException
     {

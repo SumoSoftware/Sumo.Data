@@ -1,12 +1,9 @@
-﻿using Sumo.Data.Exceptions.SqlServer;
-using Sumo.Data.Factories;
-using Sumo.Data.Factories.SqlServer;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Procedures.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerReadProcedureWithRetry : IReadProcedure
     {
@@ -21,6 +18,12 @@ namespace Sumo.Data.Procedures.SqlServer
         public SqlServerReadProcedureWithRetry(DbConnection dbConnection, IDataAdapterFactory dataAdapterFactory, int maxAttempts, TimeSpan timeout) :
             this(dbConnection, new RetryOptions(maxAttempts, timeout))
         { }
+
+        public SqlServerReadProcedureWithRetry(IDataProviderFactory factory, RetryOptions retryOptions)
+        {
+            var instance = new ReadProcedure(factory);
+            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
+        }
 
         public IProcedureReadResult Read<P>(P procedureParams, DbTransaction dbTransaction = null) where P : class
         {

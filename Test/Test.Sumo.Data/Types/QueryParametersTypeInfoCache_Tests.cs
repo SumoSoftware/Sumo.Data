@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Support;
+using Sumo.Data.Test.Support;
 
 namespace Sumo.Data.Types
 {

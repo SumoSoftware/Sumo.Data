@@ -1,14 +1,11 @@
-﻿using Sumo.Data.Factories;
-using Sumo.Data.Schema;
+﻿using Sumo.Data.Schema;
 
-namespace Sumo.Data.Orm.Factories
+namespace Sumo.Data.Orm
 {
     public interface IFactorySet
     {
-        IConnectionFactory ConnectionFactory { get; }
-        IDataAdapterFactory DataAdapterFactory { get; }
-        ISchemaParameterFactory ParameterFactory { get; }
-        ITransactionFactory TransactionFactory { get; }
+        IDataProviderFactory DataProviderFactory { get; }
+        ISchemaParameterFactory SchemaParameterFactory { get; }
         IScriptBuilder ScriptBuilder { get; }
         ISqlStatementBuilder SqlStatementBuilder { get; }
     }

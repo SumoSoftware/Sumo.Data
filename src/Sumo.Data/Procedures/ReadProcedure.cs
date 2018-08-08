@@ -1,9 +1,8 @@
-﻿using Sumo.Data.Factories;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Procedures
+namespace Sumo.Data
 {
     public class ReadProcedure : Procedure, IReadProcedure
     {
@@ -13,9 +12,15 @@ namespace Sumo.Data.Procedures
             _dataAdapter = dataAdapterFactory.CreateDataAdapter(_command);
         }
 
-        public ReadProcedure(IConnectionFactory factory) : base(factory)
+        public ReadProcedure(IDataProviderFactory factory) : base(factory)
         {
-            _dataAdapter = factory.DataAdapterFactory.CreateDataAdapter(_command);
+            _dataAdapter = factory.CreateDataAdapter(_command);
+        }
+
+        public ReadProcedure(DbConnection dbConnection, IDataProviderFactory factory) :
+            base(dbConnection, factory)
+        {
+            _dataAdapter = factory.CreateDataAdapter(_command);
         }
 
         internal readonly DbDataAdapter _dataAdapter;

@@ -1,5 +1,4 @@
-﻿using Sumo.Data.Expressions;
-using System;
+﻿using System;
 
 // these attributes allow an sql based ORM to create tables
 namespace Sumo.Data.Schema

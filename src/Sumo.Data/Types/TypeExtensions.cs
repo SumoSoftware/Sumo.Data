@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Sumo.Data.Types
+namespace Sumo.Data
 {
     public static class TypeExtensions
     {

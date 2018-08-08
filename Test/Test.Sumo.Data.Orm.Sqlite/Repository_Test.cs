@@ -1,14 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Factories.Sqlite;
-using Sumo.Data.Orm.Factories;
-using Sumo.Data.Orm.Repositories;
-using Sumo.Data.Schema.Factories.Sqlite;
 using Sumo.Retry;
 using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sumo.Data.Schema;
+using Sumo.Data.Schema.Sqlite;
+using Sumo.Data.Sqlite;
+using Sumo.Data.Orm;
 
 namespace Test.Sumo.Data.Orm.Sqlite
 {
@@ -24,15 +23,14 @@ namespace Test.Sumo.Data.Orm.Sqlite
         {
             var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
 
+            var dataProviderFactory = new SqliteDataProviderFactory(retryOptions);
             var parameterFactory = new SqliteSchemaParameterFactory();
 
             return new FactorySet(
-                new SqliteConnectionFactoryWithRetry(retryOptions),
-                new SqliteDataAdapterFactory(),
+                dataProviderFactory,
                 parameterFactory,
-                new SqliteTransactionFactoryWithRetry(retryOptions),
                 new SqliteScriptBuilder(),
-                new SqliteStatementBuilder(parameterFactory));
+                new SqliteStatementBuilder(dataProviderFactory));
         }
 
         public class Person

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Commands
+namespace Sumo.Data
 {
     public interface ICommand : IDisposable
     {

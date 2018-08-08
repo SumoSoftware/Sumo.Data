@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Sumo.Data.Procedures
+namespace Sumo.Data
 {
     public interface IProcedureReadResult
     {

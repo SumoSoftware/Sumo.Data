@@ -1,13 +1,11 @@
-﻿using Sumo.Data.Expressions;
-using Sumo.Data.Factories;
-using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.SqlExpressions;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers
+namespace Sumo.Data
 {
     public class ExpressionReader : Reader, IExpressionReader
     {

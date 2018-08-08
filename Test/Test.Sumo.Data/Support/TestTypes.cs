@@ -1,6 +1,4 @@
-﻿using Sumo.Data.Attributes;
-
-namespace Sumo.Data.Support
+﻿namespace Sumo.Data.Test.Support
 {
     public class TestType
     {

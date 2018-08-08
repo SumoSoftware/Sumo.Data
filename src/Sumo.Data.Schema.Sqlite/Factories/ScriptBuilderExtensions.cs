@@ -1,10 +1,9 @@
-﻿using Sumo.Data.Expressions;
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace Sumo.Data.Schema.Factories.Sqlite
+namespace Sumo.Data.Schema.Sqlite
 {
     // sqlite keywords reference: https://www.sqlite.org/lang_keywords.html
 

@@ -1,36 +1,27 @@
-﻿using Sumo.Data.Attributes;
-using Sumo.Data.Factories;
-using Sumo.Data.Types;
-using System;
+﻿using System;
 using System.Data;
 using System.Data.Common;
 using System.Reflection;
 
-namespace Sumo.Data.Procedures
+namespace Sumo.Data
 {
     public abstract class Procedure : IProcedure
     {
         public Procedure(DbConnection dbConnection, IParameterFactory parameterFactory)
         {
-            _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
+            if( dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
+
             _parameterFactory = parameterFactory ?? throw new ArgumentNullException(nameof(parameterFactory));
-            _command = _dbConnection.CreateCommand();
+            _command = dbConnection.CreateCommand();
             _command.CommandType = CommandType.StoredProcedure;
         }
 
-        internal Procedure(IConnectionFactory factory)
+        public Procedure(IDataProviderFactory factory) :this(factory.Open(), factory)
         {
-            _parameterFactory = factory.ParameterFactory;
-
-            //TODO: Should this be moved to encapsulate the actual execute emthod?  Right now dispose will do cleanup
-            _dbConnection = factory.Open();
-            _command = _dbConnection.CreateCommand();
-            _command.CommandType = CommandType.StoredProcedure;
-            
-            
+            _ownsConnection = true;
         }
 
-        private readonly DbConnection _dbConnection;
+        private readonly bool _ownsConnection = false;
         internal readonly DbCommand _command;
         internal readonly IParameterFactory _parameterFactory;
 
@@ -181,7 +172,13 @@ namespace Sumo.Data.Procedures
             {
                 if (disposing)
                 {
+                    var connection = _command.Connection;
                     _command.Dispose();
+                    if (_ownsConnection)
+                    {
+                        connection.Close();
+                        connection.Dispose();
+                    }
                 }
                 _disposedValue = true;
             }

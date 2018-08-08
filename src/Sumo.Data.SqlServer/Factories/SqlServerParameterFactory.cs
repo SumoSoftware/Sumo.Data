@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace Sumo.Data.Factories.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public class SqlServerParameterFactory: IParameterFactory
     {
@@ -26,10 +26,5 @@ namespace Sumo.Data.Factories.SqlServer
         {
             return new ParameterName(name, index).ToString();
         }
-
-        //public string GetWriteParameterName<T>(int parameterIndex) where T : class
-        //{
-        //    return SqlServerEntityInfoCache<T>.EntityWriteParameterNames[parameterIndex];
-        //}
     }
 }

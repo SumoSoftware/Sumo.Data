@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Attributes
+namespace Sumo.Data
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class IgnorePropertyAttribute : Attribute

@@ -1,7 +1,4 @@
-﻿using Sumo.Data.Exceptions.Sqlite;
-using Sumo.Data.Expressions;
-using Sumo.Data.Factories.Sqlite;
-using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.SqlExpressions;
 using Sumo.Retry;
 using System;
 using System.Collections.Generic;
@@ -9,7 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public sealed class SqliteExpressionReaderWithRetry : IExpressionReader
     {

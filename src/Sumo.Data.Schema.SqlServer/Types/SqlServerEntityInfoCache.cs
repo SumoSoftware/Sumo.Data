@@ -1,8 +1,7 @@
-﻿using Sumo.Data.Types;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 
-namespace Sumo.Data.Schema.Types.SqlServer
+namespace Sumo.Data.Schema.SqlServer
 {
     internal static class SqlServerEntityInfoCache<T> where T : class
     {

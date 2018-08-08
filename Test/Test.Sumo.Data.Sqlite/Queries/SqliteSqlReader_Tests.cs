@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Commands;
-using Sumo.Data.Factories;
-using Sumo.Data.Factories.Sqlite;
-using Sumo.Data.Readers;
 using System.Collections.Generic;
 
 namespace Sumo.Data.Sqlite.Queries

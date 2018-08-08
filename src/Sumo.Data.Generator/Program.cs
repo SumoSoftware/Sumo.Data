@@ -1,7 +1,4 @@
-﻿using Sumo.Data.Factories;
-using Sumo.Data.Factories.SqlServer;
-using Sumo.Data.Procedures;
-using System;
+﻿using System;
 using System.Data;
 
 namespace Sumo.Data.Generator
@@ -22,7 +19,7 @@ namespace Sumo.Data.Generator
             IConnectionFactory connectionFactory;
 
             //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
-            connectionFactory = new SqlServerConnectionFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
+            connectionFactory = new SqlServerDataProviderFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
 
             var prm = new usp_MOB_GetSyncData()
             {

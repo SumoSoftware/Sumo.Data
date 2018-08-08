@@ -1,9 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
-using Sumo.Data.Sqlite;
 using System;
 using System.Data.Common;
 
-namespace Sumo.Data.Factories.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public class SqliteDataAdapterFactory : IDataAdapterFactory
     {

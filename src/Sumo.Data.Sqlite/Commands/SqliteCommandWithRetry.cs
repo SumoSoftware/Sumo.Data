@@ -1,13 +1,10 @@
-﻿using Sumo.Data.Commands;
-using Sumo.Data.Exceptions.Sqlite;
-using Sumo.Data.Factories.Sqlite;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Sqlite.Commands
+namespace Sumo.Data.Sqlite
 {
     class SqliteCommandWithRetry: ICommand
     {

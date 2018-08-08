@@ -1,9 +1,8 @@
-﻿using Sumo.Data.Attributes;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Sumo.Data.Types
+namespace Sumo.Data
 {
     public static class TypeInfoCache<T> where T : class
     {

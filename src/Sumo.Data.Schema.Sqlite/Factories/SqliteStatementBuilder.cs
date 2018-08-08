@@ -1,10 +1,8 @@
-﻿using Sumo.Data.Factories;
-using Sumo.Data.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sumo.Data.Schema.Factories.Sqlite
+namespace Sumo.Data.Schema.Sqlite
 {
     // if we have problems in android this might be why - can't pass non-string values as parameters?
     //https://stackoverflow.com/questions/18746149/android-sqlite-selection-args-with-int-values

@@ -1,10 +1,9 @@
-﻿using Sumo.Data.Expressions;
-using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.SqlExpressions;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers
+namespace Sumo.Data
 {
     public interface IExpressionReader: IReader
     {

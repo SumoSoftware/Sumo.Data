@@ -1,10 +1,9 @@
-﻿using Sumo.Data.Exceptions.SqlServer;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Data;
 using System.Data.Common;
 
-namespace Sumo.Data.Factories.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerTransactionFactoryWithRetry : ITransactionFactory
     {

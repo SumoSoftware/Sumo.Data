@@ -3,7 +3,7 @@ using Sumo.Data.Names;
 using System.Data;
 using System.Data.Common;
 
-namespace Sumo.Data.Factories.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public class SqliteParameterFactory : IParameterFactory
     {

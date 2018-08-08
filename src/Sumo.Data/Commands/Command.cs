@@ -1,11 +1,10 @@
-﻿using Sumo.Data.Factories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Commands
+namespace Sumo.Data
 {
     //todo: add tests
     public class Command : ICommand

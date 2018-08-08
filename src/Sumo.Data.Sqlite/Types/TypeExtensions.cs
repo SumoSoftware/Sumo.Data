@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 
-namespace Sumo.Data.Types.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public static class TypeExtensions
     {

@@ -1,34 +1,22 @@
-﻿using Sumo.Data.Exceptions.Sqlite;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Factories.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public class SqliteConnectionFactoryWithRetry : IConnectionFactory
     {
-        private string _connectionString;
-        public SqliteConnectionFactoryWithRetry(String connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
         private readonly IConnectionFactory _proxy;
 
-        IParameterFactory _parameterFactory = new SqliteParameterFactory();
-        public IParameterFactory ParameterFactory => _parameterFactory;
+        public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions) : this(retryOptions, null) { }
 
-        IDataAdapterFactory _dataAdapterFactory = new SqliteDataAdapterFactory();
-        public IDataAdapterFactory DataAdapterFactory => _dataAdapterFactory;
-
-
-        public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions)
+        public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions, string connectionString) : base()
         {
             if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
-                new SqliteConnectionFactory(),
+                string.IsNullOrEmpty(connectionString) ? new SqliteConnectionFactory() : new SqliteConnectionFactory(connectionString),
                 retryOptions,
                 new SqliteTransientErrorTester());
         }
@@ -37,26 +25,28 @@ namespace Sumo.Data.Factories.Sqlite
             this(new RetryOptions(maxAttempts, timeout))
         { }
 
+        public SqliteConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, string connectionString) :
+            this(new RetryOptions(maxAttempts, timeout), connectionString)
+        { }
+
         public DbConnection Open(string connectionString)
         {
             return _proxy.Open(connectionString);
         }
 
-        public async Task<DbConnection> OpenAsync(string connectionString)
+        public Task<DbConnection> OpenAsync(string connectionString)
         {
-            return await _proxy.OpenAsync(connectionString);
+            return _proxy.OpenAsync(connectionString);
         }
 
         public DbConnection Open()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless Open");
-            return Open(_connectionString);
+            return _proxy.Open();
         }
 
         public Task<DbConnection> OpenAsync()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless OpenAsync");
-            return OpenAsync(_connectionString);
+            return _proxy.OpenAsync();
         }
     }
 }

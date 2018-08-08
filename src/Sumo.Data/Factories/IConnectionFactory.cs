@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Factories
+namespace Sumo.Data
 {
     public interface IConnectionFactory
     {
@@ -12,9 +12,5 @@ namespace Sumo.Data.Factories
         Task<DbConnection> OpenAsync(string connectionString);
 
         Task<DbConnection> OpenAsync();
-
-        IParameterFactory ParameterFactory { get; }
-
-        IDataAdapterFactory DataAdapterFactory { get; }
     }
 }

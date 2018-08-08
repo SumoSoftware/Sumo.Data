@@ -1,14 +1,11 @@
-﻿using Sumo.Data.Exceptions.SqlServer;
-using Sumo.Data.Factories;
-using Sumo.Data.Factories.SqlServer;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerSqlReaderWithRetry : ISqlReader
     {

@@ -1,7 +1,7 @@
 ﻿using Sumo.Data.Names;
 using System;
 
-namespace Sumo.Data.Expressions
+namespace Sumo.Data
 {
     public interface ISortExpression: IEquatable<ISortExpression>
     {

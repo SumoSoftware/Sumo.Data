@@ -1,10 +1,9 @@
-﻿using Sumo.Data.Exceptions.Sqlite;
-using Sumo.Retry;
+﻿using Sumo.Retry;
 using System;
 using System.Data;
 using System.Data.Common;
 
-namespace Sumo.Data.Factories.Sqlite
+namespace Sumo.Data.Sqlite
 {
     public class SqliteTransactionFactoryWithRetry : ITransactionFactory
     {

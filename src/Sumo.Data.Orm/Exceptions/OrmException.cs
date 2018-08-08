@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Orm.Exceptions
+namespace Sumo.Data.Orm
 {
     public class OrmException : Exception
     {

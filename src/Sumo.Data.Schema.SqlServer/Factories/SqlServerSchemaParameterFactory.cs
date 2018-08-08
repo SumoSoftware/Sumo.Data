@@ -1,9 +1,6 @@
-﻿using Sumo.Data.Factories.SqlServer;
-using Sumo.Data.Schema.Types.SqlServer;
-
-namespace Sumo.Data.Schema.Factories.SqlServer
+﻿namespace Sumo.Data.Schema.SqlServer
 {
-    public class SqlServerSchemaParameterFactory: SqlServerParameterFactory, ISchemaParameterFactory
+    public class SqlServerSchemaParameterFactory: ISchemaParameterFactory
     {
         public string GetWriteParameterName<T>(int parameterIndex) where T : class
         {

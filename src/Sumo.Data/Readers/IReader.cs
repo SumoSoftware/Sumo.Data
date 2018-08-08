@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Readers
+namespace Sumo.Data
 {
     public interface IReader : IDisposable
     {

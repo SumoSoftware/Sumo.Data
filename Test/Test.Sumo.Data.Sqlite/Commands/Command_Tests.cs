@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Commands;
-using Sumo.Data.Factories;
-using Sumo.Data.Factories.Sqlite;
+using Sumo.Data;
 using Sumo.Data.Schema;
-using Sumo.Data.Schema.Factories.Sqlite;
+using Sumo.Data.Schema.Sqlite;
+using Sumo.Data.Sqlite;
 using System.Threading.Tasks;
 
 namespace Test.Sumo.Data.Sqlite.Commands

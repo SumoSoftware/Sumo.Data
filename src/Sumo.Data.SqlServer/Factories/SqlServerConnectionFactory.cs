@@ -3,29 +3,17 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Factories.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public sealed class SqlServerConnectionFactory : IConnectionFactory
     {
+        public SqlServerConnectionFactory() { }
+
         private string _connectionString;
         public SqlServerConnectionFactory(String connectionString)
         {
             _connectionString = connectionString;
         }
-
-        public SqlServerConnectionFactory()
-        {
-
-        }
-
-
-        IParameterFactory _paramFactory = new SqlServerParameterFactory();
-        public IParameterFactory ParameterFactory => _paramFactory;
-
-
-        IDataAdapterFactory _adapterFacotry = new SqlServerDataAdapterFactory();
-        public IDataAdapterFactory DataAdapterFactory => _adapterFacotry;
-
 
         public DbConnection Open(string connectionString)
         {
@@ -80,13 +68,13 @@ namespace Sumo.Data.Factories.SqlServer
 
         public DbConnection Open()
         {
-            if(String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless Open");
+            if(String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string to use parameterless Open");
             return Open(_connectionString);
         }
 
         public Task<DbConnection> OpenAsync()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException("Please construct SqlServerConnectionFactory with a connection string to use parameterless OpenAsync");
+            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string to use parameterless OpenAsync");
             return OpenAsync(_connectionString);
         }
     }

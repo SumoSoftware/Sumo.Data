@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Attributes
+namespace Sumo.Data
 {
     /// <summary>
     /// Sql Type     | DbType                | Size | Returned string.Length()

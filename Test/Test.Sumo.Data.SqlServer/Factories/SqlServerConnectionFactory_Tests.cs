@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Factories;
-using Sumo.Data.Factories.SqlServer;
 using Sumo.Data.SqlServer.Application;
 using System;
 using System.Data;

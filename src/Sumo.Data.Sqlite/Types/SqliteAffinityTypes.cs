@@ -1,4 +1,4 @@
-﻿namespace Sumo.Data.Types.Sqlite
+﻿namespace Sumo.Data.Sqlite
 {
     public enum SqliteAffinityTypes
     {

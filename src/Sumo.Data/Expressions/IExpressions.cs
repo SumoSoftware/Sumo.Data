@@ -2,7 +2,7 @@
 using Sumo.Data.SqlExpressions;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Expressions
+namespace Sumo.Data
 {
     public interface IExpression
     {

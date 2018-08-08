@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace Sumo.Data.Exceptions.SqlServer
+namespace Sumo.Data.SqlServer
 {
     public class SqlServerTransientErrorTester : ICanRetryTester
     {

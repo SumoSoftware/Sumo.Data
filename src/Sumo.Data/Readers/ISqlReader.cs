@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Readers
+namespace Sumo.Data
 {
     public interface ISqlReader : IReader
     {
