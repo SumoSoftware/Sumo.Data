@@ -294,6 +294,7 @@ namespace Sumo.Data.Schema
 
             using (var stream1 = catalog.ToStream())
             {
+                stream1.Position = 0;
                 var cat = stream1.ToEntity<Catalog>();
                 using (var stream2 = cat.ToStream())
                 {
@@ -363,6 +364,7 @@ namespace Sumo.Data.Schema
 
             using (var stream1 = catalog.ToCompressedStream())
             {
+                stream1.Position = 0;
                 var cat = stream1.ToEntityFromCompressedStream<Catalog>();
                 using (var stream2 = cat.ToCompressedStream())
                 {

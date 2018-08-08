@@ -7,7 +7,7 @@ namespace Sumo.Data.Orm
     {
         public FactorySet(
             IDataComponentFactory dataProviderFactory,
-            ISchemaParameterFactory schemaParameterFactory,
+            ISchemaParameterNames schemaParameterFactory,
             IScriptBuilder scriptBuilder,
             ISqlStatementBuilder sqlStatementBuilder) : base()
         {
@@ -18,7 +18,7 @@ namespace Sumo.Data.Orm
         }
 
         public IDataComponentFactory DataProviderFactory { get; }
-        public ISchemaParameterFactory SchemaParameterFactory { get; }
+        public ISchemaParameterNames SchemaParameterFactory { get; }
         public IScriptBuilder ScriptBuilder { get; }
         public ISqlStatementBuilder SqlStatementBuilder { get; }
     }

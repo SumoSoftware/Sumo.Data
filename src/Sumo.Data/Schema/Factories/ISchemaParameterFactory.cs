@@ -1,6 +1,6 @@
 ﻿namespace Sumo.Data.Schema
 {
-    public interface ISchemaParameterFactory
+    public interface ISchemaParameterNames
     {
         /// <summary>
         /// this method provides an optimization for access of the EntityInfoCache

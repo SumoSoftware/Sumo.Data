@@ -24,7 +24,7 @@ namespace Test.Sumo.Data.Orm.Sqlite
             var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
 
             var dataProviderFactory = new SqliteDataComponentFactory(retryOptions);
-            var parameterFactory = new SqliteSchemaParameterFactory();
+            var parameterFactory = new SqliteSchemaParameterNames();
 
             return new FactorySet(
                 dataProviderFactory,

@@ -1,51 +1,61 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
+using System.Data;
 
 namespace Sumo.Data.Sqlite
 {
     public static class TypeExtensions
     {
-        public static SqliteType ToDbType(this string typeName)
+        public static SqliteType ToSqliteType(this DbType dbType)
         {
-            if (!Enum.TryParse(typeName, true, out SqliteType sqliteType)) throw new ArgumentOutOfRangeException($"{nameof(typeName)}: '{typeName}'");
-            return sqliteType;
+            switch (dbType)
+            {
+                case DbType.Guid:
+                case DbType.AnsiString: 
+                case DbType.AnsiStringFixedLength:
+                case DbType.String:
+                case DbType.StringFixedLength:
+                case DbType.Xml:
+                case DbType.Date:
+                case DbType.DateTime:
+                case DbType.DateTime2:
+                case DbType.DateTimeOffset:
+                case DbType.Time:
+                    return SqliteType.Text;
+
+                case DbType.Binary:
+                case DbType.Object:
+                    return SqliteType.Blob;
+
+                case DbType.Boolean:
+                case DbType.Byte:
+                case DbType.Int16:
+                case DbType.Int32:
+                case DbType.Int64:
+                case DbType.SByte:
+                case DbType.Single:
+                case DbType.UInt16:
+                case DbType.UInt32:
+                case DbType.UInt64:
+                    return SqliteType.Integer;
+
+                case DbType.Currency:
+                case DbType.Decimal:
+                case DbType.Double:
+                    return SqliteType.Real;
+
+                case DbType.VarNumeric:
+                default:
+                    throw new NotSupportedException(dbType.ToString());
+            }
+
         }
 
-        public static SqliteType ToDbType(this Type type)
+        public static SqliteType ToSqliteType(this Type type)
         {
-            var typeCode = Type.GetTypeCode(type);
-            switch (typeCode)
-            {
-                case TypeCode.Object:
-                    if (type == typeof(Byte[]) || type == typeof(Object))
-                    {
-                        return SqliteType.Blob;
-                    }
-                    else if (type == typeof(Char[]) || type == typeof(Guid) || type == typeof(TimeSpan))
-                    {
-                        return SqliteType.Text;
-                    }
-                    throw new NotSupportedException(type.FullName);
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Boolean:
-                case TypeCode.SByte:
-                case TypeCode.Byte:
-                case TypeCode.Char: return SqliteType.Integer;
-                case TypeCode.Decimal:
-                case TypeCode.Single:
-                case TypeCode.Double: return SqliteType.Real;
-                case TypeCode.DateTime:
-                case TypeCode.String: return SqliteType.Text;
-                case TypeCode.DBNull:
-                case TypeCode.Empty:
-                default:
-                    throw new NotSupportedException($"{type.FullName} returned unsupported TypeCode.{typeCode.ToString()}");
-            }
+            return type
+                .ToDbType()
+                .ToSqliteType();
         }
 
         public static Type ToType(this SqliteType sqliteType)
@@ -63,11 +73,6 @@ namespace Sumo.Data.Sqlite
                 default:
                     return typeof(DBNull);
             }
-        }
-
-        public static SqliteAffinityTypes ToAffinityType(this SqliteType sqliteType)
-        {
-            return (SqliteAffinityTypes)sqliteType;
         }
     }
 }

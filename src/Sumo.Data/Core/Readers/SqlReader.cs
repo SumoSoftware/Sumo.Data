@@ -16,7 +16,7 @@ namespace Sumo.Data
         {
             if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
-            _command.CommandText = sql;
+            _dbCommand.CommandText = sql;
             return ExecuteCommand(dbTransaction);
         }
 

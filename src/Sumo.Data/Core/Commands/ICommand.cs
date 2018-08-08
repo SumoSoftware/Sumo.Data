@@ -36,5 +36,27 @@ namespace Sumo.Data
 
         T ExecuteScalar<T>(string sql, DbTransaction dbTransaction = null);
         Task<T> ExecuteScalarAsync<T>(string sql, DbTransaction dbTransaction = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="dbTransaction"></param>
+        /// <returns>number of rows affected</returns>
+        int Execute(Dictionary<string, object> parameters, DbTransaction dbTransaction = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="dbTransaction"></param>
+        /// <returns>number of rows affected</returns>
+        Task<int> ExecuteAsync(Dictionary<string, object> parameters, DbTransaction dbTransaction = null);
+
+        T ExecuteScalar<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null);
+        Task<T> ExecuteScalarAsync<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null);
+
+        T ExecuteScalar<T>(DbTransaction dbTransaction = null);
+        Task<T> ExecuteScalarAsync<T>(DbTransaction dbTransaction = null);
     }
 }
