@@ -12,12 +12,12 @@ namespace Sumo.Data
             _dataAdapter = dataAdapterFactory.CreateDataAdapter(_command);
         }
 
-        public ReadProcedure(IDataProviderFactory factory) : base(factory)
+        public ReadProcedure(IDataComponentFactory factory) : base(factory)
         {
             _dataAdapter = factory.CreateDataAdapter(_command);
         }
 
-        public ReadProcedure(DbConnection dbConnection, IDataProviderFactory factory) :
+        public ReadProcedure(DbConnection dbConnection, IDataComponentFactory factory) :
             base(dbConnection, factory)
         {
             _dataAdapter = factory.CreateDataAdapter(_command);

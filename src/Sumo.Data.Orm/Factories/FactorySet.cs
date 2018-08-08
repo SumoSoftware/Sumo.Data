@@ -6,7 +6,7 @@ namespace Sumo.Data.Orm
     public class FactorySet : IFactorySet
     {
         public FactorySet(
-            IDataProviderFactory dataProviderFactory,
+            IDataComponentFactory dataProviderFactory,
             ISchemaParameterFactory schemaParameterFactory,
             IScriptBuilder scriptBuilder,
             ISqlStatementBuilder sqlStatementBuilder) : base()
@@ -17,7 +17,7 @@ namespace Sumo.Data.Orm
             SqlStatementBuilder = sqlStatementBuilder ?? throw new ArgumentNullException(nameof(sqlStatementBuilder));
         }
 
-        public IDataProviderFactory DataProviderFactory { get; }
+        public IDataComponentFactory DataProviderFactory { get; }
         public ISchemaParameterFactory SchemaParameterFactory { get; }
         public IScriptBuilder ScriptBuilder { get; }
         public ISqlStatementBuilder SqlStatementBuilder { get; }

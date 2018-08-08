@@ -3,38 +3,38 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.SqlServer
+namespace Sumo.Data.Sqlite
 {
-    public class SqlServerDataProviderFactory : DataProviderFactory
+    public class SqliteDataComponentFactory : DataComponentFactory
     {
-        public SqlServerDataProviderFactory() : this(string.Empty)
+        public SqliteDataComponentFactory() : this(string.Empty)
         {
             _transactionFactory = new TransactionFactory();
-            _dataAdapterFactory = new SqlServerDataAdapterFactory();
-            _parameterFactory = new SqlServerParameterFactory();
+            _dataAdapterFactory = new SqliteDataAdapterFactory();
+            _parameterFactory = new SqliteParameterFactory();
         }
 
-        public SqlServerDataProviderFactory(string connectionString) : base()
+        public SqliteDataComponentFactory(string connectionString) : base()
+        {
+            _connectionFactory = 
+                string.IsNullOrEmpty(connectionString) ?
+                new SqliteConnectionFactory() :
+                new SqliteConnectionFactory(connectionString);
+        }
+
+        public SqliteDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty)
+        {
+            _transactionFactory = new SqliteTransactionFactoryWithRetry(retryOptions);
+            _dataAdapterFactory = new SqliteDataAdapterFactory();
+            _parameterFactory = new SqliteParameterFactory();
+        }
+
+        public SqliteDataComponentFactory(RetryOptions retryOptions, string connectionString) : base()
         {
             _connectionFactory =
                 string.IsNullOrEmpty(connectionString) ?
-                new SqlServerConnectionFactory() :
-                new SqlServerConnectionFactory(connectionString);
-        }
-
-        public SqlServerDataProviderFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty)
-        {
-            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
-            _dataAdapterFactory = new SqlServerDataAdapterFactory();
-            _parameterFactory = new SqlServerParameterFactory();
-        }
-
-        public SqlServerDataProviderFactory(RetryOptions retryOptions, string connectionString) : base()
-        {
-            _connectionFactory =
-                string.IsNullOrEmpty(connectionString) ?
-                new SqlServerConnectionFactoryWithRetry(retryOptions) :
-                new SqlServerConnectionFactoryWithRetry(retryOptions, connectionString);
+                new SqliteConnectionFactoryWithRetry(retryOptions) :
+                new SqliteConnectionFactoryWithRetry(retryOptions, connectionString);
         }
 
         private readonly IConnectionFactory _connectionFactory;

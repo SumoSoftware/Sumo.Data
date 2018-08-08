@@ -7,7 +7,7 @@ namespace Sumo.Data
     {
         public CommandProcedure(DbConnection dbConnection, IParameterFactory parameterFactory) : base(dbConnection, parameterFactory) { }
 
-        public CommandProcedure(IDataProviderFactory factory) : base(factory) { }
+        public CommandProcedure(IDataComponentFactory factory) : base(factory) { }
 
         public long Execute<P>(P procedureParams, DbTransaction dbTransaction = null) where P : class
         {

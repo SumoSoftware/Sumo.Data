@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Sumo.Data
 {
-    public abstract class DataProviderFactory : IDataProviderFactory
+    public abstract class DataComponentFactory : IDataComponentFactory
     {
         public abstract DbTransaction BeginTransaction(DbConnection dbConnection);
         public abstract DbTransaction BeginTransaction(DbConnection dbConnection, IsolationLevel isolationLevel);

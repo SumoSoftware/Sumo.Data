@@ -16,7 +16,7 @@ namespace Sumo.Data
             _command.CommandType = CommandType.StoredProcedure;
         }
 
-        public Procedure(IDataProviderFactory factory) :this(factory.Open(), factory)
+        public Procedure(IDataComponentFactory factory) :this(factory.Open(), factory)
         {
             _ownsConnection = true;
         }
