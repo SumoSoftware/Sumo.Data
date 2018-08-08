@@ -8,7 +8,7 @@ namespace Sumo.Data.Schema
     /// Apply to multiple properties for multi-column keys.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class PrimaryKeyAttribute : Attribute
+    public class PrimaryKeyAttribute : DataAttribute
     {
         public PrimaryKeyAttribute(Directions direction = Directions.Ascending, bool autoIncrement = true) : base()
         {
@@ -24,7 +24,7 @@ namespace Sumo.Data.Schema
     /// Same as not null attribute on a db column.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class RequiredAttribute : Attribute
+    public class RequiredAttribute : DataAttribute
     {
     }
 
@@ -32,7 +32,7 @@ namespace Sumo.Data.Schema
     /// The value can't be repeated in the database.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class UniqueAttribute : Attribute
+    public class UniqueAttribute : DataAttribute
     {
     }
 
@@ -40,7 +40,7 @@ namespace Sumo.Data.Schema
     /// Maximum size for strings. size parameter must be > 0.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class MaxSizeAttribute : Attribute
+    public class MaxSizeAttribute : DataAttribute
     {
         public MaxSizeAttribute(int size) : base()
         {
@@ -55,7 +55,7 @@ namespace Sumo.Data.Schema
     /// Default value for column in database if field is null.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class DefaultValueAttribute : Attribute
+    public class DefaultValueAttribute : DataAttribute
     {
         public DefaultValueAttribute(string defaultValue) : base()
         {
@@ -70,7 +70,7 @@ namespace Sumo.Data.Schema
     /// entity comments
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
-    public class CommentAttribute : Attribute
+    public class CommentAttribute : DataAttribute
     {
         public CommentAttribute(string comment) : base()
         {
@@ -85,7 +85,7 @@ namespace Sumo.Data.Schema
     /// entity comments
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ForeignKeyAttribute : Attribute
+    public class ForeignKeyAttribute : DataAttribute
     {
         public string Schema { get; }
         public string ReferenceTable { get; }

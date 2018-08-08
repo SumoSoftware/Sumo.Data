@@ -112,7 +112,7 @@ namespace Sumo.Data.Orm
                         if (autoCreateTable)
                         {
                             var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                            var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
                             command.Execute(createTableSql, transaction);
                         }
                         else
@@ -156,7 +156,7 @@ namespace Sumo.Data.Orm
                             if (autoCreateTable)
                             {
                                 var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                                var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                                var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
                                 await command.ExecuteAsync(createTableSql, transaction);
                             }
                             else
@@ -199,7 +199,7 @@ namespace Sumo.Data.Orm
                         if (autoCreateTable)
                         {
                             var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                            var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                            var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
                             command.Execute(createTableSql, transaction);
                         }
                         else
@@ -247,7 +247,7 @@ namespace Sumo.Data.Orm
                             if (autoCreateTable)
                             {
                                 var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                                var createTableSql = _factorySet.ScriptBuilder.BuildDbCreateScript(tableDefinition);
+                                var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
                                 await command.ExecuteAsync(createTableSql, transaction);
                             }
                             else

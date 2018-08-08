@@ -34,6 +34,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data.Orm.Sqlite", "test\Test.Sumo.Data.Orm.Sqlite\Test.Sumo.Data.Orm.Sqlite.csproj", "{D696BFCE-F062-4403-8100-65F382B8281F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{BFE6C935-9955-4819-8767-339CA3E92CE1}"
+	ProjectSection(SolutionItems) = preProject
+		examples\Sumo.Retry.Example\Sumo.Retry.Example.csproj = examples\Sumo.Retry.Example\Sumo.Retry.Example.csproj
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Generator", "examples\Sumo.Data.Generator\Sumo.Data.Generator.csproj", "{BB407E76-E63C-4D2B-8C26-3E1ECED7FD07}"
 EndProject

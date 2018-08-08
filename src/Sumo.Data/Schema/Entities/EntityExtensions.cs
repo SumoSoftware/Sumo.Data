@@ -64,8 +64,6 @@ namespace Sumo.Data.Schema
 
             var formatter = new BinaryFormatter();
             formatter.Serialize(stream, entity);
-            stream.Flush();
-            stream.Position = 0;
         }
 
         /// <summary>
@@ -120,7 +118,6 @@ namespace Sumo.Data.Schema
 
             using (var gzipStream = new GZipStream(stream, CompressionMode.Decompress, true))
             {
-                stream.Position = 0;
                 var formatter = new BinaryFormatter();
                 result = (T)formatter.Deserialize(gzipStream);
             }
@@ -138,7 +135,6 @@ namespace Sumo.Data.Schema
                 formatter.Serialize(gzipStream, entity);
                 gzipStream.Flush();
             }
-            stream.Position = 0;
         }
         #endregion
     }

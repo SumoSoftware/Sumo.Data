@@ -63,7 +63,7 @@ namespace Sumo.Data.Sqlite.Catalogs
             index.IsUnique = true;
 
             var builder = new SqliteScriptBuilder();
-            var sql = builder.BuildDbCreateScript(catalog);
+            var sql = builder.BuildCreateScript(catalog);
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace Sumo.Data.Sqlite.Catalogs
             colName.IsNullable = false;
 
             var builder = new SqliteScriptBuilder();
-            var sql = builder.BuildDbCreateScript(catalog);
+            var sql = builder.BuildCreateScript(catalog);
 
             IParameterFactory parameterFactory = new SqliteParameterFactory();
             IConnectionFactory connectionFactory = new SqliteConnectionFactory();

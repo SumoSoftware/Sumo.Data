@@ -3,7 +3,7 @@
 namespace Sumo.Data
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class EntityNameAttribute : Attribute
+    public class EntityNameAttribute : DataAttribute
     {
         public EntityNameAttribute(string name)
         {
@@ -14,7 +14,7 @@ namespace Sumo.Data
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class EntityPrefixAttribute : Attribute
+    public class EntityPrefixAttribute : DataAttribute
     {
         public EntityPrefixAttribute(string prefix)
         {

@@ -3,7 +3,7 @@
 namespace Sumo.Data
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class IgnorePropertyAttribute : Attribute
+    public class IgnorePropertyAttribute : DataAttribute
     {
     }
 }

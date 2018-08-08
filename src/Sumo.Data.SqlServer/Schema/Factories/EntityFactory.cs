@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 
-namespace Sumo.Data.Schema.SqlServer.Factories
+namespace Sumo.Data.Schema.SqlServer
 {
     public class EntityFactory
     {
@@ -38,8 +37,10 @@ namespace Sumo.Data.Schema.SqlServer.Factories
 
         public Table ToTable(DataTable table, String tableName = "", string owner = "dbo")
         {
-            var outputTable = new Table();
-            outputTable.Name = String.IsNullOrEmpty(tableName) ? table.TableName : tableName;
+            var outputTable = new Table
+            {
+                Name = String.IsNullOrEmpty(tableName) ? table.TableName : tableName
+            };
 
             foreach (DataColumn col in table.Columns)
             {
@@ -66,13 +67,15 @@ namespace Sumo.Data.Schema.SqlServer.Factories
 
         public Column ToColumn(DataColumn column)
         {
-            var col = new Column();
-            col.Name = column.ColumnName;
-            col.IsNullable = column.AllowDBNull;
+            var col = new Column
+            {
+                Name = column.ColumnName,
+                IsNullable = column.AllowDBNull,
 
-            col.Default = column.DefaultValue?.ToString();
-            col.OrdinalPosition = column.Ordinal;
-            col.DataType = column.DataType.ToDbType();
+                Default = column.DefaultValue?.ToString(),
+                OrdinalPosition = column.Ordinal,
+                DataType = column.DataType.ToDbType()
+            };
 
             return col;
         }
