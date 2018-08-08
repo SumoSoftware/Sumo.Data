@@ -8,6 +8,7 @@ namespace Sumo.Data.Schema
 {
     public static class EntityExtensions
     {
+        #region to/from json
         private static readonly JsonSerializerSettings _settings = new JsonSerializerSettings()
         {
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
@@ -20,26 +21,24 @@ namespace Sumo.Data.Schema
             return JsonConvert.SerializeObject(entity, _settings);
         }
 
-        public static T FromJson<T>(this string json)
+        public static T ToEntity<T>(this string json)
         {
             return JsonConvert.DeserializeObject<T>(json);
         }
+        #endregion
 
+        #region to/from bytes
         public static byte[] ToBytes(this Entity entity)
         {
             byte[] result = null;
-            using (var stream = (MemoryStream)entity.ToStream())
+            using (var stream = entity.ToStream())
             {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(stream, entity);
-                stream.Flush();
-                stream.Position = 0;
                 result = stream.ToArray();
             }
             return result;
         }
 
-        public static T FromBytes<T>(this byte[] bytes) where T : Entity
+        public static T ToEntity<T>(this byte[] bytes) where T : Entity
         {
             var result = default(T);
             using (var stream = new MemoryStream(bytes))
@@ -50,14 +49,16 @@ namespace Sumo.Data.Schema
             }
             return result;
         }
+        #endregion
 
+        #region to/from streams
         /// <summary>
         /// user provides stream
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="stream"></param>
         /// <returns>MemoryStream - remember to dispose!</returns>
-        public static void WriteToStream(this Entity entity, Stream stream)
+        public static void ToStream(this Entity entity, Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
 
@@ -75,19 +76,32 @@ namespace Sumo.Data.Schema
         public static MemoryStream ToStream(this Entity entity)
         {
             var result = new MemoryStream();
-            entity.WriteToStream(result);
+            entity.ToStream(result);
             return result;
         }
 
-        public static T FromStream<T>(this Stream stream) where T : Entity
+        public static T ToEntity<T>(this Stream stream) where T : Entity
         {
             var result = default(T);
-            var formatter = new BinaryFormatter();
             stream.Position = 0;
+            var formatter = new BinaryFormatter();
             result = (T)formatter.Deserialize(stream);
             return result;
         }
 
+        public static void Write(this Stream stream, Entity entity)
+        {
+            entity.ToStream(stream);
+        }
+
+        public static T ReadFromStream<T>(this Stream stream) where T : Entity
+        {
+            return stream.ToEntity<T>();
+        }
+
+        #endregion
+
+        #region to/from compressed streams
         /// <summary>
         /// user is responsible for disposing stream!
         /// </summary>
@@ -96,32 +110,25 @@ namespace Sumo.Data.Schema
         public static MemoryStream ToCompressedStream(this Entity entity)
         {
             var result = new MemoryStream();
+            entity.ToCompressedStream(result);
+            return result;
+        }
 
-            using (var gzipStream = new GZipStream(result, CompressionMode.Compress, true))
+        public static T ToEntityFromCompressedStream<T>(this Stream stream) where T : Entity
+        {
+            var result = default(T);
+
+            using (var gzipStream = new GZipStream(stream, CompressionMode.Decompress, true))
             {
+                stream.Position = 0;
                 var formatter = new BinaryFormatter();
-                formatter.Serialize(gzipStream, entity);
-                gzipStream.Flush();
+                result = (T)formatter.Deserialize(gzipStream);
             }
-            result.Position = 0;
 
             return result;
         }
 
-        public static void Write(this  Stream stream, Entity entity)
-        {
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(stream, entity);
-        }
-
-        public static T ReadFromStream<T>(this Stream stream) where T : Entity
-        {
-            var formatter = new BinaryFormatter();
-            return (T)formatter.Deserialize(stream);
-        }
-
-     
-        public static void WriteToCompressedStream(this Entity entity, Stream stream)
+        public static void ToCompressedStream(this Entity entity, Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
 
@@ -133,5 +140,6 @@ namespace Sumo.Data.Schema
             }
             stream.Position = 0;
         }
+        #endregion
     }
 }
