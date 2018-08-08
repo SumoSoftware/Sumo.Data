@@ -88,7 +88,8 @@ namespace Sumo.Data.Schema
 
         public static void Write(this Stream stream, Entity entity)
         {
-            entity.ToStream(stream);
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(stream, entity);
         }
 
         public static T ReadFromStream<T>(this Stream stream) where T : Entity
