@@ -13,7 +13,7 @@ namespace Sumo.Data
     /// numeric types| ...                   |  0   | ...
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public abstract class ParameterSizeAttribute : Attribute
+    public abstract class ParameterSizeAttribute : DataAttribute
     {
         public ParameterSizeAttribute() { }
 

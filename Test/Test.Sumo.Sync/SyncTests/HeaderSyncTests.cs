@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Sumo.Data.Schema.SqlServer.Factories;
+using Sumo.Data.Schema.SqlServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.SqlServer;
 

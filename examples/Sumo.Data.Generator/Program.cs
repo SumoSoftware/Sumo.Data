@@ -1,18 +1,17 @@
-﻿using Sumo.Data.SqlServer;
+﻿using Sumo.Data.Schema;
+using Sumo.Data.Schema.SqlServer;
+using Sumo.Data.SqlServer;
 using System;
-using System.Linq;
-using System.Data;
-using Sumo.Data.Schema.SqlServer.Factories;
-using Sumo.Data.Schema.Builders;
-using Sumo.Data.Schema;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Sumo.Data.Generator
 {
     class Program
     {
-
-        class usp_MOB_GetSyncData
+        [EntityName("usp_MOB_GetSyncData")]
+        class UspMOBGetSyncData
         {
             public DateTime LastSync { get; set; }
             public float PreviousSyncApiId { get; set; }
@@ -29,7 +28,7 @@ namespace Sumo.Data.Generator
             //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
             connectionFactory = new SqlServerDataComponentFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
 
-            var prm = new usp_MOB_GetSyncData()
+            var prm = new UspMOBGetSyncData()
             {
                 ClientId = "CAFEFRESH",
                 LastSync = DateTime.Now,
