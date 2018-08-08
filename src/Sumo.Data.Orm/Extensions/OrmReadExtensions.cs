@@ -74,7 +74,7 @@ namespace Sumo.Data
             return result;
         }
 
-        public static object[] ReadFromStream(this BinaryReader reader, Table table)
+        public static object[] ReadRowFromStream(this BinaryReader reader, Table table)
         {
             var row = new object[table.Columns.Count];
             foreach (var col in table.Columns.OrderBy(cols => cols.OrdinalPosition))
