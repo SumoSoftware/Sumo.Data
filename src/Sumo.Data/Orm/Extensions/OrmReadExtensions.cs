@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
+// this namespace is correct. don't add .Orm to it.
 namespace Sumo.Data
 {
     public static class OrmReadExtensions
