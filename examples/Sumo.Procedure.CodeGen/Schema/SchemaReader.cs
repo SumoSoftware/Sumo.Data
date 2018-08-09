@@ -1,8 +1,5 @@
-﻿using Sumo.Data.Factories;
-using Sumo.Data.Factories.SqlServer;
-using Sumo.Data.Names;
-using Sumo.Data.Orm.Extensions;
-using Sumo.Data.Readers;
+﻿using Sumo.Data;
+using Sumo.Data.SqlServer;
 using Sumo.Procedure.CodeGen.Properties;
 using Sumo.Retry;
 using System;

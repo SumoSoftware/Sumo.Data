@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using GSP.X.Repository.Local;
 
 namespace Test.Sumo.Sync.Utils

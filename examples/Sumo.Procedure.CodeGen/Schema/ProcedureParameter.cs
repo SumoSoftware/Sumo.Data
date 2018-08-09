@@ -1,6 +1,4 @@
-﻿using Sumo.Data.Attributes;
-using Sumo.Data.Names;
-using Sumo.Data.Types;
+﻿using Sumo.Data;
 using System;
 
 namespace Sumo.Procedure.CodeGen

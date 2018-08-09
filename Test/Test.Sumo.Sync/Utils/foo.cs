@@ -1,10 +1,9 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace GSP.X.Repository.Local
 {
-	public class SyncStatus : INotifyPropertyChanged
+    public class SyncStatus : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

@@ -69,7 +69,7 @@ namespace Sumo.Data
             if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             var didPrepare = !IsPrepared;
-            if (!IsPrepared)
+            if (!IsPrepared || _dbCommand.CommandText != sql)
             {
                 _dbCommand.CommandText = sql;
                 if (parameters != null && parameters.Count != 0) CreateParameters(parameters);

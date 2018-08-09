@@ -17,8 +17,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Sumo.Data.Orm" Version="4.2.2-beta" />
-    <PackageReference Include="Sumo.Data.SqlServer" Version="4.2.2-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Sumo.Data.SqlServer\Sumo.Data.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.Data\Sumo.Data.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.RetryProxy\Sumo.Retry.csproj" />
   </ItemGroup>
 
   <ItemGroup>

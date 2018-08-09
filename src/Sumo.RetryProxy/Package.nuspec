@@ -5,7 +5,7 @@
         <version>5.0.0</version>
         <title>Sumo.Retry - Retry Proxy Pattern</title>
 
-        <authors>Mark Lauter, Kevin Wolf</authors>
+        <authors>Mark Lauter</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>

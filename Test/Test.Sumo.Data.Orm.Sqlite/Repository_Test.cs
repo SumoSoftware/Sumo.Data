@@ -5,8 +5,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sumo.Data.Schema;
-using Sumo.Data.Schema.Sqlite;
-using Sumo.Data.Sqlite;
 using Sumo.Data.Orm.Sqlite;
 
 namespace Sumo.Data.Orm

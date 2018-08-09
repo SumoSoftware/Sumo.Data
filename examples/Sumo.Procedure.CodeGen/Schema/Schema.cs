@@ -1,4 +1,4 @@
-﻿using Sumo.Data.Names;
+﻿using Sumo.Data;
 using System.Collections.Generic;
 
 namespace Sumo.Procedure.CodeGen

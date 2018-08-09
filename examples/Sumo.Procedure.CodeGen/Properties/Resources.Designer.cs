@@ -103,7 +103,8 @@ namespace Sumo.Procedure.CodeGen.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT [table_name] as [Name], [table_schema] as [Schema]  FROM INFORMATION_SCHEMA.TABLES
+        ///   Looks up a localized string similar to SELECT [table_name] as [Name], [table_schema] as [Schema]
+        ///FROM INFORMATION_SCHEMA.TABLES
         ///where 
         ///	[table_schema] != &apos;sys&apos;
         ///	and [table_type] = &apos;BASE TABLE&apos;

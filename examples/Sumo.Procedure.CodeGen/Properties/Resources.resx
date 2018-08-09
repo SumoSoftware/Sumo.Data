@@ -142,7 +142,8 @@ where
 order by 1</value>
   </data>
   <data name="GetTablesSql" xml:space="preserve">
-    <value>SELECT [table_name] as [Name], [table_schema] as [Schema]  FROM INFORMATION_SCHEMA.TABLES
+    <value>SELECT [table_name] as [Name], [table_schema] as [Schema]
+FROM INFORMATION_SCHEMA.TABLES
 where 
 	[table_schema] != 'sys'
 	and [table_type] = 'BASE TABLE'
