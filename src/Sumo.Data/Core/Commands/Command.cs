@@ -107,7 +107,7 @@ namespace Sumo.Data
         {
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             if (IsPrepared)
-                InternalSetParameterValues(parameters);
+                SetParameterValues(parameters);
             else
                 Prepare(_dbCommand.CommandText, parameters);
             return _dbCommand.ExecuteNonQuery();
@@ -117,7 +117,7 @@ namespace Sumo.Data
         {
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             if (IsPrepared)
-                InternalSetParameterValues(parameters);
+                SetParameterValues(parameters);
             else
                 Prepare(_dbCommand.CommandText, parameters);
             return _dbCommand.ExecuteNonQueryAsync();
@@ -127,7 +127,7 @@ namespace Sumo.Data
         {
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             if (IsPrepared)
-                InternalSetParameterValues(parameters);
+                SetParameterValues(parameters);
             else
                 Prepare(_dbCommand.CommandText, parameters);
             var result = _dbCommand.ExecuteScalar();
@@ -138,7 +138,7 @@ namespace Sumo.Data
         {
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             if (IsPrepared)
-                InternalSetParameterValues(parameters);
+                SetParameterValues(parameters);
             else
                 Prepare(_dbCommand.CommandText, parameters);
             var result = await _dbCommand.ExecuteScalarAsync();

@@ -30,7 +30,7 @@ namespace Sumo.Data
 
         private readonly bool _ownsConnection = false;
 
-        protected void InternalPrepare(Dictionary<string, object> parameters)
+        protected void CreateParameters(Dictionary<string, object> parameters)
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
@@ -44,7 +44,7 @@ namespace Sumo.Data
             }
         }
 
-        protected void InternalSetParameterValues(Dictionary<string, object> parameters)
+        protected void SetParameterValues(Dictionary<string, object> parameters)
         {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
@@ -72,13 +72,9 @@ namespace Sumo.Data
             if (!IsPrepared)
             {
                 _dbCommand.CommandText = sql;
-                if (parameters != null && parameters.Count > 0)
-                {
-                    InternalPrepare(parameters);
-                    _dbCommand.Prepare();
-                    IsPrepared = true;
-                }
-                
+                if (parameters != null && parameters.Count != 0) CreateParameters(parameters);
+                _dbCommand.Prepare();
+                IsPrepared = true;
             }
 
             return didPrepare;
@@ -88,7 +84,7 @@ namespace Sumo.Data
         {
             if (!Prepare(sql, parameters) && (parameters != null))
             {
-                InternalSetParameterValues(parameters);
+                SetParameterValues(parameters);
             }
         }
 

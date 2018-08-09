@@ -54,7 +54,7 @@ namespace Sumo.Data
 
         public DataSet Read(Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            InternalSetParameterValues(parameters);
+            SetParameterValues(parameters);
             return ExecuteCommand(dbTransaction);
         }
 

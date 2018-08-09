@@ -151,20 +151,7 @@ namespace Sumo.Data.Schema.Sqlite
             // using Sqlite types because DbType.String has an integer affinitiy 
             // see item 3 - Type Affinity - on this page:
             // https://www.sqlite.org/datatype3.html
-            var typeName = column.DataType.ToSqliteType().ToString();
-            if (column.IsPrimaryKey)
-            {
-                // sqlite uses special case for PK and INTEGER - read up on rowid
-                switch (column.DataType)
-                {
-                    case DbType.Int32:
-                    case DbType.Int64:
-                    case DbType.UInt32:
-                    case DbType.UInt64:
-                        typeName = "INTEGER";
-                        break;
-                }
-            }
+            var typeName = column.DataType.ToSqliteType().ToString().ToUpper();
             builder.Append($" {typeName}");
             switch (column.DataType)
             {
