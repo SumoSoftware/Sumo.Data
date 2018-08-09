@@ -24,9 +24,4 @@
             </group>
         </dependencies>
     </metadata>
-    <!--<files>
-        <file src="bin\release\netstandard2.0\*.dll" target="lib\netstandard1.2" />
-        <file src="bin\release\netstandard2.0\*.xml" target="" />
-        <file src="bin\release\netstandard2.0\*.json" target="" />
-    </files>-->
 </package>

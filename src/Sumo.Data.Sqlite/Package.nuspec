@@ -21,8 +21,8 @@
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
                 <dependency id="Microsoft.Data.Sqlite" version="2.1.0" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data" version="5.0.0-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="5.0.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="5.0.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="5.0.0" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
