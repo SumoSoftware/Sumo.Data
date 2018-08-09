@@ -34,13 +34,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Data.Orm.Sqlite", "test\Test.Sumo.Data.Orm.Sqlite\Test.Sumo.Data.Orm.Sqlite.csproj", "{D696BFCE-F062-4403-8100-65F382B8281F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{BFE6C935-9955-4819-8767-339CA3E92CE1}"
-	ProjectSection(SolutionItems) = preProject
-		examples\Sumo.Retry.Example\Sumo.Retry.Example.csproj = examples\Sumo.Retry.Example\Sumo.Retry.Example.csproj
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Data.Generator", "examples\Sumo.Data.Generator\Sumo.Data.Generator.csproj", "{BB407E76-E63C-4D2B-8C26-3E1ECED7FD07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Sumo.Sync", "Test\Test.Sumo.Sync\Test.Sumo.Sync.csproj", "{BD8213F4-7A77-4C24-B8E1-0F2B697E5EFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.Retry.Example", "Sumo.Retry.Example\Sumo.Retry.Example.csproj", "{7F81BA02-7C55-4EF5-9AFB-F6FD508439C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +103,10 @@ Global
 		{BD8213F4-7A77-4C24-B8E1-0F2B697E5EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD8213F4-7A77-4C24-B8E1-0F2B697E5EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD8213F4-7A77-4C24-B8E1-0F2B697E5EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F81BA02-7C55-4EF5-9AFB-F6FD508439C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F81BA02-7C55-4EF5-9AFB-F6FD508439C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F81BA02-7C55-4EF5-9AFB-F6FD508439C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F81BA02-7C55-4EF5-9AFB-F6FD508439C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +126,7 @@ Global
 		{D696BFCE-F062-4403-8100-65F382B8281F} = {D85B3B5A-05D9-4A56-A470-5C52167DD486}
 		{BB407E76-E63C-4D2B-8C26-3E1ECED7FD07} = {BFE6C935-9955-4819-8767-339CA3E92CE1}
 		{BD8213F4-7A77-4C24-B8E1-0F2B697E5EFC} = {D85B3B5A-05D9-4A56-A470-5C52167DD486}
+		{7F81BA02-7C55-4EF5-9AFB-F6FD508439C1} = {BFE6C935-9955-4819-8767-339CA3E92CE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE1F19B6-C30A-4700-88BB-81F4ACC08215}
