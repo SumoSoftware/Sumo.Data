@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.SqlServer.Application;
 
 namespace Sumo.Data.SqlServer
 {

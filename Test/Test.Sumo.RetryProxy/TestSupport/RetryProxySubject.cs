@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Sumo.Data.Retryupport
+namespace Sumo.Data.Retry
 {
     internal interface IRetryProxySubject
     {

@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.SqlServer.Application;
 using System;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.SqlServer.Factories
+namespace Sumo.Data.SqlServer
 {
     [TestClass]
     public class SqlServerConnectionFactory_Tests

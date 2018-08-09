@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Sumo.Data.SqlServer.Application
+namespace Sumo.Data.SqlServer
 {
     /// <summary>
     /// implementation of the json contained in the secrets file

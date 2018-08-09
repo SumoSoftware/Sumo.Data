@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Sqlite.Queries
+namespace Sumo.Data.Sqlite
 {
     [TestClass]
     public class SqliteSqlReader_Tests

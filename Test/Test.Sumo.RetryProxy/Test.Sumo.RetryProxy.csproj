@@ -5,7 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Test.Sumo.Data.Retry</RootNamespace>
+    <RootNamespace>Test.Sumo.Retry</RootNamespace>
+
+    <AssemblyName>Test.Sumo.Retry</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

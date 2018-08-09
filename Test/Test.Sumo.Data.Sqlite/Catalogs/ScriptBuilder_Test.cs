@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.Expressions;
-using Sumo.Data.Schema;
-using Sumo.Data.Schema.Sqlite;
+using Sumo.Data.Sqlite;
 using System.Data;
 
-namespace Sumo.Data.Sqlite.Catalogs
+namespace Sumo.Data.Schema.Sqlite
 {
     [TestClass]
     public class ScriptBuilder_Test

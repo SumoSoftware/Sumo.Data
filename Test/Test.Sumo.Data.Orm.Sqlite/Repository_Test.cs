@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using Sumo.Data.Schema;
 using Sumo.Data.Schema.Sqlite;
 using Sumo.Data.Sqlite;
-using Sumo.Data.Orm;
 
-namespace Test.Sumo.Data.Orm.Sqlite
+namespace Sumo.Data.Orm
 {
     [TestClass]
     public class Repository_Test

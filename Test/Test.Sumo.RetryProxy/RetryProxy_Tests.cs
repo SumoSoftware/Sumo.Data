@@ -1,12 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Retryupport;
-using Sumo.Retry;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Retry
+namespace Sumo.Retry
 {
     [TestClass]
     public class RetryProxy_Tests

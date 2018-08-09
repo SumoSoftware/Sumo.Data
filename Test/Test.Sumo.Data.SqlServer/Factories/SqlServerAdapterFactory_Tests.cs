@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.SqlServer.Application;
 
-namespace Sumo.Data.SqlServer.Factories
+namespace Sumo.Data.SqlServer
 {
     [TestClass]
     public class SqlServerAdapterFactory_Tests

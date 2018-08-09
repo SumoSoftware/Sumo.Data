@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Sqlite.Factories
+namespace Sumo.Data.Sqlite
 {
     [TestClass]
     public class SqliteConnectionFactory_Tests

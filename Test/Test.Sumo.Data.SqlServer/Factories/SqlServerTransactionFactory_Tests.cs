@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.SqlServer.Application;
 using Sumo.Retry;
 using System;
 using System.Data;
 
-namespace Sumo.Data.SqlServer.Factories
+namespace Sumo.Data.SqlServer
 {
     [TestClass]
     public class TransactionFactory_Tests

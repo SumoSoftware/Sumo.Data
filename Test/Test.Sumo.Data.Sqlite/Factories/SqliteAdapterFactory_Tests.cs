@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Sumo.Data.Sqlite.Factories
+namespace Sumo.Data.Sqlite
 {
     [TestClass]
     public class SqliteAdapterFactory_Tests

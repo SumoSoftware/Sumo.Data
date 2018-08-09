@@ -3,7 +3,7 @@ using Sumo.Retry;
 using System;
 using System.Data;
 
-namespace Sumo.Data.Sqlite.Factories
+namespace Sumo.Data.Sqlite
 {
     [TestClass]
     public class TransactionFactory_Tests
