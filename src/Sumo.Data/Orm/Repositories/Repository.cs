@@ -12,11 +12,9 @@ namespace Sumo.Data.Orm
         private readonly IOrmDataComponentFactory _ormDataComponentFactory;
         private readonly string _connectionString;
 
-        public Repository(IOrmDataComponentFactory ormDataComponentFactory, string connectionString) : base()
+        public Repository(IOrmDataComponentFactory ormDataComponentFactory) : base()
         {
             _ormDataComponentFactory = ormDataComponentFactory ?? throw new ArgumentNullException(nameof(ormDataComponentFactory));
-            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
-            _connectionString = connectionString;
         }
 
         public T Read<T>(object searchKey, DbTransaction dbTransaction = null) where T : class

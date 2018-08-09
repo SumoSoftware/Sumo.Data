@@ -22,7 +22,6 @@ namespace Sumo.Data.Orm
         private IOrmDataComponentFactory GetFactorySet()
         {
             var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
-
             return new SqliteOrmDataComponentFactory(retryOptions);
         }
 
