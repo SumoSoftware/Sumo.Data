@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Core.Attributes
+namespace Sumo.Data
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class PropertyNameAttribute : DataAttribute

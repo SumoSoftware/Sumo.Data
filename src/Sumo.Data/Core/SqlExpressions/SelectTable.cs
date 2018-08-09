@@ -1,5 +1,4 @@
-﻿using Sumo.Data.Names;
-using System;
+﻿using System;
 
 namespace Sumo.Data.SqlExpressions
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Names
+namespace Sumo.Data
 {
     public interface IParameterName : IItemName, IEquatable<IParameterName>
     {

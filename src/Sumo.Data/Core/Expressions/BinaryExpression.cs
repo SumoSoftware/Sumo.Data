@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sumo.Data
+namespace Sumo.Data.Expressions
 {
     public sealed class BinaryExpression : IBinaryExpression
     {

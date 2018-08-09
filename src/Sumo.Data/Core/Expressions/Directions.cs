@@ -1,4 +1,4 @@
-﻿namespace Sumo.Data
+﻿namespace Sumo.Data.Expressions
 {
     public enum Directions
     {

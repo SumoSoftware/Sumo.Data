@@ -1,9 +1,8 @@
-﻿using Sumo.Data.Names;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sumo.Data
+namespace Sumo.Data.Expressions
 {
     //todo: add tests for sort expression
 

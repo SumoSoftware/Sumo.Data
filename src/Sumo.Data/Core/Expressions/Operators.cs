@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data
+namespace Sumo.Data.Expressions
 {
     public enum LogicalOperators
     {

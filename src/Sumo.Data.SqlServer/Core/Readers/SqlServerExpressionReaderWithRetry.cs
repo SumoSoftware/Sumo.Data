@@ -1,4 +1,5 @@
-﻿using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.Expressions;
+using Sumo.Data.SqlExpressions;
 using Sumo.Retry;
 using System;
 using System.Collections.Generic;

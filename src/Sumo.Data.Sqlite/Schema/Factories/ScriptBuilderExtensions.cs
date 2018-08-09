@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sumo.Data.Expressions;
+using System;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -185,7 +186,7 @@ namespace Sumo.Data.Schema.Sqlite
                 {
                     builder.Append($" on conflict {column.PrimaryKey.ConflictClause.Value.ToString().ToLower()}");
                 }
-                if (column.PrimaryKey.IsAutoIncrement && false)
+                if (column.PrimaryKey.IsAutoIncrement)
                 {
                     builder.Append(" autoincrement");
                 }

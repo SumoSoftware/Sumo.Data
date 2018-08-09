@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Retry</id>
-        <version>4.2.2</version>
+        <version>5.0.0</version>
         <title>Sumo.Retry - Retry Proxy Pattern</title>
 
-        <authors>Mark Lauter</authors>
+        <authors>Mark Lauter, Kevin Wolf</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>

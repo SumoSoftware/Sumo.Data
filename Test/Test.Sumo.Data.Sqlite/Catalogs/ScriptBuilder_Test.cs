@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sumo.Data.Expressions;
 using Sumo.Data.Schema;
 using Sumo.Data.Schema.Sqlite;
 using System.Data;

@@ -1,4 +1,4 @@
-﻿namespace Sumo.Data.Test.Support
+﻿namespace Sumo.Data
 {
     public class TestType
     {

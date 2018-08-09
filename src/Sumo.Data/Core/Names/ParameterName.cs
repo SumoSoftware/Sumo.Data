@@ -1,4 +1,4 @@
-﻿namespace Sumo.Data.Names
+﻿namespace Sumo.Data
 {
     public class ParameterName : ItemName, IParameterName
     {

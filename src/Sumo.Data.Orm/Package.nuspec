@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.Orm</id>
-        <version>4.2.2</version>
+        <version>5.0.0</version>
         <title>Sumo.Data - ORM Foundations</title>
         
-        <authors>Mark Lauter</authors>
+        <authors>Mark Lauter, Kevin Wolf</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -20,14 +20,9 @@
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data" version="4.2.2-beta" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="4.2.2-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="5.0.0-beta" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="5.0.0-beta" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
-    <!--<files>
-        <file src="bin\release\netstandard2.0\*.dll" target="lib\netstandard1.2" />
-        <file src="bin\release\netstandard2.0\*.xml" target="" />
-        <file src="bin\release\netstandard2.0\*.json" target="" />
-    </files>-->
 </package>

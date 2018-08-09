@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sumo.Data.Names
+namespace Sumo.Data
 {
     public class ItemName : IItemName, IEquatable<ItemName>
     {

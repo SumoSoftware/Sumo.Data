@@ -6,7 +6,6 @@ using System.IO;
 using Sumo.Data.Schema.SqlServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.SqlServer;
-using Sumo.Data.Sqlite.Core.Batch;
 using Sumo.Data.Sqlite;
 
 namespace Test.Sumo.Sync.SyncTests

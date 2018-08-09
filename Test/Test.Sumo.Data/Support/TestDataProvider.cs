@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Sumo.Data.Test.Support
+namespace Sumo.Data
 {
     public static class TestDataProvider
     {

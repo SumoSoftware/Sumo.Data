@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Sumo.Data.Names
+namespace Sumo.Data
 {
     [TestClass]
     public class ColumnName_Tests

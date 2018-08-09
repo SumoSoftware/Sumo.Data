@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Names;
 using Sumo.Data.SqlExpressions;
 using System;
 
-namespace Sumo.Data.Readers
+namespace Sumo.Data
 {
     [TestClass]
     public class FromTable_Tests

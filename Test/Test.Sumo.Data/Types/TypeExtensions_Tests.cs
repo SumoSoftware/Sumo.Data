@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Sumo.Data.Test.Support;
 using System.Threading.Tasks;
 
-namespace Sumo.Data.Types
+namespace Sumo.Data
 {
     [TestClass]
     public class TypeExtensions_Tests

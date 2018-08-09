@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sumo.Data.Expressions;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 

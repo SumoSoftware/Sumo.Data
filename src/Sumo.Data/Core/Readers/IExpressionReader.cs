@@ -1,4 +1,5 @@
-﻿using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.Expressions;
+using Sumo.Data.SqlExpressions;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;

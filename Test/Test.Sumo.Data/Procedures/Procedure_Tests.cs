@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Test.Support;
 using System;
 using System.Reflection;
 
-namespace Sumo.Data.Procedures
+namespace Sumo.Data
 {
     [TestClass]
     public class Procedure_Tests

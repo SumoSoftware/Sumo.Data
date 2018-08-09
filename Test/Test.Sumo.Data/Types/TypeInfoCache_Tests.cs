@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Test.Support;
 using System;
 
-namespace Sumo.Data.Types
+namespace Sumo.Data
 {
     [TestClass]
     public class TypeInfoCache_Tests

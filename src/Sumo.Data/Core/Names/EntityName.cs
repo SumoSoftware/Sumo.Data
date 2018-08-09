@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sumo.Data.Names
+namespace Sumo.Data
 {
     public class EntityName : ItemName, IEntityName, IItemName, IEquatable<EntityName>
     {

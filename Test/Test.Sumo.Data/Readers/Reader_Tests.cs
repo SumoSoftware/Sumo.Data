@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Sumo.Data.Readers
+namespace Sumo.Data
 {
     [TestClass]
     public class Reader_Tests

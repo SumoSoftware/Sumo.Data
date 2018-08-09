@@ -1,13 +1,10 @@
 ﻿using Microsoft.Data.Sqlite;
-using Sumo.Data.Core.Batch;
 using Sumo.Data.Schema;
 using Sumo.Data.Schema.Sqlite;
 using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
-namespace Sumo.Data.Sqlite.Core.Batch
+namespace Sumo.Data.Sqlite
 {
     public class BatchWriter : IBatchWriter
     {

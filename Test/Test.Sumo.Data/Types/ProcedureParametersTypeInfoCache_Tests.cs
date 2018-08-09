@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Data.Test.Support;
 
-namespace Sumo.Data.Types
+namespace Sumo.Data
 {
     [TestClass]
     public class ProcedureParametersTypeInfoCache_Tests

@@ -1,4 +1,5 @@
-﻿using Sumo.Data.Schema;
+﻿using Sumo.Data.Expressions;
+using Sumo.Data.Schema;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;

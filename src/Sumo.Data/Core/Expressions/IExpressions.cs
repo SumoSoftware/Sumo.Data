@@ -1,8 +1,7 @@
-﻿using Sumo.Data.Names;
-using Sumo.Data.SqlExpressions;
+﻿using Sumo.Data.SqlExpressions;
 using System.Collections.Generic;
 
-namespace Sumo.Data
+namespace Sumo.Data.Expressions
 {
     public interface IExpression
     {

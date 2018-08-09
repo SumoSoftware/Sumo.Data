@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data</id>
-        <version>4.2.2</version>
+        <version>5.0.0</version>
         <title>Sumo.Data - Foundations</title>
 
-        <authors>Mark Lauter</authors>
+        <authors>Mark Lauter, Kevin Wolf</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -25,9 +25,4 @@
             </group>
         </dependencies>
     </metadata>
-    <!--<files>
-        <file src="bin\release\netstandard2.0\*.dll" target="lib\netstandard1.2" />
-        <file src="bin\release\netstandard2.0\*.xml" target="" />
-        <file src="bin\release\netstandard2.0\*.json" target="" />
-    </files>-->
 </package>
