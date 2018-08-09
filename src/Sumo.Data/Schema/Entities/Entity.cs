@@ -42,7 +42,7 @@ namespace Sumo.Data.Schema
 
         protected virtual bool IsNameValid(string name)
         {
-            return !String.IsNullOrEmpty(name)&& !string.IsNullOrWhiteSpace(name) && !name.Contains(" ");
+            return !String.IsNullOrEmpty(name)&& !String.IsNullOrWhiteSpace(name) && !name.Contains(" ");
         }
 
         public static implicit operator string(Entity name)

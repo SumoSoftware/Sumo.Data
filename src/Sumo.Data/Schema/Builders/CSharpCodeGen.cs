@@ -15,7 +15,7 @@ namespace Sumo.Data.Schema
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private String Tabs(int count)
+        private string Tabs(int count)
         {
             var tabs = String.Empty;
             for(var idx = 0; idx < count; ++idx)
@@ -26,12 +26,12 @@ namespace Sumo.Data.Schema
             return tabs;
         }
 
-        private String SanitizeField(String columnName)
+        private string SanitizeField(string columnName)
         {
             return  $"_{columnName.Substring(0,1).ToLower()}{columnName.Substring(1)}";
         }
 
-        public String ToFile(IEnumerable<Table> tables, string ns, bool notifyPropertyChanged = false)
+        public string ToFile(IEnumerable<Table> tables, string ns, bool notifyPropertyChanged = false)
         {
             var bldr = new StringBuilder();
             bldr.AppendLine("using System;");
@@ -51,7 +51,7 @@ namespace Sumo.Data.Schema
             return bldr.ToString();
         }
 
-        public String ToClass(Table table, string modififier = "public", int tabs = 1, bool notifyPropertyChanged = false)
+        public string ToClass(Table table, string modififier = "public", int tabs = 1, bool notifyPropertyChanged = false)
         {
             var bldr = new StringBuilder();
 

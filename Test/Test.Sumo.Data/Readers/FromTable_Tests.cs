@@ -10,7 +10,7 @@ namespace Sumo.Data
         [TestMethod]
         public void NotFinished()
         {
-            Assert.Fail($"todo: {GetType().FullName} - add ToString tests inclusive of expressions");
+            Assert.Fail($"todo: {GetType().FullName} - add Tostring tests inclusive of expressions");
         }
 
         [TestMethod]

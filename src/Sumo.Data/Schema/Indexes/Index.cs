@@ -46,7 +46,7 @@ namespace Sumo.Data.Schema
         public override string ToString()
         {
             
-            return $"{base.ToString()}{(IsUnique ? " UNIQUE" : String.Empty)}{(IndexedColumns != null ? $" ON {string.Join(", ", IndexedColumns)}" : String.Empty)}";
+            return $"{base.ToString()}{(IsUnique ? " UNIQUE" : String.Empty)}{(IndexedColumns != null ? $" ON {String.Join(", ", IndexedColumns)}" : String.Empty)}";
         }
     }
 }

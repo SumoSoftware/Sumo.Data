@@ -64,7 +64,7 @@ namespace Sumo.Data.Expressions
                     break;
                     //case RelationalOperators.IsNull:
                     //case RelationalOperators.IsNotNull:
-                    //    throw new NotSupportedException($"{nameof(relationalOperator)} value of {relationalOperator.ToString()} can't be converted to string.");
+                    //    throw new NotSupportedException($"{nameof(relationalOperator)} value of {relationalOperator.ToString()} can't be converted to String.");
             }
             return result;
         }

@@ -30,7 +30,7 @@ namespace Test.Sumo.Sync.SyncTests
         {
             public DateTime LastSync { get; set; }
             public float PreviousSyncApiId { get; set; }
-            public String ClientId { get; set; }
+            public string ClientId { get; set; }
             public int UserId { get; set; }
         }
         
@@ -61,7 +61,7 @@ namespace Test.Sumo.Sync.SyncTests
                 System.IO.File.Delete(outputFileName);
             }
 
-            //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
+            //Add your SQLServer Connection string as environment variable "TESTCONNSTRING"
             connectionFactory = new SqlServerDataComponentFactory(Environment.GetEnvironmentVariable("TESTCONNSTRING"));
             sqliteConnectionFactory = new SqliteDataComponentFactory(sqlLiteConnectionString);
 

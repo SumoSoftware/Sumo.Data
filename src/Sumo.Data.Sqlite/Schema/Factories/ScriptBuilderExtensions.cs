@@ -147,7 +147,7 @@ namespace Sumo.Data.Schema.Sqlite
             // name and type
             builder.Append($"[{column.Name}]");
 
-            // using Sqlite types because DbType.String has an integer affinitiy 
+            // using Sqlite types because DbType.string has an integer affinitiy 
             // see item 3 - Type Affinity - on this page:
             // https://www.sqlite.org/datatype3.html
             var typeName = column.DataType.ToSqliteType().ToString().ToUpper();

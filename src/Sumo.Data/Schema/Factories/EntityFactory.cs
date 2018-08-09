@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace Sumo.Data.Schema.SqlServer
+namespace Sumo.Data.Schema
 {
     public class EntityFactory
     {
@@ -35,7 +35,7 @@ namespace Sumo.Data.Schema.SqlServer
             return schema;
         }
 
-        public Table ToTable(DataTable table, String tableName = "", string owner = "dbo")
+        public Table ToTable(DataTable table, string tableName = "", string owner = "dbo")
         {
             var outputTable = new Table
             {

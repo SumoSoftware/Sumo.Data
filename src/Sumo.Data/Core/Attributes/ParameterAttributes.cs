@@ -3,13 +3,13 @@
 namespace Sumo.Data
 {
     /// <summary>
-    /// Sql Type     | DbType                | Size | Returned string.Length()
+    /// Sql Type     | DbType                | Size | Returned String.Length()
     /// ----------------------------------------------------------------
-    /// Varchar(10)  | AnsiString            | 10   | 9
+    /// Varchar(10)  | Ansistring            | 10   | 9
     /// Char(10)     | AnsiStringFixedLength | 10   | 10
-    /// Nvarchar(10  | String                | 10   | 9
-    /// Varchar(max) | AnsiString            | -1   | 20,480 
-    /// NVarchar(max)| String                | -1   | 20,480
+    /// Nvarchar(10  | string                | 10   | 9
+    /// Varchar(max) | Ansistring            | -1   | 20,480 
+    /// NVarchar(max)| string                | -1   | 20,480
     /// numeric types| ...                   |  0   | ...
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]

@@ -9,8 +9,8 @@ namespace Sumo.Data.SqlServer
     {
         public SqlServerConnectionFactory() { }
 
-        private string _connectionString;
-        public SqlServerConnectionFactory(String connectionString)
+        private readonly string _connectionString;
+        public SqlServerConnectionFactory(string connectionString)
         {
             _connectionString = connectionString;
         }

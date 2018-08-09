@@ -65,8 +65,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _storeName;
-		public System.String StoreName
+		private string _storeName;
+		public string StoreName
 		{
 			get { return _storeName; }
 			set
@@ -79,8 +79,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _manager;
-		public System.String Manager
+		private string _manager;
+		public string Manager
 		{
 			get { return _manager; }
 			set
@@ -107,8 +107,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _address1;
-		public System.String Address1
+		private string _address1;
+		public string Address1
 		{
 			get { return _address1; }
 			set
@@ -121,8 +121,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _address2;
-		public System.String Address2
+		private string _address2;
+		public string Address2
 		{
 			get { return _address2; }
 			set
@@ -135,8 +135,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _city;
-		public System.String City
+		private string _city;
+		public string City
 		{
 			get { return _city; }
 			set
@@ -149,8 +149,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _state;
-		public System.String state
+		private string _state;
+		public string State
 		{
 			get { return _state; }
 			set
@@ -163,8 +163,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _zip;
-		public System.String Zip
+		private string _zip;
+		public string Zip
 		{
 			get { return _zip; }
 			set
@@ -177,8 +177,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _county;
-		public System.String County
+		private string _county;
+		public string County
 		{
 			get { return _county; }
 			set
@@ -191,8 +191,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _country;
-		public System.String Country
+		private string _country;
+		public string Country
 		{
 			get { return _country; }
 			set
@@ -300,8 +300,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _surveyName;
-		public System.String SurveyName
+		private string _surveyName;
+		public string SurveyName
 		{
 			get { return _surveyName; }
 			set
@@ -314,8 +314,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _surveyDescription;
-		public System.String SurveyDescription
+		private string _surveyDescription;
+		public string SurveyDescription
 		{
 			get { return _surveyDescription; }
 			set
@@ -328,8 +328,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _confirmationMessage;
-		public System.String ConfirmationMessage
+		private string _confirmationMessage;
+		public string ConfirmationMessage
 		{
 			get { return _confirmationMessage; }
 			set
@@ -370,8 +370,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _createdBy;
-		public System.String CreatedBy
+		private string _createdBy;
+		public string CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -398,8 +398,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _modifiedBy;
-		public System.String ModifiedBy
+		private string _modifiedBy;
+		public string ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -451,8 +451,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _surveyCategoryName;
-		public System.String SurveyCategoryName
+		private string _surveyCategoryName;
+		public string SurveyCategoryName
 		{
 			get { return _surveyCategoryName; }
 			set
@@ -465,8 +465,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _createdBy;
-		public System.String CreatedBy
+		private string _createdBy;
+		public string CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -493,8 +493,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _modifiedBy;
-		public System.String ModifiedBy
+		private string _modifiedBy;
+		public string ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -560,8 +560,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _surveySectionName;
-		public System.String SurveySectionName
+		private string _surveySectionName;
+		public string SurveySectionName
 		{
 			get { return _surveySectionName; }
 			set
@@ -574,8 +574,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _color;
-		public System.String Color
+		private string _color;
+		public string Color
 		{
 			get { return _color; }
 			set
@@ -602,8 +602,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _createdBy;
-		public System.String CreatedBy
+		private string _createdBy;
+		public string CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -630,8 +630,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _modifiedBy;
-		public System.String ModifiedBy
+		private string _modifiedBy;
+		public string ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -711,8 +711,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _text;
-		public System.String Text
+		private string _text;
+		public string Text
 		{
 			get { return _text; }
 			set
@@ -834,8 +834,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _question;
-		public System.String Question
+		private string _question;
+		public string Question
 		{
 			get { return _question; }
 			set
@@ -932,8 +932,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _supportLink;
-		public System.String SupportLink
+		private string _supportLink;
+		public string SupportLink
 		{
 			get { return _supportLink; }
 			set
@@ -974,8 +974,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _dataType;
-		public System.String DataType
+		private string _dataType;
+		public string DataType
 		{
 			get { return _dataType; }
 			set
@@ -1125,8 +1125,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _text;
-		public System.String Text
+		private string _text;
+		public string Text
 		{
 			get { return _text; }
 			set
@@ -1139,8 +1139,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _type;
-		public System.String Type
+		private string _type;
+		public string Type
 		{
 			get { return _type; }
 			set
@@ -1248,8 +1248,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _label;
-		public System.String Label
+		private string _label;
+		public string Label
 		{
 			get { return _label; }
 			set
@@ -1290,8 +1290,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _filename;
-		public System.String Filename
+		private string _filename;
+		public string Filename
 		{
 			get { return _filename; }
 			set
@@ -1304,8 +1304,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _extension;
-		public System.String Extension
+		private string _extension;
+		public string Extension
 		{
 			get { return _extension; }
 			set
@@ -1319,7 +1319,7 @@ namespace GSP.X.Repository.Local
 		}
 
 		private System.Decimal _latitude;
-		public System.Decimal latitude
+		public System.Decimal Latitude
 		{
 			get { return _latitude; }
 			set
@@ -1333,7 +1333,7 @@ namespace GSP.X.Repository.Local
 		}
 
 		private System.Decimal _longitude;
-		public System.Decimal longitude
+		public System.Decimal Longitude
 		{
 			get { return _longitude; }
 			set
@@ -1388,8 +1388,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _description;
-		public System.String Description
+		private string _description;
+		public string Description
 		{
 			get { return _description; }
 			set
@@ -1553,8 +1553,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _eventName;
-		public System.String EventName
+		private string _eventName;
+		public string EventName
 		{
 			get { return _eventName; }
 			set
@@ -1567,8 +1567,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _eventDescription;
-		public System.String EventDescription
+		private string _eventDescription;
+		public string EventDescription
 		{
 			get { return _eventDescription; }
 			set
@@ -1623,8 +1623,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _email;
-		public System.String Email
+		private string _email;
+		public string Email
 		{
 			get { return _email; }
 			set
@@ -1760,8 +1760,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _identifier;
-		public System.String Identifier
+		private string _identifier;
+		public string Identifier
 		{
 			get { return _identifier; }
 			set
@@ -1869,8 +1869,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _comment;
-		public System.String Comment
+		private string _comment;
+		public string Comment
 		{
 			get { return _comment; }
 			set
@@ -1883,8 +1883,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.String _answer;
-		public System.String Answer
+		private string _answer;
+		public string Answer
 		{
 			get { return _answer; }
 			set
