@@ -10,7 +10,6 @@ namespace Sumo.Data.Orm
     public class Repository : IRepository
     {
         private readonly IOrmDataComponentFactory _ormDataComponentFactory;
-        private readonly string _connectionString;
 
         public Repository(IOrmDataComponentFactory ormDataComponentFactory) : base()
         {
@@ -49,7 +48,7 @@ namespace Sumo.Data.Orm
         public T[] Read<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null) where T : class
         {
             T[] result = null;
-            using (var connection = _ormDataComponentFactory.Open(_connectionString))
+            using (var connection = _ormDataComponentFactory.Open())
             using (var reader = new SqlReader(connection, _ormDataComponentFactory, _ormDataComponentFactory))
             {
                 var sql = _ormDataComponentFactory.SqlStatementBuilder.GetSelectStatement<T>(parameters);
@@ -62,7 +61,7 @@ namespace Sumo.Data.Orm
         public async Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null) where T : class
         {
             T[] result = null;
-            using (var connection = await _ormDataComponentFactory.OpenAsync(_connectionString))
+            using (var connection = await _ormDataComponentFactory.OpenAsync())
             using (var reader = new SqlReader(connection, _ormDataComponentFactory, _ormDataComponentFactory))
             {
                 var sql = _ormDataComponentFactory.SqlStatementBuilder.GetSelectStatement<T>(parameters);
@@ -94,7 +93,7 @@ namespace Sumo.Data.Orm
         public void Write<T>(T entity, DbTransaction dbTransaction = null, bool autoCreateTable = true) where T : class
         {
             var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
-            using (var connection = _ormDataComponentFactory.Open(_connectionString))
+            using (var connection = _ormDataComponentFactory.Open())
             using (var command = new Command(connection, _ormDataComponentFactory))
             {
                 var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
@@ -138,7 +137,7 @@ namespace Sumo.Data.Orm
             await Task.Run(async () =>
             {
                 var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
-                using (var connection = _ormDataComponentFactory.Open(_connectionString))
+                using (var connection = _ormDataComponentFactory.Open())
                 using (var command = new Command(connection, _ormDataComponentFactory))
                 {
                     var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
@@ -181,7 +180,7 @@ namespace Sumo.Data.Orm
         public void Write<T>(T[] entities, DbTransaction dbTransaction = null, bool autoCreateTable = true) where T : class
         {
             var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
-            using (var connection = _ormDataComponentFactory.Open(_connectionString))
+            using (var connection = _ormDataComponentFactory.Open())
             using (var command = new Command(connection, _ormDataComponentFactory))
             {
                 var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
@@ -229,7 +228,7 @@ namespace Sumo.Data.Orm
             await Task.Run(async () =>
             {
                 var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
-                using (var connection = _ormDataComponentFactory.Open(_connectionString))
+                using (var connection = _ormDataComponentFactory.Open())
                 using (var command = new Command(connection, _ormDataComponentFactory))
                 {
                     var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
