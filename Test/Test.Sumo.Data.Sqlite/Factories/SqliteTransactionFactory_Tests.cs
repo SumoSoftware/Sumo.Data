@@ -8,7 +8,7 @@ namespace Sumo.Data.Sqlite
     [TestClass]
     public class TransactionFactory_Tests
     {
-        string _connectionString = "Filename=./sqlite.db; Mode=ReadWriteCreate";
+        private readonly string _connectionString = "Filename=./sqlite.db; Mode=ReadWriteCreate";
 
         [TestMethod]
         public void BeginTransaction()

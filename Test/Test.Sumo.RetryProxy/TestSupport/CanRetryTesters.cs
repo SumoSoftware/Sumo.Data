@@ -1,7 +1,7 @@
 ﻿using Sumo.Retry;
 using System;
 
-namespace Sumo.Data.Retry
+namespace Sumo.Retry
 {
     public class CanRetryProxySubjectException : ICanRetryTester
     {

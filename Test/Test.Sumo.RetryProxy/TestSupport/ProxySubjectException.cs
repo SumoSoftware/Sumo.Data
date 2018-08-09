@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Data.Retry
+namespace Sumo.Retry
 {
     internal class ProxySubjectException : Exception
     {
