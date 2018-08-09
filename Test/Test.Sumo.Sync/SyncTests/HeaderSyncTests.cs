@@ -7,6 +7,8 @@ using Sumo.Data.Schema.SqlServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.SqlServer;
 using Sumo.Data.Sqlite;
+using Test.Sumo.Sync.Utils;
+using Sumo.Data.Orm.Sqlite;
 
 namespace Test.Sumo.Sync.SyncTests
 {
@@ -31,6 +33,18 @@ namespace Test.Sumo.Sync.SyncTests
             public String ClientId { get; set; }
             public int UserId { get; set; }
         }
+        
+
+        public const string OUTPUT_FILENAME = @"L:\SQLITEDB1.sqlite";
+
+        [TestMethod]
+        public void GetRecords()
+        {
+            var sqlLiteConnectionString = $"Data Source={OUTPUT_FILENAME}";
+            var dataContext = new DataContext(new SqliteOrmDataComponentFactory(sqlLiteConnectionString));
+            var stores = dataContext.GetStores();
+
+        }
 
         [TestMethod]
         public void FullTest()
@@ -39,7 +53,7 @@ namespace Test.Sumo.Sync.SyncTests
             IDataComponentFactory sqliteConnectionFactory;
             var entFactory = new EntityFactory();
 
-            var outputFileName = @"L:\SQLITEDB1.sqlite";
+            var outputFileName = OUTPUT_FILENAME;
             var sqlLiteConnectionString = $"Data Source={outputFileName}";
 
             if (System.IO.File.Exists(outputFileName))

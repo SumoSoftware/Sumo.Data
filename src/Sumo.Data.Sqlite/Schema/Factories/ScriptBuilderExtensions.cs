@@ -1,4 +1,6 @@
-﻿using Sumo.Data.Expressions;
+﻿using Microsoft.Data.Sqlite;
+using Sumo.Data.Expressions;
+using Sumo.Data.Sqlite;
 using System;
 using System.Data;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace Sumo.Data.Schema.Sqlite
     // read schema-name stufff here: https://www.sqlite.org/lang_createtable.html
     // schema name that isn't 'MAIN' must specify an attached database
     // and read attached database stuff here: https://www.sqlite.org/lang_attach.html
-    
+
     // todo: add attached database support
     internal static class ScriptBuilderExtensions
     {
@@ -145,7 +147,11 @@ namespace Sumo.Data.Schema.Sqlite
 
             // name and type
             builder.Append($"[{column.Name}]");
-            var typeName = column.DataType.ToString();
+
+            // using Sqlite types because DbType.String has an integer affinitiy 
+            // see item 3 - Type Affinity - on this page:
+            // https://www.sqlite.org/datatype3.html
+            var typeName = column.DataType.ToSqliteType().ToString();
             if (column.IsPrimaryKey)
             {
                 // sqlite uses special case for PK and INTEGER - read up on rowid

@@ -72,9 +72,13 @@ namespace Sumo.Data
             if (!IsPrepared)
             {
                 _dbCommand.CommandText = sql;
-                if (parameters != null) InternalPrepare(parameters);
-                _dbCommand.Prepare();
-                IsPrepared = true;
+                if (parameters != null && parameters.Count > 0)
+                {
+                    InternalPrepare(parameters);
+                    _dbCommand.Prepare();
+                    IsPrepared = true;
+                }
+                
             }
 
             return didPrepare;
