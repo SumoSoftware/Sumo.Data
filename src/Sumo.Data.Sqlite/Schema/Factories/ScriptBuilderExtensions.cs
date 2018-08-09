@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
-using Sumo.Data.Expressions;
+﻿using Sumo.Data.Expressions;
 using Sumo.Data.Sqlite;
 using System;
 using System.Data;

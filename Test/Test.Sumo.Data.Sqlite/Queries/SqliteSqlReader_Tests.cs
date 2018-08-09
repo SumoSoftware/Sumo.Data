@@ -19,7 +19,7 @@ namespace Sumo.Data.Sqlite
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
                 Assert.IsNotNull(reader);
-            }                 
+            }
         }
 
         [TestMethod]
@@ -35,10 +35,23 @@ namespace Sumo.Data.Sqlite
             {
                 command.Execute("drop table if exists ReadTest");
                 command.Execute("create table if not exists ReadTest(TestColumn text)");
+                //command.Execute("insert into ReadTest values(null)");
                 command.Execute("insert into ReadTest values('one')");
                 command.Execute("insert into ReadTest values('two')");
 
                 var dataSet = reader.Read("select * from ReadTest");
+                //reader.Prepare("select * from ReadTest");
+                //using (var dataReader = reader.ExecuteReader(null))
+                //{
+                //    while (dataReader.Read())
+                //    {
+                //        for (var i = 0; i < dataReader.FieldCount; ++i)
+                //        {
+                //            var isnull = dataReader.IsDBNull(i);
+                //            var o = dataReader.GetValue(i);
+                //        }
+                //    }
+                //}
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);

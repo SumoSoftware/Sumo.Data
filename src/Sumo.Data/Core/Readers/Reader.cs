@@ -37,6 +37,7 @@ namespace Sumo.Data
             var result = new DataSet();
             using (var dataAdapter = _dataAdapterFactory.CreateDataAdapter(_dbCommand))
             {
+                //dataAdapter.FillSchema(null, SchemaType.Mapped)
                 dataAdapter.Fill(result);
             }
             return result;
