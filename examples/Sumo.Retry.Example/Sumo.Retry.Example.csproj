@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Sumo.RetryProxy\Sumo.Retry.csproj" />
+    <ProjectReference Include="..\..\src\Sumo.RetryProxy\Sumo.Retry.csproj" />
   </ItemGroup>
 
 </Project>
