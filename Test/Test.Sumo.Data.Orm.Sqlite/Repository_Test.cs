@@ -47,7 +47,7 @@ namespace Sumo.Data.Orm
             try
             {
                 var factorySet = GetFactorySet();
-                IRepository repository = new Repository(factorySet, _connectionString);
+                IRepository repository = new Repository(new SqliteOrmDataComponentFactory(_connectionString));
 
                 var person = new Person
                 {
@@ -72,7 +72,7 @@ namespace Sumo.Data.Orm
             try
             {
                 var factorySet = GetFactorySet();
-                IRepository repository = new Repository(factorySet, _connectionString);
+                IRepository repository = new Repository(new SqliteOrmDataComponentFactory(_connectionString));
 
                 var person = new Person
                 {
@@ -98,7 +98,7 @@ namespace Sumo.Data.Orm
             try
             {
                 var factorySet = GetFactorySet();
-                IRepository repository = new Repository(factorySet, _connectionString);
+                IRepository repository = new Repository(new SqliteOrmDataComponentFactory(_connectionString));
 
                 var person = new Person
                 {
