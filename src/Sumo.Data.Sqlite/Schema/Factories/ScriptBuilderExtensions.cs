@@ -14,7 +14,7 @@ namespace Sumo.Data.Schema.Sqlite
     // read schema-name stufff here: https://www.sqlite.org/lang_createtable.html
     // schema name that isn't 'MAIN' must specify an attached database
     // and read attached database stuff here: https://www.sqlite.org/lang_attach.html
-    
+
     // todo: add attached database support
     internal static class ScriptBuilderExtensions
     {
@@ -152,7 +152,6 @@ namespace Sumo.Data.Schema.Sqlite
             // see item 3 - Type Affinity - on this page:
             // https://www.sqlite.org/datatype3.html
             var typeName = column.DataType.ToSqliteType().ToString().ToUpper();
-
             builder.Append($" {typeName}");
             switch (column.DataType)
             {

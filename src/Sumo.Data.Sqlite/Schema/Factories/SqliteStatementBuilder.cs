@@ -56,13 +56,21 @@ namespace Sumo.Data.Schema.Sqlite
                 if (i > 0) builder.Append(", ");
                 builder.Append($"[{TypeInfoCache<T>.ReadWriteProperties[i].Name}]");
             }
-            builder.Append($" from [{TypeInfoCache<T>.Name}] where ");
-            var index = -1;
-            foreach (var kvp in parameters)
+
+            if (parameters.Count > 0)
             {
-                if (index > 0) builder.Append(" and ");
-                var parameterName = _parameterFactory.GetParameterName(kvp.Key, index);
-                builder.Append($"[{kvp.Key}]={parameterName}");
+                builder.Append($" from [{TypeInfoCache<T>.Name}] where ");
+                var index = -1;
+                foreach (var kvp in parameters)
+                {
+                    if (index > 0) builder.Append(" and ");
+                    var parameterName = _parameterFactory.GetParameterName(kvp.Key, index);
+                    builder.Append($"[{kvp.Key}]={parameterName}");
+                }
+            }
+            else
+            {
+                builder.Append($" from  [{TypeInfoCache<T>.Name}]");
             }
 
             return builder.ToString();
