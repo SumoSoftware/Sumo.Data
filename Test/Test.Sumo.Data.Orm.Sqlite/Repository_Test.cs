@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Sumo.Data.Schema;
 using Sumo.Data.Schema.Sqlite;
 using Sumo.Data.Sqlite;
+using Sumo.Data.Orm.Sqlite;
 
 namespace Sumo.Data.Orm
 {
@@ -18,18 +19,11 @@ namespace Sumo.Data.Orm
         //{
         //}
 
-        private IFactorySet GetFactorySet()
+        private IOrmDataComponentFactory GetFactorySet()
         {
             var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
 
-            var dataProviderFactory = new SqliteDataComponentFactory(retryOptions);
-            var parameterFactory = new SqliteSchemaParameterNames();
-
-            return new FactorySet(
-                dataProviderFactory,
-                parameterFactory,
-                new SqliteScriptBuilder(),
-                new SqliteStatementBuilder(dataProviderFactory));
+            return new SqliteOrmDataComponentFactory(retryOptions);
         }
 
         public class Person

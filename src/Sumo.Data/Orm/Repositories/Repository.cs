@@ -9,17 +9,12 @@ namespace Sumo.Data.Orm
 {
     public class Repository : IRepository
     {
-        private readonly IFactorySet _factorySet;
+        private readonly IOrmDataComponentFactory _ormDataComponentFactory;
         private readonly string _connectionString;
 
-        public Repository(IDataComponentFactory dataProviderFactory, ISchemaParameterNames schemaParameterFactory, IScriptBuilder scriptBuilder, ISqlStatementBuilder sqlStatementBuilder, string connectionString) :
-            this(new FactorySet(dataProviderFactory, schemaParameterFactory, scriptBuilder, sqlStatementBuilder), connectionString)
+        public Repository(IOrmDataComponentFactory ormDataComponentFactory, string connectionString) : base()
         {
-        }
-
-        public Repository(IFactorySet factorySet, string connectionString) : base()
-        {
-            _factorySet = factorySet ?? throw new ArgumentNullException(nameof(factorySet));
+            _ormDataComponentFactory = ormDataComponentFactory ?? throw new ArgumentNullException(nameof(ormDataComponentFactory));
             if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
             _connectionString = connectionString;
         }
@@ -56,10 +51,10 @@ namespace Sumo.Data.Orm
         public T[] Read<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null) where T : class
         {
             T[] result = null;
-            using (var connection = _factorySet.DataProviderFactory.Open(_connectionString))
-            using (var reader = new SqlReader(connection, _factorySet.DataProviderFactory, _factorySet.DataProviderFactory))
+            using (var connection = _ormDataComponentFactory.Open(_connectionString))
+            using (var reader = new SqlReader(connection, _ormDataComponentFactory, _ormDataComponentFactory))
             {
-                var sql = _factorySet.SqlStatementBuilder.GetSelectStatement<T>(parameters);
+                var sql = _ormDataComponentFactory.SqlStatementBuilder.GetSelectStatement<T>(parameters);
                 var dataSet = reader.Read(sql, parameters, dbTransaction);
                 if (dataSet.Tables.Count > 0) result = dataSet.Tables[0].Rows.ToArray<T>();
             }
@@ -69,10 +64,10 @@ namespace Sumo.Data.Orm
         public async Task<T[]> ReadAsync<T>(Dictionary<string, object> parameters, DbTransaction dbTransaction = null) where T : class
         {
             T[] result = null;
-            using (var connection = await _factorySet.DataProviderFactory.OpenAsync(_connectionString))
-            using (var reader = new SqlReader(connection, _factorySet.DataProviderFactory, _factorySet.DataProviderFactory))
+            using (var connection = await _ormDataComponentFactory.OpenAsync(_connectionString))
+            using (var reader = new SqlReader(connection, _ormDataComponentFactory, _ormDataComponentFactory))
             {
-                var sql = _factorySet.SqlStatementBuilder.GetSelectStatement<T>(parameters);
+                var sql = _ormDataComponentFactory.SqlStatementBuilder.GetSelectStatement<T>(parameters);
                 var dataSet = await reader.ReadAsync(sql, parameters, dbTransaction);
                 if (dataSet.Tables.Count > 0) result = await dataSet.Tables[0].Rows.ToArrayAsync<T>();
             }
@@ -84,7 +79,7 @@ namespace Sumo.Data.Orm
             var result = new Dictionary<string, object>(EntityInfoCache<T>.NonAutoIncrementProperties.Length);
             for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
-                result[_factorySet.SchemaParameterFactory.GetWriteParameterName<T>(i)] = null;
+                result[_ormDataComponentFactory.SchemaParameterNames.GetWriteParameterName<T>(i)] = null;
             }
             return result;
         }
@@ -93,18 +88,18 @@ namespace Sumo.Data.Orm
         {
             for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
-                parameters[_factorySet.SchemaParameterFactory.GetWriteParameterName<T>(i)] =
+                parameters[_ormDataComponentFactory.SchemaParameterNames.GetWriteParameterName<T>(i)] =
                     EntityInfoCache<T>.NonAutoIncrementProperties[i].GetValue(entity) ?? DBNull.Value;
             }
         }
 
         public void Write<T>(T entity, DbTransaction dbTransaction = null, bool autoCreateTable = true) where T : class
         {
-            var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
-            using (var connection = _factorySet.DataProviderFactory.Open(_connectionString))
-            using (var command = new Command(connection, _factorySet.DataProviderFactory))
+            var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
+            using (var connection = _ormDataComponentFactory.Open(_connectionString))
+            using (var command = new Command(connection, _ormDataComponentFactory))
             {
-                var transaction = dbTransaction ?? _factorySet.DataProviderFactory.BeginTransaction(connection);
+                var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
                 try
                 {
                     var tableExists = command.ExecuteScalar<bool>(tableExistsSql, transaction);
@@ -112,8 +107,8 @@ namespace Sumo.Data.Orm
                     {
                         if (autoCreateTable)
                         {
-                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                            var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
+                            var tableDefinition = _ormDataComponentFactory.ScriptBuilder.BuildTable<T>();
+                            var createTableSql = _ormDataComponentFactory.ScriptBuilder.BuildCreateScript(tableDefinition);
                             command.Execute(createTableSql, transaction);
                         }
                         else
@@ -121,7 +116,7 @@ namespace Sumo.Data.Orm
                             throw new TableNotFoundException(TypeInfoCache<T>.Name);
                         }
                     }
-                    var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                    var insertSql = _ormDataComponentFactory.SqlStatementBuilder.GetInsertStatement<T>();
                     var parameters = GetWriteParameters<T>();
                     SetWriteParameters(entity, parameters);
                     var rowsInserted = command.Execute(insertSql, parameters, transaction);
@@ -144,11 +139,11 @@ namespace Sumo.Data.Orm
         {
             await Task.Run(async () =>
             {
-                var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
-                using (var connection = _factorySet.DataProviderFactory.Open(_connectionString))
-                using (var command = new Command(connection, _factorySet.DataProviderFactory))
+                var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
+                using (var connection = _ormDataComponentFactory.Open(_connectionString))
+                using (var command = new Command(connection, _ormDataComponentFactory))
                 {
-                    var transaction = dbTransaction ?? _factorySet.DataProviderFactory.BeginTransaction(connection);
+                    var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
                     try
                     {
                         var tableExists = await command.ExecuteScalarAsync<bool>(tableExistsSql, transaction);
@@ -156,8 +151,8 @@ namespace Sumo.Data.Orm
                         {
                             if (autoCreateTable)
                             {
-                                var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                                var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
+                                var tableDefinition = _ormDataComponentFactory.ScriptBuilder.BuildTable<T>();
+                                var createTableSql = _ormDataComponentFactory.ScriptBuilder.BuildCreateScript(tableDefinition);
                                 await command.ExecuteAsync(createTableSql, transaction);
                             }
                             else
@@ -165,7 +160,7 @@ namespace Sumo.Data.Orm
                                 throw new TableNotFoundException(TypeInfoCache<T>.Name);
                             }
                         }
-                        var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                        var insertSql = _ormDataComponentFactory.SqlStatementBuilder.GetInsertStatement<T>();
                         var parameters = GetWriteParameters<T>();
                         SetWriteParameters(entity, parameters);
                         var rowsInserted = await command.ExecuteAsync(insertSql, parameters, transaction);
@@ -187,11 +182,11 @@ namespace Sumo.Data.Orm
 
         public void Write<T>(T[] entities, DbTransaction dbTransaction = null, bool autoCreateTable = true) where T : class
         {
-            var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
-            using (var connection = _factorySet.DataProviderFactory.Open(_connectionString))
-            using (var command = new Command(connection, _factorySet.DataProviderFactory))
+            var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
+            using (var connection = _ormDataComponentFactory.Open(_connectionString))
+            using (var command = new Command(connection, _ormDataComponentFactory))
             {
-                var transaction = dbTransaction ?? _factorySet.DataProviderFactory.BeginTransaction(connection);
+                var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
                 try
                 {
                     var tableExists = command.ExecuteScalar<bool>(tableExistsSql, transaction);
@@ -199,8 +194,8 @@ namespace Sumo.Data.Orm
                     {
                         if (autoCreateTable)
                         {
-                            var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                            var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
+                            var tableDefinition = _ormDataComponentFactory.ScriptBuilder.BuildTable<T>();
+                            var createTableSql = _ormDataComponentFactory.ScriptBuilder.BuildCreateScript(tableDefinition);
                             command.Execute(createTableSql, transaction);
                         }
                         else
@@ -208,7 +203,7 @@ namespace Sumo.Data.Orm
                             throw new TableNotFoundException(TypeInfoCache<T>.Name);
                         }
                     }
-                    var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                    var insertSql = _ormDataComponentFactory.SqlStatementBuilder.GetInsertStatement<T>();
                     var parameters = GetWriteParameters<T>();
                     for (var i = 0; i < entities.Length; ++i)
                     {
@@ -235,11 +230,11 @@ namespace Sumo.Data.Orm
         {
             await Task.Run(async () =>
             {
-                var tableExistsSql = _factorySet.SqlStatementBuilder.GetExistsStatement<T>();
-                using (var connection = _factorySet.DataProviderFactory.Open(_connectionString))
-                using (var command = new Command(connection, _factorySet.DataProviderFactory))
+                var tableExistsSql = _ormDataComponentFactory.SqlStatementBuilder.GetExistsStatement<T>();
+                using (var connection = _ormDataComponentFactory.Open(_connectionString))
+                using (var command = new Command(connection, _ormDataComponentFactory))
                 {
-                    var transaction = dbTransaction ?? _factorySet.DataProviderFactory.BeginTransaction(connection);
+                    var transaction = dbTransaction ?? _ormDataComponentFactory.BeginTransaction(connection);
                     try
                     {
                         var tableExists = await command.ExecuteScalarAsync<bool>(tableExistsSql, transaction);
@@ -247,8 +242,8 @@ namespace Sumo.Data.Orm
                         {
                             if (autoCreateTable)
                             {
-                                var tableDefinition = _factorySet.ScriptBuilder.BuildTable<T>();
-                                var createTableSql = _factorySet.ScriptBuilder.BuildCreateScript(tableDefinition);
+                                var tableDefinition = _ormDataComponentFactory.ScriptBuilder.BuildTable<T>();
+                                var createTableSql = _ormDataComponentFactory.ScriptBuilder.BuildCreateScript(tableDefinition);
                                 await command.ExecuteAsync(createTableSql, transaction);
                             }
                             else
@@ -256,7 +251,7 @@ namespace Sumo.Data.Orm
                                 throw new TableNotFoundException(TypeInfoCache<T>.Name);
                             }
                         }
-                        var insertSql = _factorySet.SqlStatementBuilder.GetInsertStatement<T>();
+                        var insertSql = _ormDataComponentFactory.SqlStatementBuilder.GetInsertStatement<T>();
                         var parameters = GetWriteParameters<T>();
                         Parallel.For(0, entities.Length - 1, async i =>
                         {

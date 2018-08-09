@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
     <ProjectReference Include="..\..\src\Sumo.Data.Sqlite\Sumo.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\src\Sumo.Data\Sumo.Data.csproj" />
     <ProjectReference Include="..\..\src\Sumo.RetryProxy\Sumo.Retry.csproj" />

@@ -1,5 +1,4 @@
-﻿using Sumo.Retry;
-using System;
+﻿using System;
 
 namespace Sumo.Retry
 {

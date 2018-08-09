@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Sumo.Data.Orm\Sumo.Data.Orm.csproj" />
     <ProjectReference Include="..\..\src\Sumo.Data\Sumo.Data.csproj" />
   </ItemGroup>
 

@@ -2,10 +2,9 @@
 
 namespace Sumo.Data.Orm
 {
-    public interface IFactorySet
+    public interface IOrmDataComponentFactory : IDataComponentFactory
     {
-        IDataComponentFactory DataProviderFactory { get; }
-        ISchemaParameterNames SchemaParameterFactory { get; }
+        ISchemaParameterNames SchemaParameterNames { get; }
         IScriptBuilder ScriptBuilder { get; }
         ISqlStatementBuilder SqlStatementBuilder { get; }
     }
