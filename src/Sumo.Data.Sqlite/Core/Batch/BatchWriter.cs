@@ -10,18 +10,27 @@ namespace Sumo.Data.Sqlite
     {
         DbCommand _command;
         DbConnection _connection;
+        Table _table;
 
-        public void Init(Table table, DbConnection connection)
+        public void Init(Table table, DbConnection connection, bool truncate = false, bool dropTable = false)
         {
+            _table = table;
+            _connection = connection;
+            _command = connection.CreateCommand();
+
+            connection.Open();
+
+            if (dropTable)
+            {
+                var dropTableCommand = _connection.CreateCommand();
+                dropTableCommand.CommandText = $"drop table [{_table.Name}]";
+                dropTableCommand.ExecuteNonQuery();
+            }
+
             var bldr = new SqliteScriptBuilder();
             var cmd = connection.CreateCommand();
             cmd.CommandText = bldr.BuildCreateScript(table);
-            connection.Open();
             cmd.ExecuteNonQuery();
-            connection.Close();
-            
-            _connection = connection;
-            _command = connection.CreateCommand();
 
             var paramFactory = new SqliteParameterFactory();
 
@@ -37,7 +46,20 @@ namespace Sumo.Data.Sqlite
                 _command.Parameters.Add(new SqliteParameter($"{paramName}", null));
             }
 
-            _command.CommandText = $"insert into [{table.Name}] ({fields}) values ({values})";
+            if (truncate)
+            {
+                var truncateCommand = _connection.CreateCommand();
+                truncateCommand.CommandText = $"delete from [{_table.Name}]";
+                truncateCommand.ExecuteNonQuery();
+                
+                _command.CommandText = $"insert into [{table.Name}] ({fields}) values ({values})";
+            }
+            else
+            {
+                _command.CommandText = $"insert or replace into [{table.Name}] ({fields}) values ({values})";
+            }
+
+            _connection.Close();
         }
 
         public void Begin()
