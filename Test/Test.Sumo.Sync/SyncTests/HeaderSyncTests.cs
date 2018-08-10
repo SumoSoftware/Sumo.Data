@@ -58,7 +58,7 @@ namespace Test.Sumo.Sync.SyncTests
 
             if (System.IO.File.Exists(outputFileName))
             {
-                System.IO.File.Delete(outputFileName);
+             //   System.IO.File.Delete(outputFileName);
             }
 
             //Add your SQLServer Connection string as environment variable "TESTCONNSTRING"
@@ -113,7 +113,7 @@ namespace Test.Sumo.Sync.SyncTests
                     
                     var tbl = outputStream.ReadFromStream<Table>();
 
-                    batchWriter.Init(tbl, sqliteConnection);
+                    batchWriter.Init(tbl, sqliteConnection, truncate:true);
                     batchWriter.Begin();
                     var rowCount = binaryReader.ReadInt32();
                     for(var rowIdx = 0; rowIdx < rowCount; ++rowIdx)
