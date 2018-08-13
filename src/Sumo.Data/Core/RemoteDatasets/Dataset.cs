@@ -38,6 +38,36 @@ namespace Sumo.Data.Core.Datasets
             }
         }
 
+        public Dataset(string name, string[] columns, object[][] rows) : this(name)
+        {
+            var typeCodes = new TypeCode[columns.Length];
+            for(var i=0; i<columns.Length; ++i)
+            {
+                for(var j = 0; j < rows.Length; ++j)
+                {
+                    var item= rows[j][i];
+                    var typeCode = item == null ? TypeCode.Empty : Type.GetTypeCode(item.GetType());
+                    if(typeCode != TypeCode.Empty)
+                    {
+                        typeCodes[i] = typeCode;
+                        break;
+                    }
+                }
+            }
+
+            Columns = new Column[columns.Length];
+            for (var i = 0; i < columns.Length; ++i)
+            {
+                Columns[i] = new Column(columns[i], typeCodes[i], i);
+            }
+
+            Rows = new Row[rows.Length];
+            for (var i = 0; i < rows.Length; ++i)
+            {
+                Rows[i] = new Row(rows[i]);
+            }
+        }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Column[] Columns { get; set; }

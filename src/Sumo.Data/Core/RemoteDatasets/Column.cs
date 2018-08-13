@@ -12,6 +12,11 @@ namespace Sumo.Data.Core.Datasets
             Name = name;
         }
 
+        public Column(string name, int ordinalPosition) : this(name)
+        {
+            OrdinalPosition = ordinalPosition;
+        }
+
         public Column(string name, TypeCode type) : this(name)
         {
             TypeCode = type;
@@ -27,10 +32,14 @@ namespace Sumo.Data.Core.Datasets
             Default = defaultValue;
         }
 
-        public Column(DataColumn column) : this(column.ColumnName, Type.GetTypeCode(column.DataType), column.Ordinal)
+        public Column(string name, Type type, int ordinalPosition) : this(name, Type.GetTypeCode(type), ordinalPosition)
+        {
+        }
+
+        public Column(DataColumn column) : this(column.ColumnName, column.DataType, column.Ordinal)
         {
             if (TypeCode == TypeCode.Empty) throw new ArgumentException($"{nameof(column)}.{column.ColumnName} data type is invalid.");
-            if(TypeCode == TypeCode.Object) TypeName = column.DataType.FullName;
+            if (TypeCode == TypeCode.Object) TypeName = column.DataType.FullName;
         }
 
         public string Name { get; set; }
