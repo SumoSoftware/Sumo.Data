@@ -23,7 +23,7 @@ namespace Sumo.Data.Sqlite
             if (dropTable)
             {
                 var dropTableCommand = _connection.CreateCommand();
-                dropTableCommand.CommandText = $"drop table [{_table.Name}]";
+                dropTableCommand.CommandText = $"drop table if exists [{_table.Name}]";
                 dropTableCommand.ExecuteNonQuery();
             }
 
