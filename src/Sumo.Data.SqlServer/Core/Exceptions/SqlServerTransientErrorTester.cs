@@ -17,14 +17,13 @@ namespace Sumo.Data.SqlServer
         // 40197 The service encountered an error processing your request.
         // 40501 The server Is busy. 
         // 40613 The database Is currently unavailable.
-        private static HashSet<int> _transientErrors = new HashSet<int>(new int[] { 20, 64, 121, 233, 10053, 10054, 10060, 10060, 40143, 40197, 40501, 40613 });
+        private static readonly HashSet<int> _transientErrors = new HashSet<int>(new int[] { 20, 64, 121, 233, 10053, 10054, 10060, 10060, 40143, 40197, 40501, 40613 });
 
         public bool CanRetry(Exception exception)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
-            if (!(exception is SqlException)) throw new ArgumentException($"Type of {nameof(exception)} must be {nameof(SqlException)}.");
 
-            return _transientErrors.Contains(((SqlException)exception).Number);
+            return (exception is SqlException) && _transientErrors.Contains(((SqlException)exception).Number);
         }
     }
 }
