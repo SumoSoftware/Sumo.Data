@@ -3,42 +3,42 @@ using System.Data;
 
 namespace Sumo.Data.Datasets
 {
-    public class Dataset
+    public class Recordset
     {
-        public Dataset() : base() { }
+        public Recordset() : base() { }
 
-        public Dataset(string name) : base()
+        public Recordset(string name) : base()
         {
             Name = name;
             Id = Guid.NewGuid();
         }
 
-        public Dataset(string name, Column[] columns) : this(name)
+        public Recordset(string name, Field[] columns) : this(name)
         {
             Columns = columns;
         }
 
-        public Dataset(string name, Column[] columns, Row[] rows) : this(name, columns)
+        public Recordset(string name, Field[] columns, Record[] rows) : this(name, columns)
         {
             Rows = rows;
         }
 
-        public Dataset(DataTable table) : this(table.TableName)
+        public Recordset(DataTable table) : this(table.TableName)
         {
-            Columns = new Column[table.Columns.Count];
+            Columns = new Field[table.Columns.Count];
             for(var i = 0; i < table.Columns.Count; ++i)
             {
-                Columns[i] = new Column(table.Columns[i]);
+                Columns[i] = new Field(table.Columns[i]);
             }
 
-            Rows = new Row[table.Rows.Count];
+            Rows = new Record[table.Rows.Count];
             for (var i = 0; i < table.Columns.Count; ++i)
             {
-                Rows[i] = new Row(table.Rows[i]);
+                Rows[i] = new Record(table.Rows[i]);
             }
         }
 
-        public Dataset(string name, string[] columns, object[][] rows) : this(name)
+        public Recordset(string name, string[] columns, object[][] rows) : this(name)
         {
             var typeCodes = new TypeCode[columns.Length];
             for(var i=0; i<columns.Length; ++i)
@@ -55,22 +55,22 @@ namespace Sumo.Data.Datasets
                 }
             }
 
-            Columns = new Column[columns.Length];
+            Columns = new Field[columns.Length];
             for (var i = 0; i < columns.Length; ++i)
             {
-                Columns[i] = new Column(columns[i], typeCodes[i], i);
+                Columns[i] = new Field(columns[i], typeCodes[i], i);
             }
 
-            Rows = new Row[rows.Length];
+            Rows = new Record[rows.Length];
             for (var i = 0; i < rows.Length; ++i)
             {
-                Rows[i] = new Row(rows[i]);
+                Rows[i] = new Record(rows[i]);
             }
         }
 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Column[] Columns { get; set; }
-        public Row[] Rows { get; set; }
+        public Field[] Columns { get; set; }
+        public Record[] Rows { get; set; }
     }
 }

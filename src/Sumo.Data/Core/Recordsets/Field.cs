@@ -3,40 +3,40 @@ using System.Data;
 
 namespace Sumo.Data.Datasets
 {
-    public class Column
+    public class Field
     {
-        public Column() : base() { }
+        public Field() : base() { }
 
-        public Column(string name) : base()
+        public Field(string name) : base()
         {
             Name = name;
         }
 
-        public Column(string name, int ordinalPosition) : this(name)
+        public Field(string name, int ordinalPosition) : this(name)
         {
             OrdinalPosition = ordinalPosition;
         }
 
-        public Column(string name, TypeCode type) : this(name)
+        public Field(string name, TypeCode type) : this(name)
         {
             TypeCode = type;
         }
 
-        public Column(string name, TypeCode type, int ordinalPosition) : this(name, type)
+        public Field(string name, TypeCode type, int ordinalPosition) : this(name, type)
         {
             OrdinalPosition = ordinalPosition;
         }
 
-        public Column(string name, TypeCode type, int ordinalPosition, object defaultValue) : this(name, type, ordinalPosition)
+        public Field(string name, TypeCode type, int ordinalPosition, object defaultValue) : this(name, type, ordinalPosition)
         {
             Default = defaultValue;
         }
 
-        public Column(string name, Type type, int ordinalPosition) : this(name, Type.GetTypeCode(type), ordinalPosition)
+        public Field(string name, Type type, int ordinalPosition) : this(name, Type.GetTypeCode(type), ordinalPosition)
         {
         }
 
-        public Column(DataColumn column) : this(column.ColumnName, column.DataType, column.Ordinal)
+        public Field(DataColumn column) : this(column.ColumnName, column.DataType, column.Ordinal)
         {
             if (TypeCode == TypeCode.Empty) throw new ArgumentException($"{nameof(column)}.{column.ColumnName} data type is invalid.");
             if (TypeCode == TypeCode.Object) TypeName = column.DataType.FullName;
@@ -47,5 +47,10 @@ namespace Sumo.Data.Datasets
         public string TypeName { get; set; }
         public int OrdinalPosition { get; set; } = 0;
         public object Default { get; set; } = null;
+
+        public override string ToString()
+        {
+            return $"[{Name}]:{TypeCode}{(TypeCode == TypeCode.Object ? ":" + TypeName : string.Empty)}:{OrdinalPosition}";
+        }
     }
 }
