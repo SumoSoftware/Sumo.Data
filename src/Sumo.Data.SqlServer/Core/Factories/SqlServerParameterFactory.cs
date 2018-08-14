@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sumo.Data.Schema.SqlServer;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;

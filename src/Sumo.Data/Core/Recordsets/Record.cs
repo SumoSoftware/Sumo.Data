@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace Sumo.Data.Datasets
+namespace Sumo.Data
 {
     public class Record
     {
@@ -35,5 +35,7 @@ namespace Sumo.Data.Datasets
         }
 
         public object[] Items { get; set; }
+
+        public object this[int index] => Items[index];
     }
 }

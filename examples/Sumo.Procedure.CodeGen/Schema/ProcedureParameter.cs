@@ -1,4 +1,5 @@
 ﻿using Sumo.Data;
+using Sumo.Data.Schema.SqlServer;
 using System;
 
 namespace Sumo.Procedure.CodeGen

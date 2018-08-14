@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Sumo.Data.Datasets
+namespace Sumo.Data
 {
     public class Field
     {
