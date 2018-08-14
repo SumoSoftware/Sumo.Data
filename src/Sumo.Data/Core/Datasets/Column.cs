@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Sumo.Data.Core.Datasets
+namespace Sumo.Data.Datasets
 {
     public class Column
     {

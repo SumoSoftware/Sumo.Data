@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace Sumo.Data.Core.Datasets
+namespace Sumo.Data.Datasets
 {
     public class Row
     {
