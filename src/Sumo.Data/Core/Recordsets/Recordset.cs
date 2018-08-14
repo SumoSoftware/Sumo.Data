@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace Sumo.Data
@@ -38,6 +39,36 @@ namespace Sumo.Data
             }
         }
 
+        public Recordset(string name, string[] fields, List<List<object>> records) : this(name)
+        {
+            var typeCodes = new TypeCode[fields.Length];
+            for (var i = 0; i < fields.Length; ++i)
+            {
+                for (var j = 0; j < records.Count; ++j)
+                {
+                    var item = records[j][i];
+                    var typeCode = item == null ? TypeCode.Empty : Type.GetTypeCode(item.GetType());
+                    if (typeCode != TypeCode.Empty)
+                    {
+                        typeCodes[i] = typeCode;
+                        break;
+                    }
+                }
+            }
+
+            Fields = new Field[fields.Length];
+            for (var i = 0; i < fields.Length; ++i)
+            {
+                Fields[i] = new Field(fields[i], typeCodes[i], i);
+            }
+
+            Records = new Record[records.Count];
+            for (var i = 0; i < records.Count; ++i)
+            {
+                Records[i] = new Record(records[i]);
+            }
+        }
+
         public Recordset(string name, string[] fields, object[][] records) : this(name)
         {
             var typeCodes = new TypeCode[fields.Length];
@@ -72,5 +103,7 @@ namespace Sumo.Data
         public string Name { get; set; }
         public Field[] Fields { get; set; }
         public Record[] Records { get; set; }
+        //todo: experiment with the idea of a two dimensional array of object for records
+        //public object[][] Records { get; set; }
     }
 }
