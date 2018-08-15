@@ -50,7 +50,7 @@ namespace Sumo.Data
 
         public override string ToString()
         {
-            return $"[{Name}]:{TypeCode}{(TypeCode == TypeCode.Object ? ":" + TypeName : string.Empty)}:{OrdinalPosition}";
+            return $"[{Name}] P: {OrdinalPosition} T: {TypeCode}{(TypeCode == TypeCode.Object ? ":" + TypeName : string.Empty)}";
         }
     }
 }
