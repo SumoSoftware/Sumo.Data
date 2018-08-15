@@ -253,7 +253,7 @@ namespace Sumo.Csv
             if (columns == null) throw new ArgumentNullException("columns");
 
             var match = Regex.Match(csvLine, _csvRegexPattern, RegexOptions.ExplicitCapture);
-            int arrayLength = 0;
+            //int arrayLength = 0;
             int positionOffset = 0;
 
             if (match.Success)
@@ -270,25 +270,25 @@ namespace Sumo.Csv
                     {
                         var value = GetStringValueFromCaptures(group.Captures, positionOffset, column);
 
-                        if (!(column is ArrayColumn))
-                        {
+                        //if (!(column is ArrayColumn))
+                        //{
                             column.Property.SetValue(result, GetTypedValueFromString(value, column.Property.PropertyType));
-                        }
-                        else
-                        {
-                            if (!column.Property.PropertyType.IsArray)
-                                throw new CsvException($"{column.Property.PropertyType.Name} must be an array.");
+                        //}
+                        //else
+                        //{
+                        //    if (!column.Property.PropertyType.IsArray)
+                        //        throw new CsvException($"{column.Property.PropertyType.Name} must be an array.");
 
-                            arrayLength = (int)GetTypedValueFromString(value, typeof(int));
-                            var col = (ArrayColumn)column;
-                            column.Property.SetValue(result, col.CreateArray(arrayLength));
-                            do
-                            {
-                                ++positionOffset;
-                                var arrayValue = GetStringValueFromCaptures(group.Captures, positionOffset, column);
-                                col.SetValue(GetTypedValueFromString(arrayValue, col.GetCurrentType()));
-                            } while (col.Increment());
-                        }
+                        //    arrayLength = (int)GetTypedValueFromString(value, typeof(int));
+                        //    var col = (ArrayColumn)column;
+                        //    column.Property.SetValue(result, col.CreateArray(arrayLength));
+                        //    do
+                        //    {
+                        //        ++positionOffset;
+                        //        var arrayValue = GetStringValueFromCaptures(group.Captures, positionOffset, column);
+                        //        col.SetValue(GetTypedValueFromString(arrayValue, col.GetCurrentType()));
+                        //    } while (col.Increment());
+                        //}
                     }
                 }
             }
@@ -317,9 +317,9 @@ namespace Sumo.Csv
             return value;
         }
 
-        private dynamic GetTypedValueFromString(string value, Type propertyType)
+        private object GetTypedValueFromString(string value, Type propertyType)
         {
-            dynamic result = null;
+            object result = null;
 
             try
             {
