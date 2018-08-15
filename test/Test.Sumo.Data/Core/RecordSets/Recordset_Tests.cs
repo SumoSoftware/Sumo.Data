@@ -22,7 +22,10 @@ namespace Sumo.Data
                     {
                         for (var j = 0; j < table.Columns.Count; ++j)
                         {
-                            Assert.AreEqual(table.Rows[i][j], recordset[i][j]);
+                            if (table.Rows[i].IsNull(j))
+                                Assert.IsNull(recordset[i][j]);
+                            else
+                                Assert.AreEqual(table.Rows[i][j], recordset[i][j]);
                         }
                     }
                 }
@@ -61,7 +64,10 @@ namespace Sumo.Data
                     {
                         for (var j = 0; j < table.Columns.Count; ++j)
                         {
-                            Assert.AreEqual(table.Rows[i][j], recordset[i][j]);
+                            if (table.Rows[i].IsNull(j))
+                                Assert.IsNull(recordset[i][j]);
+                            else
+                                Assert.AreEqual(table.Rows[i][j], recordset[i][j]);
                         }
                     }
                 }
