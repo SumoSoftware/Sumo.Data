@@ -6,7 +6,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using Test.Sumo.Data.Schema.Properties;
+using Test.Sumo.Data.Properties;
 
 namespace Sumo.Data.Schema
 {
