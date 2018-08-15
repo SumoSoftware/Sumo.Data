@@ -76,7 +76,7 @@ namespace Sumo.Data.Sqlite
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(RetryNotAllowedException))]
         public void BeginTransaction_WithIsolationLevel_WithRetry_Fail()
         {
             // sqlite only supports IsolationLevel.Serializable
