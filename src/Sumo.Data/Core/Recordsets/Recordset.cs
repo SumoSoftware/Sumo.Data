@@ -29,11 +29,12 @@ namespace Sumo.Data
         {
             if (table == null) throw new ArgumentNullException(nameof(table));
 
-            Fields = new Field[table.Columns.Count];
+            _fields = new Field[table.Columns.Count];
             for (var i = 0; i < table.Columns.Count; ++i)
             {
-                Fields[i] = new Field(table.Columns[i]);
+                _fields[i] = new Field(table.Columns[i]);
             }
+            Fields = _fields;
 
             Records = new object[table.Rows.Count][];
             for (var i = 0; i < table.Rows.Count; ++i)
@@ -55,11 +56,12 @@ namespace Sumo.Data
 
             var typeCodes = GetTypeCodes(fields.Length);
 
-            Fields = new Field[fields.Length];
+            _fields = new Field[fields.Length];
             for (var i = 0; i < fields.Length; ++i)
             {
-                Fields[i] = new Field(fields[i], typeCodes[i], i);
+                _fields[i] = new Field(fields[i], typeCodes[i], i);
             }
+            Fields = _fields;
         }
 
         public Recordset(string name, string[] fields, object[][] records) : this(name)
@@ -69,11 +71,13 @@ namespace Sumo.Data
             Records = records ?? throw new ArgumentNullException(nameof(records));
 
             var typeCodes = GetTypeCodes(fields.Length);
-            Fields = new Field[fields.Length];
+
+            _fields = new Field[fields.Length];
             for (var i = 0; i < fields.Length; ++i)
             {
-                Fields[i] = new Field(fields[i], typeCodes[i], i);
+                _fields[i] = new Field(fields[i], typeCodes[i], i);
             }
+            Fields = _fields;
         }
 
         public Recordset(string name, object[][] records) : this(name)
@@ -84,11 +88,13 @@ namespace Sumo.Data
             {
                 var fieldCount = records[0].Length;
                 var typeCodes = GetTypeCodes(fieldCount);
-                Fields = new Field[fieldCount];
+
+                _fields = new Field[fieldCount];
                 for (var i = 0; i < fieldCount; ++i)
                 {
-                    Fields[i] = new Field($"field_{i}_{typeCodes[i]}", typeCodes[i], i);
+                    _fields[i] = new Field($"field_{i}", typeCodes[i], i);
                 }
+                Fields = _fields;
             }
         }
 
@@ -137,7 +143,7 @@ namespace Sumo.Data
 
             for (var i = Records.Length; i < newRecordCount; ++i)
             {
-                newrows[i] = records[i- Records.Length].ToArray();
+                newrows[i] = records[i - Records.Length].ToArray();
             }
 
             Records = newrows;
@@ -145,14 +151,34 @@ namespace Sumo.Data
             return records.Count;
         }
 
+        private Dictionary<string, int> _fieldIndexes;
+
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Field[] Fields { get; set; }
+
+        private Field[] _fields;
+        public Field[] Fields
+        {
+            get => _fields;
+            set
+            {
+                _fields = value;
+                _fieldIndexes = new Dictionary<string, int>(_fields.Length);
+                for (var i = 0; i < _fields.Length; ++i)
+                {
+                    var field = _fields[i];
+                    _fieldIndexes.Add(field.Name, field.OrdinalPosition);
+                }
+            }
+        }
         public object[][] Records { get; set; }
 
         public int Count => Records.Length;
 
         [JsonIgnore]
         public object[] this[int index] => Records[index];
+
+        [JsonIgnore]
+        public object[] this[string columnName] => Records[_fieldIndexes[columnName]];
     }
 }
