@@ -14,7 +14,9 @@ namespace Sumo.Data.Sqlite
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
 
-            return (exception is SqliteException) && _transientErrors.Contains(((SqliteException)exception).ErrorCode) || _transientErrors.Contains(((SqliteException)exception).SqliteExtendedErrorCode);
+            return (exception is SqliteException) && 
+                (_transientErrors.Contains(((SqliteException)exception).ErrorCode) || 
+                _transientErrors.Contains(((SqliteException)exception).SqliteExtendedErrorCode));
         }
     }
 }
