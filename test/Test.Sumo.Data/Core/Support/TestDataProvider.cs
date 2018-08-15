@@ -10,7 +10,7 @@ namespace Sumo.Data
             DataRow row = null;
             using (var table = new DataTable())
             {
-                for (var i = 0; i <TypeInfoCache<TestType>.Properties.Length; ++i)
+                for (var i = 0; i < TypeInfoCache<TestType>.Properties.Length; ++i)
                 {
                     var property = TypeInfoCache<TestType>.Properties[i];
                     table.Columns.Add(new DataColumn(property.Name, property.PropertyType));
@@ -27,7 +27,7 @@ namespace Sumo.Data
             DataRowCollection result = null;
             using (var table = new DataTable())
             {
-                for (var i = 0; i <TypeInfoCache<TestType>.Properties.Length; ++i)
+                for (var i = 0; i < TypeInfoCache<TestType>.Properties.Length; ++i)
                 {
                     var property = TypeInfoCache<TestType>.Properties[i];
                     table.Columns.Add(new DataColumn(property.Name, property.PropertyType));
@@ -51,18 +51,23 @@ namespace Sumo.Data
         public static DataSet GetDataSet()
         {
             var table = new DataTable("TableName");
-            for (var i = 0; i <TypeInfoCache<TestType>.Properties.Length; ++i)
+            for (var i = 0; i < TypeInfoCache<TestType>.Properties.Length; ++i)
             {
                 var property = TypeInfoCache<TestType>.Properties[i];
                 table.Columns.Add(new DataColumn(property.Name, property.PropertyType));
             }
 
+
             var row = table.NewRow();
+            row["ReadPrivateWriteString"] = null;
+            row["ReadString"] = null;
             row["ReadWriteString"] = "row one";
             row["ReadWriteInteger"] = 1;
             table.Rows.Add(row);
 
             row = table.NewRow();
+            row["ReadPrivateWriteString"] = null;
+            row["ReadString"] = null;
             row["ReadWriteString"] = "row two";
             row["ReadWriteInteger"] = 2;
             table.Rows.Add(row);
@@ -75,7 +80,7 @@ namespace Sumo.Data
         public static DataSet GetDataSet<T>() where T : class
         {
             var table = new DataTable("TableName");
-            for (var i = 0; i <TypeInfoCache<T>.Properties.Length; ++i)
+            for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)
             {
                 var property = TypeInfoCache<T>.Properties[i];
                 table.Columns.Add(new DataColumn(property.Name, property.PropertyType));
@@ -85,7 +90,7 @@ namespace Sumo.Data
             {
                 var row = table.NewRow();
                 table.Rows.Add(row);
-                for (var i = 0; i <TypeInfoCache<T>.Properties.Length; ++i)
+                for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)
                 {
                     var property = TypeInfoCache<T>.Properties[i];
                     switch (TypeInfoCache<T>.TypeCodes[i])

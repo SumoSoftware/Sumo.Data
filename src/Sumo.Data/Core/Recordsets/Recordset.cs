@@ -39,7 +39,11 @@ namespace Sumo.Data
             Records = new object[table.Rows.Count][];
             for (var i = 0; i < table.Rows.Count; ++i)
             {
-                Records[i] = table.Rows[i].ItemArray;
+                Records[i] = new object[table.Columns.Count];
+                for (var j = 0; j < table.Columns.Count; ++j)
+                {
+                    Records[i][j] = table.Rows[i].IsNull(j) ? null : table.Rows[i][j];
+                }
             }
         }
 
@@ -154,6 +158,7 @@ namespace Sumo.Data
         private Dictionary<string, int> _fieldIndexes;
 
         public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         private Field[] _fields;
@@ -173,7 +178,9 @@ namespace Sumo.Data
         }
         public object[][] Records { get; set; }
 
-        public int Count => Records.Length;
+        public long Count => Records.Length;
+
+        public int FieldCount => Fields.Length;
 
         [JsonIgnore]
         public object[] this[int index] => Records[index];

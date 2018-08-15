@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace Sumo.Data
 {
@@ -128,6 +129,44 @@ namespace Sumo.Data
                     for (var j = 0; j < size; ++j)
                         Assert.AreEqual(++c, recordset[i][j]);
             }
+        }
+
+        [TestMethod]
+        public void RecordSet_JsonSerialization()
+        {
+            Recordset recordset = null;
+            using (var dataset = TestDataProvider.GetDataSet())
+            {
+                Assert.IsTrue(dataset.Tables.Count > 0);
+                using (var table = dataset.Tables[0])
+                {
+                    recordset = new Recordset(table);
+                    Assert.AreEqual(table.Columns.Count, recordset.Fields.Length);
+                    Assert.AreEqual(table.Rows.Count, recordset.Records.Length);
+                    for (var i = 0; i < table.Rows.Count; ++i)
+                    {
+                        for (var j = 0; j < table.Columns.Count; ++j)
+                        {
+                            if (table.Rows[i].IsNull(j))
+                                Assert.IsNull(recordset[i][j]);
+                            else
+                                Assert.AreEqual(table.Rows[i][j], recordset[i][j]);
+                        }
+                    }
+                }
+            }
+            var json = JsonConvert.SerializeObject(recordset);
+            var rc = JsonConvert.DeserializeObject<Recordset>(json);
+
+            // using to string to avoid the stupid int32 vs int64 casting issue
+            for (var i = 0; i < recordset.Count; ++i)
+                for (var j = 0; j < recordset.FieldCount; ++j)
+                {
+                    if (recordset[i][j] == null)
+                        Assert.IsNull(rc[i][j]);
+                    else
+                        Assert.AreEqual(recordset[i][j].ToString(), rc[i][j].ToString());
+                }
         }
     }
 }
