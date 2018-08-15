@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 
 namespace Sumo.Data
 {
@@ -187,5 +188,25 @@ namespace Sumo.Data
 
         [JsonIgnore]
         public object[] this[string columnName] => Records[_fieldIndexes[columnName]];
+
+        //todo: add binary support
+
+        public byte[] ToBytes()
+        {
+            throw new NotImplementedException(nameof(ToBytes));
+            //todo: use type code from fields to write rows to binary stream
+        }
+
+        public static Recordset FromBytes(byte[] bytes)
+        {
+            throw new NotImplementedException(nameof(FromBytes));
+            //todo: use type code from fields to read rows to binary stream
+        }
+
+        public static Recordset FromStream(Stream bytes)
+        {
+            throw new NotImplementedException(nameof(FromBytes));
+            //todo: use type code from fields to read rows to binary stream
+        }
     }
 }
