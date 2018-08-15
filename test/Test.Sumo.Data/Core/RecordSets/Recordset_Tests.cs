@@ -81,7 +81,7 @@ namespace Sumo.Data
                     {
                         rows[i] = table.Rows[i].ItemArray;
                     }
-                    
+
                     recordset = new Recordset(table.TableName, rows);
 
                     Assert.AreEqual(table.Columns.Count, recordset.Fields.Length);
@@ -94,6 +94,39 @@ namespace Sumo.Data
                         }
                     }
                 }
+            }
+        }
+
+        [TestMethod]
+        public void RecordSet_Append_Array()
+        {
+            var size = 2;
+            var rows = new object[size][];
+            var c = 0;
+            for (var i = 0; i < size; ++i)
+            {
+                rows[i] = new object[size];
+                for (var j = 0; j < size; ++j)
+                {
+                    rows[i][j] = ++c;
+                }
+            }
+
+            var recordset = new Recordset("test", rows);
+            Assert.AreEqual(size, recordset.Count);
+            c = 0;
+            for (var i = 0; i < size; ++i)
+                for (var j = 0; j < size; ++j)
+                    Assert.AreEqual(++c, recordset[i][j]);
+
+            recordset.Append(rows);
+            Assert.AreEqual(size * 2, recordset.Count);
+            for (var o = 0; o < 2; ++o)
+            {
+                c = 0;
+                for (var i = 0; i < size; ++i)
+                    for (var j = 0; j < size; ++j)
+                        Assert.AreEqual(++c, recordset[i][j]);
             }
         }
     }

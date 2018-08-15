@@ -113,10 +113,44 @@ namespace Sumo.Data
             return result;
         }
 
+        public int Append(object[][] records)
+        {
+            if (records == null) throw new ArgumentNullException(nameof(records));
+
+            var newrows = new object[Records.Length + records.Length][];
+
+            Records.CopyTo(newrows, 0);
+            records.CopyTo(newrows, Records.Length);
+            Records = newrows;
+
+            return records.Length;
+        }
+
+        public int Append(List<List<object>> records)
+        {
+            if (records == null) throw new ArgumentNullException(nameof(records));
+
+            var newRecordCount = Records.Length + records.Count;
+            var newrows = new object[newRecordCount][];
+
+            Records.CopyTo(newrows, 0);
+
+            for (var i = Records.Length; i < newRecordCount; ++i)
+            {
+                newrows[i] = records[i- Records.Length].ToArray();
+            }
+
+            Records = newrows;
+
+            return records.Count;
+        }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Field[] Fields { get; set; }
         public object[][] Records { get; set; }
+
+        public int Count => Records.Length;
 
         [JsonIgnore]
         public object[] this[int index] => Records[index];
