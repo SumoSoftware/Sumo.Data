@@ -39,5 +39,24 @@ namespace Sumo.Data
             Assert.AreEqual(nameof(TestTypeReadOnlyProperties.GetOnlyProperty),
                 TypeInfoCache<TestTypeReadOnlyProperties>.ReadOnlyProperties[1].Name);
         }
+
+        public class ParamNameTestClass
+        {
+            [PropertyName("pname1")]
+            public int NamedParam1 { get; set; }
+
+            [ColumnName("pname2")]
+            public int NamedParam2 { get; set; }
+
+            [ParameterName("pname3")]
+            public int NamedParam3 { get; set; }
+        }
+
+        [TestMethod]
+        public void ParamNameTest()
+        {
+            Assert.AreEqual("pname1", TypeInfoCache<ParamNameTestClass>.PropertyNames[0]);
+        }
+
     }
 }

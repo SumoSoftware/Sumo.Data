@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 // this namespace is correct. don't add .Orm to it.
-namespace Sumo.Data.Orm
+namespace Sumo.Data
 {
     public static class DataRowExtensions
     {
@@ -16,10 +16,11 @@ namespace Sumo.Data.Orm
                 BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
                 null, null, null);
             //var result = Activator.CreateInstance<T>();
-            for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)
+            for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
             {
-                var property = TypeInfoCache<T>.Properties[i];
-                if (!row.IsNull(property.Name))
+                var property = TypeInfoCache<T>.ReadWriteProperties[i];
+                var propertyName = TypeInfoCache<T>.ReadWritePropertyNames[i];
+                if (!row.IsNull(propertyName))
                 {
                     //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
                     //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 

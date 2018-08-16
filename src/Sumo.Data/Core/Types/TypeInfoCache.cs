@@ -31,7 +31,7 @@ namespace Sumo.Data
             {
                 var property = Properties[i];
                 TypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
                 PropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
@@ -41,7 +41,7 @@ namespace Sumo.Data
             {
                 var property = ReadWriteProperties[i];
                 ReadWriteTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
                 ReadWritePropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
@@ -51,7 +51,7 @@ namespace Sumo.Data
             {
                 var property = ReadOnlyProperties[i];
                 ReadOnlyTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
                 ReadOnlyPropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
         }
@@ -117,7 +117,7 @@ namespace Sumo.Data
             {
                 var property = InputParameters[i];
                 InputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
                 InputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
@@ -127,7 +127,7 @@ namespace Sumo.Data
             {
                 var property = OutputParameters[i];
                 OutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
                 OutputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
@@ -137,7 +137,7 @@ namespace Sumo.Data
             {
                 var property = InputOutputParameters[i];
                 InputOutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
                 InputOutputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
         }

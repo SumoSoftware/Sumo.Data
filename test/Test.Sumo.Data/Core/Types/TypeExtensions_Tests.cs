@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Sumo.Data.Orm;
 using System.Threading.Tasks;
 
 namespace Sumo.Data
