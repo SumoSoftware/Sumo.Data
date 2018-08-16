@@ -184,10 +184,10 @@ namespace Sumo.Data
         public int FieldCount => Fields.Length;
 
         [JsonIgnore]
-        public object[] this[int index] => Records[index];
+        public object[] this[long index] => Records[index];
 
         [JsonIgnore]
-        public object[] this[string columnName] => Records[_fieldIndexes[columnName]];
+        public object this[long index, string columnName] => Records[index][_fieldIndexes[columnName]];
 
         //todo: add binary support
 
