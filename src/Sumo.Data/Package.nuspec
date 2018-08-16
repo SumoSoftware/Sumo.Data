@@ -15,8 +15,8 @@
 
         <description>Sumo.Data is an IoC capable database access framework. It provides foundation interfaces and classes for database-independent data access. Sumo.Data.Sqlite and Sumo.Data.SqlServer provide database specific implementations of Sumo.Data, Sumo.Data.Schema, and Sumo.Data.Orm. Sumo.Data.Orm is a light-weight, IoC capable ORM.</description>
         
-        <releaseNotes>Fixed problem with prepare.</releaseNotes>
-        <tags>database db orm ioc sumo sql ado</tags>
+        <releaseNotes>bug fixes</releaseNotes>
+        <tags>database db orm ioc sumo sql ado schema</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
