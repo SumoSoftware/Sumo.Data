@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sumo.Data.Orm;
+using System;
 using System.Data;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -8,6 +9,11 @@ namespace Sumo.Data
 {
     public static class DataRowExtensions
     {
+        private static bool IsNullable(this Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+
         public static T ToObject<T>(this DataRow row) where T : class
         {
             // allows activator to use non-public constructors
@@ -25,8 +31,7 @@ namespace Sumo.Data
                     //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
                     //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 
                     var columnValue = row[property.Name];
-                    var isNullable = property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
-                    var propertyType = isNullable ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
+                    var propertyType = property.PropertyType.IsNullable() ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
                     var value = propertyType == columnValue.GetType() ?
                         columnValue :
                         Convert.ChangeType(columnValue, property.PropertyType);
@@ -74,7 +79,7 @@ namespace Sumo.Data
         }
 
         /// <summary>
-        /// for value types like string, datetime, and numeric types 
+        /// for value/scalor types like string, datetime, and numeric types 
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="rows"></param>
@@ -85,12 +90,11 @@ namespace Sumo.Data
             if (rows.Count > 0)
             {
                 var type = typeof(T);
-                var isNullable = type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
-                type = isNullable ? Nullable.GetUnderlyingType(type) : type;
+                type = type.IsNullable() ? Nullable.GetUnderlyingType(type) : type;
                 var doConvert = type != rows[0][0].GetType();
                 for (var i = 0; i < rows.Count; ++i)
                 {
-                    result[i] = (T)(doConvert ? rows[i][0] : Convert.ChangeType(rows[i][0], type));
+                    result[i] = (T)(doConvert ? Convert.ChangeType(rows[i][0], type) : rows[i][0]);
                 }
             }
             return result;
@@ -105,6 +109,12 @@ namespace Sumo.Data
         /// <returns></returns>
         public static TInterface[] ToArray<TInterface, TImplentation>(this DataRowCollection rows) where TImplentation : class, TInterface
         {
+            var interfaceType = typeof(TInterface);
+            if (!interfaceType.IsInterface) throw new OrmException($"Generic argument TInterface resolves to {interfaceType.FullName} which is not an interface.");
+
+            var instanceType = typeof(TImplentation);
+            if (instanceType.GetInterface(interfaceType.Name) == null) throw new OrmException($"Genertic argument TImplentation{instanceType.FullName} must implement interface {interfaceType.FullName}");
+
             var result = new TInterface[rows.Count];
             for (var i = 0; i < rows.Count; ++i)
             {

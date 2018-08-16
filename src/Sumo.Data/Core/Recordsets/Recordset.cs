@@ -192,6 +192,7 @@ namespace Sumo.Data
         [JsonIgnore]
         public object this[long index, string columnName] => Records[index][_fieldIndexes[columnName]];
 
+        //todo: determine a philosophy on where stuff like ToBytes belongs - extensions, in class, or in partial class
         //todo: add binary support
 
         public byte[] ToBytes()

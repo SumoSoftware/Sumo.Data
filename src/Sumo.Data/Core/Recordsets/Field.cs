@@ -3,13 +3,21 @@ using System.Data;
 
 namespace Sumo.Data
 {
+    /// <summary>
+    /// Field definitions, similar to System.Data.DataColumn
+    /// </summary>
     public class Field
     {
         public Field() : base() { }
 
-        public Field(string name) : base()
+        private Field(string name) : base()
         {
             Name = name;
+        }
+
+        private Field(string name, TypeCode typeCode) : this(name)
+        {
+            TypeCode = typeCode;
         }
 
         public Field(string name, int ordinalPosition) : this(name)
@@ -17,17 +25,12 @@ namespace Sumo.Data
             OrdinalPosition = ordinalPosition;
         }
 
-        public Field(string name, TypeCode type) : this(name)
-        {
-            TypeCode = type;
-        }
-
-        public Field(string name, TypeCode type, int ordinalPosition) : this(name, type)
+        public Field(string name, TypeCode typeCode, int ordinalPosition) : this(name, typeCode)
         {
             OrdinalPosition = ordinalPosition;
         }
 
-        public Field(string name, TypeCode type, int ordinalPosition, object defaultValue) : this(name, type, ordinalPosition)
+        public Field(string name, TypeCode typeCode, int ordinalPosition, object defaultValue) : this(name, typeCode, ordinalPosition)
         {
             Default = defaultValue;
         }
@@ -45,6 +48,9 @@ namespace Sumo.Data
         public string Name { get; set; }
         public TypeCode TypeCode { get; set; }
         public string TypeName { get; set; }
+        /// <summary>
+        /// OrdinalPosition is used by the ORM to map fields defintions to record field indexes by name
+        /// </summary>
         public int OrdinalPosition { get; set; } = 0;
         public object Default { get; set; } = null;
 

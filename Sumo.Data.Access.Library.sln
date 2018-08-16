@@ -35,9 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Retry.Example", "examp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Procedure.CodeGen", "examples\Sumo.Procedure.CodeGen\Sumo.Procedure.CodeGen.csproj", "{D2449887-8D16-431D-8862-1822DE121FFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sumo.Csv", "src\Sumo.Csv\Sumo.Csv.csproj", "{8B2ED5A0-FAE9-416F-A917-968B5209D256}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Csv", "src\Sumo.Csv_old\Csv.csproj", "{5F6A0C41-CD66-4810-A6ED-2993FB48DCD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Csv", "src\Sumo.Csv\Sumo.Csv.csproj", "{8B2ED5A0-FAE9-416F-A917-968B5209D256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,10 +99,6 @@ Global
 		{8B2ED5A0-FAE9-416F-A917-968B5209D256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B2ED5A0-FAE9-416F-A917-968B5209D256}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B2ED5A0-FAE9-416F-A917-968B5209D256}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F6A0C41-CD66-4810-A6ED-2993FB48DCD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F6A0C41-CD66-4810-A6ED-2993FB48DCD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F6A0C41-CD66-4810-A6ED-2993FB48DCD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F6A0C41-CD66-4810-A6ED-2993FB48DCD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,7 +118,6 @@ Global
 		{BB51E0D6-7A4E-46C8-9394-C049AFEA7648} = {BFE6C935-9955-4819-8767-339CA3E92CE1}
 		{D2449887-8D16-431D-8862-1822DE121FFA} = {BFE6C935-9955-4819-8767-339CA3E92CE1}
 		{8B2ED5A0-FAE9-416F-A917-968B5209D256} = {106A688D-51E7-4417-8533-E7AFD2925147}
-		{5F6A0C41-CD66-4810-A6ED-2993FB48DCD1} = {106A688D-51E7-4417-8533-E7AFD2925147}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE1F19B6-C30A-4700-88BB-81F4ACC08215}

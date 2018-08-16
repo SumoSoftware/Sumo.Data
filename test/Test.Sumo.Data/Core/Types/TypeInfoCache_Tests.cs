@@ -56,6 +56,8 @@ namespace Sumo.Data
         public void ParamNameTest()
         {
             Assert.AreEqual("pname1", TypeInfoCache<ParamNameTestClass>.PropertyNames[0]);
+            Assert.AreEqual("pname2", TypeInfoCache<ParamNameTestClass>.PropertyNames[1]);
+            Assert.AreEqual("pname3", TypeInfoCache<ParamNameTestClass>.PropertyNames[2]);
         }
 
     }
