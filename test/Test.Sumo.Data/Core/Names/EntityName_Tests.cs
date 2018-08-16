@@ -37,7 +37,7 @@ namespace Sumo.Data
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_NameStringEmptyArgument()
         {
-            string name = String.Empty;
+            string name = string.Empty;
             var tableName = new EntityName(name);
         }
 
@@ -54,7 +54,7 @@ namespace Sumo.Data
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_SchemaStringEmptyArgument()
         {
-            string schema = String.Empty;
+            string schema = string.Empty;
             var name = "name";
             var tableName = new EntityName(schema, name);
         }
@@ -73,7 +73,7 @@ namespace Sumo.Data
         public void Constructor_SchemaProvided_NameStringEmptyArgument()
         {
             string schema = "schema";
-            string name = String.Empty;
+            string name = string.Empty;
             var tableName = new EntityName(schema, name);
         }
         #endregion

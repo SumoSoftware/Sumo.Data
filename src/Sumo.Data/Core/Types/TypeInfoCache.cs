@@ -66,7 +66,7 @@ namespace Sumo.Data
             var nameAttribute = type.GetCustomAttribute<EntityNameAttribute>();
 
             ProcedureName = nameAttribute != null ? $"[{nameAttribute.Name}]" : $"[{type.Name}]";
-            if (prefixAttribute != null && !String.IsNullOrEmpty(prefixAttribute.Prefix))
+            if (prefixAttribute != null && !string.IsNullOrEmpty(prefixAttribute.Prefix))
             {
                 ProcedureName = $"[{prefixAttribute.Prefix}].{ProcedureName}";
             }

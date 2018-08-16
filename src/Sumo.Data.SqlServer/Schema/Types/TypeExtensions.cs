@@ -100,30 +100,30 @@ namespace Sumo.Data.Schema.SqlServer
                 case SqlDbType.NVarChar:
                 case SqlDbType.Text:
                 case SqlDbType.VarChar:
-                case SqlDbType.Xml: return typeof(String);
+                case SqlDbType.Xml: return typeof(string);
                 case SqlDbType.Binary:
                 case SqlDbType.Image:
                 case SqlDbType.Timestamp:
                 case SqlDbType.VarBinary:
-                case SqlDbType.Udt: return typeof(Byte[]);
+                case SqlDbType.Udt: return typeof(byte[]);
                 case SqlDbType.Date:
                 case SqlDbType.DateTime:
                 case SqlDbType.DateTime2: return typeof(DateTime);
                 case SqlDbType.DateTimeOffset: return typeof(DateTimeOffset);
                 case SqlDbType.Time: return typeof(TimeSpan);
-                case SqlDbType.BigInt: return typeof(Int64);
-                case SqlDbType.Bit: return typeof(Boolean);
-                case SqlDbType.Float: return typeof(Double);
-                case SqlDbType.Int: return typeof(Int32);
+                case SqlDbType.BigInt: return typeof(long);
+                case SqlDbType.Bit: return typeof(bool);
+                case SqlDbType.Float: return typeof(double);
+                case SqlDbType.Int: return typeof(int);
                 case SqlDbType.Decimal:
                 case SqlDbType.Money:
-                case SqlDbType.SmallMoney: return typeof(Decimal);
-                case SqlDbType.Real: return typeof(Single);
+                case SqlDbType.SmallMoney: return typeof(decimal);
+                case SqlDbType.Real: return typeof(float);
                 case SqlDbType.SmallDateTime: return typeof(DateTime);
-                case SqlDbType.SmallInt: return typeof(Int16);
+                case SqlDbType.SmallInt: return typeof(short);
                 case SqlDbType.UniqueIdentifier: return typeof(Guid);
-                case SqlDbType.TinyInt: return typeof(Byte);
-                case SqlDbType.Variant: return typeof(Object);
+                case SqlDbType.TinyInt: return typeof(byte);
+                case SqlDbType.Variant: return typeof(object);
                 case SqlDbType.Structured:
                 default:
                     throw new NotSupportedException(sqlDbType.ToString());

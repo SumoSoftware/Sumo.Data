@@ -11,7 +11,7 @@ namespace Sumo.Procedure.CodeGen
 
         public UnitFactory(string template)
         {
-            if (String.IsNullOrEmpty(template)) throw new ArgumentNullException(nameof(template));
+            if (string.IsNullOrEmpty(template)) throw new ArgumentNullException(nameof(template));
 
             _template = template;
             TemplateMap = CreateMap(template);

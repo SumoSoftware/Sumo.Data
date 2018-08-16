@@ -12,8 +12,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Double _syncAPI;
-		public System.Double SyncAPI
+		private double _syncAPI;
+		public double SyncAPI
 		{
 			get { return _syncAPI; }
 			set
@@ -51,8 +51,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _storeId;
-		public System.Int32 StoreId
+		private int _storeId;
+		public int StoreId
 		{
 			get { return _storeId; }
 			set
@@ -93,8 +93,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _storeNr;
-		public System.Int32 StoreNr
+		private int _storeNr;
+		public int StoreNr
 		{
 			get { return _storeNr; }
 			set
@@ -205,8 +205,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _createdBy;
-		public System.Int32 CreatedBy
+		private int _createdBy;
+		public int CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -233,8 +233,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _modifiedBy;
-		public System.Int32 ModifiedBy
+		private int _modifiedBy;
+		public int ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -272,8 +272,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyId;
-		public System.Int32 SurveyId
+		private int _surveyId;
+		public int SurveyId
 		{
 			get { return _surveyId; }
 			set
@@ -286,8 +286,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyCategoryId;
-		public System.Int32 SurveyCategoryId
+		private int _surveyCategoryId;
+		public int SurveyCategoryId
 		{
 			get { return _surveyCategoryId; }
 			set
@@ -342,8 +342,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _displayNavBar;
-		public System.Boolean DisplayNavBar
+		private bool _displayNavBar;
+		public bool DisplayNavBar
 		{
 			get { return _displayNavBar; }
 			set
@@ -356,8 +356,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isAuditTemplate;
-		public System.Boolean IsAuditTemplate
+		private bool _isAuditTemplate;
+		public bool IsAuditTemplate
 		{
 			get { return _isAuditTemplate; }
 			set
@@ -437,8 +437,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyCategoryId;
-		public System.Int32 SurveyCategoryId
+		private int _surveyCategoryId;
+		public int SurveyCategoryId
 		{
 			get { return _surveyCategoryId; }
 			set
@@ -532,8 +532,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveySectionId;
-		public System.Int32 SurveySectionId
+		private int _surveySectionId;
+		public int SurveySectionId
 		{
 			get { return _surveySectionId; }
 			set
@@ -546,8 +546,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyId;
-		public System.Int32 SurveyId
+		private int _surveyId;
+		public int SurveyId
 		{
 			get { return _surveyId; }
 			set
@@ -588,8 +588,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _sortOrder;
-		public System.Int32 SortOrder
+		private int _sortOrder;
+		public int SortOrder
 		{
 			get { return _sortOrder; }
 			set
@@ -669,8 +669,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyCommentId;
-		public System.Int32 SurveyCommentId
+		private int _surveyCommentId;
+		public int SurveyCommentId
 		{
 			get { return _surveyCommentId; }
 			set
@@ -683,8 +683,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveySectionId;
-		public System.Int32 SurveySectionId
+		private int _surveySectionId;
+		public int SurveySectionId
 		{
 			get { return _surveySectionId; }
 			set
@@ -697,8 +697,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyId;
-		public System.Int32 SurveyId
+		private int _surveyId;
+		public int SurveyId
 		{
 			get { return _surveyId; }
 			set
@@ -725,8 +725,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _createdBy;
-		public System.Int32 CreatedBy
+		private int _createdBy;
+		public int CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -753,8 +753,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _modifiedBy;
-		public System.Int32 ModifiedBy
+		private int _modifiedBy;
+		public int ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -792,8 +792,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyQuestionId;
-		public System.Int32 SurveyQuestionId
+		private int _surveyQuestionId;
+		public int SurveyQuestionId
 		{
 			get { return _surveyQuestionId; }
 			set
@@ -806,8 +806,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveySectionId;
-		public System.Int32 SurveySectionId
+		private int _surveySectionId;
+		public int SurveySectionId
 		{
 			get { return _surveySectionId; }
 			set
@@ -820,8 +820,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyId;
-		public System.Int32 SurveyId
+		private int _surveyId;
+		public int SurveyId
 		{
 			get { return _surveyId; }
 			set
@@ -848,8 +848,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _questionType;
-		public System.Int32 QuestionType
+		private int _questionType;
+		public int QuestionType
 		{
 			get { return _questionType; }
 			set
@@ -862,8 +862,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _requireMedia;
-		public System.Boolean RequireMedia
+		private bool _requireMedia;
+		public bool RequireMedia
 		{
 			get { return _requireMedia; }
 			set
@@ -876,8 +876,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _allowBlank;
-		public System.Boolean AllowBlank
+		private bool _allowBlank;
+		public bool AllowBlank
 		{
 			get { return _allowBlank; }
 			set
@@ -890,8 +890,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _allowComments;
-		public System.Boolean AllowComments
+		private bool _allowComments;
+		public bool AllowComments
 		{
 			get { return _allowComments; }
 			set
@@ -904,8 +904,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _minValue;
-		public System.Int32 MinValue
+		private int _minValue;
+		public int MinValue
 		{
 			get { return _minValue; }
 			set
@@ -918,8 +918,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _autoCreate;
-		public System.Boolean AutoCreate
+		private bool _autoCreate;
+		public bool AutoCreate
 		{
 			get { return _autoCreate; }
 			set
@@ -946,8 +946,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _maxValue;
-		public System.Int32 MaxValue
+		private int _maxValue;
+		public int MaxValue
 		{
 			get { return _maxValue; }
 			set
@@ -960,8 +960,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _controlType;
-		public System.Int32 ControlType
+		private int _controlType;
+		public int ControlType
 		{
 			get { return _controlType; }
 			set
@@ -988,8 +988,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _formFieldId;
-		public System.Int32 FormFieldId
+		private int _formFieldId;
+		public int FormFieldId
 		{
 			get { return _formFieldId; }
 			set
@@ -1002,8 +1002,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _includeNotApplicable;
-		public System.Boolean IncludeNotApplicable
+		private bool _includeNotApplicable;
+		public bool IncludeNotApplicable
 		{
 			get { return _includeNotApplicable; }
 			set
@@ -1016,8 +1016,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _requireCommentsIfNotApplicable;
-		public System.Boolean RequireCommentsIfNotApplicable
+		private bool _requireCommentsIfNotApplicable;
+		public bool RequireCommentsIfNotApplicable
 		{
 			get { return _requireCommentsIfNotApplicable; }
 			set
@@ -1030,8 +1030,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _sortOrder;
-		public System.Int32 SortOrder
+		private int _sortOrder;
+		public int SortOrder
 		{
 			get { return _sortOrder; }
 			set
@@ -1044,8 +1044,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isExtraCredit;
-		public System.Boolean IsExtraCredit
+		private bool _isExtraCredit;
+		public bool IsExtraCredit
 		{
 			get { return _isExtraCredit; }
 			set
@@ -1058,8 +1058,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isScoreable;
-		public System.Boolean IsScoreable
+		private bool _isScoreable;
+		public bool IsScoreable
 		{
 			get { return _isScoreable; }
 			set
@@ -1072,8 +1072,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isStoreType;
-		public System.Boolean IsStoreType
+		private bool _isStoreType;
+		public bool IsStoreType
 		{
 			get { return _isStoreType; }
 			set
@@ -1097,8 +1097,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyQuestionAnswerId;
-		public System.Int32 SurveyQuestionAnswerId
+		private int _surveyQuestionAnswerId;
+		public int SurveyQuestionAnswerId
 		{
 			get { return _surveyQuestionAnswerId; }
 			set
@@ -1111,8 +1111,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyQuestionId;
-		public System.Int32 SurveyQuestionId
+		private int _surveyQuestionId;
+		public int SurveyQuestionId
 		{
 			get { return _surveyQuestionId; }
 			set
@@ -1153,8 +1153,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _sortOrder;
-		public System.Int32 SortOrder
+		private int _sortOrder;
+		public int SortOrder
 		{
 			get { return _sortOrder; }
 			set
@@ -1167,8 +1167,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyImageId;
-		public System.Int32 SurveyImageId
+		private int _surveyImageId;
+		public int SurveyImageId
 		{
 			get { return _surveyImageId; }
 			set
@@ -1181,8 +1181,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _textValueItemId;
-		public System.Int32 TextValueItemId
+		private int _textValueItemId;
+		public int TextValueItemId
 		{
 			get { return _textValueItemId; }
 			set
@@ -1206,8 +1206,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyQuestionImageId;
-		public System.Int32 SurveyQuestionImageId
+		private int _surveyQuestionImageId;
+		public int SurveyQuestionImageId
 		{
 			get { return _surveyQuestionImageId; }
 			set
@@ -1220,8 +1220,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyId;
-		public System.Int32 SurveyId
+		private int _surveyId;
+		public int SurveyId
 		{
 			get { return _surveyId; }
 			set
@@ -1234,8 +1234,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyQuestionId;
-		public System.Int32 SurveyQuestionId
+		private int _surveyQuestionId;
+		public int SurveyQuestionId
 		{
 			get { return _surveyQuestionId; }
 			set
@@ -1262,8 +1262,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _mediaId;
-		public System.Int32 MediaId
+		private int _mediaId;
+		public int MediaId
 		{
 			get { return _mediaId; }
 			set
@@ -1276,8 +1276,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _sortOrder;
-		public System.Int32 SortOrder
+		private int _sortOrder;
+		public int SortOrder
 		{
 			get { return _sortOrder; }
 			set
@@ -1318,8 +1318,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Decimal _latitude;
-		public System.Decimal Latitude
+		private decimal _latitude;
+		public decimal Latitude
 		{
 			get { return _latitude; }
 			set
@@ -1332,8 +1332,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Decimal _longitude;
-		public System.Decimal Longitude
+		private decimal _longitude;
+		public decimal Longitude
 		{
 			get { return _longitude; }
 			set
@@ -1346,8 +1346,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _fileSize;
-		public System.Int32 FileSize
+		private int _fileSize;
+		public int FileSize
 		{
 			get { return _fileSize; }
 			set
@@ -1360,8 +1360,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _width;
-		public System.Int32 Width
+		private int _width;
+		public int Width
 		{
 			get { return _width; }
 			set
@@ -1374,8 +1374,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _height;
-		public System.Int32 Height
+		private int _height;
+		public int Height
 		{
 			get { return _height; }
 			set
@@ -1402,8 +1402,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _createdBy;
-		public System.Int32 CreatedBy
+		private int _createdBy;
+		public int CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -1430,8 +1430,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _modifiedBy;
-		public System.Int32 ModifiedBy
+		private int _modifiedBy;
+		public int ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -1469,8 +1469,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyEventId;
-		public System.Int32 SurveyEventId
+		private int _surveyEventId;
+		public int SurveyEventId
 		{
 			get { return _surveyEventId; }
 			set
@@ -1483,8 +1483,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyEventRecipientId;
-		public System.Int32 SurveyEventRecipientId
+		private int _surveyEventRecipientId;
+		public int SurveyEventRecipientId
 		{
 			get { return _surveyEventRecipientId; }
 			set
@@ -1497,8 +1497,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyId;
-		public System.Int32 SurveyId
+		private int _surveyId;
+		public int SurveyId
 		{
 			get { return _surveyId; }
 			set
@@ -1511,8 +1511,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isAuditEvent;
-		public System.Boolean IsAuditEvent
+		private bool _isAuditEvent;
+		public bool IsAuditEvent
 		{
 			get { return _isAuditEvent; }
 			set
@@ -1525,8 +1525,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isStoreSurvey;
-		public System.Boolean IsStoreSurvey
+		private bool _isStoreSurvey;
+		public bool IsStoreSurvey
 		{
 			get { return _isStoreSurvey; }
 			set
@@ -1539,8 +1539,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _distributionType;
-		public System.Int32 DistributionType
+		private int _distributionType;
+		public int DistributionType
 		{
 			get { return _distributionType; }
 			set
@@ -1609,8 +1609,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _restrictToDates;
-		public System.Boolean RestrictToDates
+		private bool _restrictToDates;
+		public bool RestrictToDates
 		{
 			get { return _restrictToDates; }
 			set
@@ -1651,8 +1651,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _createdBy;
-		public System.Int32 CreatedBy
+		private int _createdBy;
+		public int CreatedBy
 		{
 			get { return _createdBy; }
 			set
@@ -1679,8 +1679,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _modifiedBy;
-		public System.Int32 ModifiedBy
+		private int _modifiedBy;
+		public int ModifiedBy
 		{
 			get { return _modifiedBy; }
 			set
@@ -1718,8 +1718,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyEventRespondentId;
-		public System.Int32 SurveyEventRespondentId
+		private int _surveyEventRespondentId;
+		public int SurveyEventRespondentId
 		{
 			get { return _surveyEventRespondentId; }
 			set
@@ -1732,8 +1732,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyEventId;
-		public System.Int32 SurveyEventId
+		private int _surveyEventId;
+		public int SurveyEventId
 		{
 			get { return _surveyEventId; }
 			set
@@ -1813,8 +1813,8 @@ namespace GSP.X.Repository.Local
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private System.Int32 _surveyEventRespondentAnswerId;
-		public System.Int32 SurveyEventRespondentAnswerId
+		private int _surveyEventRespondentAnswerId;
+		public int SurveyEventRespondentAnswerId
 		{
 			get { return _surveyEventRespondentAnswerId; }
 			set
@@ -1827,8 +1827,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyEventRespondentId;
-		public System.Int32 SurveyEventRespondentId
+		private int _surveyEventRespondentId;
+		public int SurveyEventRespondentId
 		{
 			get { return _surveyEventRespondentId; }
 			set
@@ -1841,8 +1841,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Int32 _surveyQuestionId;
-		public System.Int32 SurveyQuestionId
+		private int _surveyQuestionId;
+		public int SurveyQuestionId
 		{
 			get { return _surveyQuestionId; }
 			set
@@ -1855,8 +1855,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isNotApplicable;
-		public System.Boolean IsNotApplicable
+		private bool _isNotApplicable;
+		public bool IsNotApplicable
 		{
 			get { return _isNotApplicable; }
 			set
@@ -1897,8 +1897,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isApproved;
-		public System.Boolean IsApproved
+		private bool _isApproved;
+		public bool IsApproved
 		{
 			get { return _isApproved; }
 			set
@@ -1911,8 +1911,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isImported;
-		public System.Boolean IsImported
+		private bool _isImported;
+		public bool IsImported
 		{
 			get { return _isImported; }
 			set
@@ -1925,8 +1925,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isFailed;
-		public System.Boolean IsFailed
+		private bool _isFailed;
+		public bool IsFailed
 		{
 			get { return _isFailed; }
 			set
@@ -1939,8 +1939,8 @@ namespace GSP.X.Repository.Local
 			}
 		}
 
-		private System.Boolean _isBookmark;
-		public System.Boolean IsBookmark
+		private bool _isBookmark;
+		public bool IsBookmark
 		{
 			get { return _isBookmark; }
 			set

@@ -27,11 +27,11 @@ namespace Sumo.Data
             switch (code)
             {
                 case TypeCode.Object:
-                    if (type == typeof(Byte[]))
+                    if (type == typeof(byte[]))
                     {
                         return DbType.Binary;
                     }
-                    else if (type == typeof(Char[]))
+                    else if (type == typeof(char[]))
                     {
                         return DbType.String;
                     }
@@ -39,7 +39,7 @@ namespace Sumo.Data
                     {
                         return DbType.Guid;
                     }
-                    else if (type == typeof(Object))
+                    else if (type == typeof(object))
                     {
                         return DbType.Object;
                     }
@@ -80,10 +80,10 @@ namespace Sumo.Data
                 case DbType.String:
                 case DbType.AnsiString:
                 case DbType.StringFixedLength:
-                case DbType.Xml: return typeof(String);
-                case DbType.Binary: return typeof(Byte[]);
-                case DbType.Boolean: return typeof(Boolean);
-                case DbType.Byte: return typeof(Byte);
+                case DbType.Xml: return typeof(string);
+                case DbType.Binary: return typeof(byte[]);
+                case DbType.Boolean: return typeof(bool);
+                case DbType.Byte: return typeof(byte);
                 case DbType.Time: return typeof(TimeSpan);
                 case DbType.Date:
                 case DbType.DateTime:
@@ -91,24 +91,24 @@ namespace Sumo.Data
                 case DbType.DateTimeOffset: return typeof(DateTimeOffset);
                 case DbType.Currency:
                 case DbType.VarNumeric:
-                case DbType.Decimal: return typeof(Decimal);
-                case DbType.Double: return typeof(Double);
+                case DbType.Decimal: return typeof(decimal);
+                case DbType.Double: return typeof(double);
                 case DbType.Guid: return typeof(Guid);
-                case DbType.Int16: return typeof(Int16);
-                case DbType.Int32: return typeof(Int32);
-                case DbType.Int64: return typeof(Int64);
-                case DbType.Object: return typeof(Object);
-                case DbType.SByte: return typeof(SByte);
-                case DbType.Single: return typeof(Single);
-                case DbType.UInt16: return typeof(UInt16);
-                case DbType.UInt32: return typeof(UInt32);
-                case DbType.UInt64: return typeof(UInt64);
+                case DbType.Int16: return typeof(short);
+                case DbType.Int32: return typeof(int);
+                case DbType.Int64: return typeof(long);
+                case DbType.Object: return typeof(object);
+                case DbType.SByte: return typeof(sbyte);
+                case DbType.Single: return typeof(float);
+                case DbType.UInt16: return typeof(ushort);
+                case DbType.UInt32: return typeof(uint);
+                case DbType.UInt64: return typeof(ulong);
                 default:
                     throw new NotSupportedException(dbType.ToString());
             }
         }
 
-        public static Object Read(this BinaryReader reader, DbType dbType)
+        public static object Read(this BinaryReader reader, DbType dbType)
         {
             switch (dbType)
             {
@@ -157,7 +157,7 @@ namespace Sumo.Data
             throw new NotSupportedException(dbType.ToString());
         }
 
-        public static void Write(this Object value, BinaryWriter writer, DbType dbType)
+        public static void Write(this object value, BinaryWriter writer, DbType dbType)
         {
             switch (dbType)
             {
@@ -165,8 +165,8 @@ namespace Sumo.Data
                 case DbType.String:
                 case DbType.AnsiString:
                 case DbType.StringFixedLength: writer.Write((string)value); break;
-                case DbType.Boolean: writer.Write((Boolean)value); break;
-                case DbType.Byte: writer.Write((Byte)value); break;
+                case DbType.Boolean: writer.Write((bool)value); break;
+                case DbType.Byte: writer.Write((byte)value); break;
                 case DbType.Date:
                 case DbType.DateTime:
                 case DbType.DateTime2: writer.Write(((DateTime)value).ToUniversalTime().Ticks); break;
@@ -177,16 +177,16 @@ namespace Sumo.Data
                 case DbType.Currency:
                 case DbType.VarNumeric:
                 case DbType.Decimal: writer.Write((decimal)value); break;
-                case DbType.Double: writer.Write((Double)value); break;
+                case DbType.Double: writer.Write((double)value); break;
                 case DbType.Guid: writer.Write(value.ToString()); break;
-                case DbType.Int16: writer.Write((Int16)value); break;
-                case DbType.Int32: writer.Write((Int32)value); break;
-                case DbType.Int64: writer.Write((Int64)value); break;
-                case DbType.SByte: writer.Write((SByte)value); break;
-                case DbType.Single: writer.Write((Single)value); break;
-                case DbType.UInt16: writer.Write((UInt16)value); break;
-                case DbType.UInt32: writer.Write((UInt32)value); break;
-                case DbType.UInt64: writer.Write((UInt64)value); break;
+                case DbType.Int16: writer.Write((short)value); break;
+                case DbType.Int32: writer.Write((int)value); break;
+                case DbType.Int64: writer.Write((long)value); break;
+                case DbType.SByte: writer.Write((sbyte)value); break;
+                case DbType.Single: writer.Write((float)value); break;
+                case DbType.UInt16: writer.Write((ushort)value); break;
+                case DbType.UInt32: writer.Write((uint)value); break;
+                case DbType.UInt64: writer.Write((ulong)value); break;
                 case DbType.Object:
                 case DbType.Time:
                 case DbType.Binary:

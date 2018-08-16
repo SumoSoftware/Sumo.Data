@@ -5,7 +5,7 @@ namespace Sumo.Data
 {
     public interface IBatchWriter
     {
-        void Init(Table table, DbConnection connection, bool turncate = false, bool dropTable = false);
+        void Init(TableDefinition table, DbConnection connection, bool turncate = false, bool dropTable = false);
 
         void Begin();
 

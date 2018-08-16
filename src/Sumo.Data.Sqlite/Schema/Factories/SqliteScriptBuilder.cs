@@ -4,29 +4,29 @@ namespace Sumo.Data.Schema.Sqlite
 {
     public class SqliteScriptBuilder : IScriptBuilder
     {
-        public string BuildAlterTableScript(Table table, Column[] columnsToAdd, Column[] columnsToRemove)
+        public string BuildAlterTableScript(TableDefinition table, ColumnDefinition[] columnsToAdd, ColumnDefinition[] columnsToRemove)
         {
             throw new System.NotImplementedException();
         }
 
-        public string BuildCreateScript(Catalog catalog)
+        public string BuildCreateScript(CatalogDefinition catalog)
         {
             return catalog.ToCreateScript(true);
         }
 
-        public string BuildCreateScript(Schema schema)
+        public string BuildCreateScript(SchemaDefinition schema)
         {
             return schema.ToCreateScript(true);
         }
 
-        public string BuildCreateScript(Table table)
+        public string BuildCreateScript(TableDefinition table)
         {
             return table.ToCreateScript(true);
         }
 
-        public Table BuildTable<T>() where T : class
+        public TableDefinition BuildTable<T>() where T : class
         {
-            var table = new Table(TypeInfoCache<T>.Name);
+            var table = new TableDefinition(TypeInfoCache<T>.Name);
             for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
             {
                 var property = TypeInfoCache<T>.ReadWriteProperties[i];

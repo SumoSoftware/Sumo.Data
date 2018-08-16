@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace Sumo.Data.Schema
 {
-    public static class EntityInfoCache<T> where T : class
+    public static class EntityDefinitionInfoCache<T> where T : class
     {
-        static EntityInfoCache()
+        static EntityDefinitionInfoCache()
         {
             PrimaryKeyProperties = TypeInfoCache<T>
                 .Properties

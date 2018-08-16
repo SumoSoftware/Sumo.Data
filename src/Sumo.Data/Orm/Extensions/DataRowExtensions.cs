@@ -1,15 +1,12 @@
-﻿using Sumo.Data.Schema;
-using System;
+﻿using System;
 using System.Data;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
 // this namespace is correct. don't add .Orm to it.
-namespace Sumo.Data
+namespace Sumo.Data.Orm
 {
-    public static class OrmReadExtensions
+    public static class DataRowExtensions
     {
         public static T ToObject<T>(this DataRow row) where T : class
         {
@@ -73,58 +70,6 @@ namespace Sumo.Data
                 result[i] = rows[i][0];
             }
             return result;
-        }
-
-        public static object[] ReadRowFromStream(this BinaryReader reader, Table table)
-        {
-            var row = new object[table.Columns.Count];
-            foreach (var col in table.Columns.OrderBy(cols => cols.OrdinalPosition))
-            {
-                if (col.IsNullable)
-                {
-                    row[col.OrdinalPosition - 1] = (reader.ReadByte() == 1) ? reader.Read(col.DataType) : null;
-                }
-                else
-                {
-                    row[col.OrdinalPosition - 1] = reader.Read(col.DataType);
-                }
-            }
-
-            return row;
-        }
-
-        public static void WriteToStream(this BinaryWriter writer, Table table, DataRow row)
-        {
-            //TODO: do an assertion on all ordinals not being zero
-            foreach (var col in table.Columns.OrderBy(cols => cols.OrdinalPosition))
-            {
-                if (col.IsNullable)
-                {
-                    if (row.IsNull(col.Name))
-                    {
-                        writer.Write((byte)0);
-                    }
-                    else
-                    {
-                        writer.Write((byte)1);
-                        var value = row[col.Name];
-                        value.Write(writer, col.DataType);
-                    }
-                }
-                else
-                {
-                    var value = row[col.Name];
-                    value.Write(writer, col.DataType);
-                }
-            }
-        }
-
-        public static void WriteToStream(this BinaryWriter writer, Table table, DataRowCollection rows)
-        {
-            for (var idx = 0; idx < rows.Count; ++idx)
-            {
-                writer.WriteToStream(table, rows[idx]);
-            }
         }
 
         /// <summary>

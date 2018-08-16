@@ -48,7 +48,7 @@ namespace Sumo.Data
         {
             var builder = new StringBuilder();
             builder.Append(base.ToString());
-            if (!String.IsNullOrEmpty(Alias)) builder.Append($" as [{Alias}]");
+            if (!string.IsNullOrEmpty(Alias)) builder.Append($" as [{Alias}]");
             return builder.ToString();
         }
 

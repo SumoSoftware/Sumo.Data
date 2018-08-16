@@ -9,10 +9,10 @@ namespace Sumo.Data.Schema
     /// A column is the basic building block of a table. It represents an element or property of a modeled entity or class.
     /// </summary>
     [Serializable]
-    public class Column : Entity
+    public class ColumnDefinition : EntityDefinition
     {
-        public Column() : base() { }
-        public Column(string name, DbType dataType) : base(name)
+        public ColumnDefinition() : base() { }
+        public ColumnDefinition(string name, DbType dataType) : base(name)
         {
             DataType = dataType;
         }
@@ -31,7 +31,7 @@ namespace Sumo.Data.Schema
             {
                 if (value && PrimaryKey == null)
                 {
-                    PrimaryKey = new PrimaryKey();
+                    PrimaryKey = new PrimaryKeyDefinition();
                     IsNullable = false;
                     IsUnique = false;
                     HasCheckConstraint = false;
@@ -43,7 +43,7 @@ namespace Sumo.Data.Schema
                 }
             }
         }
-        public PrimaryKey PrimaryKey { get; set; } = null;
+        public PrimaryKeyDefinition PrimaryKey { get; set; } = null;
 
         public bool IsNullable
         {
@@ -52,7 +52,7 @@ namespace Sumo.Data.Schema
             {
                 if (!value && NotNullConstraint == null)
                 {
-                    NotNullConstraint = new NotNullConstraint();
+                    NotNullConstraint = new NotNullConstraintDefinition();
                 }
                 else if (value && !IsPrimaryKey && NotNullConstraint != null)
                 {
@@ -60,7 +60,7 @@ namespace Sumo.Data.Schema
                 }
             }
         }
-        public NotNullConstraint NotNullConstraint { get; set; } = null;
+        public NotNullConstraintDefinition NotNullConstraint { get; set; } = null;
 
         public bool HasCheckConstraint
         {
@@ -69,7 +69,7 @@ namespace Sumo.Data.Schema
             {
                 if (value && !IsPrimaryKey && CheckConstraint == null)
                 {
-                    CheckConstraint = new CheckConstraint();
+                    CheckConstraint = new CheckConstraintDefinition();
                 }
                 else if (!value && CheckConstraint != null)
                 {
@@ -77,7 +77,7 @@ namespace Sumo.Data.Schema
                 }
             }
         }
-        public CheckConstraint CheckConstraint { get; set; } = null;
+        public CheckConstraintDefinition CheckConstraint { get; set; } = null;
 
         public bool IsUnique
         {
@@ -86,7 +86,7 @@ namespace Sumo.Data.Schema
             {
                 if (value && !IsPrimaryKey && UniqueConstraint == null)
                 {
-                    UniqueConstraint = new UniqueConstraint();
+                    UniqueConstraint = new UniqueConstraintDefinition();
                     IsNullable = false;
                 }
                 else if (!value && UniqueConstraint != null)
@@ -95,7 +95,7 @@ namespace Sumo.Data.Schema
                 }
             }
         }
-        public UniqueConstraint UniqueConstraint { get; set; } = null;
+        public UniqueConstraintDefinition UniqueConstraint { get; set; } = null;
 
         public bool HasForeignKey
         {
@@ -104,7 +104,7 @@ namespace Sumo.Data.Schema
             {
                 if (value && !IsPrimaryKey && ForeignKey == null)
                 {
-                    ForeignKey = new ForeignKey();
+                    ForeignKey = new ForeignKeyDefinition();
                 }
                 else if (!value && ForeignKey != null)
                 {
@@ -112,7 +112,7 @@ namespace Sumo.Data.Schema
                 }
             }
         }
-        public ForeignKey ForeignKey { get; set; } = null;
+        public ForeignKeyDefinition ForeignKey { get; set; } = null;
 
         public string CollationName { get; set; } = null;
 
@@ -128,7 +128,7 @@ namespace Sumo.Data.Schema
 
         public override string ToString()
         {
-            return $"{base.ToString()} {DataType}{(IsPrimaryKey ? " PK" : (!IsNullable ? " NOT NULL" : String.Empty))}{(String.IsNullOrEmpty(Default) ? String.Empty : $" {Default}")}";
+            return $"{base.ToString()} {DataType}{(IsPrimaryKey ? " PK" : (!IsNullable ? " NOT NULL" : string.Empty))}{(string.IsNullOrEmpty(Default) ? string.Empty : $" {Default}")}";
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Sumo.Data.Sqlite
     {
         public DbParameter CreateParameter(string name, object value, ParameterDirection direction)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
             return new SqliteParameter(name, value)
@@ -22,7 +22,7 @@ namespace Sumo.Data.Sqlite
 
         public DbParameter CreateParameter(string name, object value, ParameterDirection direction, int size)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
             return new SqliteParameter(name, value)
@@ -35,7 +35,7 @@ namespace Sumo.Data.Sqlite
 
         public DbParameter CreateParameter(string name, DbType type, ParameterDirection direction, int size)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
             return new SqliteParameter(name, type.ToSqliteType(), size)
             {
@@ -45,7 +45,7 @@ namespace Sumo.Data.Sqlite
 
         public DbParameter CreateParameter(string name, DbType type, ParameterDirection direction)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
             return new SqliteParameter(name, type.ToSqliteType())
             {
@@ -55,14 +55,14 @@ namespace Sumo.Data.Sqlite
 
         public DbParameter CreateParameter(string name, DbType type)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
             return new SqliteParameter(name, type.ToSqliteType());
         }
 
         public DbParameter CreateParameter(string name, PropertyInfo property)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (property == null) throw new ArgumentNullException(nameof(property));
 
             return new SqliteParameter(name, property.PropertyType.ToSqliteType());
@@ -70,7 +70,7 @@ namespace Sumo.Data.Sqlite
 
         public DbParameter CreateParameter(string name, PropertyInfo property, ParameterDirection direction)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (property == null) throw new ArgumentNullException(nameof(property));
 
             return new SqliteParameter(name, property.PropertyType.ToSqliteType())
@@ -81,7 +81,7 @@ namespace Sumo.Data.Sqlite
 
         public DbParameter CreateParameter(string name, PropertyInfo property, ParameterDirection direction, int size)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (property == null) throw new ArgumentNullException(nameof(property));
 
             return new SqliteParameter(name, property.PropertyType.ToSqliteType(), size)

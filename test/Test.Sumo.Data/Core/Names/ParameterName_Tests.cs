@@ -26,7 +26,7 @@ namespace Sumo.Data
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_StringEmptyArgument()
         {
-            string name = String.Empty;
+            string name = string.Empty;
             var parameterName = new ParameterName(name, -1);
         }
 

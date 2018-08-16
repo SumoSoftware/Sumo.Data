@@ -1,5 +1,4 @@
 ﻿using Sumo.Data.Schema;
-using Sumo.Data.Schema.SqlServer;
 using Sumo.Data.SqlServer;
 using System;
 using System.Collections.Generic;
@@ -15,14 +14,14 @@ namespace Sumo.Data.Generator
         {
             public DateTime LastSync { get; set; }
             public float PreviousSyncApiId { get; set; }
-            public String ClientId { get; set; }
+            public string ClientId { get; set; }
             public int UserId { get; set; }
         }
 
         static void Main(string[] args)
         {
             IDataComponentFactory connectionFactory;
-            var entFactory = new EntityFactory();
+            var entFactory = new EntityDefinitionFactory();
             var codeGen = new CSharpCodeGen();
 
             //Add your SQLServer Connection String as environment variable "TESTCONNSTRING"
@@ -41,7 +40,7 @@ namespace Sumo.Data.Generator
                 var readResult = proc.Read(prm);
                 DataSet ds = readResult.DataSet;
 
-                var tables = new List<Table>();
+                var tables = new List<TableDefinition>();
 
                 var rows = ds.Tables[ds.Tables.Count - 1];
                 var manifest = ds.Tables[ds.Tables.Count - 1].Rows.ToArray<Models.Manifest>();

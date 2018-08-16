@@ -6,14 +6,14 @@ using System;
 namespace Sumo.Data.Schema
 {
     [Serializable]
-    public class IndexedColumn : Entity
+    public class IndexedColumnDefinition : EntityDefinition
     {
-        public IndexedColumn() : base() { }
-        public IndexedColumn(string name, Directions direction = Directions.Ascending) : base(name)
+        public IndexedColumnDefinition() : base() { }
+        public IndexedColumnDefinition(string name, Directions direction = Directions.Ascending) : base(name)
         {
             Direction = direction;
         }
-        public IndexedColumn(Column column, Directions direction = Directions.Ascending) : base(column.Name)
+        public IndexedColumnDefinition(ColumnDefinition column, Directions direction = Directions.Ascending) : base(column.Name)
         {
             Direction = direction;
         }

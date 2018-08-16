@@ -16,7 +16,7 @@ namespace Sumo.Data.Sqlite
             if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
-                String.IsNullOrEmpty(connectionString) ? new SqliteConnectionFactory() : new SqliteConnectionFactory(connectionString),
+                string.IsNullOrEmpty(connectionString) ? new SqliteConnectionFactory() : new SqliteConnectionFactory(connectionString),
                 retryOptions,
                 new SqliteTransientErrorTester());
         }

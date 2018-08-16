@@ -2,12 +2,12 @@
 {
     public interface IScriptBuilder
     {
-        string BuildCreateScript(Catalog catalog);
-        string BuildCreateScript(Schema schema);
-        string BuildCreateScript(Table table);
+        string BuildCreateScript(CatalogDefinition catalog);
+        string BuildCreateScript(SchemaDefinition schema);
+        string BuildCreateScript(TableDefinition table);
 
-        string BuildAlterTableScript(Table table, Column[] columnsToAdd, Column[] columnsToRemove);
+        string BuildAlterTableScript(TableDefinition table, ColumnDefinition[] columnsToAdd, ColumnDefinition[] columnsToRemove);
 
-        Table BuildTable<T>() where T : class;
+        TableDefinition BuildTable<T>() where T : class;
     }
 }

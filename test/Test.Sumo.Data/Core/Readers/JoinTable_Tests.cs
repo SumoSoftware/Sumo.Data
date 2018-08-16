@@ -80,7 +80,7 @@ namespace Sumo.Data
             IEntityName tableName = new EntityName("joinTable");
             IItemName[] selectColumns = new IItemName[1] { new ItemName("selectColumn") };
             var table = new JoinTable(tableName, selectColumns);
-            Assert.AreEqual(String.Empty, table.ToString());
+            Assert.AreEqual(string.Empty, table.ToString());
         }
 
         [TestMethod]

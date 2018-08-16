@@ -60,7 +60,7 @@ namespace Sumo.Data.Schema
     {
         public DefaultValueAttribute(string defaultValue) : base()
         {
-            if (String.IsNullOrEmpty(defaultValue)) throw new ArgumentNullException(nameof(defaultValue));
+            if (string.IsNullOrEmpty(defaultValue)) throw new ArgumentNullException(nameof(defaultValue));
             Value = defaultValue;
         }
 
@@ -75,7 +75,7 @@ namespace Sumo.Data.Schema
     {
         public CommentAttribute(string comment) : base()
         {
-            if (String.IsNullOrEmpty(comment)) throw new ArgumentNullException(nameof(comment));
+            if (string.IsNullOrEmpty(comment)) throw new ArgumentNullException(nameof(comment));
             Comment = comment;
         }
 
@@ -100,8 +100,8 @@ namespace Sumo.Data.Schema
 
         public ForeignKeyAttribute(string schema, string referenceTable, string referenceColumn) : base()
         {
-            if (String.IsNullOrEmpty(referenceTable)) throw new ArgumentNullException(nameof(referenceTable));
-            if (String.IsNullOrEmpty(referenceColumn)) throw new ArgumentNullException(nameof(referenceColumn));
+            if (string.IsNullOrEmpty(referenceTable)) throw new ArgumentNullException(nameof(referenceTable));
+            if (string.IsNullOrEmpty(referenceColumn)) throw new ArgumentNullException(nameof(referenceColumn));
 
             Schema = schema;
             ReferenceTable = referenceTable;

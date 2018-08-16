@@ -1,6 +1,5 @@
 ﻿using Sumo.Data;
 using Sumo.Data.Schema.SqlServer;
-using System;
 
 namespace Sumo.Procedure.CodeGen
 {
@@ -22,7 +21,7 @@ namespace Sumo.Procedure.CodeGen
         {
             get
             {
-                return Direction != "INOUT" ? String.Empty : "[InputOutputParameter]";
+                return Direction != "INOUT" ? string.Empty : "[InputOutputParameter]";
             }
         }
 

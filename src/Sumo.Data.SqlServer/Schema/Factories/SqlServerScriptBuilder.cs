@@ -2,27 +2,27 @@
 {
     internal class SqlServerScriptBuilder : IScriptBuilder
     {
-        public string BuildAlterTableScript(Table table, Column[] columnsToAdd, Column[] columnsToRemove)
+        public string BuildAlterTableScript(TableDefinition table, ColumnDefinition[] columnsToAdd, ColumnDefinition[] columnsToRemove)
         {
             throw new System.NotImplementedException();
         }
 
-        public string BuildCreateScript(Catalog catalog)
+        public string BuildCreateScript(CatalogDefinition catalog)
         {
             throw new System.NotImplementedException();
         }
 
-        public string BuildCreateScript(Schema schema)
+        public string BuildCreateScript(SchemaDefinition schema)
         {
             throw new System.NotImplementedException();
         }
 
-        public string BuildCreateScript(Table table)
+        public string BuildCreateScript(TableDefinition table)
         {
             throw new System.NotImplementedException();
         }
 
-        public Table BuildTable<T>() where T : class
+        public TableDefinition BuildTable<T>() where T : class
         {
             throw new System.NotImplementedException();
         }

@@ -19,10 +19,10 @@ namespace Sumo.Data.Orm
         public T Read<T>(object searchKey, DbTransaction dbTransaction = null) where T : class
         {
             if (searchKey == null) throw new ArgumentNullException(nameof(searchKey));
-            if (EntityInfoCache<T>.PrimaryKeyProperties.Length > 1) throw new NotSupportedException($"{TypeInfoCache<T>.FullName} has a multi-part primary key. Use method 'T[] Read<T>(Dictionary<string, object> parameters) where T : class' instead.");
+            if (EntityDefinitionInfoCache<T>.PrimaryKeyProperties.Length > 1) throw new NotSupportedException($"{TypeInfoCache<T>.FullName} has a multi-part primary key. Use method 'T[] Read<T>(Dictionary<string, object> parameters) where T : class' instead.");
 
             var parameters = new Dictionary<string, object>();
-            var primaryKey = EntityInfoCache<T>.PrimaryKeyProperties[0];
+            var primaryKey = EntityDefinitionInfoCache<T>.PrimaryKeyProperties[0];
             parameters.Add(primaryKey.Name, searchKey);
 
             var results = Read<T>(parameters, dbTransaction);
@@ -33,10 +33,10 @@ namespace Sumo.Data.Orm
         public async Task<T> ReadAsync<T>(object searchKey, DbTransaction dbTransaction = null) where T : class
         {
             if (searchKey == null) throw new ArgumentNullException(nameof(searchKey));
-            if (EntityInfoCache<T>.PrimaryKeyProperties.Length > 1) throw new NotSupportedException($"{TypeInfoCache<T>.FullName} has a multi-part primary key. Use method 'T[] Read<T>(Dictionary<string, object> parameters) where T : class' instead.");
+            if (EntityDefinitionInfoCache<T>.PrimaryKeyProperties.Length > 1) throw new NotSupportedException($"{TypeInfoCache<T>.FullName} has a multi-part primary key. Use method 'T[] Read<T>(Dictionary<string, object> parameters) where T : class' instead.");
 
             var parameters = new Dictionary<string, object>();
-            var primaryKey = EntityInfoCache<T>.PrimaryKeyProperties[0];
+            var primaryKey = EntityDefinitionInfoCache<T>.PrimaryKeyProperties[0];
 
             parameters.Add(primaryKey.Name, searchKey);
 
@@ -73,8 +73,8 @@ namespace Sumo.Data.Orm
 
         private Dictionary<string, object> GetWriteParameters<T>() where T : class
         {
-            var result = new Dictionary<string, object>(EntityInfoCache<T>.NonAutoIncrementProperties.Length);
-            for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
+            var result = new Dictionary<string, object>(EntityDefinitionInfoCache<T>.NonAutoIncrementProperties.Length);
+            for (var i = 0; i < EntityDefinitionInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 result[_ormDataComponentFactory.SchemaParameterNames.GetWriteParameterName<T>(i)] = null;
             }
@@ -83,10 +83,10 @@ namespace Sumo.Data.Orm
 
         private void SetWriteParameters<T>(T entity, Dictionary<string, object> parameters) where T : class
         {
-            for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
+            for (var i = 0; i < EntityDefinitionInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 parameters[_ormDataComponentFactory.SchemaParameterNames.GetWriteParameterName<T>(i)] =
-                    EntityInfoCache<T>.NonAutoIncrementProperties[i].GetValue(entity) ?? DBNull.Value;
+                    EntityDefinitionInfoCache<T>.NonAutoIncrementProperties[i].GetValue(entity) ?? DBNull.Value;
             }
         }
 

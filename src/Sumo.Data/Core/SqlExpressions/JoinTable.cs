@@ -46,7 +46,7 @@ namespace Sumo.Data.SqlExpressions
         //todo: it would be more effective to use IExpression instead of a list of columns
         public override string ToString()
         {
-            if (_joinColumnMap.Count == 0) return String.Empty;
+            if (_joinColumnMap.Count == 0) return string.Empty;
 
             var builder = new StringBuilder();
 

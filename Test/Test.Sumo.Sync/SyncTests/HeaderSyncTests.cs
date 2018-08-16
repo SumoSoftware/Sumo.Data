@@ -3,7 +3,6 @@ using Sumo.Data;
 using System.Linq;
 using System;
 using System.IO;
-using Sumo.Data.Schema.SqlServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data.SqlServer;
 using Sumo.Data.Sqlite;
@@ -51,7 +50,7 @@ namespace Test.Sumo.Sync.SyncTests
         {
             IDataComponentFactory connectionFactory;
             IDataComponentFactory sqliteConnectionFactory;
-            var entFactory = new EntityFactory();
+            var entFactory = new EntityDefinitionFactory();
 
             var outputFileName = OUTPUT_FILENAME;
             var sqlLiteConnectionString = $"Data Source={outputFileName}";
@@ -111,7 +110,7 @@ namespace Test.Sumo.Sync.SyncTests
                 {
                     var batchWriter = new BatchWriter();
                     
-                    var tbl = outputStream.ReadFromStream<Table>();
+                    var tbl = outputStream.ReadFromStream<TableDefinition>();
 
                     batchWriter.Init(tbl, sqliteConnection, truncate:true);
                     batchWriter.Begin();

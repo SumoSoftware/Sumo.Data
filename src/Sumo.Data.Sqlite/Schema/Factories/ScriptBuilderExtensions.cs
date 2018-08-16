@@ -17,14 +17,14 @@ namespace Sumo.Data.Schema.Sqlite
     // todo: add attached database support
     internal static class ScriptBuilderExtensions
     {
-        internal static string ToCreateScript(this Catalog catalog, bool checkExists = false)
+        internal static string ToCreateScript(this CatalogDefinition catalog, bool checkExists = false)
         {
             var builder = new StringBuilder();
 
             if (catalog.Comments != null)
             {
                 builder.Append("-- CATALOG");
-                if (!String.IsNullOrEmpty(catalog.Name)) builder.Append($" [{catalog.Name.ToUpper()}]");
+                if (!string.IsNullOrEmpty(catalog.Name)) builder.Append($" [{catalog.Name.ToUpper()}]");
                 builder.AppendLine(" COMMENTS");
                 foreach (var comment in catalog.Comments)
                 {
@@ -36,7 +36,7 @@ namespace Sumo.Data.Schema.Sqlite
             if (catalog.Schemas != null)
             {
                 builder.Append("-- CATALOG");
-                if (!String.IsNullOrEmpty(catalog.Name)) builder.Append($" [{catalog.Name.ToUpper()}]");
+                if (!string.IsNullOrEmpty(catalog.Name)) builder.Append($" [{catalog.Name.ToUpper()}]");
                 builder.AppendLine(" SCHEMAS");
                 builder.AppendLine();
 
@@ -49,12 +49,12 @@ namespace Sumo.Data.Schema.Sqlite
             return builder.ToString();
         }
 
-        internal static string ToCreateScript(this Schema schema, bool checkExists = false)
+        internal static string ToCreateScript(this SchemaDefinition schema, bool checkExists = false)
         {
-            if (!String.IsNullOrEmpty(schema.Name) && (schema.Name.ToLower().CompareTo("main") != 0 && schema.Name.ToLower().CompareTo("temp") != 0))
+            if (!string.IsNullOrEmpty(schema.Name) && (schema.Name.ToLower().CompareTo("main") != 0 && schema.Name.ToLower().CompareTo("temp") != 0))
                 throw new ArgumentException($"{nameof(schema)}.{nameof(schema.Name)} must be empty, 'main', or 'temp'.");
 
-            if (String.IsNullOrEmpty(schema.Name)) schema.Name = "main";
+            if (string.IsNullOrEmpty(schema.Name)) schema.Name = "main";
 
             var builder = new StringBuilder();
 
@@ -82,15 +82,15 @@ namespace Sumo.Data.Schema.Sqlite
         }
 
 
-        internal static string ToCreateScript(this Table table, bool checkExists = false)
+        internal static string ToCreateScript(this TableDefinition table, bool checkExists = false)
         {
             return table.ToCreateScript(null, checkExists);
         }
 
         //https://www.sqlite.org/lang_createtable.html
-        internal static string ToCreateScript(this Table table, Schema schema, bool checkExists = false)
+        internal static string ToCreateScript(this TableDefinition table, SchemaDefinition schema, bool checkExists = false)
         {
-            if (String.IsNullOrEmpty(table.Name)) throw new ArgumentException($"{table} {nameof(Table)}.{nameof(Table.Name)} cannot be null or empty.");
+            if (string.IsNullOrEmpty(table.Name)) throw new ArgumentException($"{table} {nameof(TableDefinition)}.{nameof(TableDefinition.Name)} cannot be null or empty.");
 
             var builder = new StringBuilder();
 
@@ -138,9 +138,9 @@ namespace Sumo.Data.Schema.Sqlite
         //todo: add comment support for columns
         //https://www.sqlite.org/datatype3.html
         //https://www.sqlite.org/syntax/column-constraint.html
-        internal static string ToCreateScript(this Column column)
+        internal static string ToCreateScript(this ColumnDefinition column)
         {
-            if (String.IsNullOrEmpty(column.Name)) throw new ArgumentException($"{column} {nameof(Column)}.{nameof(Column.Name)} cannot be null or empty.");
+            if (string.IsNullOrEmpty(column.Name)) throw new ArgumentException($"{column} {nameof(ColumnDefinition)}.{nameof(ColumnDefinition.Name)} cannot be null or empty.");
 
             var builder = new StringBuilder();
 
@@ -207,12 +207,12 @@ namespace Sumo.Data.Schema.Sqlite
                 builder.Append($" check ({column.CheckConstraint.Expression})");
             }
 
-            if (!String.IsNullOrEmpty(column.Default))
+            if (!string.IsNullOrEmpty(column.Default))
             {
                 builder.Append($" default ({column.Default})");
             }
 
-            if (!String.IsNullOrEmpty(column.CollationName))
+            if (!string.IsNullOrEmpty(column.CollationName))
             {
                 builder.Append($" collate ({column.CollationName})");
             }
@@ -227,9 +227,9 @@ namespace Sumo.Data.Schema.Sqlite
             return builder.ToString();
         }
 
-        internal static string ToCreateScript(this Index index, Table table, Schema schema, bool checkExists = false)
+        internal static string ToCreateScript(this IndexDefinition index, TableDefinition table, SchemaDefinition schema, bool checkExists = false)
         {
-            if (String.IsNullOrEmpty(index.Name)) throw new ArgumentException($"{index} {nameof(Index)}.{nameof(Index.Name)} cannot be null or empty.");
+            if (string.IsNullOrEmpty(index.Name)) throw new ArgumentException($"{index} {nameof(IndexDefinition)}.{nameof(IndexDefinition.Name)} cannot be null or empty.");
 
             var builder = new StringBuilder();
 
@@ -247,24 +247,24 @@ namespace Sumo.Data.Schema.Sqlite
                 var columns = index.IndexedColumns.OrderBy((c) => c.OrdinalPosition);
                 foreach (var column in columns)
                 {
-                    builder.Append(column.OrdinalPosition > 1 ? ", " : String.Empty);
+                    builder.Append(column.OrdinalPosition > 1 ? ", " : string.Empty);
                     builder.Append(column.ToCreateScript(table));
                 }
             }
             builder.Append(")");
-            if (!String.IsNullOrEmpty(index.FilterExpression)) builder.Append($" where {index.FilterExpression}");
+            if (!string.IsNullOrEmpty(index.FilterExpression)) builder.Append($" where {index.FilterExpression}");
 
             return builder.ToString();
         }
 
-        internal static string ToCreateScript(this IndexedColumn column, Table table)
+        internal static string ToCreateScript(this IndexedColumnDefinition column, TableDefinition table)
         {
-            if (String.IsNullOrEmpty(column.Name)) throw new ArgumentException($"{column} {nameof(IndexedColumn)}.{nameof(IndexedColumn.Name)} cannot be null or empty.");
+            if (string.IsNullOrEmpty(column.Name)) throw new ArgumentException($"{column} {nameof(IndexedColumnDefinition)}.{nameof(IndexedColumnDefinition.Name)} cannot be null or empty.");
 
             var builder = new StringBuilder();
 
             builder.Append($"[{column.Name}]");
-            if (!String.IsNullOrEmpty(column.CollationName)) builder.Append($"collate {column.CollationName}");
+            if (!string.IsNullOrEmpty(column.CollationName)) builder.Append($"collate {column.CollationName}");
             builder.Append($" {column.Direction.ToSqlString()}");
 
             return builder.ToString();

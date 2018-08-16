@@ -3,7 +3,7 @@
 namespace Sumo.Data.Schema
 {
     [Serializable]
-    public class ForeignKey 
+    public class ForeignKeyDefinition 
     {
         public string Schema { get; set; } = null;
         public string Table { get; set; }

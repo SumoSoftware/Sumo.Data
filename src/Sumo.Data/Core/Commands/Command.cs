@@ -23,7 +23,7 @@ namespace Sumo.Data
 
         public int Execute(string sql, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -32,7 +32,7 @@ namespace Sumo.Data
 
         public async Task<int> ExecuteAsync(string sql, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -41,7 +41,7 @@ namespace Sumo.Data
 
         public int Execute(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -51,7 +51,7 @@ namespace Sumo.Data
 
         public Task<int> ExecuteAsync(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -61,7 +61,7 @@ namespace Sumo.Data
 
         public T ExecuteScalar<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -72,7 +72,7 @@ namespace Sumo.Data
 
         public async Task<T> ExecuteScalarAsync<T>(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             SetParameterValues(sql, parameters);
@@ -83,7 +83,7 @@ namespace Sumo.Data
 
         public T ExecuteScalar<T>(string sql, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;
@@ -94,7 +94,7 @@ namespace Sumo.Data
 
         public async Task<T> ExecuteScalarAsync<T>(string sql, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             if (_dbCommand.Transaction != dbTransaction) _dbCommand.Transaction = dbTransaction;
             _dbCommand.CommandText = sql;

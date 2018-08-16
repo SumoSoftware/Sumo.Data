@@ -8,12 +8,12 @@ namespace Sumo.Data.Schema
     /// For example, Catalog, Schema, Table, Column, etc.
     /// </summary>
     [Serializable]
-    public class Entity
+    public class EntityDefinition
     {
-        public Entity() { }
-        public Entity(string name)
+        public EntityDefinition() { }
+        public EntityDefinition(string name)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
             Name = name;
         }
@@ -34,7 +34,7 @@ namespace Sumo.Data.Schema
         public List<string> Comments { get; set; } = null;
         public void AddComment(string comment)
         {
-            if (String.IsNullOrEmpty(comment)) throw new ArgumentNullException(nameof(comment));
+            if (string.IsNullOrEmpty(comment)) throw new ArgumentNullException(nameof(comment));
             if (Comments == null) Comments = new List<string>();
 
             Comments.Add(comment);
@@ -42,17 +42,17 @@ namespace Sumo.Data.Schema
 
         protected virtual bool IsNameValid(string name)
         {
-            return !String.IsNullOrEmpty(name)&& !String.IsNullOrWhiteSpace(name) && !name.Contains(" ");
+            return !string.IsNullOrEmpty(name)&& !string.IsNullOrWhiteSpace(name) && !name.Contains(" ");
         }
 
-        public static implicit operator string(Entity name)
+        public static implicit operator string(EntityDefinition name)
         {
-            return name != null ? name.Name : String.Empty;
+            return name != null ? name.Name : string.Empty;
         }
 
-        public static implicit operator Entity(string name)
+        public static implicit operator EntityDefinition(string name)
         {
-            return String.IsNullOrEmpty(name) ? null : new Entity(name);
+            return string.IsNullOrEmpty(name) ? null : new EntityDefinition(name);
         }
 
         public override string ToString()

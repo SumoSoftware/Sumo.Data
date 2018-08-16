@@ -1,5 +1,4 @@
 ﻿using Sumo.Data.Orm;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using GSP.X.Repository.Local;
@@ -20,7 +19,7 @@ namespace Test.Sumo.Sync.Utils
 
         public List<Stores> GetStores()
         {
-            return _repo.Read<Stores>(new Dictionary<String,object>()).ToList();
+            return _repo.Read<Stores>(new Dictionary<string, object>()).ToList();
         }
 
     }

@@ -3,7 +3,7 @@
 namespace Sumo.Data.Schema
 {
     [Serializable]
-    public class CheckConstraint 
+    public class CheckConstraintDefinition 
     {
         public string Expression { get; set; }
     }

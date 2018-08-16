@@ -66,7 +66,7 @@ namespace Sumo.Data
         /// <returns></returns>
         public bool Prepare(string sql, Dictionary<string, object> parameters = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             var didPrepare = !IsPrepared;
             if (!IsPrepared || _dbCommand.CommandText != sql)

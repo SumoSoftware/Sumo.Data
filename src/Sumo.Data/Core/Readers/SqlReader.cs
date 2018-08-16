@@ -14,7 +14,7 @@ namespace Sumo.Data
 
         public DataSet Read(string sql, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             Prepare(sql);
             return ExecuteCommand(dbTransaction);
@@ -22,14 +22,14 @@ namespace Sumo.Data
 
         public Task<DataSet> ReadAsync(string sql, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             return Task.Run(() => { return Read(sql, dbTransaction); });
         }
 
         public DataSet Read(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             SetParameterValues(sql, parameters);
             return ExecuteCommand(dbTransaction);
@@ -37,7 +37,7 @@ namespace Sumo.Data
 
         public async Task<DataSet> ReadAsync(string sql, Dictionary<string, object> parameters, DbTransaction dbTransaction = null)
         {
-            if (String.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
+            if (string.IsNullOrEmpty(sql)) throw new ArgumentNullException(nameof(sql));
 
             return await Task.Run(() => { return Read(sql, parameters, dbTransaction); });
         }

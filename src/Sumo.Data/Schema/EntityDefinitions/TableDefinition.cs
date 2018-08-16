@@ -9,13 +9,13 @@ namespace Sumo.Data.Schema
     /// A table is an agregate of columns, keys, indexes, and constraints
     /// </summary>
     [Serializable]
-    public class Table : Entity
+    public class TableDefinition : EntityDefinition
     {
-        public Table() : base() { }
-        public Table(string name) : base(name) { }
+        public TableDefinition() : base() { }
+        public TableDefinition(string name) : base(name) { }
 
-        public List<Column> Columns { get; set; } = null;
-        public List<Index> Indexes { get; set; } = null;
+        public List<ColumnDefinition> Columns { get; set; } = null;
+        public List<IndexDefinition> Indexes { get; set; } = null;
         //todo: implement triggers
         //public List<Trigger> Triggers { get; set; } = null;
 
@@ -26,7 +26,7 @@ namespace Sumo.Data.Schema
             {
                 if (value && CheckConstraint == null)
                 {
-                    CheckConstraint = new CheckConstraint();
+                    CheckConstraint = new CheckConstraintDefinition();
                 }
                 else if (!value && CheckConstraint != null)
                 {
@@ -34,32 +34,32 @@ namespace Sumo.Data.Schema
                 }
             }
         }
-        public CheckConstraint CheckConstraint { get; set; } = null;
+        public CheckConstraintDefinition CheckConstraint { get; set; } = null;
 
-        public Column AddColumn(string name, DbType dataType)
+        public ColumnDefinition AddColumn(string name, DbType dataType)
         {
-            return AddColumn(new Column(name, dataType));
+            return AddColumn(new ColumnDefinition(name, dataType));
         }
 
-        public Column AddColumn(Column column)
+        public ColumnDefinition AddColumn(ColumnDefinition column)
         {
             if (column == null) throw new ArgumentNullException(nameof(column));
-            if (Columns == null) Columns = new List<Column>();
+            if (Columns == null) Columns = new List<ColumnDefinition>();
 
             column.OrdinalPosition = Columns.Count + 1;
             Columns.Add(column);
             return column;
         }
 
-        public Index AddIndex(string name)
+        public IndexDefinition AddIndex(string name)
         {
-            return AddIndex(new Index(name));
+            return AddIndex(new IndexDefinition(name));
         }
 
-        public Index AddIndex(Index index)
+        public IndexDefinition AddIndex(IndexDefinition index)
         {
             if (index == null) throw new ArgumentNullException(nameof(index));
-            if (Indexes == null) Indexes = new List<Index>();
+            if (Indexes == null) Indexes = new List<IndexDefinition>();
 
             Indexes.Add(index);
             return index;

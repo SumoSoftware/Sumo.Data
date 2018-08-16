@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using Sumo.Data.Schema;
 using Sumo.Data.Schema.Sqlite;
-using System;
 using System.Data.Common;
 
 namespace Sumo.Data.Sqlite
@@ -10,9 +9,9 @@ namespace Sumo.Data.Sqlite
     {
         DbCommand _command;
         DbConnection _connection;
-        Table _table;
+        TableDefinition _table;
 
-        public void Init(Table table, DbConnection connection, bool truncate = false, bool dropTable = false)
+        public void Init(TableDefinition table, DbConnection connection, bool truncate = false, bool dropTable = false)
         {
             _table = table;
             _connection = connection;
@@ -34,14 +33,14 @@ namespace Sumo.Data.Sqlite
 
             var paramFactory = new SqliteParameterFactory();
 
-            var fields = String.Empty;
-            var values = String.Empty;
+            var fields = string.Empty;
+            var values = string.Empty;
             foreach(var param in table.Columns)
             {
                 var paramName = $"@{param.Name}";
 
-                fields += String.IsNullOrEmpty(fields) ? $"{param.Name}" : $", {param.Name}";
-                values += String.IsNullOrEmpty(values) ? $"{paramName}" : $", {paramName}";
+                fields += string.IsNullOrEmpty(fields) ? $"{param.Name}" : $", {param.Name}";
+                values += string.IsNullOrEmpty(values) ? $"{paramName}" : $", {paramName}";
 
                 _command.Parameters.Add(new SqliteParameter($"{paramName}", null));
             }

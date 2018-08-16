@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
 namespace Sumo.Data.Schema
 {
-    public class EntityFactory
+    public class EntityDefinitionFactory
     {
-        public Catalog ToCatalog(DataSet dataset)
+        public CatalogDefinition ToCatalog(DataSet dataset)
         {
             var schema = ToSchema(dataset.Tables);
-            var catalog = new Catalog();
+            var catalog = new CatalogDefinition();
             catalog.AddSchema(schema);
             return catalog;
         }
 
-        public Schema ToSchema(DataTableCollection tables, string owner = "dbo")
+        public SchemaDefinition ToSchema(DataTableCollection tables, string owner = "dbo")
         {
-            var schema = new Schema();
+            var schema = new SchemaDefinition();
             for (var idx = 0; idx < tables.Count; ++idx)
             {
                 schema.AddTable(ToTable(tables[idx]));
@@ -25,9 +24,9 @@ namespace Sumo.Data.Schema
             return schema;
         }
 
-        public Schema ToSchema(IEnumerable<DataTable> tables, string owner = "dbo")
+        public SchemaDefinition ToSchema(IEnumerable<DataTable> tables, string owner = "dbo")
         {
-            var schema = new Schema();
+            var schema = new SchemaDefinition();
             foreach (var table in tables)
             {
                 schema.AddTable(ToTable(table));
@@ -35,11 +34,11 @@ namespace Sumo.Data.Schema
             return schema;
         }
 
-        public Table ToTable(DataTable table, string tableName = "", string owner = "dbo")
+        public TableDefinition ToTable(DataTable table, string tableName = "", string owner = "dbo")
         {
-            var outputTable = new Table
+            var outputTable = new TableDefinition
             {
-                Name = String.IsNullOrEmpty(tableName) ? table.TableName : tableName
+                Name = string.IsNullOrEmpty(tableName) ? table.TableName : tableName
             };
 
             foreach (DataColumn col in table.Columns)
@@ -53,7 +52,7 @@ namespace Sumo.Data.Schema
                 var keyColumn = outputTable.Columns.Where(col => col.Name == key.ColumnName).FirstOrDefault();
                 if (keyColumn != null)
                 {
-                    keyColumn.PrimaryKey = new PrimaryKey()
+                    keyColumn.PrimaryKey = new PrimaryKeyDefinition()
                     {
                         IsAutoIncrement = key.AutoIncrement,
                         Seed = key.AutoIncrementSeed,
@@ -65,9 +64,9 @@ namespace Sumo.Data.Schema
             return outputTable;
         }
 
-        public Column ToColumn(DataColumn column)
+        public ColumnDefinition ToColumn(DataColumn column)
         {
-            var col = new Column
+            var col = new ColumnDefinition
             {
                 Name = column.ColumnName,
                 IsNullable = column.AllowDBNull,

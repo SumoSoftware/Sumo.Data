@@ -6,7 +6,7 @@ using System;
 namespace Sumo.Data.Schema
 {
     [Serializable]
-    public class PrimaryKey
+    public class PrimaryKeyDefinition
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public Directions Direction { get; set; } = Directions.Ascending;

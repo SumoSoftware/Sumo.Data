@@ -13,7 +13,7 @@ namespace Sumo.Data.Schema.Sqlite
         [TestMethod]
         public void CreateCreateScript()
         {
-            var catalog = new Catalog("company_catalog");
+            var catalog = new CatalogDefinition("company_catalog");
             var schema = catalog.AddSchema(_schemaName);
 
             var jobTable = schema.AddTable("job");
@@ -71,7 +71,7 @@ namespace Sumo.Data.Schema.Sqlite
         {
             var connectionString = "Filename=./sqlite.db; Mode=ReadWriteCreate";
 
-            var catalog = new Catalog("test_db");
+            var catalog = new CatalogDefinition("test_db");
             var schema = catalog.AddSchema(_schemaName);
             var table = schema.AddTable("Test");
             var colPk = table.AddColumn("TestId", DbType.Int64);

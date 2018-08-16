@@ -29,16 +29,16 @@ namespace Sumo.Data.Schema.Sqlite
             var builder = new StringBuilder();
 
             builder.Append($"insert into [{TypeInfoCache<T>.Name}] (");
-            for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
+            for (var i = 0; i < EntityDefinitionInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 if (i > 0) builder.Append(", ");
-                builder.Append(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name);
+                builder.Append(EntityDefinitionInfoCache<T>.NonAutoIncrementProperties[i].Name);
             }
             builder.Append(") values (");
-            for (var i = 0; i < EntityInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
+            for (var i = 0; i < EntityDefinitionInfoCache<T>.NonAutoIncrementProperties.Length; ++i)
             {
                 if (i > 0) builder.Append(", ");
-                var name = _parameterFactory.GetParameterName(EntityInfoCache<T>.NonAutoIncrementProperties[i].Name, i - 1);
+                var name = _parameterFactory.GetParameterName(EntityDefinitionInfoCache<T>.NonAutoIncrementProperties[i].Name, i - 1);
                 builder.Append(name);
             }
             builder.Append(");");

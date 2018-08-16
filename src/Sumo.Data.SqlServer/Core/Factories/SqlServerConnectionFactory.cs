@@ -17,7 +17,7 @@ namespace Sumo.Data.SqlServer
 
         public DbConnection Open(string connectionString)
         {
-            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
 
             var connection = new SqlConnection(connectionString);
             try
@@ -42,7 +42,7 @@ namespace Sumo.Data.SqlServer
 
         public async Task<DbConnection> OpenAsync(string connectionString)
         {
-            if (String.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
+            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException(nameof(connectionString));
 
             var connection = new SqlConnection(connectionString);
             try
@@ -68,13 +68,13 @@ namespace Sumo.Data.SqlServer
 
         public DbConnection Open()
         {
-            if(String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string to use parameterless Open");
+            if(string.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string to use parameterless Open");
             return Open(_connectionString);
         }
 
         public Task<DbConnection> OpenAsync()
         {
-            if (String.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string to use parameterless OpenAsync");
+            if (string.IsNullOrEmpty(_connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string to use parameterless OpenAsync");
             return OpenAsync(_connectionString);
         }
     }

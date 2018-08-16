@@ -6,7 +6,7 @@ using System.IO.Compression;
 
 namespace Sumo.Data.Schema
 {
-    public static class EntityExtensions
+    public static class EntityDefinitionExtensions
     {
         #region to/from json
         private static readonly JsonSerializerSettings _settings = new JsonSerializerSettings()
@@ -16,7 +16,7 @@ namespace Sumo.Data.Schema
             NullValueHandling = NullValueHandling.Ignore
         };
 
-        public static string ToJson(this Entity entity)
+        public static string ToJson(this EntityDefinition entity)
         {
             return JsonConvert.SerializeObject(entity, _settings);
         }
@@ -28,7 +28,7 @@ namespace Sumo.Data.Schema
         #endregion
 
         #region to/from bytes
-        public static byte[] ToBytes(this Entity entity)
+        public static byte[] ToBytes(this EntityDefinition entity)
         {
             byte[] result = null;
             using (var stream = entity.ToStream())
@@ -38,7 +38,7 @@ namespace Sumo.Data.Schema
             return result;
         }
 
-        public static T ToEntity<T>(this byte[] bytes) where T : Entity
+        public static T ToEntity<T>(this byte[] bytes) where T : EntityDefinition
         {
             var result = default(T);
             using (var stream = new MemoryStream(bytes))
@@ -58,7 +58,7 @@ namespace Sumo.Data.Schema
         /// <param name="entity"></param>
         /// <param name="stream"></param>
         /// <returns>MemoryStream - remember to dispose!</returns>
-        public static void ToStream(this Entity entity, Stream stream)
+        public static void ToStream(this EntityDefinition entity, Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
 
@@ -71,14 +71,14 @@ namespace Sumo.Data.Schema
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>MemoryStream - remember to dispose!</returns>
-        public static MemoryStream ToStream(this Entity entity)
+        public static MemoryStream ToStream(this EntityDefinition entity)
         {
             var result = new MemoryStream();
             entity.ToStream(result);
             return result;
         }
 
-        public static T ToEntity<T>(this Stream stream) where T : Entity
+        public static T ToEntity<T>(this Stream stream) where T : EntityDefinition
         {
             var result = default(T);
             var formatter = new BinaryFormatter();
@@ -86,13 +86,13 @@ namespace Sumo.Data.Schema
             return result;
         }
 
-        public static void Write(this Stream stream, Entity entity)
+        public static void Write(this Stream stream, EntityDefinition entity)
         {
             var formatter = new BinaryFormatter();
             formatter.Serialize(stream, entity);
         }
 
-        public static T ReadFromStream<T>(this Stream stream) where T : Entity
+        public static T ReadFromStream<T>(this Stream stream) where T : EntityDefinition
         {
             return stream.ToEntity<T>();
         }
@@ -105,14 +105,14 @@ namespace Sumo.Data.Schema
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>MemoryStream - remember to dispose!</returns>
-        public static MemoryStream ToCompressedStream(this Entity entity)
+        public static MemoryStream ToCompressedStream(this EntityDefinition entity)
         {
             var result = new MemoryStream();
             entity.ToCompressedStream(result);
             return result;
         }
 
-        public static T ToEntityFromCompressedStream<T>(this Stream stream) where T : Entity
+        public static T ToEntityFromCompressedStream<T>(this Stream stream) where T : EntityDefinition
         {
             var result = default(T);
 
@@ -125,7 +125,7 @@ namespace Sumo.Data.Schema
             return result;
         }
 
-        public static void ToCompressedStream(this Entity entity, Stream stream)
+        public static void ToCompressedStream(this EntityDefinition entity, Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
 

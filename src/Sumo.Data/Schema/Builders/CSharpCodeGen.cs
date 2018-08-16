@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace Sumo.Data.Schema
 
         private string Tabs(int count)
         {
-            var tabs = String.Empty;
+            var tabs = string.Empty;
             for(var idx = 0; idx < count; ++idx)
             {
                 tabs += "\t";
@@ -31,7 +30,7 @@ namespace Sumo.Data.Schema
             return  $"_{columnName.Substring(0,1).ToLower()}{columnName.Substring(1)}";
         }
 
-        public string ToFile(IEnumerable<Table> tables, string ns, bool notifyPropertyChanged = false)
+        public string ToFile(IEnumerable<TableDefinition> tables, string ns, bool notifyPropertyChanged = false)
         {
             var bldr = new StringBuilder();
             bldr.AppendLine("using System;");
@@ -51,7 +50,7 @@ namespace Sumo.Data.Schema
             return bldr.ToString();
         }
 
-        public string ToClass(Table table, string modififier = "public", int tabs = 1, bool notifyPropertyChanged = false)
+        public string ToClass(TableDefinition table, string modififier = "public", int tabs = 1, bool notifyPropertyChanged = false)
         {
             var bldr = new StringBuilder();
 
