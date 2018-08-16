@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data</id>
-        <version>5.1.1</version>
-        <title>Sumo.Data - Foundations</title>
+        <version>5.1.2</version>
+        <title>Sumo.Data, Sumo.Data.Schema and Sumo.Data.Orm</title>
 
         <authors>Mark Lauter, Kevin Wolf</authors>
         <owners>Sumo Software Corporation</owners>
@@ -13,7 +13,7 @@
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
 
-        <description>Sumo.Data is an IoC capable database access framework. It provides foundation interfaces and classes for database-independent  data access. Sumo.Data.Sqlite and Sumo.Data.SqlServer provide database specific implementations of Sumo.Data. Sumo.Data is a core foundation library for Sumo.Data.Orm, a light-weight, IoC capable ORM.</description>
+        <description>Sumo.Data is an IoC capable database access framework. It provides foundation interfaces and classes for database-independent data access. Sumo.Data.Sqlite and Sumo.Data.SqlServer provide database specific implementations of Sumo.Data, Sumo.Data.Schema, and Sumo.Data.Orm. Sumo.Data.Orm is a light-weight, IoC capable ORM.</description>
         
         <releaseNotes>Fixed problem with prepare.</releaseNotes>
         <tags>database db orm ioc sumo sql ado</tags>
