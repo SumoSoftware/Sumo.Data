@@ -26,37 +26,55 @@ namespace Sumo.Data
                 .ToArray();
 
             TypeCodes = new TypeCode[Properties.Length];
-            for(var i=0;i< Properties.Length; ++i)
+            PropertyNames = new string[Properties.Length];
+            for (var i = 0; i < Properties.Length; ++i)
             {
-                TypeCodes[i] = Type.GetTypeCode(Properties[i].PropertyType);
+                var property = Properties[i];
+                TypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                PropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
             ReadWriteTypeCodes = new TypeCode[ReadWriteProperties.Length];
+            ReadWritePropertyNames = new string[ReadWriteProperties.Length];
             for (var i = 0; i < ReadWriteProperties.Length; ++i)
             {
-                ReadWriteTypeCodes[i] = Type.GetTypeCode(ReadWriteProperties[i].PropertyType);
+                var property = ReadWriteProperties[i];
+                ReadWriteTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                ReadWritePropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
             ReadOnlyTypeCodes = new TypeCode[ReadOnlyProperties.Length];
+            ReadOnlyPropertyNames = new string[ReadOnlyProperties.Length];
             for (var i = 0; i < ReadOnlyProperties.Length; ++i)
             {
-                ReadOnlyTypeCodes[i] = Type.GetTypeCode(ReadOnlyProperties[i].PropertyType);
+                var property = ReadOnlyProperties[i];
+                ReadOnlyTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                ReadOnlyPropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
         }
 
         public readonly static PropertyInfo[] Properties;
         public readonly static PropertyInfo[] ReadWriteProperties;
         public readonly static PropertyInfo[] ReadOnlyProperties;
+
         public readonly static TypeCode[] TypeCodes;
         public readonly static TypeCode[] ReadWriteTypeCodes;
         public readonly static TypeCode[] ReadOnlyTypeCodes;
+
+        public readonly static string[] PropertyNames;
+        public readonly static string[] ReadWritePropertyNames;
+        public readonly static string[] ReadOnlyPropertyNames;
+
         public readonly static string FullName;
         public readonly static string Name;
     }
 
     public static class ProcedureParametersTypeInfoCache<T> where T : class
     {
-        static ProcedureParametersTypeInfoCache() 
+        static ProcedureParametersTypeInfoCache()
         {
             var type = typeof(T);
             FullName = type.FullName;
@@ -94,30 +112,48 @@ namespace Sumo.Data
                 .ToArray();
 
             InputTypeCodes = new TypeCode[InputParameters.Length];
+            InputParameterNames = new string[InputParameters.Length];
             for (var i = 0; i < InputParameters.Length; ++i)
             {
-                InputTypeCodes[i] = Type.GetTypeCode(InputParameters[i].PropertyType);
+                var property = InputParameters[i];
+                InputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                InputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
             OutputTypeCodes = new TypeCode[OutputParameters.Length];
+            OutputParameterNames = new string[OutputParameters.Length];
             for (var i = 0; i < OutputParameters.Length; ++i)
             {
-                OutputTypeCodes[i] = Type.GetTypeCode(OutputParameters[i].PropertyType);
+                var property = OutputParameters[i];
+                OutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                OutputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
 
             InputOutputTypeCodes = new TypeCode[InputOutputParameters.Length];
+            InputOutputParameterNames = new string[InputOutputParameters.Length];
             for (var i = 0; i < InputOutputParameters.Length; ++i)
             {
-                InputOutputTypeCodes[i] = Type.GetTypeCode(InputOutputParameters[i].PropertyType);
+                var property = InputOutputParameters[i];
+                InputOutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>();
+                InputOutputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
             }
         }
 
         public readonly static PropertyInfo[] InputParameters;
         public readonly static PropertyInfo[] InputOutputParameters;
         public readonly static PropertyInfo[] OutputParameters;
+
         public readonly static TypeCode[] InputTypeCodes;
         public readonly static TypeCode[] InputOutputTypeCodes;
         public readonly static TypeCode[] OutputTypeCodes;
+
+        public readonly static string[] InputParameterNames;
+        public readonly static string[] InputOutputParameterNames;
+        public readonly static string[] OutputParameterNames;
+
         public readonly static string ProcedureName;
         public readonly static string FullName;
         public readonly static string Name;

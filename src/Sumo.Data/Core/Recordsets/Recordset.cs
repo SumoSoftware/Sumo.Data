@@ -187,6 +187,9 @@ namespace Sumo.Data
         public object[] this[long index] => Records[index];
 
         [JsonIgnore]
+        public object this[long record, int field] => Records[record][field];
+
+        [JsonIgnore]
         public object this[long index, string columnName] => Records[index][_fieldIndexes[columnName]];
 
         //todo: add binary support

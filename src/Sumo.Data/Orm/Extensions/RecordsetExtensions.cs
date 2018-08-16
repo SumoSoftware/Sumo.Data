@@ -16,10 +16,10 @@ namespace Sumo.Data.Orm
                 BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
                 null, null, null);
             //var result = Activator.CreateInstance<T>();
-            for (var i = 0; i < TypeInfoCache<T>.Properties.Length; ++i)
+            for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
             {
-                var property = TypeInfoCache<T>.Properties[i];
-                var value =  
+                var property = TypeInfoCache<T>.ReadWriteProperties[i];
+                var value =  recordset[recordIndex][]
                 if (!field.IsNull(property.Name))
                 {
                     //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
