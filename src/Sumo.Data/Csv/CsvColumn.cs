@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Sumo.Csv
+namespace Sumo.Data.Csv
 {
     public class CsvColumn
     {
@@ -55,119 +55,7 @@ namespace Sumo.Csv
         }
     }
 
-    //public abstract class ArrayColumn : CsvColumn
-    //{
-    //    internal abstract dynamic CreateArray(int outerArrayLength);
-    //    internal abstract void SetValue<T>(T value);
-    //    internal abstract Type GetCurrentType();
-    //    internal abstract bool Increment();
-    //    protected abstract void Reset();
-
-    //    protected dynamic Values { get; set; } = null;
-    //}
-
-    //public sealed class OneDimensionalArrayColumn : ArrayColumn
-    //{
-    //    public OneDimensionalArrayColumn(Type arrayType) : base()
-    //    {
-    //        _arrayType = arrayType;
-    //    }
-
-    //    private readonly Type _arrayType;
-    //    private int _arrayLength = 0;
-    //    private int _index = 0;
-
-    //    internal override bool Increment()
-    //    {
-    //        var result = ++_index < _arrayLength;
-    //        if (!result)
-    //            Reset();
-    //        return result;
-    //    }
-
-    //    protected override void Reset()
-    //    {
-    //        _index = 0;
-    //        _arrayLength = 0;
-    //        Values = null;
-    //    }
-
-    //    internal override dynamic CreateArray(int outerArrayLength)
-    //    {
-    //        Values = Array.CreateInstance(_arrayType, outerArrayLength);
-    //        _arrayLength = outerArrayLength;
-    //        return Values;
-    //    }
-
-    //    internal override void SetValue<T>(T value)
-    //    {
-    //        Values[_index] = value;
-    //    }
-
-    //    internal override Type GetCurrentType()
-    //    {
-    //        return _arrayType;
-    //    }
-    //}
-
-    //public class TwoDimensionalArrayColumn : ArrayColumn
-    //{
-    //    public TwoDimensionalArrayColumn(Type arrayType, int secondDimensionLength, Type[] types) : base()
-    //    {
-    //        _arrayType = arrayType;
-    //        _secondDimensionLength = secondDimensionLength;
-    //        _types = types;
-    //    }
-
-    //    private readonly int _secondDimensionLength;
-    //    private readonly int[] _indices = new int[2];
-    //    private readonly Type[] _types;
-    //    private readonly Type _arrayType;
-    //    private int _arrayLength = 0;
-
-    //    internal override bool Increment()
-    //    {
-    //        ++_indices[1];
-    //        if (_indices[1] == _secondDimensionLength)
-    //        {
-    //            _indices[1] = 0;
-    //            ++_indices[0];
-    //        }
-    //        var result = _indices[0] < _arrayLength;
-    //        if (!result)
-    //            Reset();
-    //        return result;
-    //    }
-
-    //    protected override void Reset()
-    //    {
-    //        _indices[0] = 0;
-    //        _indices[1] = 0;
-    //        _arrayLength = 0;
-    //        Values = null;
-    //    }
-
-    //    internal override dynamic CreateArray(int outerArrayLength)
-    //    {
-    //        Values = Array.CreateInstance(_arrayType, outerArrayLength, _secondDimensionLength);
-    //        _arrayLength = outerArrayLength;
-    //        return Values;
-    //    }
-
-    //    internal override void SetValue<T>(T value)
-    //    {
-    //        (Values as Array).SetValue(value, _indices);
-    //    }
-
-    //    internal override Type GetCurrentType()
-    //    {
-    //        if (_types == null)
-    //            return _arrayType;
-    //        else
-    //            return _types[_indices[1]];
-    //    }
-    //}
-
+    //todo: consider moving typecode property to CsvColumn
     public class WriteCsvColumn : CsvColumn
     {
         /// <summary>

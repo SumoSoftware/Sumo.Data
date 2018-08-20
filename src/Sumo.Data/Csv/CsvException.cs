@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Csv
+namespace Sumo.Data.Csv
 {
     public class CsvException : Exception
     {
