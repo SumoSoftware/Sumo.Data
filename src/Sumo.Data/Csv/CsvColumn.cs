@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace Sumo.Data.Csv
 {
+    //todo: consider merging the Recordset Field class and the CsvColumn class - this was the point of moving Csv to Sumo.Data
     public class CsvColumn
     {
         /// <summary>
