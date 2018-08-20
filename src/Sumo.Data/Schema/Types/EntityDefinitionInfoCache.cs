@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Sumo.Data.Schema
 {
-    internal static class EntityDefinitionInfoCache<T> where T : class
+    public static class EntityDefinitionInfoCache<T> where T : class
     {
         static EntityDefinitionInfoCache()
         {

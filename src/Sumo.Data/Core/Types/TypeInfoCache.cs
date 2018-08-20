@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Sumo.Data
 {
-    internal static class TypeInfoCache<T> where T : class
+    public static class TypeInfoCache<T> where T : class
     {
         static TypeInfoCache()
         {
