@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Sumo.Data.Csv
 {
@@ -32,10 +33,19 @@ namespace Sumo.Data.Csv
         /// <remarks>csv column names and class property names must match exactly.</remarks>
         public string PropertyName { get; set; }
 
+        private PropertyInfo _property = null;
         /// <summary>
         /// if the properties are provided ahead of time during the creation of the columns, the performance is much better
         /// </summary>
-        public PropertyInfo Property { get; set; }
+        public PropertyInfo PropertyInfo
+        {
+            get => _property;
+            set
+            {
+                _property = value;
+                if (_property != null && string.IsNullOrEmpty(PropertyName)) PropertyName = _property.Name;
+            }
+        }
 
         /// <summary>
         /// For Read operations only. Provides a default value if the CSV doesn't contain a value for this column.
@@ -47,16 +57,35 @@ namespace Sumo.Data.Csv
         /// </summary>
         public string ValidationRegExPattern { get; set; }
 
+        internal void ValidateValue(string value)
+        {
+            if (!string.IsNullOrEmpty(ValidationRegExPattern) && !Regex.IsMatch(value, ValidationRegExPattern))
+            {
+                throw new CsvException($"value: '{value}' in column {OrdinalPosition} failed validation.");
+            }
+        }
+
+        private TypeCode _typeCode = TypeCode.Empty;
+        public TypeCode TypeCode
+        {
+            get
+            {
+                if (_typeCode == TypeCode.Empty)
+                {
+                    var type = PropertyInfo.PropertyType.GenericTypeArguments.Length == 0 ? PropertyInfo.PropertyType : PropertyInfo.PropertyType.GenericTypeArguments[0];
+                    _typeCode = Type.GetTypeCode(type);
+                }
+                return _typeCode;
+            }
+        }
+
         public override string ToString()
         {
             var name = PropertyName;
-            if (Property != null)
-                name = Property.Name;
-            return string.Format("{0} - {1}", OrdinalPosition.ToString(), name);
+            return $"{OrdinalPosition}: {name}";
         }
     }
 
-    //todo: consider moving typecode property to CsvColumn
     public class WriteCsvColumn : CsvColumn
     {
         /// <summary>
@@ -75,16 +104,5 @@ namespace Sumo.Data.Csv
         /// </summary>
         /// <remarks>For a list of valid format specifiers, see http://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx </remarks>
         public string FormatSpecifier { get; set; }
-
-        private TypeCode _typeCode = TypeCode.Empty;
-        public TypeCode TypeCode
-        {
-            get
-            {
-                if (_typeCode == TypeCode.Empty)
-                    _typeCode = Type.GetTypeCode(Property.PropertyType);
-                return _typeCode;
-            }
-        }
     }
 }

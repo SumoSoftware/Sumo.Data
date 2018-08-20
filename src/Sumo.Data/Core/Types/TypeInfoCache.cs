@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -12,7 +13,7 @@ namespace Sumo.Data
             FullName = type.FullName;
             Name = type.Name;
 
-            Properties = type.GetProperties()
+            Properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null)
                 .ToArray();
 
@@ -32,7 +33,10 @@ namespace Sumo.Data
                 var property = Properties[i];
                 TypeCodes[i] = Type.GetTypeCode(property.PropertyType);
                 var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
-                PropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                PropertyNames[i] = name;
+                _properties.Add(name, property);
+
             }
 
             ReadWriteTypeCodes = new TypeCode[ReadWriteProperties.Length];
@@ -42,7 +46,9 @@ namespace Sumo.Data
                 var property = ReadWriteProperties[i];
                 ReadWriteTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
                 var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
-                ReadWritePropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                ReadWritePropertyNames[i] = name;
+                _readWriteProperties.Add(name, property);
             }
 
             ReadOnlyTypeCodes = new TypeCode[ReadOnlyProperties.Length];
@@ -52,13 +58,34 @@ namespace Sumo.Data
                 var property = ReadOnlyProperties[i];
                 ReadOnlyTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
                 var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
-                ReadOnlyPropertyNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                ReadOnlyPropertyNames[i] = name;
+                _readOnlyProperties.Add(name, property);
             }
         }
+
+        private readonly static Dictionary<string, PropertyInfo> _properties = new Dictionary<string, PropertyInfo>();
+        private readonly static Dictionary<string, PropertyInfo> _readWriteProperties = new Dictionary<string, PropertyInfo>();
+        private readonly static Dictionary<string, PropertyInfo> _readOnlyProperties = new Dictionary<string, PropertyInfo>();
 
         public readonly static PropertyInfo[] Properties;
         public readonly static PropertyInfo[] ReadWriteProperties;
         public readonly static PropertyInfo[] ReadOnlyProperties;
+
+        public static PropertyInfo GetProperty(string name)
+        {
+            return _properties[name];
+        }
+
+        public static PropertyInfo GetReadWriteProperty(string name)
+        {
+            return _readWriteProperties[name];
+        }
+
+        public static PropertyInfo GetReadOnlyProperty(string name)
+        {
+            return _readOnlyProperties[name];
+        }
 
         public readonly static TypeCode[] TypeCodes;
         public readonly static TypeCode[] ReadWriteTypeCodes;
@@ -89,7 +116,7 @@ namespace Sumo.Data
                 ProcedureName = $"[{prefixAttribute.Prefix}].{ProcedureName}";
             }
 
-            var properties = type.GetProperties()
+            var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null);
 
             InputParameters = properties

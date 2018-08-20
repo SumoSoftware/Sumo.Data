@@ -1,38 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace Sumo.Data.Csv
 {
     //todo: add support for meta data serialization (like the newtonsoft json type settings)
-    public sealed class CsvWriter<T>
+    public sealed class CsvWriter<T> where T : class
     {
         private WriteCsvColumn[] _columns;
-        private Type _type;
-        private PropertyInfo[] _properties;
-
-        public CsvWriter(WriteCsvColumn[] columns)
-        {
-            _type = typeof(T);
-            _properties = _type.GetProperties();
-            _columns = columns.OrderBy(c => c.OrdinalPosition).ToArray();
-        }
 
         public CsvWriter()
         {
-            _type = typeof(T);
-            _properties = _type.GetProperties();
-            _columns = new WriteCsvColumn[_properties.Length];
-            for (var i = 0; i < _properties.Length; ++i)
+            _columns = new WriteCsvColumn[TypeInfoCache<T>.ReadWriteProperties.Length];
+            for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
+            {
                 _columns[i] = new WriteCsvColumn
                 {
-                    Property = _properties[i],
-                    OrdinalPosition = i,
-                    Heading = _properties[i].Name,
-                    PropertyName = _properties[i].Name
+                    Heading = TypeInfoCache<T>.ReadWritePropertyNames[i],
+                    PropertyName = TypeInfoCache<T>.ReadWritePropertyNames[i],
+                    PropertyInfo = TypeInfoCache<T>.ReadWriteProperties[i],
+                    OrdinalPosition = i
                 };
+            }
+        }
+
+        public CsvWriter(WriteCsvColumn[] columns)
+        {
+            _columns = columns.OrderBy(c => c.OrdinalPosition).ToArray();
         }
 
         public string Write(IEnumerable<T> items, bool includeHeader = true)
@@ -52,7 +47,7 @@ namespace Sumo.Data.Csv
                 for (var i = 0; i < _columns.Length; ++i)
                 {
                     var column = _columns[i];
-                    var value = column.Property.GetValue(item);
+                    var value = column.PropertyInfo.GetValue(item);
                     var valueText = string.Empty;
                     if (value != null)
                     {
@@ -107,12 +102,26 @@ namespace Sumo.Data.Csv
                                 valueText = "\"" + valueText + "\"";
                                 break;
                             case TypeCode.Object:
-                                if (column.Property.PropertyType == typeof(byte[]))
+                                if (column.PropertyInfo.PropertyType == typeof(TimeSpan))
+                                {
+                                    valueText = string.IsNullOrEmpty(column.FormatSpecifier) ? ((TimeSpan)value).ToString() : ((TimeSpan)value).ToString(column.FormatSpecifier);
+                                }
+                                else if (column.PropertyInfo.PropertyType == typeof(Guid))
+                                {
+                                    valueText = ((Guid)value).ToString();
+                                }
+                                else if (column.PropertyInfo.PropertyType == typeof(byte[]))
+                                {
                                     valueText = Convert.ToBase64String((byte[])value);
-                                else if (column.Property.PropertyType == typeof(char[]))
-                                    valueText = "invalid_type_char";
+                                }
+                                else if (column.PropertyInfo.PropertyType == typeof(char[]))
+                                {
+                                    valueText = new string((char[])value);
+                                }
                                 else
+                                {
                                     valueText = value != null ? value.ToString() : column.DefaultValue;
+                                }
                                 break;
                             default:
                                 valueText = value != null ? value.ToString() : column.DefaultValue;
@@ -133,5 +142,4 @@ namespace Sumo.Data.Csv
             return builder.ToString();
         }
     }
-
 }

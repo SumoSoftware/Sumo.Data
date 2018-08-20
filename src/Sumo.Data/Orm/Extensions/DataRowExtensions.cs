@@ -9,11 +9,6 @@ namespace Sumo.Data
 {
     public static class DataRowExtensions
     {
-        private static bool IsNullable(this Type type)
-        {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
-        }
-
         public static T ToObject<T>(this DataRow row) where T : class
         {
             // allows activator to use non-public constructors

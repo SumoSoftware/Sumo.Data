@@ -7,11 +7,6 @@ namespace Sumo.Data
 {
     public static class RecordsetExtensions
     {
-        private static bool IsNullable(this Type type)
-        {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
-        }
-
         public static T ToObject<T>(this Recordset recordset, long recordIndex) where T : class
         {
             // allows activator to use non-public constructors

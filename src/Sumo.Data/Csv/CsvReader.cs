@@ -1,101 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Sumo.Data.Csv
 {
-    public sealed class CsvReader<T>
+    public sealed class CsvReader<T> where T : class
     {
-        private bool _columnsHaveProperties;
-        private Dictionary<string, PropertyInfo> _propertyInfoMap;
         private readonly CsvColumn[] _columns;
         private const string _csvRegexPattern = "^(?:\"(?<value>(?:\"\"|[^\"\n\f\r])*)\"|(?<value>[^,\n\f\r\"]*))(?:,(?:[ \t]*\"(?<value>(?:\"\"|[^\"\n\f\r])*)\"|(?<value>[^,\n\f\r\"]*)))*$";
         //,*[ \t]*\"(?<value>(?:\"\"|[^\"\n\f\r])*)\"|(?<value>[^,\n\f\r\"]*))
         //const string _csvRegexPattern = ",*[ \t]*\"(?<value>(?:\"\"|[^\"\n\f\r])*)\"|(?<value>[^,\n\f\r\"]*))";
 
-        public CsvReader(CsvColumn[] columns, bool columnsHaveProperties = false) : base()
+        public CsvReader()
+        {
+            _columns = new CsvColumn[TypeInfoCache<T>.ReadWriteProperties.Length];
+            for (var i = 0; i < _columns.Length; ++i)
+            {
+                _columns[i] = new CsvColumn()
+                {
+                    OrdinalPosition = i,
+                    PropertyName = TypeInfoCache<T>.ReadWritePropertyNames[i],
+                    PropertyInfo = TypeInfoCache<T>.ReadWriteProperties[i]
+                };
+            }
+        }
+
+        public CsvReader(CsvColumn[] columns) : base()
         {
             _columns = columns ?? throw new ArgumentNullException("columns");
-            Initialize(columnsHaveProperties);
-        }
-
-        public CsvReader(bool columnsHaveProperties = false) : base()
-        {
-            Initialize(columnsHaveProperties);
-        }
-
-        private void Initialize(bool columnsHaveProperties)
-        {
-            _columnsHaveProperties = columnsHaveProperties;
-            if (!columnsHaveProperties)
+            _columns = _columns.OrderBy(c => c.OrdinalPosition).ToArray();
+            for (var i = 0; i < _columns.Length; ++i)
             {
-                var type = typeof(T);
-                if (type == null)
-                    throw new CsvException(string.Format("{0} failed in the constructor. typeof(T) was null.", GetType().Name));
-                _propertyInfoMap = new Dictionary<string, PropertyInfo>();
-                var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
-                for (var i = 0; i < propertyInfos.Length; i++)
-                    _propertyInfoMap[propertyInfos[i].Name] = propertyInfos[i];
+                var column = _columns[i];
+                if (column.PropertyInfo == null)
+                {
+                    if (string.IsNullOrEmpty(column.PropertyName))
+                    {
+                        throw new InvalidOperationException($"PropertyInfo or PropertyName must be set on column index {i}.");
+                    }
+                    column.PropertyInfo = TypeInfoCache<T>.GetReadWriteProperty(column.PropertyName);
+                }
             }
         }
 
         public T[] Read(string csvContent, bool ignoreFirstLine = false)
         {
-            if (csvContent == null) throw new ArgumentNullException("csvContent");
+            if (_columns == null) throw new InvalidOperationException("This version of read requires that columns be passed to the constructor.");
 
-            var lines = csvContent.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-            var arrayModifier = 0;
-            if (ignoreFirstLine) arrayModifier = 1;
-
-            var result = new T[lines.Length - arrayModifier];
-
-            if (lines.Length > 0)
-            {
-                var startIndex = ignoreFirstLine ? 1 : 0;
-                if (!_columnsHaveProperties)
-                {
-                    for (var i = startIndex; i < lines.Length; i++)
-                    {
-                        var line = lines[i];
-                        try
-                        {
-                            if (line.Trim() != string.Empty)
-                            {
-                                var rowElement = GenerateRowElementUsingPropertyMap(line, _columns);
-                                if (rowElement != null)
-                                    result[i - arrayModifier] = rowElement;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new CsvException(string.Format("{0} failed on line # {1}", GetType().Name, i), ex);
-                        }
-                    }
-                }
-                else
-                {
-                    for (var i = startIndex; i < lines.Length; i++)
-                    {
-                        var line = lines[i];
-                        try
-                        {
-                            if (line.Trim() != string.Empty)
-                            {
-                                var rowElement = GenerateRowElementUsingColumnMap(line, _columns);
-                                if (rowElement != null)
-                                    result[i - arrayModifier] = rowElement;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new CsvException(string.Format("{0} failed on line # {1}", GetType().Name, i), ex);
-                        }
-                    }
-                }
-            }
-            return result;
+            return Read(csvContent, _columns, ignoreFirstLine);
         }
 
         public T[] Read(string csvContent, CsvColumn[] columns, bool ignoreFirstLine = false)
@@ -104,53 +56,27 @@ namespace Sumo.Data.Csv
             if (columns == null) throw new ArgumentNullException("columns");
 
             var lines = csvContent.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-            var arrayModifier = 0;
-            if (ignoreFirstLine) arrayModifier = 1;
-
-            var result = new T[lines.Length - arrayModifier];
+            var indexOffset = ignoreFirstLine ? 1 : 0;
+            var result = new T[lines.Length - indexOffset];
 
             if (lines.Length > 0)
             {
                 var startIndex = ignoreFirstLine ? 1 : 0;
-                if (!_columnsHaveProperties)
+                for (var i = startIndex; i < lines.Length; ++i)
                 {
-                    for (var i = startIndex; i < lines.Length; i++)
+                    var line = lines[i];
+                    try
                     {
-                        var line = lines[i];
-                        try
+                        if (line.Trim() != string.Empty)
                         {
-                            if (line.Trim() != string.Empty)
-                            {
-                                var rowElement = GenerateRowElementUsingPropertyMap(line, columns);
-                                if (rowElement != null)
-                                    result[i - arrayModifier] = rowElement;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new CsvException(string.Format("{0} failed on line # {1}", GetType().Name, i), ex);
+                            var rowElement = LineToObject(line, columns);
+                            if (rowElement != null)
+                                result[i - indexOffset] = rowElement;
                         }
                     }
-                }
-                else
-                {
-                    for (var i = startIndex; i < lines.Length; i++)
+                    catch (Exception ex)
                     {
-                        var line = lines[i];
-                        try
-                        {
-                            if (line.Trim() != string.Empty)
-                            {
-                                var rowElement = GenerateRowElementUsingColumnMap(line, columns);
-                                if (rowElement != null)
-                                    result[i - arrayModifier] = rowElement;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new CsvException(string.Format("{0} failed on line # {1}", GetType().Name, i), ex);
-                        }
+                        throw new CsvException(string.Format("{0} failed on line # {1}", GetType().Name, i), ex);
                     }
                 }
             }
@@ -161,7 +87,118 @@ namespace Sumo.Data.Csv
         {
             if (csvLine == null) throw new ArgumentNullException("csvLine");
 
-            return GenerateRowElementUsingColumnMap(csvLine, _columns, result);
+            return LineToObject(csvLine, _columns, result);
+        }
+
+        internal T LineToObject(string line, CsvColumn[] columns, T result = default(T))
+        {
+            if (line == null) throw new ArgumentNullException(nameof(line));
+            if (columns == null) throw new ArgumentNullException(nameof(columns));
+
+            var match = Regex.Match(line, _csvRegexPattern, RegexOptions.ExplicitCapture);
+            if (match.Success)
+            {
+                if (ReferenceEquals(result, default(T)))
+                {
+                    result = Activator.CreateInstance<T>();
+                }
+
+                var group = match.Groups["value"];
+                for (int i = 0; i < columns.Length; ++i)
+                {
+                    var column = columns[i];
+                    var value = GetStringValueFromCaptures(group.Captures, 0, column);
+                    var typedValue = GetTypedValueFromString(value, column.PropertyInfo.PropertyType, column.TypeCode);
+                    column.PropertyInfo.SetValue(result, typedValue);
+                }
+            }
+            else
+            {
+                throw new CsvException($"csv line is not well formed: {line}");
+            }
+            return result;
+        }
+
+        internal static string GetStringValueFromCaptures(CaptureCollection captures, int positionOffset, CsvColumn column)
+        {
+            var value = captures[column.OrdinalPosition + positionOffset].Value;
+            if (value != null)
+            {
+                // remove double quotes which are CSV escapes according to RFC 4180
+                value = value.Replace("\"\"", "\"");
+                if (value == string.Empty)
+                {
+                    value = column.DefaultValue;
+                }
+                else
+                {
+                    column.ValidateValue(value);
+                }
+            }
+            else
+            {
+                value = column.DefaultValue;
+            }
+            return value;
+        }
+
+        internal static object GetTypedValueFromString(string value, Type type, TypeCode typeCode = TypeCode.Empty)
+        {
+            try
+            {
+                if(typeCode == TypeCode.Empty)
+                {
+                    type = type.GenericTypeArguments.Length == 0 ? type : type.GenericTypeArguments[0];
+                    typeCode = Type.GetTypeCode(type);
+                }
+
+                switch (typeCode)
+                {
+                    case TypeCode.Object:
+                        if (type == typeof(TimeSpan))
+                        {
+                            return TimeSpan.Parse(value);
+                        }
+                        else if (type == typeof(Guid))
+                        {
+                            return Guid.Parse(value);
+                        }
+                        else if (type == typeof(byte[]))
+                        {
+                            // assume base 64 encoded data
+                            return Convert.FromBase64String(value);
+                        }
+                        else if (type == typeof(char[]))
+                        {
+                            return value.ToCharArray();
+                        }
+                        throw new NotSupportedException($"Type '{type.FullName}' with TypeCode {typeCode} not supported.");
+                    case TypeCode.String: return value;
+                    case TypeCode.Boolean: return bool.Parse(value);
+                    case TypeCode.Char: return char.Parse(value);
+                    case TypeCode.Byte: return byte.Parse(value);
+                    case TypeCode.SByte: return sbyte.Parse(value);
+                    case TypeCode.Decimal: return decimal.Parse(value);
+                    case TypeCode.Double: return double.Parse(value);
+                    case TypeCode.Single: return float.Parse(value);
+                    case TypeCode.Int16: return short.Parse(value);
+                    case TypeCode.Int32: return int.Parse(value);
+                    case TypeCode.Int64: return long.Parse(value);
+                    case TypeCode.UInt16: return ushort.Parse(value);
+                    case TypeCode.UInt32: return uint.Parse(value);
+                    case TypeCode.UInt64: return ulong.Parse(value);
+                    case TypeCode.DateTime: return DateTime.Parse(value);
+
+                    case TypeCode.DBNull:
+                    case TypeCode.Empty:
+                    default:
+                        throw new NotSupportedException($"Type '{type.FullName}' with TypeCode {typeCode} not supported.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new CsvException($"{nameof(GetTypedValueFromString)} failed on value '{value}', with message: {ex.Message}. See inner exception for details.", ex);
+            }
         }
 
         // an idea to iterate the string only one time by regex instead of once by split and then again on each substring with regex
@@ -207,191 +244,7 @@ namespace Sumo.Data.Csv
         //    }
         //}
         //return result;
-
-        private T GenerateRowElementUsingPropertyMap(string csvLine, CsvColumn[] columns)
-        {
-            if (csvLine == null) throw new ArgumentNullException("csvLine");
-            if (columns == null) throw new ArgumentNullException("columns");
-
-            T result = default(T);
-            var match = Regex.Match(csvLine, _csvRegexPattern, RegexOptions.ExplicitCapture);
-            if (match.Success)
-            {
-                var group = match.Groups["value"];
-                result = Activator.CreateInstance<T>();
-                for (int i = 0; i < columns.Length; i++)
-                {
-                    var column = columns[i];
-                    if (column != null)
-                    {
-                        if (_propertyInfoMap.TryGetValue(column.PropertyName, out PropertyInfo property))
-                        {
-                            var value = group.Captures[column.OrdinalPosition].Value;
-                            if (value != null)
-                            {
-                                value = value.Replace("\"\"", "\"");
-                                if (value == string.Empty)
-                                    value = column.DefaultValue;
-                                if (!IsValueValid(value, column))
-                                    throw new CsvException(string.Format("value: '{0}' in column {1} failed validation.", value, column.OrdinalPosition));
-                                property.SetValue(result, GetTypedValueFromString(value, property.PropertyType));
-                            }
-                        }
-                    }
-                }
-            }
-            else
-                throw new CsvException(string.Format("csv line is not well formed: {0}", csvLine));
-            return result;
-        }
-
-        private T GenerateRowElementUsingColumnMap(string csvLine, CsvColumn[] columns, T result = default(T))
-        {
-            if (csvLine == null) throw new ArgumentNullException("csvLine");
-            if (columns == null) throw new ArgumentNullException("columns");
-
-            var match = Regex.Match(csvLine, _csvRegexPattern, RegexOptions.ExplicitCapture);
-            //int arrayLength = 0;
-            int positionOffset = 0;
-
-            if (match.Success)
-            {
-                var group = match.Groups["value"];
-
-                if (ReferenceEquals(result, default(T)))
-                    result = Activator.CreateInstance<T>();
-
-                for (int i = 0; i < columns.Length; ++i)
-                {
-                    var column = columns[i];
-                    if (column != null && column.Property != null)
-                    {
-                        var value = GetStringValueFromCaptures(group.Captures, positionOffset, column);
-
-                        //if (!(column is ArrayColumn))
-                        //{
-                        column.Property.SetValue(result, GetTypedValueFromString(value, column.Property.PropertyType));
-                        //}
-                        //else
-                        //{
-                        //    if (!column.Property.PropertyType.IsArray)
-                        //        throw new CsvException($"{column.Property.PropertyType.Name} must be an array.");
-
-                        //    arrayLength = (int)GetTypedValueFromString(value, typeof(int));
-                        //    var col = (ArrayColumn)column;
-                        //    column.Property.SetValue(result, col.CreateArray(arrayLength));
-                        //    do
-                        //    {
-                        //        ++positionOffset;
-                        //        var arrayValue = GetStringValueFromCaptures(group.Captures, positionOffset, column);
-                        //        col.SetValue(GetTypedValueFromString(arrayValue, col.GetCurrentType()));
-                        //    } while (col.Increment());
-                        //}
-                    }
-                }
-            }
-            else
-                throw new CsvException(string.Format("csv line is not well formed: {0}", csvLine));
-            return result;
-        }
-
-        private string GetStringValueFromCaptures(CaptureCollection captures, int positionOffset, CsvColumn column)
-        {
-            var value = captures[column.OrdinalPosition + positionOffset].Value;
-            if (value != null)
-            {
-                value = value.Replace("\"\"", "\"");
-
-                if (value == string.Empty)
-                    value = column.DefaultValue;
-
-                if (!IsValueValid(value, column))
-                    throw new CsvException(string.Format("value: '{0}' in column {1} failed validation.", value, column.OrdinalPosition));
-            }
-            else
-            {
-                value = column.DefaultValue;
-            }
-            return value;
-        }
-
-        private object GetTypedValueFromString(string value, Type propertyType)
-        {
-            object result = null;
-
-            try
-            {
-                var type = propertyType;
-                if (propertyType.GenericTypeArguments.Length == 1)
-                    type = propertyType.GenericTypeArguments[0];
-
-                switch (Type.GetTypeCode(type))
-                {
-                    case TypeCode.String:
-                        result = value;
-                        break;
-                    case TypeCode.Boolean:
-                        result = bool.Parse(value);
-                        break;
-                    case TypeCode.Char:
-                        result = char.Parse(value);
-                        break;
-                    case TypeCode.Byte:
-                        result = byte.Parse(value);
-                        break;
-                    case TypeCode.SByte:
-                        result = sbyte.Parse(value);
-                        break;
-                    case TypeCode.Decimal:
-                        result = decimal.Parse(value);
-                        break;
-                    case TypeCode.Double:
-                        result = double.Parse(value);
-                        break;
-                    case TypeCode.Single:
-                        result = float.Parse(value);
-                        break;
-                    case TypeCode.Int16:
-                        result = short.Parse(value);
-                        break;
-                    case TypeCode.Int32:
-                        result = int.Parse(value);
-                        break;
-                    case TypeCode.Int64:
-                        result = long.Parse(value);
-                        break;
-                    case TypeCode.UInt16:
-                        result = ushort.Parse(value);
-                        break;
-                    case TypeCode.UInt32:
-                        result = uint.Parse(value);
-                        break;
-                    case TypeCode.UInt64:
-                        result = ulong.Parse(value);
-                        break;
-                    case TypeCode.DateTime:
-                        result = DateTime.Parse(value);
-                        break;
-                    default:
-                        if (type == typeof(TimeSpan))
-                            result = TimeSpan.Parse(value);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new CsvException(string.Format("GetTypedValue failed on value '{0}', with message: {1}. See inner exception for details.",
-                    value,
-                    ex.Message), ex);
-            }
-            return result;
-        }
-
-        private bool IsValueValid(string value, CsvColumn column)
-        {
-            return column.ValidationRegExPattern == null
-                || column.ValidationRegExPattern == string.Empty
-                || Regex.IsMatch(value, column.ValidationRegExPattern);
-        }
     }
 }
+
+

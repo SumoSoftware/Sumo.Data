@@ -6,6 +6,11 @@ namespace Sumo.Data
 {
     public static class TypeExtensions
     {
+        public static bool IsNullable(this Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+        }
+
         public static bool IsSizableType(this DbType dbType)
         {
             switch (dbType)
@@ -108,6 +113,7 @@ namespace Sumo.Data
             }
         }
 
+        //todo: move read and write to ORM namespace
         public static object Read(this BinaryReader reader, DbType dbType)
         {
             switch (dbType)
