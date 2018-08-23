@@ -16,7 +16,7 @@ namespace Sumo.Procedure.CodeGen
         public int? MaxLength { get; internal set; }
         public string Encoding { get; internal set; }
 
-        [IgnoreProperty]
+        [IgnoreColumn]
         public string Attribute
         {
             get
@@ -25,7 +25,7 @@ namespace Sumo.Procedure.CodeGen
             }
         }
 
-        [IgnoreProperty]
+        [IgnoreColumn]
         public string Type
         {
             get

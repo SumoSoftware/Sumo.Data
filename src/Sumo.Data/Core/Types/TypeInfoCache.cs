@@ -14,7 +14,7 @@ namespace Sumo.Data
             Name = type.Name;
 
             Properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null)
+                .Where(p => p.GetCustomAttribute<IgnoreColumnAttribute>() == null)
                 .ToArray();
 
             ReadWriteProperties = Properties
@@ -117,7 +117,7 @@ namespace Sumo.Data
             }
 
             var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null);
+                .Where(p => p.GetCustomAttribute<IgnoreParameterAttribute>() == null);
 
             // any property on the class will be used as an input unless it's ignored or is an output type (see above)
             InputParameters = properties
