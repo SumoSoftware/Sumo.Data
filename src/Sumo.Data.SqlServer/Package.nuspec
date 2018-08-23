@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.SqlServer</id>
-        <version>5.2.0</version>
+        <version>5.2.1</version>
         <title>Sumo.Data - Microsoft Sql Server Implementation</title>
 
         <authors>Mark Lauter, Kevin Wolf</authors>
@@ -14,15 +14,15 @@
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
 
         <description>Sumo.Data.SqlServer is a Microsoft SQL Server specific implementation of Sumo.Data. Sumo.Data is an IoC capable database access framework.</description>
-        <releaseNotes>Changed dependency versions.</releaseNotes>
+        <releaseNotes>bug fixes in Sumo.Data</releaseNotes>
         <tags>database db orm ioc sumo sql server ado</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
                 <dependency id="System.Data.SqlClient" version="4.5" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data" version="5.2.0" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="5.2.0" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="5.2.1" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="5.2.1" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
