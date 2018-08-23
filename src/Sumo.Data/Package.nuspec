@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data</id>
-        <version>5.2.3</version>
+        <version>5.2.4</version>
         <title>Sumo.Data, Sumo.Data.Schema and Sumo.Data.Orm</title>
 
         <authors>Mark Lauter, Kevin Wolf</authors>
