@@ -19,6 +19,11 @@ namespace Sumo.Data
 
         public InputParameterAttribute(string name) : base(name) { }
 
+        public InputParameterAttribute(int parameterSize) : base(string.Empty)
+        {
+            ParameterSize = parameterSize;
+        }
+
         public InputParameterAttribute(string name, int parameterSize) : base(name)
         {
             ParameterSize = parameterSize;
@@ -35,6 +40,8 @@ namespace Sumo.Data
         public InputOutputParameterAttribute(string name) : base(name) { }
 
         public InputOutputParameterAttribute(string name, int parameterSize) : base(name, parameterSize) { }
+
+        public InputOutputParameterAttribute(int parameterSize) : base(parameterSize) { }
     }
 
     [AttributeUsage(AttributeTargets.Property)]
@@ -45,5 +52,7 @@ namespace Sumo.Data
         public OutputParameterAttribute(string name) : base(name) { }
 
         public OutputParameterAttribute(string name, int parameterSize) : base(name, parameterSize) { }
+
+        public OutputParameterAttribute(int parameterSize) : base(parameterSize) { }
     }
 }
