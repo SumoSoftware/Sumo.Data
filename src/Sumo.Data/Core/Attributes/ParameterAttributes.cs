@@ -13,11 +13,13 @@ namespace Sumo.Data
     /// numeric types| ...                   |  0   | ...
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public abstract class ParameterSizeAttribute : DataAttribute
+    public class InputParameterAttribute : PropertyNameAttribute
     {
-        public ParameterSizeAttribute() { }
+        public InputParameterAttribute() : base(string.Empty) { }
 
-        public ParameterSizeAttribute(int parameterSize)
+        public InputParameterAttribute(string name) : base(name) { }
+
+        public InputParameterAttribute(string name, int parameterSize) : base(name)
         {
             ParameterSize = parameterSize;
         }
@@ -26,18 +28,22 @@ namespace Sumo.Data
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class InputOutputParameterAttribute : ParameterSizeAttribute
+    public sealed class InputOutputParameterAttribute : InputParameterAttribute
     {
-        public InputOutputParameterAttribute() : base() { }
+        public InputOutputParameterAttribute() : base(string.Empty) { }
 
-        public InputOutputParameterAttribute(int parameterSize) : base(parameterSize) { }
+        public InputOutputParameterAttribute(string name) : base(name) { }
+
+        public InputOutputParameterAttribute(string name, int parameterSize) : base(name, parameterSize) { }
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class OutputParameterAttribute : ParameterSizeAttribute
+    public sealed class OutputParameterAttribute : InputParameterAttribute
     {
-        public OutputParameterAttribute() : base() { }
+        public OutputParameterAttribute() : base(string.Empty) { }
 
-        public OutputParameterAttribute(int parameterSize) : base(parameterSize) { }
+        public OutputParameterAttribute(string name) : base(name) { }
+
+        public OutputParameterAttribute(string name, int parameterSize) : base(name, parameterSize) { }
     }
 }

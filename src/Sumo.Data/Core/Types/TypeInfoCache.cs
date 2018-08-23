@@ -107,35 +107,36 @@ namespace Sumo.Data
             FullName = type.FullName;
             Name = type.Name;
 
-            var prefixAttribute = type.GetCustomAttribute<EntityPrefixAttribute>();
-            var nameAttribute = type.GetCustomAttribute<EntityNameAttribute>();
+            var entityPrefixAttribute = type.GetCustomAttribute<EntityPrefixAttribute>();
+            var entityNameAttribute = type.GetCustomAttribute<EntityNameAttribute>();
 
-            ProcedureName = nameAttribute != null ? $"[{nameAttribute.Name}]" : $"[{type.Name}]";
-            if (prefixAttribute != null && !string.IsNullOrEmpty(prefixAttribute.Prefix))
+            ProcedureName = entityNameAttribute != null ? $"[{entityNameAttribute.Name}]" : $"[{type.Name}]";
+            if (entityPrefixAttribute != null && !string.IsNullOrEmpty(entityPrefixAttribute.Prefix))
             {
-                ProcedureName = $"[{prefixAttribute.Prefix}].{ProcedureName}";
+                ProcedureName = $"[{entityPrefixAttribute.Prefix}].{ProcedureName}";
             }
 
             var properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Where(p => p.GetCustomAttribute<IgnorePropertyAttribute>() == null);
 
+            // any property on the class will be used as an input unless it's ignored or is an output type (see above)
             InputParameters = properties
                 .Where(p => p.GetGetMethod(false) != null)
-                .Where(p => p.GetCustomAttribute<OutputParameterAttribute>() == null)
-                .Where(p => p.GetCustomAttribute<InputOutputParameterAttribute>() == null)
+                .Where(p => p.GetCustomAttribute<InputOutputParameterAttribute>(false) == null)
+                .Where(p => p.GetCustomAttribute<OutputParameterAttribute>(false) == null)
                 .ToArray();
 
             InputOutputParameters = properties
                 .Where(p => p.GetGetMethod(false) != null)
                 .Where(p => p.GetSetMethod(false) != null)
-                .Where(p => p.GetCustomAttribute<InputOutputParameterAttribute>() != null)
-                .Where(p => p.GetCustomAttribute<OutputParameterAttribute>() == null)
+                .Where(p => p.GetCustomAttribute<InputOutputParameterAttribute>(false) != null)
+                .Where(p => p.GetCustomAttribute<OutputParameterAttribute>(false) == null)
                 .ToArray();
 
             OutputParameters = properties
                 .Where(p => p.GetSetMethod(false) != null)
-                .Where(p => p.GetCustomAttribute<OutputParameterAttribute>() != null)
-                .Where(p => p.GetCustomAttribute<InputOutputParameterAttribute>() == null)
+                .Where(p => p.GetCustomAttribute<InputOutputParameterAttribute>(false) == null)
+                .Where(p => p.GetCustomAttribute<OutputParameterAttribute>(false) != null)
                 .ToArray();
 
             InputTypeCodes = new TypeCode[InputParameters.Length];
@@ -144,8 +145,8 @@ namespace Sumo.Data
             {
                 var property = InputParameters[i];
                 InputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
-                InputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                var propertyNameAttribute = property.GetCustomAttribute<InputParameterAttribute>(false);
+                InputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
 
             OutputTypeCodes = new TypeCode[OutputParameters.Length];
@@ -154,8 +155,8 @@ namespace Sumo.Data
             {
                 var property = OutputParameters[i];
                 OutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
-                OutputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                var propertyNameAttribute = property.GetCustomAttribute<InputOutputParameterAttribute>(false);
+                OutputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
 
             InputOutputTypeCodes = new TypeCode[InputOutputParameters.Length];
@@ -164,8 +165,8 @@ namespace Sumo.Data
             {
                 var property = InputOutputParameters[i];
                 InputOutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
-                InputOutputParameterNames[i] = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
+                var propertyNameAttribute = property.GetCustomAttribute<OutputParameterAttribute>(false);
+                InputOutputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
         }
 

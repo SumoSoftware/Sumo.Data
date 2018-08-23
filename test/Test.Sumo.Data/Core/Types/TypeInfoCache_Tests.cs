@@ -42,20 +42,20 @@ namespace Sumo.Data
 
         public class ParamNameTestClass
         {
-            [PropertyName("pname1")]
+            //[PropertyName("pname1")]
             public int NamedParam1 { get; set; }
 
             [ColumnName("pname2")]
             public int NamedParam2 { get; set; }
 
-            [ParameterName("pname3")]
+            [InputParameter("pname3")]
             public int NamedParam3 { get; set; }
         }
 
         [TestMethod]
         public void ParamNameTest()
         {
-            Assert.AreEqual("pname1", TypeInfoCache<ParamNameTestClass>.PropertyNames[0]);
+            //Assert.AreEqual("pname1", TypeInfoCache<ParamNameTestClass>.PropertyNames[0]);
             Assert.AreEqual("pname2", TypeInfoCache<ParamNameTestClass>.PropertyNames[1]);
             Assert.AreEqual("pname3", TypeInfoCache<ParamNameTestClass>.PropertyNames[2]);
         }

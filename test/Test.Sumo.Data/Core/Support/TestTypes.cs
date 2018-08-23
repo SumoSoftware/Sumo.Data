@@ -13,12 +13,13 @@
     [EntityPrefix("prefix")]
     public class TestTypeParameterSize
     {
-        [OutputParameter(256)]
+        [OutputParameter(nameof(StringOutputParameter), 256)]
         public string StringOutputParameter { get; set; } = "StringOutputParameter";
 
         [OutputParameter]
         public int IntOutputParameter { get; set; } = 1;
 
+        [InputParameter]
         public int InputParameter { get; set; } = 1;
     }
 

@@ -69,7 +69,7 @@ namespace Sumo.Data
         {
             if (property == null) throw new ArgumentNullException(nameof(property));
 
-            var outputAttribute = property.GetCustomAttribute<ParameterSizeAttribute>(true);
+            var outputAttribute = property.GetCustomAttribute<InputParameterAttribute>(true);
             if (outputAttribute == null) throw new InvalidOperationException($"Property '{property.Name}' does not contain a descendent ParameterSizeAttribute.");
 
             return outputAttribute.ParameterSize;

@@ -2,7 +2,8 @@
 
 namespace Sumo.Data
 {
-    public class PropertyNameAttribute : DataAttribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public abstract class PropertyNameAttribute : DataAttribute
     {
         public PropertyNameAttribute(string name)
         {
@@ -13,13 +14,7 @@ namespace Sumo.Data
     }
 
     [AttributeUsage(AttributeTargets.Property)]
-    public class ParameterNameAttribute : PropertyNameAttribute
-    {
-        public ParameterNameAttribute(string name) : base(name) { }
-    }
-
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ColumnNameAttribute : ParameterNameAttribute
+    public class ColumnNameAttribute : PropertyNameAttribute
     {
         public ColumnNameAttribute(string name) : base(name) { }
     }

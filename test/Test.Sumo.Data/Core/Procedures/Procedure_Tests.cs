@@ -28,11 +28,21 @@ namespace Sumo.Data
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void Constructor_GetParameterSize_PropertyMissingParameterSizeAttribute()
+        public void Constructor_GetInputParameter()
         {
+            Assert.IsTrue(ProcedureParametersTypeInfoCache<TestTypeParameterSize>.InputParameters.Length == 1);
             var parameterInfo = ProcedureParametersTypeInfoCache<TestTypeParameterSize>.InputParameters[0];
-            var parameterSize = Procedure.GetParameterSize(parameterInfo);
+            Assert.IsNotNull(parameterInfo);
+        }
+
+        [TestMethod]
+        public void Constructor_GetOutputParameters()
+        {
+            Assert.IsTrue(ProcedureParametersTypeInfoCache<TestTypeParameterSize>.OutputParameters.Length == 2);
+            var parameterInfo = ProcedureParametersTypeInfoCache<TestTypeParameterSize>.OutputParameters[0];
+            Assert.IsNotNull(parameterInfo);
+            parameterInfo = ProcedureParametersTypeInfoCache<TestTypeParameterSize>.OutputParameters[1];
+            Assert.IsNotNull(parameterInfo);
         }
     }
 }
