@@ -12,7 +12,20 @@ namespace Sumo.Data
     {
         public ExpressionReader(DbConnection dbConnection, IParameterFactory parameterFactory, IDataAdapterFactory dataAdapterFactory) :
             base(dbConnection, parameterFactory, dataAdapterFactory)
-        { }
+        {
+        }
+
+        public ExpressionReader(DbConnection dbConnection, IParameterFactory parameterFactory) : base(dbConnection, parameterFactory)
+        {
+        }
+
+        public ExpressionReader(IDataComponentFactory factory) : base(factory)
+        {
+        }
+
+        public ExpressionReader(DbConnection dbConnection, IDataComponentFactory factory) : base(dbConnection, factory)
+        {
+        }
 
         private SqlStatement _sqlStatement;
         private SqlExpression _query;

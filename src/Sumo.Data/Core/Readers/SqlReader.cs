@@ -10,7 +10,20 @@ namespace Sumo.Data
     {
         public SqlReader(DbConnection dbConnection, IParameterFactory parameterFactory, IDataAdapterFactory dataAdapterFactory) :
             base(dbConnection, parameterFactory, dataAdapterFactory)
-        { }
+        {
+        }
+
+        public SqlReader(DbConnection dbConnection, IParameterFactory parameterFactory) : base(dbConnection, parameterFactory)
+        {
+        }
+
+        public SqlReader(IDataComponentFactory factory) : base(factory)
+        {
+        }
+
+        public SqlReader(DbConnection dbConnection, IDataComponentFactory factory) : base(dbConnection, factory)
+        {
+        }
 
         public DataSet Read(string sql, DbTransaction dbTransaction = null)
         {
