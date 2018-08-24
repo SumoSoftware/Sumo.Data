@@ -8,20 +8,20 @@ namespace Sumo.Data
         [TestMethod]
         public void FullName()
         {
-            Assert.AreEqual(typeof(TestTypePrefixAndCustomName).FullName, QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.FullName);
+            Assert.AreEqual(typeof(TestTypePrefixAndCustomNameIgnoreColumn).FullName, QueryParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.FullName);
         }
 
         [TestMethod]
         public void Parameters()
         {
-            Assert.AreEqual(4, QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.Parameters.Length);
+            Assert.AreEqual(4, QueryParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Parameters.Length);
         }
 
         [TestMethod]
         public void TypeCodes()
         {
-            Assert.AreEqual(QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.Parameters.Length,
-                QueryParametersTypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes.Length);
+            Assert.AreEqual(QueryParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Parameters.Length,
+                QueryParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.TypeCodes.Length);
         }
     }
 }

@@ -8,14 +8,14 @@ namespace Sumo.Data
         [TestMethod]
         public void FullName()
         {
-            Assert.AreEqual(typeof(TestTypePrefixAndCustomName).FullName, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.FullName);
+            Assert.AreEqual(typeof(TestTypePrefixAndCustomNameIgnoreColumn).FullName, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.FullName);
         }
 
         [TestMethod]
         public void InputParameters()
         {
-            Assert.AreEqual(3, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputParameters.Length);
-            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadWriteProperty), ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputParameters[0].Name);
+            Assert.AreEqual(3, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreParameter>.InputParameters.Length);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomNameIgnoreParameter.ReadWriteProperty), ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreParameter>.InputParameters[0].Name);
         }
 
         [TestMethod]
@@ -28,36 +28,36 @@ namespace Sumo.Data
         [TestMethod]
         public void OutputParameters()
         {
-            Assert.AreEqual(1, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputParameters.Length);
-            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.OutputParameter), ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputParameters[0].Name);
+            Assert.AreEqual(1, ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.OutputParameters.Length);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomNameIgnoreColumn.OutputParameter), ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.OutputParameters[0].Name);
         }
 
         [TestMethod]
         public void InputTypeCodes()
         {
-            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputParameters.Length, 
-                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputTypeCodes.Length);
+            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.InputParameters.Length, 
+                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.InputTypeCodes.Length);
         }
 
         [TestMethod]
         public void InputOutputTypeCodes()
         {
-            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputOutputParameters.Length, 
-                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.InputOutputTypeCodes.Length);
+            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.InputOutputParameters.Length, 
+                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.InputOutputTypeCodes.Length);
         }
 
         [TestMethod]
         public void OutputTypeCodes()
         {
-            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputParameters.Length,
-                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.OutputTypeCodes.Length);
+            Assert.AreEqual(ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.OutputParameters.Length,
+                ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.OutputTypeCodes.Length);
         }
 
         [TestMethod]
         public void ProcedureName()
         {
             Assert.AreEqual($"[prefix].[{nameof(TestTypePrefix)}]", ProcedureParametersTypeInfoCache<TestTypePrefix>.ProcedureName);
-            Assert.AreEqual($"[prefix].[test_name]", ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomName>.ProcedureName);
+            Assert.AreEqual($"[prefix].[test_name]", ProcedureParametersTypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.ProcedureName);
         }
     }
 }

@@ -25,13 +25,28 @@
 
     [EntityPrefix("prefix")]
     [EntityName("test_name")]
-    public class TestTypePrefixAndCustomName
+    public class TestTypePrefixAndCustomNameIgnoreColumn
     {
         public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
         public string ReadPrivateWriteProperty { get; private set; } = "ReadPrivateWriteProperty";
         public string ReadProperty { get; } = "ReadProperty";
 
         [IgnoreColumn]
+        public string IgnoreProperty { get; set; } = "IgnoreProperty";
+
+        [OutputParameter]
+        public int OutputParameter { get; set; } = 1;
+    }
+
+    [EntityPrefix("prefix")]
+    [EntityName("test_name")]
+    public class TestTypePrefixAndCustomNameIgnoreParameter
+    {
+        public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
+        public string ReadPrivateWriteProperty { get; private set; } = "ReadPrivateWriteProperty";
+        public string ReadProperty { get; } = "ReadProperty";
+
+        [IgnoreParameter]
         public string IgnoreProperty { get; set; } = "IgnoreProperty";
 
         [OutputParameter]

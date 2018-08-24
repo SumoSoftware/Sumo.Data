@@ -9,25 +9,25 @@ namespace Sumo.Data
         [TestMethod]
         public void FullName()
         {
-            Assert.AreEqual(typeof(TestTypePrefixAndCustomName).FullName, TypeInfoCache<TestTypePrefixAndCustomName>.FullName);
+            Assert.AreEqual(typeof(TestTypePrefixAndCustomNameIgnoreColumn).FullName, TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.FullName);
         }
 
         [TestMethod]
         public void SerializableParameters()
         {
-            Assert.AreEqual(4, TypeInfoCache<TestTypePrefixAndCustomName>.Properties.Length);
-            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadWriteProperty), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[0].Name);
-            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadPrivateWriteProperty), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[1].Name);
-            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.ReadProperty), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[2].Name);
-            Assert.AreEqual(nameof(TestTypePrefixAndCustomName.OutputParameter), TypeInfoCache<TestTypePrefixAndCustomName>.Properties[3].Name);
+            Assert.AreEqual(4, TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties.Length);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomNameIgnoreColumn.ReadWriteProperty), TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties[0].Name);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomNameIgnoreColumn.ReadPrivateWriteProperty), TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties[1].Name);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomNameIgnoreColumn.ReadProperty), TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties[2].Name);
+            Assert.AreEqual(nameof(TestTypePrefixAndCustomNameIgnoreColumn.OutputParameter), TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties[3].Name);
         }
 
         [TestMethod]
         public void TypeCodes()
         {
-            Assert.AreEqual(TypeInfoCache<TestTypePrefixAndCustomName>.Properties.Length, TypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes.Length);
-            Assert.AreEqual(TypeCode.String, TypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes[0]);
-            Assert.AreEqual(TypeCode.Int32, TypeInfoCache<TestTypePrefixAndCustomName>.TypeCodes[3]);
+            Assert.AreEqual(TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties.Length, TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.TypeCodes.Length);
+            Assert.AreEqual(TypeCode.String, TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.TypeCodes[0]);
+            Assert.AreEqual(TypeCode.Int32, TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.TypeCodes[3]);
         }
 
         [TestMethod]
