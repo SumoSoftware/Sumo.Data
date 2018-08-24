@@ -53,14 +53,14 @@ namespace Sumo.Data
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.InputOutputParameters.Length; ++i)
             {
                 var propertyInfo = ProcedureParametersTypeInfoCache<P>.InputOutputParameters[i];
-                var value = GetOutputParameterValue(propertyInfo);
+                var value = GetOutputParameterValue(ProcedureParametersTypeInfoCache<P>.InputOutputParameterNames[i]);
                 if (value != null && !(value is DBNull)) propertyInfo.SetValue(procedureParams, value);
             }
 
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.OutputParameters.Length; ++i)
             {
                 var propertyInfo = ProcedureParametersTypeInfoCache<P>.OutputParameters[i];
-                var value = GetOutputParameterValue(propertyInfo);
+                var value = GetOutputParameterValue(ProcedureParametersTypeInfoCache<P>.OutputParameterNames[i]);
                 if (value != null && !(value is DBNull)) propertyInfo.SetValue(procedureParams, value);
             }
         }
@@ -80,16 +80,17 @@ namespace Sumo.Data
             return _parameterFactory.GetParameterName("Return_Value", -1);
         }
 
-        internal virtual string GetParameterName(PropertyInfo property)
+        //todo: this isn't going to work - it ignores the parameter name attributes
+        internal virtual string GetParameterName(string name)
         {
-            return _parameterFactory.GetParameterName(property.Name, -1);
+            return _parameterFactory.GetParameterName(name, -1);
         }
 
-        internal object GetOutputParameterValue(PropertyInfo property)
+        internal object GetOutputParameterValue(string name)
         {
-            if (property == null) throw new ArgumentNullException(nameof(property));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
-            var paramName = GetParameterName(property);
+            var paramName = GetParameterName(name);
             var parameter = _dbCommand.Parameters[paramName];
 
             if (parameter == null) throw new ArgumentException($"Parameter with name '{paramName}' not found.");
@@ -108,7 +109,7 @@ namespace Sumo.Data
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.InputParameters.Length; ++i)
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputParameters[i];
-                var name = GetParameterName(property);
+                var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.InputParameterNames[i]);
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
                 _dbCommand.Parameters.Add(parameter);
@@ -117,7 +118,7 @@ namespace Sumo.Data
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.InputOutputParameters.Length; ++i)
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputOutputParameters[i];
-                var name = GetParameterName(property);
+                var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.InputOutputParameterNames[i]);
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.InputOutput, GetParameterSize(property));
                 _dbCommand.Parameters.Add(parameter);
@@ -128,7 +129,7 @@ namespace Sumo.Data
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.OutputParameters.Length; ++i)
             {
                 var property = ProcedureParametersTypeInfoCache<P>.OutputParameters[i];
-                var name = GetParameterName(property);
+                var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.OutputParameterNames[i]);
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
                 var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Output, GetParameterSize(property));
                 _dbCommand.Parameters.Add(parameter);
@@ -143,7 +144,7 @@ namespace Sumo.Data
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.InputParameters.Length; ++i)
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputParameters[i];
-                var name = GetParameterName(property);
+                var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.InputParameterNames[i]);
                 var parameter = _dbCommand.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
@@ -153,7 +154,7 @@ namespace Sumo.Data
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.InputOutputParameters.Length; ++i)
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputOutputParameters[i];
-                var name = GetParameterName(property);
+                var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.InputOutputParameterNames[i]);
                 var parameter = _dbCommand.Parameters[name];
                 if (parameter == null) throw new InvalidOperationException($"Command parameter with name '{name}' not found.");
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;

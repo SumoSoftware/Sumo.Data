@@ -13,6 +13,12 @@ namespace Sumo.Data
         }
 
         [TestMethod]
+        public void TestColumnAndParamAttributes()
+        {
+            Assert.AreEqual(1, TypeInfoCache<ColumnAndParamAttributeTest>.Properties.Length);
+        }
+
+        [TestMethod]
         public void SerializableParameters()
         {
             Assert.AreEqual(4, TypeInfoCache<TestTypePrefixAndCustomNameIgnoreColumn>.Properties.Length);
@@ -42,10 +48,9 @@ namespace Sumo.Data
 
         public class ParamNameTestClass
         {
-            //[PropertyName("pname1")]
             public int NamedParam1 { get; set; }
 
-            [ColumnName("pname2")]
+            [InputParameter("pname2")]
             public int NamedParam2 { get; set; }
 
             [InputParameter("pname3")]
@@ -55,9 +60,9 @@ namespace Sumo.Data
         [TestMethod]
         public void ParamNameTest()
         {
-            //Assert.AreEqual("pname1", TypeInfoCache<ParamNameTestClass>.PropertyNames[0]);
-            Assert.AreEqual("pname2", TypeInfoCache<ParamNameTestClass>.PropertyNames[1]);
-            Assert.AreEqual("pname3", TypeInfoCache<ParamNameTestClass>.PropertyNames[2]);
+            Assert.AreEqual("NamedParam1", ProcedureParametersTypeInfoCache<ParamNameTestClass>.InputParameterNames[0]);
+            Assert.AreEqual("pname2", ProcedureParametersTypeInfoCache<ParamNameTestClass>.InputParameterNames[1]);
+            Assert.AreEqual("pname3", ProcedureParametersTypeInfoCache<ParamNameTestClass>.InputParameterNames[2]);
         }
 
     }

@@ -2,6 +2,17 @@
 
 namespace Sumo.Data
 {
+    [AttributeUsage(AttributeTargets.Property)]
+    public abstract class ParameterNameAttribute : DataAttribute
+    {
+        public ParameterNameAttribute(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; }
+    }
+
     /// <summary>
     /// Sql Type     | DbType                | Size | Returned String.Length()
     /// ----------------------------------------------------------------
@@ -13,7 +24,7 @@ namespace Sumo.Data
     /// numeric types| ...                   |  0   | ...
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class InputParameterAttribute : PropertyNameAttribute
+    public class InputParameterAttribute : ParameterNameAttribute
     {
         public InputParameterAttribute() : base(string.Empty) { }
 

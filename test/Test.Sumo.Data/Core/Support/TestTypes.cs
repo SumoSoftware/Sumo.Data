@@ -10,6 +10,13 @@
         public int ReadWriteInteger { get; set; } = 0;
     }
 
+    public class ColumnAndParamAttributeTest
+    {
+        [ColumnName("property")]
+        [InputOutputParameter(64)]
+        public string MyProperty { get; set; }
+    }
+
     [EntityPrefix("prefix")]
     public class TestTypeParameterSize
     {
