@@ -30,8 +30,10 @@
         public string ReadWriteProperty { get; set; } = "ReadWriteProperty";
         public string ReadPrivateWriteProperty { get; private set; } = "ReadPrivateWriteProperty";
         public string ReadProperty { get; } = "ReadProperty";
-        [IgnoreParameter]
+
+        [IgnoreColumn]
         public string IgnoreProperty { get; set; } = "IgnoreProperty";
+
         [OutputParameter]
         public int OutputParameter { get; set; } = 1;
     }
