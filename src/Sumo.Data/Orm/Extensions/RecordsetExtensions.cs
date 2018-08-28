@@ -25,7 +25,7 @@ namespace Sumo.Data
                     //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
                     //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 
                     var propertyType = property.PropertyType.IsNullable() ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
-                    value = propertyType == value.GetType() ? value : Convert.ChangeType(value, property.PropertyType);
+                    value = propertyType == value.GetType() ? value : Convert.ChangeType(value, propertyType);
                     property.SetValue(result, value);
                 }
             }

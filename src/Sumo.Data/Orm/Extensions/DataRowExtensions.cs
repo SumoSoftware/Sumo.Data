@@ -23,14 +23,15 @@ namespace Sumo.Data
                 var propertyName = TypeInfoCache<T>.ReadWritePropertyNames[i];
                 if (!row.IsNull(propertyName))
                 {
-                    //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
-                    //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 
-                    var columnValue = row[property.Name];
-                    var propertyType = property.PropertyType.IsNullable() ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
-                    var value = propertyType == columnValue.GetType() ?
-                        columnValue :
-                        Convert.ChangeType(columnValue, property.PropertyType);
-                    property.SetValue(result, value);
+                    var value = row[property.Name];
+                    if(value != null)
+                    {
+                        //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
+                        //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 
+                        var propertyType = property.PropertyType.IsNullable() ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
+                        value = propertyType == value.GetType() ? value : Convert.ChangeType(value, propertyType);
+                        property.SetValue(result, value);
+                    }
                 }
             }
             return result;
