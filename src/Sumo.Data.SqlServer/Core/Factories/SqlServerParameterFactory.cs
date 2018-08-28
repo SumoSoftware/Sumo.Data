@@ -91,6 +91,31 @@ namespace Sumo.Data.SqlServer
             };
         }
 
+        public DbParameter CreateParameter(string name, object value, DbType type, ParameterDirection direction)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (value == null) throw new ArgumentNullException(nameof(value));
+
+            return new SqlParameter(name, value)
+            {
+                Direction = direction,
+                SqlDbType = type.ToSqlDbType()
+            };
+        }
+
+        public DbParameter CreateParameter(string name, object value, DbType type, ParameterDirection direction, int size)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (value == null) throw new ArgumentNullException(nameof(value));
+
+            return new SqlParameter(name, value)
+            {
+                Direction = direction,
+                Size = size,
+                SqlDbType = type.ToSqlDbType()
+            };
+        }
+
         public DbParameter CreateReturnParameter(string name)
         {
             return new SqlParameter(name, SqlDbType.BigInt) { Direction = ParameterDirection.ReturnValue };

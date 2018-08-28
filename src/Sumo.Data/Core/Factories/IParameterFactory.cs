@@ -12,6 +12,10 @@ namespace Sumo.Data
 
         DbParameter CreateParameter(string name, DbType type, ParameterDirection direction, int size);
 
+        DbParameter CreateParameter(string name, object value, DbType type, ParameterDirection direction);
+
+        DbParameter CreateParameter(string name, object value, DbType type, ParameterDirection direction, int size);
+
         DbParameter CreateParameter(string name, object value, ParameterDirection direction);
 
         DbParameter CreateParameter(string name, object value, ParameterDirection direction, int size);

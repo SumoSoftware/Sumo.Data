@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 
@@ -141,30 +142,36 @@ namespace Sumo.Data
 
             InputTypeCodes = new TypeCode[InputParameters.Length];
             InputParameterNames = new string[InputParameters.Length];
+            InputDbTypes = new DbType[InputParameters.Length];
             for (var i = 0; i < InputParameters.Length; ++i)
             {
                 var property = InputParameters[i];
                 InputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                InputDbTypes[i] = property.PropertyType.ToDbType();
                 var propertyNameAttribute = property.GetCustomAttribute<InputParameterAttribute>(false);
                 InputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
 
             OutputTypeCodes = new TypeCode[OutputParameters.Length];
             OutputParameterNames = new string[OutputParameters.Length];
+            OutputDbTypes = new DbType[OutputParameters.Length];
             for (var i = 0; i < OutputParameters.Length; ++i)
             {
                 var property = OutputParameters[i];
                 OutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                OutputDbTypes[i] = property.PropertyType.ToDbType();
                 var propertyNameAttribute = property.GetCustomAttribute<InputOutputParameterAttribute>(false);
                 OutputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
 
             InputOutputTypeCodes = new TypeCode[InputOutputParameters.Length];
             InputOutputParameterNames = new string[InputOutputParameters.Length];
+            InputOutputDbTypes = new DbType[InputOutputParameters.Length];
             for (var i = 0; i < InputOutputParameters.Length; ++i)
             {
                 var property = InputOutputParameters[i];
                 InputOutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
+                InputOutputDbTypes[i] = property.PropertyType.ToDbType();
                 var propertyNameAttribute = property.GetCustomAttribute<OutputParameterAttribute>(false);
                 InputOutputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
@@ -177,6 +184,10 @@ namespace Sumo.Data
         public readonly static TypeCode[] InputTypeCodes;
         public readonly static TypeCode[] InputOutputTypeCodes;
         public readonly static TypeCode[] OutputTypeCodes;
+
+        public readonly static DbType[] InputDbTypes;
+        public readonly static DbType[] InputOutputDbTypes;
+        public readonly static DbType[] OutputDbTypes;
 
         public readonly static string[] InputParameterNames;
         public readonly static string[] InputOutputParameterNames;

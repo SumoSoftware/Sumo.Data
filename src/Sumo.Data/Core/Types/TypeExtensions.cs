@@ -28,7 +28,7 @@ namespace Sumo.Data
 
         public static DbType ToDbType(this Type type)
         {
-            var code = Type.GetTypeCode(type);
+            var code = Type.GetTypeCode(type.IsNullable() ? Nullable.GetUnderlyingType(type) : type);
             switch (code)
             {
                 case TypeCode.Object:

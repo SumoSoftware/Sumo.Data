@@ -96,5 +96,15 @@ namespace Sumo.Data
         {
             return _transactionFactory.BeginTransaction(dbConnection, isolationLevel);
         }
+
+        public DbParameter CreateParameter(string name, object value, DbType type, ParameterDirection direction)
+        {
+            return _parameterFactory.CreateParameter(name, value, type, direction);
+        }
+
+        public DbParameter CreateParameter(string name, object value, DbType type, ParameterDirection direction, int size)
+        {
+            return _parameterFactory.CreateParameter(name, value, type, direction, size);
+        }
     }
 }

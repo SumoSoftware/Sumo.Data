@@ -110,8 +110,9 @@ namespace Sumo.Data
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputParameters[i];
                 var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.InputParameterNames[i]);
+                var dbType = ProcedureParametersTypeInfoCache<P>.InputDbTypes[i];
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
-                var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Input);
+                var parameter = _parameterFactory.CreateParameter(name, value, dbType, ParameterDirection.Input);
                 _dbCommand.Parameters.Add(parameter);
             }
 
@@ -119,21 +120,23 @@ namespace Sumo.Data
             {
                 var property = ProcedureParametersTypeInfoCache<P>.InputOutputParameters[i];
                 var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.InputOutputParameterNames[i]);
+                var dbType = ProcedureParametersTypeInfoCache<P>.InputOutputDbTypes[i];
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
-                var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.InputOutput, GetParameterSize(property));
+                var parameter = _parameterFactory.CreateParameter(name, value, dbType, ParameterDirection.InputOutput, GetParameterSize(property));
                 _dbCommand.Parameters.Add(parameter);
             }
-
-            //todo: see SqlServerProcedureHelper.vb line 55 for how to do list based input parameters (table input to procedures)
 
             for (var i = 0; i < ProcedureParametersTypeInfoCache<P>.OutputParameters.Length; ++i)
             {
                 var property = ProcedureParametersTypeInfoCache<P>.OutputParameters[i];
                 var name = GetParameterName(ProcedureParametersTypeInfoCache<P>.OutputParameterNames[i]);
+                var dbType = ProcedureParametersTypeInfoCache<P>.OutputDbTypes[i];
                 var value = property.GetValue(procedureParams) ?? DBNull.Value;
-                var parameter = _parameterFactory.CreateParameter(name, value, ParameterDirection.Output, GetParameterSize(property));
+                var parameter = _parameterFactory.CreateParameter(name, value, dbType, ParameterDirection.Output, GetParameterSize(property));
                 _dbCommand.Parameters.Add(parameter);
             }
+
+            //todo: see SqlServerProcedureHelper.vb line 55 for how to do list based input parameters (table input to procedures)
 
             var returnParameter = _parameterFactory.CreateReturnParameter(GetReturnValueParameterName());
             _dbCommand.Parameters.Add(returnParameter);
