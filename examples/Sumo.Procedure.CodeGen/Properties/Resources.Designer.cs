@@ -124,6 +124,7 @@ namespace Sumo.Procedure.CodeGen.Properties {
         ///
         ///namespace {Namespace}.{Schema}
         ///{
+        ///    [EntityPrefix({Schema})]
         ///    public sealed class {Procedure}
         ///    {
         ///{Properties}

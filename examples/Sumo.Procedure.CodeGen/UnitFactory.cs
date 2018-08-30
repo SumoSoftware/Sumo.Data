@@ -34,7 +34,7 @@ namespace Sumo.Procedure.CodeGen
             var result = new Dictionary<string, string>(templateItems.Count);
             for(var i=0;i<templateItems.Count;++i)
             {
-                result.Add(templateItems[i].Value, templateItems[i].Value.Replace("{", "").Replace("}", ""));
+                result.TryAdd(templateItems[i].Value, templateItems[i].Value.Replace("{", "").Replace("}", ""));
             }
             return result;
         }

@@ -1,8 +1,10 @@
 ﻿using Sumo.Data;
 using System;
 
+
 namespace {Namespace}.{Schema}
 {
+    [EntityPrefix({Schema})]
     public sealed class {Procedure}
     {
 {Properties}
