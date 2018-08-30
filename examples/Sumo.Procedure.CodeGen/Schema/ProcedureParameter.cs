@@ -9,12 +9,12 @@ namespace Sumo.Procedure.CodeGen
         public ProcedureParameter(string name) : base(name) { }
         public ProcedureParameter(string schema, string name) : base(schema, name) { }
 
-        public string Procedure { get; internal set; }
-        public string DataType { get; internal set; }
-        public string Direction { get; internal set; }
-        public int Order { get; internal set; }
-        public int? MaxLength { get; internal set; }
-        public string Encoding { get; internal set; }
+        public string Procedure { get; set; }
+        public string DataType { get; set; }
+        public string Direction { get; set; }
+        public int Order { get; set; }
+        public int? MaxLength { get; set; }
+        public string Encoding { get; set; }
 
         [IgnoreColumn]
         public string Attribute

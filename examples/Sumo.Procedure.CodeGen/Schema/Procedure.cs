@@ -11,6 +11,6 @@ namespace Sumo.Procedure.CodeGen
         public Procedure(string schema, string name) : base(schema, name) { }
 
         [IgnoreColumn]
-        public ProcedureParameter[] ProcedureParameters { get; internal set; }
+        public ProcedureParameter[] ProcedureParameters { get; set; }
     }
 }
