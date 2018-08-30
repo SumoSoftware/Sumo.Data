@@ -65,5 +65,18 @@ namespace Sumo.Data
             Assert.AreEqual("pname3", ProcedureParametersTypeInfoCache<ParamNameTestClass>.InputParameterNames[2]);
         }
 
+        public class ColumnNameClass
+        {
+            public int Id { get; set; }
+            [ColumnName("FullName")]
+            public string Name { get; set; }
+        }
+
+        [TestMethod]
+        public void ColumnNameTest()
+        {
+            Assert.AreEqual("Id", TypeInfoCache<ColumnNameClass>.ReadWritePropertyNames[0]);
+            Assert.AreEqual("FullName", TypeInfoCache<ColumnNameClass>.ReadWritePropertyNames[1]);
+        }
     }
 }

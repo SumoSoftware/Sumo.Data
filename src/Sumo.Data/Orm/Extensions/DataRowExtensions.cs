@@ -16,14 +16,14 @@ namespace Sumo.Data
                 typeof(T),
                 BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
                 null, null, null);
-            //var result = Activator.CreateInstance<T>();
+
             for (var i = 0; i < TypeInfoCache<T>.ReadWriteProperties.Length; ++i)
             {
                 var property = TypeInfoCache<T>.ReadWriteProperties[i];
                 var propertyName = TypeInfoCache<T>.ReadWritePropertyNames[i];
                 if (!row.IsNull(propertyName))
                 {
-                    var value = row[property.Name];
+                    var value = row[propertyName];
                     if(value != null)
                     {
                         //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods

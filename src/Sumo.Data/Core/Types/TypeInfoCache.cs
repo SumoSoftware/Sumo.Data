@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Sumo.Data
 {
-    internal static class TypeInfoCache<T> where T : class
+    public static class TypeInfoCache<T> where T : class
     {
         static TypeInfoCache()
         {
@@ -33,7 +33,7 @@ namespace Sumo.Data
             {
                 var property = Properties[i];
                 TypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
+                var propertyNameAttribute = property.GetCustomAttribute<ColumnNameAttribute>(true);
                 var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
                 PropertyNames[i] = name;
                 _properties.Add(name, property);
@@ -45,7 +45,7 @@ namespace Sumo.Data
             {
                 var property = ReadWriteProperties[i];
                 ReadWriteTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
+                var propertyNameAttribute = property.GetCustomAttribute<ColumnNameAttribute>(true);
                 var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
                 ReadWritePropertyNames[i] = name;
                 _readWriteProperties.Add(name, property);
@@ -57,7 +57,7 @@ namespace Sumo.Data
             {
                 var property = ReadOnlyProperties[i];
                 ReadOnlyTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
-                var propertyNameAttribute = property.GetCustomAttribute<PropertyNameAttribute>(true);
+                var propertyNameAttribute = property.GetCustomAttribute<ColumnNameAttribute>(true);
                 var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
                 ReadOnlyPropertyNames[i] = name;
                 _readOnlyProperties.Add(name, property);
