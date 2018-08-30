@@ -1,4 +1,4 @@
-﻿using Sumo.Data.Attributes;
+﻿using Sumo.Data;
 using System;
 
 namespace {Namespace}.{Schema}

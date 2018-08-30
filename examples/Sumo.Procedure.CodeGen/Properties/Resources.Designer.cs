@@ -119,7 +119,7 @@ namespace Sumo.Procedure.CodeGen.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using Sumo.Data.Attributes;
+        ///   Looks up a localized string similar to using Sumo.Data;
         ///using System;
         ///
         ///namespace {Namespace}.{Schema}

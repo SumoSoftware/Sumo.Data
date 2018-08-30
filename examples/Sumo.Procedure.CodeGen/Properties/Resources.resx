@@ -152,7 +152,7 @@ where
 order by 2, 1</value>
   </data>
   <data name="ProcedureTemplate" xml:space="preserve">
-    <value>using Sumo.Data.Attributes;
+    <value>using Sumo.Data;
 using System;
 
 namespace {Namespace}.{Schema}
