@@ -13,7 +13,7 @@ namespace Sumo.Data
 
             Name = name;
         }
-        public string Name { get; internal set; }
+        public string Name { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -37,7 +37,6 @@ namespace Sumo.Data
                 var name = propertyNameAttribute == null ? property.Name : propertyNameAttribute.Name;
                 PropertyNames[i] = name;
                 _properties.Add(name, property);
-
             }
 
             ReadWriteTypeCodes = new TypeCode[ReadWriteProperties.Length];

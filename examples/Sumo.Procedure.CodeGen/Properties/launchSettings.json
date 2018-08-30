@@ -2,7 +2,7 @@
   "profiles": {
     "Sumo.Procedure.CodeGen": {
       "commandName": "Project",
-      "commandLineArgs": "-destination \"C:\\CodeGenOutput\" -namespace \"Tuzo\""
+      "commandLineArgs": "-destination \"C:\\CodeGenOutput\" -namespace \"Techlolli.Data\""
     }
   }
 }

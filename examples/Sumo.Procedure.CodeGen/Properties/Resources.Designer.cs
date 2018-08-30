@@ -71,6 +71,7 @@ namespace Sumo.Procedure.CodeGen.Properties {
         ///	CHARACTER_MAXIMUM_LENGTH as [MaxLength], 
         ///	CHARACTER_SET_NAME as [Encoding]
         ///FROM INFORMATION_SCHEMA.PARAMETERS
+        ///where IS_RESULT = &apos;NO&apos;
         ///order by SPECIFIC_SCHEMA, SPECIFIC_NAME, ORDINAL_POSITION.
         /// </summary>
         internal static string GetProcedureParametersSql {
@@ -81,6 +82,7 @@ namespace Sumo.Procedure.CodeGen.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to SELECT [SPECIFIC_NAME] as [Name], [specific_schema] as [Schema]  FROM INFORMATION_SCHEMA.ROUTINES
+        ///where ROUTINE_TYPE != &apos;FUNCTION&apos;
         ///order by 2, 1.
         /// </summary>
         internal static string GetProceduresSql {

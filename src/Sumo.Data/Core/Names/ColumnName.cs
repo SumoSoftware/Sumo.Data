@@ -15,7 +15,7 @@ namespace Sumo.Data
             Alias = alias;
         }
 
-        public string Alias { get; internal set; }
+        public string Alias { get; set; }
 
         public override bool Equals(object obj)
         {

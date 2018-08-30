@@ -20,7 +20,7 @@ namespace Sumo.Data
             Schema = schema;
         }
 
-        public string Schema { get; internal set; }
+        public string Schema { get; set; }
 
         public override bool Equals(object obj)
         {
