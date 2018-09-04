@@ -5,12 +5,11 @@ namespace Sumo.Data
 {
     public interface IConnectionFactory
     {
-        DbConnection Open(string connectionString);
-
         DbConnection Open();
-
-        Task<DbConnection> OpenAsync(string connectionString);
-
+        DbConnection Open(string connectionString);
+        DbConnection Open(IConnectionStringFactory connectionStringFactory);
         Task<DbConnection> OpenAsync();
+        Task<DbConnection> OpenAsync(string connectionString);
+        Task<DbConnection> OpenAsync(IConnectionStringFactory connectionStringFactory);
     }
 }

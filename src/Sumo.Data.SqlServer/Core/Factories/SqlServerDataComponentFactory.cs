@@ -31,5 +31,29 @@ namespace Sumo.Data.SqlServer
             _dataAdapterFactory = new SqlServerDataAdapterFactory();
             _parameterFactory = new SqlServerParameterFactory();
         }
+
+        public SqlServerDataComponentFactory(IConnectionStringFactory connectionStringFactory) : base()
+        {
+            _connectionFactory =
+                connectionStringFactory == null ?
+                new SqlServerConnectionFactory() :
+                new SqlServerConnectionFactory(connectionStringFactory);
+
+            _transactionFactory = new TransactionFactory();
+            _dataAdapterFactory = new SqlServerDataAdapterFactory();
+            _parameterFactory = new SqlServerParameterFactory();
+        }
+
+        public SqlServerDataComponentFactory(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory) : base()
+        {
+            _connectionFactory =
+                connectionStringFactory == null ?
+                new SqlServerConnectionFactoryWithRetry(retryOptions) :
+                new SqlServerConnectionFactoryWithRetry(retryOptions, connectionStringFactory);
+
+            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
+            _dataAdapterFactory = new SqlServerDataAdapterFactory();
+            _parameterFactory = new SqlServerParameterFactory();
+        }
     }
 }

@@ -5,6 +5,7 @@ using Sumo.Retry;
 
 namespace Sumo.Data.Orm.SqlServer
 {
+    //todo: add IConnectionStringFactory support
     public class SqlServerOrmDataComponentFactory : SqlServerDataComponentFactory, IOrmDataComponentFactory
     {
 

@@ -67,14 +67,24 @@ namespace Sumo.Data
             return _parameterFactory.GetParameterName(name, index);
         }
 
+        public DbConnection Open()
+        {
+            return _connectionFactory.Open();
+        }
+
+        public DbConnection Open(IConnectionStringFactory connectionStringFactory)
+        {
+            return _connectionFactory.Open(connectionStringFactory);
+        }
+
         public DbConnection Open(string connectionString)
         {
             return _connectionFactory.Open(connectionString);
         }
 
-        public DbConnection Open()
+        public Task<DbConnection> OpenAsync()
         {
-            return _connectionFactory.Open();
+            return _connectionFactory.OpenAsync();
         }
 
         public Task<DbConnection> OpenAsync(string connectionString)
@@ -82,9 +92,9 @@ namespace Sumo.Data
             return _connectionFactory.OpenAsync(connectionString);
         }
 
-        public Task<DbConnection> OpenAsync()
+        public Task<DbConnection> OpenAsync(IConnectionStringFactory connectionStringFactory)
         {
-            return _connectionFactory.OpenAsync();
+            return _connectionFactory.OpenAsync(connectionStringFactory);
         }
 
         public DbTransaction BeginTransaction(DbConnection dbConnection)
@@ -106,5 +116,6 @@ namespace Sumo.Data
         {
             return _parameterFactory.CreateParameter(name, value, type, direction, size);
         }
-    }
+
+   }
 }

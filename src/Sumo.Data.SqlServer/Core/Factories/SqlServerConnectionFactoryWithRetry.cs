@@ -9,14 +9,24 @@ namespace Sumo.Data.SqlServer
     {
         private readonly IConnectionFactory _proxy;
 
-        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions) : this(retryOptions, null) { }
+        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
 
-        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions, string connectionString = null)
+        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions, string connectionString)
         {
             if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
                 string.IsNullOrEmpty(connectionString) ? new SqlServerConnectionFactory() : new SqlServerConnectionFactory(connectionString),
+                retryOptions,
+                new SqlServerTransientErrorTester());
+        }
+
+        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory)
+        {
+            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+
+            _proxy = RetryProxy.Create<IConnectionFactory>(
+                connectionStringFactory == null ? new SqlServerConnectionFactory() : new SqlServerConnectionFactory(connectionStringFactory),
                 retryOptions,
                 new SqlServerTransientErrorTester());
         }
@@ -27,6 +37,10 @@ namespace Sumo.Data.SqlServer
 
         public SqlServerConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, string connectionString) :
             this(new RetryOptions(maxAttempts, timeout), connectionString)
+        { }
+
+        public SqlServerConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, IConnectionStringFactory connectionStringFactory) :
+            this(new RetryOptions(maxAttempts, timeout), connectionStringFactory)
         { }
 
         public DbConnection Open(string connectionString)
@@ -47,6 +61,16 @@ namespace Sumo.Data.SqlServer
         public Task<DbConnection> OpenAsync()
         {
             return _proxy.OpenAsync();
+        }
+
+        public DbConnection Open(IConnectionStringFactory connectionStringFactory)
+        {
+            return _proxy.Open(connectionStringFactory);
+        }
+
+        public Task<DbConnection> OpenAsync(IConnectionStringFactory connectionStringFactory)
+        {
+            return _proxy.OpenAsync(connectionStringFactory);
         }
     }
 }

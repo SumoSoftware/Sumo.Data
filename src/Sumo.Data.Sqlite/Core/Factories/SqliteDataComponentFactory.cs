@@ -31,5 +31,29 @@ namespace Sumo.Data.Sqlite
             _dataAdapterFactory = new SqliteDataAdapterFactory();
             _parameterFactory = new SqliteParameterFactory();
         }
+
+        public SqliteDataComponentFactory(IConnectionStringFactory connectionStringFactory) : base()
+        {
+            _connectionFactory =
+                connectionStringFactory == null ?
+                new SqliteConnectionFactory() :
+                new SqliteConnectionFactory(connectionStringFactory);
+
+            _transactionFactory = new TransactionFactory();
+            _dataAdapterFactory = new SqliteDataAdapterFactory();
+            _parameterFactory = new SqliteParameterFactory();
+        }
+
+        public SqliteDataComponentFactory(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory) : base()
+        {
+            _connectionFactory =
+                connectionStringFactory == null ?
+                new SqliteConnectionFactoryWithRetry(retryOptions) :
+                new SqliteConnectionFactoryWithRetry(retryOptions, connectionStringFactory);
+
+            _transactionFactory = new SqliteTransactionFactoryWithRetry(retryOptions);
+            _dataAdapterFactory = new SqliteDataAdapterFactory();
+            _parameterFactory = new SqliteParameterFactory();
+        }
     }
 }

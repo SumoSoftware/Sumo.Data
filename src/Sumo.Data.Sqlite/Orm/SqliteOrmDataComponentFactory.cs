@@ -5,6 +5,7 @@ using Sumo.Retry;
 
 namespace Sumo.Data.Orm.Sqlite
 {
+    //todo: add IConnectionStringFactory support
     public class SqliteOrmDataComponentFactory : SqliteDataComponentFactory, IOrmDataComponentFactory
     {
 
