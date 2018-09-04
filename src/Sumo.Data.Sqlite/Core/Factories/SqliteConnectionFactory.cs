@@ -64,7 +64,7 @@ namespace Sumo.Data.Sqlite
             var connectionString = string.IsNullOrEmpty(_connectionString) ? _connectionStringFactory.GetConnectionString() : _connectionString;
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqliteConnectionFactory)} with a connection string or factory to use parameterless Open");
 
-            return Open(_connectionString);
+            return Open(connectionString);
         }
 
         public async Task<DbConnection> OpenAsync()
@@ -72,7 +72,7 @@ namespace Sumo.Data.Sqlite
             var connectionString = string.IsNullOrEmpty(_connectionString) ? await _connectionStringFactory.GetConnectionStringAsync() : _connectionString;
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqliteConnectionFactory)} with a connection string or factory to use parameterless Open");
 
-            return await OpenAsync(_connectionString);
+            return await OpenAsync(connectionString);
         }
 
         public DbConnection Open(IConnectionStringFactory connectionStringFactory)
