@@ -30,7 +30,7 @@ namespace Sumo.Data
                 for (var i = 0; i < TypeInfoCache<TestType>.Properties.Length; ++i)
                 {
                     var property = TypeInfoCache<TestType>.Properties[i];
-                    table.Columns.Add(new DataColumn(property.Name, property.PropertyType));
+                    table.Columns.Add(new DataColumn(TypeInfoCache<TestType>.PropertyNames[i], property.PropertyType));
                 }
 
                 var row = table.NewRow();
