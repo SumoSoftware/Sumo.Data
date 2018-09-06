@@ -75,17 +75,23 @@ namespace Sumo.Data.SqlServer
 
         public DbConnection Open()
         {
-            var connectionString = string.IsNullOrEmpty(_connectionString) ? _connectionStringFactory.GetConnectionString() : _connectionString;
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string or factory to use parameterless Open");
+            if (string.IsNullOrEmpty(_connectionString) && _connectionStringFactory == null)
+            {
+                throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string or factory to use parameterless Open");
+            }
 
+            var connectionString = string.IsNullOrEmpty(_connectionString) ? _connectionStringFactory.GetConnectionString() : _connectionString;
             return Open(connectionString);
         }
 
         public async Task<DbConnection> OpenAsync()
         {
-            var connectionString = string.IsNullOrEmpty(_connectionString) ? await _connectionStringFactory.GetConnectionStringAsync() : _connectionString;
-            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string or factory to use parameterless Open");
+            if (string.IsNullOrEmpty(_connectionString) && _connectionStringFactory == null)
+            {
+                throw new ArgumentNullException($"Please construct {nameof(SqlServerConnectionFactory)} with a connection string or factory to use parameterless OpenAsync");
+            }
 
+            var connectionString = string.IsNullOrEmpty(_connectionString) ? await _connectionStringFactory.GetConnectionStringAsync() : _connectionString;
             return await OpenAsync(_connectionString);
         }
 
