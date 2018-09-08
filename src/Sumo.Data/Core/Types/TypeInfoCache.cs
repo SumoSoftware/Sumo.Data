@@ -159,7 +159,7 @@ namespace Sumo.Data
                 var property = OutputParameters[i];
                 OutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
                 OutputDbTypes[i] = property.PropertyType.ToDbType();
-                var propertyNameAttribute = property.GetCustomAttribute<InputOutputParameterAttribute>(false);
+                var propertyNameAttribute = property.GetCustomAttribute<OutputParameterAttribute>(false);
                 OutputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
 
@@ -171,7 +171,7 @@ namespace Sumo.Data
                 var property = InputOutputParameters[i];
                 InputOutputTypeCodes[i] = Type.GetTypeCode(property.PropertyType);
                 InputOutputDbTypes[i] = property.PropertyType.ToDbType();
-                var propertyNameAttribute = property.GetCustomAttribute<OutputParameterAttribute>(false);
+                var propertyNameAttribute = property.GetCustomAttribute<InputOutputParameterAttribute>(false);
                 InputOutputParameterNames[i] = propertyNameAttribute == null || string.IsNullOrEmpty(propertyNameAttribute.Name) ? property.Name : propertyNameAttribute.Name;
             }
         }
