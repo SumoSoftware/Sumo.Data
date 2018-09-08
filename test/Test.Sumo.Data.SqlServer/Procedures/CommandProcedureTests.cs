@@ -57,7 +57,9 @@ namespace Test.Sumo.Data.SqlServer.Procedures
                 Assert.AreEqual(99, result);
             }
 
-            Assert.AreEqual(procedureContext.InDate, procedureContext.OutDate);
+            Assert.IsTrue(procedureContext.InDate.HasValue);
+            Assert.IsTrue(procedureContext.OutDate.HasValue);
+            Assert.AreEqual(procedureContext.InDate.Value.ToString(), procedureContext.OutDate.Value.ToString());
         }
     }
 }
