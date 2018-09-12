@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sumo.Retry
 {
-    public class ActionClass
+    public class WithRetryTestClass
     {
         public Task<int> FunctionAsync(int x)
         {
@@ -68,7 +68,7 @@ namespace Sumo.Retry
         [TestMethod]
         public async Task WithRetry_Tests()
         {
-            var ac = new ActionClass();
+            var ac = new WithRetryTestClass();
             WithRetry.SetDefaultOptions(new RetryOptions(5, TimeSpan.FromMilliseconds(500)));
 
             WithRetry.Invoke(() => ac.Action(1));
@@ -83,7 +83,7 @@ namespace Sumo.Retry
         }
 
         #region async and task continuation experimentation
-        [TestMethod]
+        //[TestMethod]
         public async Task TestAction()
         {
             await f();
@@ -91,12 +91,12 @@ namespace Sumo.Retry
 
         private Task f()
         {
-            var ac = new ActionClass();
+            var ac = new WithRetryTestClass();
             try
             {
                 var x = 1;
-                var y = ActionClass.Invoke(() => { return ac.FunctionAsync(x); });
-                ActionClass.Invoke(async () =>
+                var y = WithRetryTestClass.Invoke(() => { return ac.FunctionAsync(x); });
+                WithRetryTestClass.Invoke(async () =>
                 {
                     var b = await ac.FunctionAsync(x);
                     if (b == 2)
