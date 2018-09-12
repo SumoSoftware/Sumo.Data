@@ -16,17 +16,17 @@ namespace Sumo.Data.Sqlite
                 case DbType.String:
                 case DbType.StringFixedLength:
                 case DbType.Xml:
-                case DbType.Date:
-                case DbType.DateTime:
-                case DbType.DateTime2:
-                case DbType.DateTimeOffset:
-                case DbType.Time:
                     return SqliteType.Text;
 
                 case DbType.Binary:
                 case DbType.Object:
                     return SqliteType.Blob;
 
+                case DbType.Date:
+                case DbType.DateTime:
+                case DbType.DateTime2:
+                case DbType.DateTimeOffset:
+                case DbType.Time:
                 case DbType.Boolean:
                 case DbType.Byte:
                 case DbType.Int16:
@@ -48,7 +48,6 @@ namespace Sumo.Data.Sqlite
                 default:
                     throw new NotSupportedException(dbType.ToString());
             }
-
         }
 
         public static SqliteType ToSqliteType(this Type type)
