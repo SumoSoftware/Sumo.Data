@@ -6,6 +6,16 @@ namespace Sumo.Retry
     {
         public RetryOptions(int maxAttempts, TimeSpan timeout)
         {
+            if (maxAttempts < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxAttempts));
+            }
+
+            if (timeout.TotalMilliseconds <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(timeout));
+            }
+
             MaxAttempts = maxAttempts;
             Timeout = timeout;
         }

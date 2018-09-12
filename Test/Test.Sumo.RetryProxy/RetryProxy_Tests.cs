@@ -6,10 +6,113 @@ using System.Threading.Tasks;
 
 namespace Sumo.Retry
 {
+    public class ActionClass
+    {
+        public Task<int> FunctionAsync(int x)
+        {
+            return Task.Run(() =>
+            {
+                if (x != 1)
+                {
+                    throw new Exception("boom");
+                }
+
+                return x;
+            });
+        }
+
+        public int X { get; private set; }
+        public void Action(int x)
+        {
+            X = x;
+        }
+
+        public int Function(int x)
+        {
+            return x;
+        }
+
+        public int Exception(int x)
+        {
+            throw new Exception("boom");
+        }
+
+        public Task<int> ExceptionAsync(int x)
+        {
+            return Task.Run(() =>
+            {
+                if (x != x + 1)
+                {
+                    throw new Exception("boom");
+                }
+
+                return x;
+            });
+        }
+
+        public static T Invoke<T>(Func<T> action)
+        {
+            var isAwaitable = action.Method.ReturnType.GetMethod(nameof(Task.GetAwaiter)) != null;
+            return (T)action.Method.Invoke(action.Target, null);
+        }
+
+        public static void Invoke(Action action)
+        {
+            action();
+        }
+    }
+
     [TestClass]
     public class RetryProxy_Tests
     {
+        [TestMethod]
+        public async Task WithRetry_Tests()
+        {
+            var ac = new ActionClass();
+            WithRetry.SetDefaultOptions(new RetryOptions(5, TimeSpan.FromMilliseconds(500)));
+
+            WithRetry.Invoke(() => ac.Action(1));
+
+            var fr1 = WithRetry.Invoke(() => ac.Function(1));
+
+            var fr2 = await WithRetry.Invoke(() => ac.FunctionAsync(1));
+
+            Assert.ThrowsException<ExceededMaxWaitTimeException>(() => { var fr = WithRetry.Invoke(() => ac.Exception(1)); });
+
+            await Assert.ThrowsExceptionAsync<ExceededMaxWaitTimeException>(async () => { var fr = await WithRetry.Invoke(() => ac.ExceptionAsync(1)); });
+        }
+
         #region async and task continuation experimentation
+        [TestMethod]
+        public async Task TestAction()
+        {
+            await f();
+        }
+
+        private Task f()
+        {
+            var ac = new ActionClass();
+            try
+            {
+                var x = 1;
+                var y = ActionClass.Invoke(() => { return ac.FunctionAsync(x); });
+                ActionClass.Invoke(async () =>
+                {
+                    var b = await ac.FunctionAsync(x);
+                    if (b == 2)
+                    {
+                        Console.Write("");
+                    }
+                });
+                return y;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Task.FromException(ex);
+            }
+        }
+
         public async Task Test()
         {
             var stopwatch = new Stopwatch();
@@ -77,7 +180,7 @@ namespace Sumo.Retry
             }
             catch (ArgumentNullException ex)
             {
-                Assert.AreEqual(nameof(instance),ex.ParamName);
+                Assert.AreEqual(nameof(instance), ex.ParamName);
                 throw;
             }
         }
@@ -222,7 +325,7 @@ namespace Sumo.Retry
             {
                 var result = await retryProxy.FailAsync();
             }
-            catch(RetryException ex)
+            catch (RetryException ex)
             {
                 Assert.IsTrue(ex.InnerException is ProxySubjectException);
                 Assert.AreEqual(1, ex.Attempts);

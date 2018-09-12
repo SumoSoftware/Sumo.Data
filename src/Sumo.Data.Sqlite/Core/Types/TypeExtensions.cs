@@ -6,7 +6,7 @@ namespace Sumo.Data.Sqlite
 {
     public static class TypeExtensions
     {
-        public static SqliteType ToSqliteType(this DbType dbType)
+        public static SqliteType ToSqliteType(this DbType dbType, bool storeAsTicks = true)
         {
             switch (dbType)
             {
@@ -27,6 +27,8 @@ namespace Sumo.Data.Sqlite
                 case DbType.DateTime2:
                 case DbType.DateTimeOffset:
                 case DbType.Time:
+                    return storeAsTicks == true ? SqliteType.Integer : SqliteType.Text;
+
                 case DbType.Boolean:
                 case DbType.Byte:
                 case DbType.Int16:
