@@ -9,7 +9,7 @@ namespace Sumo.Retry
 {
     public class RetryProxy : DispatchProxy
     {
-        public static TInterface Create<TInterface>(TInterface instance, RetryOptions options, ICanRetryTester canRetryTester) where TInterface : class
+        public static TInterface Create<TInterface>(TInterface instance, RetryOptions options, IExceptionWhiteList canRetryTester) where TInterface : class
         {
             var result = Create<TInterface, RetryProxy>();
 
@@ -21,9 +21,9 @@ namespace Sumo.Retry
             return result;
         }
 
-        public static TInterface Create<TInterface, TImplementation>(RetryOptions options, ICanRetryTester canRetryTester) 
-            where TInterface : class 
-            where TImplementation: class, new()
+        public static TInterface Create<TInterface, TImplementation>(RetryOptions options, IExceptionWhiteList canRetryTester)
+            where TInterface : class
+            where TImplementation : class, new()
         {
             var result = Create<TInterface, RetryProxy>();
 
@@ -38,7 +38,7 @@ namespace Sumo.Retry
 
         private object _instance;
         private RetryOptions _options;
-        private ICanRetryTester _canRetryTester = null;
+        private IExceptionWhiteList _canRetryTester = null;
 
         private RetryException TestException(Exception exception, int currentAttempt, TimeSpan elapsed, List<Exception> exceptions)
         {
@@ -118,13 +118,20 @@ namespace Sumo.Retry
                         Exceptions = exceptions
                     };
                 }
-                
+
                 // test the exception for can retry, exceeded max retry, and timeout
-                if(exception != null)
+                if (exception != null)
                 {
-                    if (exceptions == null) exceptions = new List<Exception>();
+                    if (exceptions == null)
+                    {
+                        exceptions = new List<Exception>();
+                    }
+
                     var retryException = TestException(exception, currentAttempt++, stopwatch.Elapsed, exceptions);
-                    if (retryException != null) throw retryException;
+                    if (retryException != null)
+                    {
+                        throw retryException;
+                    }
                 }
 
                 //reset exception for next attempt
@@ -132,7 +139,7 @@ namespace Sumo.Retry
 
                 // wait a bit before trying again
                 Thread.Sleep((int)(waitTime * 100));
-                
+
                 // ratcheting up - allows wait times up to ~10 seconds per try
                 waitTime = waitTime <= 110 ? waitTime * 1.25 : waitTime;
             }
@@ -146,11 +153,14 @@ namespace Sumo.Retry
 
         private object InvokeAsynchronous(MethodInfo targetMethod, object[] args)
         {
-            object result = targetMethod.Invoke(_instance, args);
+            var result = targetMethod.Invoke(_instance, args);
             var task = (Task)result;
             var continuation = task.ContinueWith(t =>
             {
-                if (t.Status == TaskStatus.Faulted) throw t.Exception;
+                if (t.Status == TaskStatus.Faulted)
+                {
+                    throw t.Exception;
+                }
             });
             continuation.Wait();
             return result;

@@ -2,7 +2,7 @@
 
 namespace Sumo.Retry
 {
-    public interface ICanRetryTester
+    public interface IExceptionWhiteList
     {
         bool CanRetry(Exception exception);
     }

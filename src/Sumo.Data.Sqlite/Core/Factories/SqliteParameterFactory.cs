@@ -13,10 +13,12 @@ namespace Sumo.Data.Sqlite
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
+            var type = value.GetType();
             return new SqliteParameter(name, value)
             {
                 Direction = direction,
-                SqliteType = value.GetType().ToSqliteType()
+                SqliteType = type.ToSqliteType(),
+                DbType = type.ToDbType()
             };
         }
 
@@ -39,7 +41,8 @@ namespace Sumo.Data.Sqlite
 
             return new SqliteParameter(name, type.ToSqliteType(), size)
             {
-                Direction = direction
+                Direction = direction,
+                DbType = type
             };
         }
 
@@ -49,7 +52,8 @@ namespace Sumo.Data.Sqlite
 
             return new SqliteParameter(name, type.ToSqliteType())
             {
-                Direction = direction
+                Direction = direction,
+                DbType = type
             };
         }
 
@@ -57,7 +61,7 @@ namespace Sumo.Data.Sqlite
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
 
-            return new SqliteParameter(name, type.ToSqliteType());
+            return new SqliteParameter(name, type.ToSqliteType()) { DbType = type };
         }
 
         public DbParameter CreateParameter(string name, PropertyInfo property)
@@ -65,7 +69,7 @@ namespace Sumo.Data.Sqlite
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (property == null) throw new ArgumentNullException(nameof(property));
 
-            return new SqliteParameter(name, property.PropertyType.ToSqliteType());
+            return new SqliteParameter(name, property.PropertyType.ToSqliteType()){ DbType = property.PropertyType.ToDbType() };
         }
 
         public DbParameter CreateParameter(string name, PropertyInfo property, ParameterDirection direction)
@@ -75,7 +79,8 @@ namespace Sumo.Data.Sqlite
 
             return new SqliteParameter(name, property.PropertyType.ToSqliteType())
             {
-                Direction = direction
+                Direction = direction,
+                DbType = property.PropertyType.ToDbType()
             };
         }
 
@@ -86,7 +91,8 @@ namespace Sumo.Data.Sqlite
 
             return new SqliteParameter(name, property.PropertyType.ToSqliteType(), size)
             {
-                Direction = direction
+                Direction = direction,
+                DbType = property.PropertyType.ToDbType()
             };
         }
 
@@ -98,7 +104,8 @@ namespace Sumo.Data.Sqlite
             return new SqliteParameter(name, value)
             {
                 Direction = direction,
-                SqliteType = type.ToSqliteType()
+                SqliteType = type.ToSqliteType(),
+                DbType = type
             };
         }
 
@@ -111,7 +118,8 @@ namespace Sumo.Data.Sqlite
             {
                 Direction = direction,
                 Size = size,
-                SqliteType = type.ToSqliteType()
+                SqliteType = type.ToSqliteType(),
+                DbType = type
             };
         }
 

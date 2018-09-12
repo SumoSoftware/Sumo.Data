@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace Sumo.Data.SqlServer
 {
-    public class SqlServerTransientErrorTester : ICanRetryTester
+    public class SqlServerTransientErrorTester : IExceptionWhiteList
     {
         // 20 The instance of SQL Server does Not support encryption.
         // 64 An error occurred during login. 

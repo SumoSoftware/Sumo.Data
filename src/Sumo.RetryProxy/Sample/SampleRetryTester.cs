@@ -25,7 +25,7 @@ namespace Sumo.Retry.Sample
         }
     }
 
-    internal class SampleRetryTester : ICanRetryTester
+    internal class SampleRetryTester : IExceptionWhiteList
     {
         public bool CanRetry(Exception exception)
         {
