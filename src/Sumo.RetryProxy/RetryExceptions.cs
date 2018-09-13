@@ -22,24 +22,36 @@ namespace Sumo.Retry
         public List<Exception> Exceptions { get; internal set; }
     }
 
+    public enum RetryNotAllowedReason
+    {
+        WhiteList,
+        BlackList,
+        RetryTester
+    }
+
     public sealed class RetryNotAllowedException : RetryException
     {
-        public RetryNotAllowedException()
+        public RetryNotAllowedException(RetryNotAllowedReason reason) : base()
         {
+            Reason = reason;
         }
 
-        public RetryNotAllowedException(string message) : base(message)
+        public RetryNotAllowedException(RetryNotAllowedReason reason, string message) : base(message)
         {
+            Reason = reason;
         }
 
-        public RetryNotAllowedException(string message, Exception innerException) : base(message, innerException)
+        public RetryNotAllowedException(RetryNotAllowedReason reason, string message, Exception innerException) : base(message, innerException)
         {
+            Reason = reason;
         }
+
+        public RetryNotAllowedReason Reason { get; }
     }
 
     public sealed class ExceededMaxAttemptsException : RetryException
     {
-        public ExceededMaxAttemptsException()
+        public ExceededMaxAttemptsException() :base()
         {
         }
 

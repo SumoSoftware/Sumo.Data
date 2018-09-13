@@ -9,7 +9,7 @@ namespace Sumo.Retry
 {
     public class RetryProxy : DispatchProxy
     {
-        public static TInterface Create<TInterface>(TInterface instance, RetryOptions options, IExceptionWhiteList canRetryTester) where TInterface : class
+        public static TInterface Create<TInterface>(TInterface instance, RetryOptions options, IRetryExceptionTester canRetryTester) where TInterface : class
         {
             var result = Create<TInterface, RetryProxy>();
 
@@ -21,7 +21,7 @@ namespace Sumo.Retry
             return result;
         }
 
-        public static TInterface Create<TInterface, TImplementation>(RetryOptions options, IExceptionWhiteList canRetryTester)
+        public static TInterface Create<TInterface, TImplementation>(RetryOptions options, IRetryExceptionTester canRetryTester)
             where TInterface : class
             where TImplementation : class, new()
         {
@@ -38,7 +38,7 @@ namespace Sumo.Retry
 
         private object _instance;
         private RetryOptions _options;
-        private IExceptionWhiteList _canRetryTester = null;
+        private IRetryExceptionTester _canRetryTester = null;
 
         private RetryException TestException(Exception exception, int currentAttempt, TimeSpan elapsed, List<Exception> exceptions)
         {

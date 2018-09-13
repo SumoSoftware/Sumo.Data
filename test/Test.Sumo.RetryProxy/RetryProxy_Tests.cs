@@ -69,17 +69,23 @@ namespace Sumo.Retry
         public async Task WithRetry_Tests()
         {
             var ac = new WithRetryTestClass();
-            WithRetry.SetDefaultOptions(new RetryOptions(5, TimeSpan.FromMilliseconds(500)));
+            WithRetry.SetDefaultOptions(new RetryOptions(3, TimeSpan.FromSeconds(15)));
 
             WithRetry.Invoke(() => ac.Action(1));
 
             var fr1 = WithRetry.Invoke(() => ac.Function(1));
 
-            var fr2 = await WithRetry.Invoke(() => ac.FunctionAsync(1));
+            var fr2 = await WithRetry.InvokeAsync(async () => await ac.FunctionAsync(1));
+
+            Assert.ThrowsException<ExceededMaxAttemptsException>(() => { var fr = WithRetry.Invoke(() => ac.Exception(1)); });
+
+            await Assert.ThrowsExceptionAsync<ExceededMaxAttemptsException>(async () => { var fr = await WithRetry.InvokeAsync(() => ac.ExceptionAsync(1)); });
+
+            WithRetry.SetDefaultOptions(new RetryOptions(100000, TimeSpan.FromMilliseconds(10)));
 
             Assert.ThrowsException<ExceededMaxWaitTimeException>(() => { var fr = WithRetry.Invoke(() => ac.Exception(1)); });
 
-            await Assert.ThrowsExceptionAsync<ExceededMaxWaitTimeException>(async () => { var fr = await WithRetry.Invoke(() => ac.ExceptionAsync(1)); });
+            await Assert.ThrowsExceptionAsync<ExceededMaxWaitTimeException>(async () => { var fr = await WithRetry.InvokeAsync(() => ac.ExceptionAsync(1)); });
         }
 
         #region async and task continuation experimentation

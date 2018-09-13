@@ -2,7 +2,7 @@
 
 namespace Sumo.Retry
 {
-    public class CanRetryProxySubjectException : IExceptionWhiteList
+    public class CanRetryProxySubjectException : IRetryExceptionTester
     {
         public bool CanRetry(Exception exception)
         {
@@ -11,7 +11,7 @@ namespace Sumo.Retry
         }
     }
 
-    public class CanNotRetryProxySubjectException : IExceptionWhiteList
+    public class CanNotRetryProxySubjectException : IRetryExceptionTester
     {
         public bool CanRetry(Exception exception)
         {
