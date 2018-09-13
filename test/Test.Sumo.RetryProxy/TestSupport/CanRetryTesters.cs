@@ -7,7 +7,7 @@ namespace Sumo.Retry
         public bool CanRetry(Exception exception)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
-            return exception is ProxySubjectException;
+            return exception is ProxySubjectTestException;
         }
     }
 
@@ -16,7 +16,7 @@ namespace Sumo.Retry
         public bool CanRetry(Exception exception)
         {
             if (exception == null) throw new ArgumentNullException(nameof(exception));
-            return !(exception is ProxySubjectException);
+            return !(exception is ProxySubjectTestException);
         }
     }
 }

@@ -109,6 +109,12 @@ namespace Sumo.Retry
                 throw new ArgumentNullException(nameof(options));
             }
 
+            var isAwaitable = function.Method.ReturnType.GetMethod(nameof(Task.GetAwaiter)) != null;
+            if (isAwaitable)
+            {
+                throw new NotSupportedException("Use InvokeAsync<T> instead.");
+            }
+
             var result = default(T);
 
             List<Exception> exceptions = null;
@@ -247,7 +253,7 @@ namespace Sumo.Retry
         }
         #endregion
 
-        private static RetryException TestException(RetryOptions options, IRetryExceptionTester retryExceptionTester, IEnumerable<Type> exceptionWhiteList, IEnumerable<Type> exceptionBlackList, Exception exception, int currentAttempt, TimeSpan elapsed, List<Exception> exceptions)
+        internal static RetryException TestException(RetryOptions options, IRetryExceptionTester retryExceptionTester, IEnumerable<Type> exceptionWhiteList, IEnumerable<Type> exceptionBlackList, Exception exception, int currentAttempt, TimeSpan elapsed, List<Exception> exceptions)
         {
             exceptions.Add(exception);
 
@@ -286,7 +292,7 @@ namespace Sumo.Retry
 
             if (currentAttempt >= options.MaxAttempts)
             {
-                return new ExceededMaxAttemptsException($"Exceeded maximum attempts: {options.MaxAttempts}.. See inner exception for details.", exception)
+                return new ExceededMaxAttemptsException($"Exceeded maximum attempts: {options.MaxAttempts}. See Exceptions property for details.")
                 {
                     Attempts = currentAttempt,
                     Duration = elapsed,
@@ -296,7 +302,7 @@ namespace Sumo.Retry
 
             if (elapsed >= options.Timeout)
             {
-                return new ExceededMaxWaitTimeException($"Exceeded maximum wait time: {options.Timeout} seconds.. See inner exception for details.", exception)
+                return new ExceededMaxWaitTimeException($"Exceeded maximum wait time: {options.Timeout} seconds. See Exceptions property for details.")
                 {
                     Attempts = currentAttempt,
                     Duration = elapsed,

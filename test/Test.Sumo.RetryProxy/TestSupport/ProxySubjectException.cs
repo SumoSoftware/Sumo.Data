@@ -2,17 +2,17 @@
 
 namespace Sumo.Retry
 {
-    internal class ProxySubjectException : Exception
+    internal class ProxySubjectTestException : Exception
     {
-        public ProxySubjectException()
+        public ProxySubjectTestException()
         {
         }
 
-        public ProxySubjectException(string message) : base(message)
+        public ProxySubjectTestException(string message) : base(message)
         {
         }
 
-        public ProxySubjectException(string message, Exception innerException) : base(message, innerException)
+        public ProxySubjectTestException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

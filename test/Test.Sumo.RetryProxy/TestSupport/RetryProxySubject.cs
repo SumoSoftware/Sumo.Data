@@ -24,14 +24,14 @@ namespace Sumo.Retry
 
         public string Fail()
         {
-            throw new ProxySubjectException("fail");
+            throw new ProxySubjectTestException("fail");
         }
 
         public async Task<string> FailAsync()
         {
             return await Task.Run(() =>
             {
-                throw new ProxySubjectException("fail");
+                throw new ProxySubjectTestException("fail");
 #pragma warning disable CS0162 // Unreachable code detected
                 return "fail";
 #pragma warning restore CS0162 // Unreachable code detected
