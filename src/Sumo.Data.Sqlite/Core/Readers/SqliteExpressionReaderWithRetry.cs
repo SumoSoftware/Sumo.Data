@@ -14,14 +14,14 @@ namespace Sumo.Data.Sqlite
     {
         private readonly IExpressionReader _proxy;
 
-        public SqliteExpressionReaderWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
+        public SqliteExpressionReaderWithRetry(DbConnection dbConnection, SqliteTransientRetryPolicy retryPolicy)
         {
             var instance = new ExpressionReader(dbConnection, new SqliteParameterFactory(), new SqliteDataAdapterFactory());
-            _proxy = RetryProxy.Create<IExpressionReader>(instance, retryOptions, new SqliteTransientErrorTester());
+            _proxy = RetryProxy.Create<IExpressionReader>(instance, retryPolicy);
         }
 
         public SqliteExpressionReaderWithRetry(DbConnection dbConnection, int maxAttempts, TimeSpan timeout) :
-            this(dbConnection, new RetryOptions(maxAttempts, timeout))
+            this(dbConnection, new SqliteTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public DataSet Read(SqlExpression query, DbTransaction dbTransaction = null)

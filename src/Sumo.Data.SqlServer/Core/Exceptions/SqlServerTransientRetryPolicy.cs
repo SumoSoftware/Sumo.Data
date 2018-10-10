@@ -5,8 +5,16 @@ using System.Data.SqlClient;
 
 namespace Sumo.Data.SqlServer
 {
-    public class SqlServerTransientErrorTester : IRetryExceptionTester
+    public class SqlServerTransientRetryPolicy : CustomRetryPolicy
     {
+        public SqlServerTransientRetryPolicy(int maxAttempts, TimeSpan timeout, TimeSpan? initialInterval = null) : base(maxAttempts, timeout, initialInterval)
+        {
+        }
+
+        public SqlServerTransientRetryPolicy(RetryPolicy retryPolicy) : base(retryPolicy)
+        {
+        }
+
         // 20 The instance of SQL Server does Not support encryption.
         // 64 An error occurred during login. 
         // 233 Connection initialization error. 
@@ -19,9 +27,10 @@ namespace Sumo.Data.SqlServer
         // 40613 The database Is currently unavailable.
         private static readonly HashSet<int> _transientErrors = new HashSet<int>(new int[] { 20, 64, 121, 233, 10053, 10054, 10060, 10060, 40143, 40197, 40501, 40613 });
 
-        public bool CanRetry(Exception exception)
+        public override bool IsRetryAllowed(Exception exception)
         {
-            if (exception == null) throw new ArgumentNullException(nameof(exception));
+            if (exception == null)
+                throw new ArgumentNullException(nameof(exception));
 
             return (exception is SqlException) && _transientErrors.Contains(((SqlException)exception).Number);
         }

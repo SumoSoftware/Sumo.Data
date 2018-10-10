@@ -16,14 +16,14 @@ namespace Sumo.Data.Orm.Sqlite
             SqlStatementBuilder = new SqliteStatementBuilder(this);
         }
 
-        public SqliteOrmDataComponentFactory(RetryOptions retryOptions) : base(retryOptions)
+        public SqliteOrmDataComponentFactory(SqliteTransientRetryPolicy retryPolicy) : base(retryPolicy)
         {
             SchemaParameterNames = new SqliteSchemaParameterNames();
             ScriptBuilder = new SqliteScriptBuilder();
             SqlStatementBuilder = new SqliteStatementBuilder(this);
         }
 
-        public SqliteOrmDataComponentFactory(RetryOptions retryOptions, string connectionString) : base(retryOptions, connectionString)
+        public SqliteOrmDataComponentFactory(SqliteTransientRetryPolicy retryPolicy, string connectionString) : base(retryPolicy, connectionString)
         {
             SchemaParameterNames = new SqliteSchemaParameterNames();
             ScriptBuilder = new SqliteScriptBuilder();

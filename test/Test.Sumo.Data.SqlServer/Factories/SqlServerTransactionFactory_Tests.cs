@@ -41,10 +41,10 @@ namespace Sumo.Data.SqlServer
         [TestMethod]
         public void BeginTransaction_WithRetry()
         {
-            var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
+            var retryPolicy = new SqlServerTransientRetryPolicy(10, TimeSpan.FromSeconds(60));
 
-            ITransactionFactory transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
-            IConnectionFactory connectionFactory = new SqlServerConnectionFactoryWithRetry(retryOptions);
+            ITransactionFactory transactionFactory = new SqlServerTransactionFactoryWithRetry(retryPolicy);
+            IConnectionFactory connectionFactory = new SqlServerConnectionFactoryWithRetry(retryPolicy);
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var transaction = transactionFactory.BeginTransaction(connection))
             {
@@ -58,10 +58,10 @@ namespace Sumo.Data.SqlServer
         [TestMethod]
         public void BeginTransaction_WithIsolationLevel_WithRetry()
         {
-            var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
+            var retryPolicy = new SqlServerTransientRetryPolicy(10, TimeSpan.FromSeconds(60));
 
-            ITransactionFactory transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
-            IConnectionFactory connectionFactory = new SqlServerConnectionFactoryWithRetry(retryOptions);
+            ITransactionFactory transactionFactory = new SqlServerTransactionFactoryWithRetry(retryPolicy);
+            IConnectionFactory connectionFactory = new SqlServerConnectionFactoryWithRetry(retryPolicy);
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var transaction = transactionFactory.BeginTransaction(connection, IsolationLevel.Snapshot))
             {

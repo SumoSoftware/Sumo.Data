@@ -1,47 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sumo.Retry
 {
     public static class WithRetry
     {
-        private static RetryOptions _defaultRetryOptions = null;
-        public static void SetDefaultOptions(RetryOptions options)
+        private static RetryPolicy _defaultRetryPolicy = null;
+        public static void SetDefaultPolicy(RetryPolicy retryPolicy)
         {
-            _defaultRetryOptions = options;
+            _defaultRetryPolicy = retryPolicy;
         }
 
         #region void Invoke(Action action)
-        public static void Invoke(Action action)
+        public static Task InvokeAsync(Action action)
         {
-            Invoke(_defaultRetryOptions, action);
+            return InvokeAsync(_defaultRetryPolicy, action);
         }
 
-        public static void Invoke(RetryOptions options, Action action, IRetryExceptionTester retryExceptionTester = null, IEnumerable<Type> exceptionWhiteList = null, IEnumerable<Type> exceptionBlackList = null)
+        public static async Task InvokeAsync(RetryPolicy retryPolicy, Action action)
         {
             if (action == null)
             {
                 throw new ArgumentNullException(nameof(action));
             }
-
-            if (options == null)
+            if (retryPolicy == null)
             {
-                throw new ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(retryPolicy));
             }
 
-            List<Exception> exceptions = null;
+            var session = new RetrySession();
+            session.Begin();
 
-            var waitTime = options.InitialInterval;
-            var currentAttempt = 1;
             Exception exception = null;
-
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
 
             var complete = false;
             while (!complete)
@@ -51,28 +42,24 @@ namespace Sumo.Retry
                     action();
                     complete = true;
                 }
+                //todo: test if the three catch methods are required to correctly resolve the exception.
                 catch (TargetInvocationException ex)
                 {
-                    exception = ex.InnerException;
+                    exception = ex.GetPrimaryException();
                 }
                 catch (AggregateException ex)
                 {
-                    exception = ex.GetBaseException();
+                    exception = ex.GetPrimaryException();
                 }
                 catch (Exception ex)
                 {
-                    exception = ex;
+                    exception = ex.GetPrimaryException();
                 }
 
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    if (exceptions == null)
-                    {
-                        exceptions = new List<Exception>();
-                    }
-
-                    var retryException = TestException(options, retryExceptionTester, exceptionWhiteList, exceptionBlackList, exception, currentAttempt++, stopwatch.Elapsed, exceptions);
+                    var retryException = retryPolicy.Check(session, exception);
                     if (retryException != null)
                     {
                         throw retryException;
@@ -83,48 +70,34 @@ namespace Sumo.Retry
                 exception = null;
 
                 // wait a bit before trying again
-                Thread.Sleep(waitTime);
-
-                // ratcheting up - allows wait times up to ~10 seconds per try
-                waitTime = TimeSpan.FromMilliseconds(waitTime.TotalMilliseconds <= 110 ? waitTime.TotalMilliseconds * 1.25 : waitTime.TotalMilliseconds);
-            }
+                await session.SleepAsync();
+            } // while (!complete)
         }
         #endregion
 
         #region T Invoke<T>(Func<T> function)
-        public static T Invoke<T>(Func<T> function)
+        public static Task<T> InvokeAsync<T>(Func<T> function)
         {
-            return Invoke(_defaultRetryOptions, function);
+            return InvokeAsync(_defaultRetryPolicy, function);
         }
 
-        public static T Invoke<T>(RetryOptions options, Func<T> function, IRetryExceptionTester retryExceptionTester = null, IEnumerable<Type> exceptionWhiteList = null, IEnumerable<Type> exceptionBlackList = null)
+        public static async Task<T> InvokeAsync<T>(RetryPolicy retryPolicy, Func<T> function)
         {
             if (function == null)
             {
                 throw new ArgumentNullException(nameof(function));
             }
-
-            if (options == null)
+            if (retryPolicy == null)
             {
-                throw new ArgumentNullException(nameof(options));
-            }
-
-            var isAwaitable = function.Method.ReturnType.GetMethod(nameof(Task.GetAwaiter)) != null;
-            if (isAwaitable)
-            {
-                throw new NotSupportedException("Use InvokeAsync<T> instead.");
+                throw new ArgumentNullException(nameof(retryPolicy));
             }
 
             var result = default(T);
 
-            List<Exception> exceptions = null;
+            var session = new RetrySession();
+            session.Begin();
 
-            var waitTime = options.InitialInterval;
-            var currentAttempt = 1;
             Exception exception = null;
-
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
 
             var complete = false;
             while (!complete)
@@ -134,28 +107,24 @@ namespace Sumo.Retry
                     result = function();
                     complete = true;
                 }
+                //todo: test if the three catch methods are required to correctly resolve the exception.
                 catch (TargetInvocationException ex)
                 {
-                    exception = ex.InnerException;
+                    exception = ex.GetPrimaryException();
                 }
                 catch (AggregateException ex)
                 {
-                    exception = ex.GetBaseException();
+                    exception = ex.GetPrimaryException();
                 }
                 catch (Exception ex)
                 {
-                    exception = ex;
+                    exception = ex.GetPrimaryException();
                 }
 
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    if (exceptions == null)
-                    {
-                        exceptions = new List<Exception>();
-                    }
-
-                    var retryException = TestException(options, retryExceptionTester, exceptionWhiteList, exceptionBlackList, exception, currentAttempt++, stopwatch.Elapsed, exceptions);
+                    var retryException = retryPolicy.Check(session, exception);
                     if (retryException != null)
                     {
                         throw retryException;
@@ -166,11 +135,8 @@ namespace Sumo.Retry
                 exception = null;
 
                 // wait a bit before trying again
-                Thread.Sleep(waitTime);
-
-                // ratcheting up - allows wait times up to ~10 seconds per try
-                waitTime = TimeSpan.FromMilliseconds(waitTime.TotalMilliseconds <= 110 ? waitTime.TotalMilliseconds * 1.25 : waitTime.TotalMilliseconds);
-            }
+                await session.SleepAsync();
+            } // while (!complete)
             return result;
         }
         #endregion
@@ -178,31 +144,26 @@ namespace Sumo.Retry
         #region Task<T> InvokeAsync<T>(Func<Task<T>> function)
         public static Task<T> InvokeAsync<T>(Func<Task<T>> function)
         {
-            return InvokeAsync(_defaultRetryOptions, function);
+            return InvokeAsync(_defaultRetryPolicy, function);
         }
 
-        public static async Task<T> InvokeAsync<T>(RetryOptions options, Func<Task<T>> function, IRetryExceptionTester retryExceptionTester = null, IEnumerable<Type> exceptionWhiteList = null, IEnumerable<Type> exceptionBlackList = null)
+        public static async Task<T> InvokeAsync<T>(RetryPolicy retryPolicy, Func<Task<T>> function)
         {
             if (function == null)
             {
                 throw new ArgumentNullException(nameof(function));
             }
-
-            if (options == null)
+            if (retryPolicy == null)
             {
-                throw new ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(retryPolicy));
             }
 
             var result = default(T);
 
-            List<Exception> exceptions = null;
+            var session = new RetrySession();
+            session.Begin();
 
-            var waitTime = options.InitialInterval;
-            var currentAttempt = 1;
             Exception exception = null;
-
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
 
             var complete = false;
             while (!complete)
@@ -212,28 +173,24 @@ namespace Sumo.Retry
                     result = await function();
                     complete = true;
                 }
+                //todo: test if the three catch methods are required to correctly resolve the exception.
                 catch (TargetInvocationException ex)
                 {
-                    exception = ex.InnerException;
+                    exception = ex.GetPrimaryException();
                 }
                 catch (AggregateException ex)
                 {
-                    exception = ex.GetBaseException();
+                    exception = ex.GetPrimaryException();
                 }
                 catch (Exception ex)
                 {
-                    exception = ex;
+                    exception = ex.GetPrimaryException();
                 }
 
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    if (exceptions == null)
-                    {
-                        exceptions = new List<Exception>();
-                    }
-
-                    var retryException = TestException(options, retryExceptionTester, exceptionWhiteList, exceptionBlackList, exception, currentAttempt++, stopwatch.Elapsed, exceptions);
+                    var retryException = retryPolicy.Check(session, exception);
                     if (retryException != null)
                     {
                         throw retryException;
@@ -244,74 +201,11 @@ namespace Sumo.Retry
                 exception = null;
 
                 // wait a bit before trying again
-                Thread.Sleep(waitTime);
-
-                // ratcheting up - allows wait times up to ~10 seconds per try
-                waitTime = TimeSpan.FromMilliseconds(waitTime.TotalMilliseconds <= 110 ? waitTime.TotalMilliseconds * 1.25 : waitTime.TotalMilliseconds);
-            }
+                await session.SleepAsync();
+            } // while (!complete)
             return result;
         }
         #endregion
-
-        internal static RetryException TestException(RetryOptions options, IRetryExceptionTester retryExceptionTester, IEnumerable<Type> exceptionWhiteList, IEnumerable<Type> exceptionBlackList, Exception exception, int currentAttempt, TimeSpan elapsed, List<Exception> exceptions)
-        {
-            exceptions.Add(exception);
-
-            //simplified WithRetry class, added better async support, added wait interval to RetryOptions, added support for exception white lists and black lists
-            var type = exception.GetType();
-
-            if (exceptionWhiteList != null && !exceptionWhiteList.Contains(type))
-            {
-                return new RetryNotAllowedException(RetryNotAllowedReason.WhiteList, "Exception does not qualify for retry. See inner exception for details.", exception)
-                {
-                    Attempts = currentAttempt,
-                    Duration = elapsed,
-                    Exceptions = exceptions
-                };
-            }
-
-            if (exceptionBlackList != null && exceptionBlackList.Contains(type))
-            {
-                return new RetryNotAllowedException(RetryNotAllowedReason.BlackList, "Exception does not qualify for retry. See inner exception for details.", exception)
-                {
-                    Attempts = currentAttempt,
-                    Duration = elapsed,
-                    Exceptions = exceptions
-                };
-            }
-
-            if (retryExceptionTester != null && exception != null && !retryExceptionTester.CanRetry(exception))
-            {
-                return new RetryNotAllowedException(RetryNotAllowedReason.RetryTester, "Exception does not qualify for retry. See inner exception for details.", exception)
-                {
-                    Attempts = currentAttempt,
-                    Duration = elapsed,
-                    Exceptions = exceptions
-                };
-            }
-
-            if (currentAttempt >= options.MaxAttempts)
-            {
-                return new ExceededMaxAttemptsException($"Exceeded maximum attempts: {options.MaxAttempts}. See Exceptions property for details.")
-                {
-                    Attempts = currentAttempt,
-                    Duration = elapsed,
-                    Exceptions = exceptions
-                };
-            }
-
-            if (elapsed >= options.Timeout)
-            {
-                return new ExceededMaxWaitTimeException($"Exceeded maximum wait time: {options.Timeout} seconds. See Exceptions property for details.")
-                {
-                    Attempts = currentAttempt,
-                    Duration = elapsed,
-                    Exceptions = exceptions
-                };
-            }
-
-            return null;
-        }
     }
 }
 

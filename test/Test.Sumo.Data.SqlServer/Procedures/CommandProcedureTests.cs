@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sumo.Data;
 using Sumo.Data.SqlServer;
-using Sumo.Retry;
 using System;
 using System.Threading.Tasks;
 
@@ -49,7 +48,7 @@ namespace Test.Sumo.Data.SqlServer.Procedures
         {
             var procedureContext = new InputOutputProcedureContext();
 
-            var dataComponentFactory = new SqlServerDataComponentFactory(new RetryOptions(60, TimeSpan.FromSeconds(30)), AppState.ConnectionString);
+            var dataComponentFactory = new SqlServerDataComponentFactory(new SqlServerTransientRetryPolicy(60, TimeSpan.FromSeconds(30)), AppState.ConnectionString);
             using (var connection = dataComponentFactory.Open())
             using (var procedure = new CommandProcedure(connection, dataComponentFactory))
             {

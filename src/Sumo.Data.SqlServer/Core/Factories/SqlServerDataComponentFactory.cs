@@ -18,16 +18,16 @@ namespace Sumo.Data.SqlServer
             _parameterFactory = new SqlServerParameterFactory();
         }
 
-        public SqlServerDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
+        public SqlServerDataComponentFactory(SqlServerTransientRetryPolicy retryPolicy) : this(retryPolicy, string.Empty) { }
 
-        public SqlServerDataComponentFactory(RetryOptions retryOptions, string connectionString) : base()
+        public SqlServerDataComponentFactory(SqlServerTransientRetryPolicy retryPolicy, string connectionString) : base()
         {
             _connectionFactory =
                 string.IsNullOrEmpty(connectionString) ?
-                new SqlServerConnectionFactoryWithRetry(retryOptions) :
-                new SqlServerConnectionFactoryWithRetry(retryOptions, connectionString);
+                new SqlServerConnectionFactoryWithRetry(retryPolicy) :
+                new SqlServerConnectionFactoryWithRetry(retryPolicy, connectionString);
 
-            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
+            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryPolicy);
             _dataAdapterFactory = new SqlServerDataAdapterFactory();
             _parameterFactory = new SqlServerParameterFactory();
         }
@@ -44,14 +44,14 @@ namespace Sumo.Data.SqlServer
             _parameterFactory = new SqlServerParameterFactory();
         }
 
-        public SqlServerDataComponentFactory(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory) : base()
+        public SqlServerDataComponentFactory(SqlServerTransientRetryPolicy retryPolicy, IConnectionStringFactory connectionStringFactory) : base()
         {
             _connectionFactory =
                 connectionStringFactory == null ?
-                new SqlServerConnectionFactoryWithRetry(retryOptions) :
-                new SqlServerConnectionFactoryWithRetry(retryOptions, connectionStringFactory);
+                new SqlServerConnectionFactoryWithRetry(retryPolicy) :
+                new SqlServerConnectionFactoryWithRetry(retryPolicy, connectionStringFactory);
 
-            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryOptions);
+            _transactionFactory = new SqlServerTransactionFactoryWithRetry(retryPolicy);
             _dataAdapterFactory = new SqlServerDataAdapterFactory();
             _parameterFactory = new SqlServerParameterFactory();
         }

@@ -9,20 +9,20 @@ namespace Sumo.Data.SqlServer
     {
         private readonly ICommandProcedure _proxy;
 
-        public SqlServerCommandProcedureWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
+        public SqlServerCommandProcedureWithRetry(DbConnection dbConnection, SqlServerTransientRetryPolicy retryPolicy)
         {
             var instance = new CommandProcedure(dbConnection, new SqlServerParameterFactory());
-            _proxy = RetryProxy.Create<ICommandProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = RetryProxy.Create<ICommandProcedure>(instance, retryPolicy);
         }
 
         public SqlServerCommandProcedureWithRetry(DbConnection dbConnection, int maxAttempts, TimeSpan timeout) :
-            this(dbConnection, new RetryOptions(maxAttempts, timeout))
+            this(dbConnection, new SqlServerTransientRetryPolicy(maxAttempts, timeout))
         { }
 
-        public SqlServerCommandProcedureWithRetry(IDataComponentFactory factory, RetryOptions retryOptions)
+        public SqlServerCommandProcedureWithRetry(IDataComponentFactory factory, SqlServerTransientRetryPolicy retryPolicy)
         {
             var instance = new CommandProcedure(factory);
-            _proxy = RetryProxy.Create<ICommandProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = RetryProxy.Create<ICommandProcedure>(instance, retryPolicy);
         }
 
         public long Execute<P>(P procedureParams, DbTransaction dbTransaction = null) where P : class

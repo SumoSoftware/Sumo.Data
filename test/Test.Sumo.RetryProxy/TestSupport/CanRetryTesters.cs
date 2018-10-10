@@ -2,20 +2,44 @@
 
 namespace Sumo.Retry
 {
-    public class CanRetryProxySubjectException : IRetryExceptionTester
+    public class CanRetryProxySubjectPolicy : CustomRetryPolicy
     {
-        public bool CanRetry(Exception exception)
+        public CanRetryProxySubjectPolicy(RetryPolicy retryPolicy) : base(retryPolicy)
         {
-            if (exception == null) throw new ArgumentNullException(nameof(exception));
+        }
+
+        public CanRetryProxySubjectPolicy(int maxAttempts, TimeSpan timeout, TimeSpan? initialInterval = null) : base(maxAttempts, timeout, initialInterval)
+        {
+        }
+
+        public override bool IsRetryAllowed(Exception exception)
+        {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             return exception is ProxySubjectTestException;
         }
     }
 
-    public class CanNotRetryProxySubjectException : IRetryExceptionTester
+    public class CanNotRetryProxySubjectPolicy : CustomRetryPolicy
     {
-        public bool CanRetry(Exception exception)
+        public CanNotRetryProxySubjectPolicy(RetryPolicy retryPolicy) : base(retryPolicy)
         {
-            if (exception == null) throw new ArgumentNullException(nameof(exception));
+        }
+
+        public CanNotRetryProxySubjectPolicy(int maxAttempts, TimeSpan timeout, TimeSpan? initialInterval = null) : base(maxAttempts, timeout, initialInterval)
+        {
+        }
+
+        public override bool IsRetryAllowed(Exception exception)
+        {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
             return !(exception is ProxySubjectTestException);
         }
     }

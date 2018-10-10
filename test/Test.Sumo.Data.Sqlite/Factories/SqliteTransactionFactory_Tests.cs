@@ -61,10 +61,10 @@ namespace Sumo.Data.Sqlite
         [TestMethod]
         public void BeginTransaction_WithRetry()
         {
-            var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
+            var retryPolicy = new SqliteTransientRetryPolicy(10, TimeSpan.FromSeconds(60));
 
-            ITransactionFactory transactionFactory = new SqliteTransactionFactoryWithRetry(retryOptions);
-            IConnectionFactory connectionFactory = new SqliteConnectionFactoryWithRetry(retryOptions);
+            ITransactionFactory transactionFactory = new SqliteTransactionFactoryWithRetry(retryPolicy);
+            IConnectionFactory connectionFactory = new SqliteConnectionFactoryWithRetry(retryPolicy);
             using (var connection = connectionFactory.Open(_connectionString))
             using (var transaction = transactionFactory.BeginTransaction(connection))
             {
@@ -80,10 +80,10 @@ namespace Sumo.Data.Sqlite
         public void BeginTransaction_WithIsolationLevel_WithRetry_Fail()
         {
             // sqlite only supports IsolationLevel.Serializable
-            var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
+            var retryPolicy = new SqliteTransientRetryPolicy(10, TimeSpan.FromSeconds(60));
 
-            ITransactionFactory transactionFactory = new SqliteTransactionFactoryWithRetry(retryOptions);
-            IConnectionFactory connectionFactory = new SqliteConnectionFactoryWithRetry(retryOptions);
+            ITransactionFactory transactionFactory = new SqliteTransactionFactoryWithRetry(retryPolicy);
+            IConnectionFactory connectionFactory = new SqliteConnectionFactoryWithRetry(retryPolicy);
             using (var connection = connectionFactory.Open(_connectionString))
             using (var transaction = transactionFactory.BeginTransaction(connection, IsolationLevel.Snapshot))
             {

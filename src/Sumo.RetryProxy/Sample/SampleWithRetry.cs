@@ -7,9 +7,9 @@ namespace Sumo.Retry.Sample
     {
         private readonly ISample _sampleProxy;
 
-        public SampleWithRetry(RetryOptions retryOptions)
+        public SampleWithRetry(SampleCustomRetryPolicy retryPolicy)
         {
-            _sampleProxy = RetryProxy.Create<ISample, Sample>(retryOptions, new SampleRetryTester());
+            _sampleProxy = RetryProxy.Create<ISample, Sample>(retryPolicy);
         }
 
         public string Echo(string value)

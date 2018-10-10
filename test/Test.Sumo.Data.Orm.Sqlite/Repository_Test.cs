@@ -1,11 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Retry;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Sumo.Data.Schema;
 using Sumo.Data.Orm.Sqlite;
+using Sumo.Data.Schema;
+using Sumo.Data.Sqlite;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Sumo.Data.Orm
 {
@@ -19,8 +19,8 @@ namespace Sumo.Data.Orm
 
         private IOrmDataComponentFactory GetFactorySet()
         {
-            var retryOptions = new RetryOptions(10, TimeSpan.FromSeconds(60));
-            return new SqliteOrmDataComponentFactory(retryOptions);
+            var retryPolicy = new SqliteTransientRetryPolicy(10, TimeSpan.FromSeconds(60));
+            return new SqliteOrmDataComponentFactory(retryPolicy);
         }
 
         public class Person

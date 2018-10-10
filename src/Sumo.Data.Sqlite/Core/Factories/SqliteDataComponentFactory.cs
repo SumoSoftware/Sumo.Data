@@ -18,16 +18,16 @@ namespace Sumo.Data.Sqlite
             _parameterFactory = new SqliteParameterFactory();
         }
 
-        public SqliteDataComponentFactory(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
+        public SqliteDataComponentFactory(SqliteTransientRetryPolicy retryPolicy) : this(retryPolicy, string.Empty) { }
 
-        public SqliteDataComponentFactory(RetryOptions retryOptions, string connectionString) : base()
+        public SqliteDataComponentFactory(SqliteTransientRetryPolicy retryPolicy, string connectionString) : base()
         {
             _connectionFactory =
                 string.IsNullOrEmpty(connectionString) ?
-                new SqliteConnectionFactoryWithRetry(retryOptions) :
-                new SqliteConnectionFactoryWithRetry(retryOptions, connectionString);
+                new SqliteConnectionFactoryWithRetry(retryPolicy) :
+                new SqliteConnectionFactoryWithRetry(retryPolicy, connectionString);
 
-            _transactionFactory = new SqliteTransactionFactoryWithRetry(retryOptions);
+            _transactionFactory = new SqliteTransactionFactoryWithRetry(retryPolicy);
             _dataAdapterFactory = new SqliteDataAdapterFactory();
             _parameterFactory = new SqliteParameterFactory();
         }
@@ -44,14 +44,14 @@ namespace Sumo.Data.Sqlite
             _parameterFactory = new SqliteParameterFactory();
         }
 
-        public SqliteDataComponentFactory(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory) : base()
+        public SqliteDataComponentFactory(SqliteTransientRetryPolicy retryPolicy, IConnectionStringFactory connectionStringFactory) : base()
         {
             _connectionFactory =
                 connectionStringFactory == null ?
-                new SqliteConnectionFactoryWithRetry(retryOptions) :
-                new SqliteConnectionFactoryWithRetry(retryOptions, connectionStringFactory);
+                new SqliteConnectionFactoryWithRetry(retryPolicy) :
+                new SqliteConnectionFactoryWithRetry(retryPolicy, connectionStringFactory);
 
-            _transactionFactory = new SqliteTransactionFactoryWithRetry(retryOptions);
+            _transactionFactory = new SqliteTransactionFactoryWithRetry(retryPolicy);
             _dataAdapterFactory = new SqliteDataAdapterFactory();
             _parameterFactory = new SqliteParameterFactory();
         }

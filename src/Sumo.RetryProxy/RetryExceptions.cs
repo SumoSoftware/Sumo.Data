@@ -1,80 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Sumo.Retry
 {
-    public class RetryException : Exception, IRetryProxyException
+    public class RetryException : Exception
     {
-        public RetryException()
+        public RetryException(RetrySession retrySession) : base()
+        {
+            RetrySession = retrySession ?? throw new ArgumentNullException(nameof(retrySession));
+        }
+
+        public RetryException(RetrySession retrySession, string message) : base(message)
+        {
+            RetrySession = retrySession ?? throw new ArgumentNullException(nameof(retrySession));
+        }
+
+        public RetryException(RetrySession retrySession, string message, Exception innerException) : base(message, innerException)
+        {
+            RetrySession = retrySession ?? throw new ArgumentNullException(nameof(retrySession));
+        }
+
+        public RetryException(RetrySession retrySession, Exception innerException) : this(retrySession, string.Empty, innerException)
         {
         }
 
-        public RetryException(string message) : base(message)
-        {
-        }
-
-        public RetryException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        public int Attempts { get; internal set; }
-        public TimeSpan Duration { get; internal set; }
-        public List<Exception> Exceptions { get; internal set; }
+        public RetrySession RetrySession { get; }
     }
 
-    public enum RetryNotAllowedReason
+    public class RetryNotAllowedException : RetryException
     {
-        WhiteList,
-        BlackList,
-        RetryTester
+        public RetryNotAllowedException(RetrySession retrySession, RetryPolicy retryPolicy) : base(retrySession)
+        {
+            RetryPolicy = retryPolicy ?? throw new ArgumentNullException(nameof(retryPolicy));
+        }
+
+        public RetryNotAllowedException(RetrySession retrySession, RetryPolicy retryPolicy, Exception innerException) : base(retrySession, innerException)
+        {
+            RetryPolicy = retryPolicy ?? throw new ArgumentNullException(nameof(retryPolicy));
+        }
+
+        public RetryPolicy RetryPolicy { get; }
     }
 
-    public sealed class RetryNotAllowedException : RetryException
+    public sealed class ExceededMaxAttemptsException : RetryNotAllowedException
     {
-        public RetryNotAllowedException(RetryNotAllowedReason reason) : base()
-        {
-            Reason = reason;
-        }
-
-        public RetryNotAllowedException(RetryNotAllowedReason reason, string message) : base(message)
-        {
-            Reason = reason;
-        }
-
-        public RetryNotAllowedException(RetryNotAllowedReason reason, string message, Exception innerException) : base(message, innerException)
-        {
-            Reason = reason;
-        }
-
-        public RetryNotAllowedReason Reason { get; }
-    }
-
-    public sealed class ExceededMaxAttemptsException : RetryException
-    {
-        public ExceededMaxAttemptsException() :base()
+        public ExceededMaxAttemptsException(RetrySession retrySession, RetryPolicy retryPolicy) : base(retrySession, retryPolicy)
         {
         }
 
-        public ExceededMaxAttemptsException(string message) : base(message)
-        {
-        }
-
-        public ExceededMaxAttemptsException(string message, Exception innerException) : base(message, innerException)
+        public ExceededMaxAttemptsException(RetrySession retrySession, RetryPolicy retryPolicy, Exception innerException) : base(retrySession, retryPolicy, innerException)
         {
         }
     }
 
-    public sealed class ExceededMaxWaitTimeException : RetryException
+    public sealed class ExceededMaxWaitTimeException : RetryNotAllowedException
     {
-        public ExceededMaxWaitTimeException()
+        public ExceededMaxWaitTimeException(RetrySession retrySession, RetryPolicy retryPolicy) : base(retrySession, retryPolicy)
         {
         }
 
-        public ExceededMaxWaitTimeException(string message) : base(message)
-        {
-        }
-
-        public ExceededMaxWaitTimeException(string message, Exception innerException) : base(message, innerException)
+        public ExceededMaxWaitTimeException(RetrySession retrySession, RetryPolicy retryPolicy, Exception innerException) : base(retrySession, retryPolicy, innerException)
         {
         }
     }

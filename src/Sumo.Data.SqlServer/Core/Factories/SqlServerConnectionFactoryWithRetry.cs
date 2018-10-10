@@ -9,38 +9,36 @@ namespace Sumo.Data.SqlServer
     {
         private readonly IConnectionFactory _proxy;
 
-        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
+        public SqlServerConnectionFactoryWithRetry(SqlServerTransientRetryPolicy retryPolicy) : this(retryPolicy, string.Empty) { }
 
-        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions, string connectionString)
+        public SqlServerConnectionFactoryWithRetry(SqlServerTransientRetryPolicy retryPolicy, string connectionString)
         {
-            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+            if (retryPolicy == null) throw new ArgumentNullException(nameof(retryPolicy));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
                 string.IsNullOrEmpty(connectionString) ? new SqlServerConnectionFactory() : new SqlServerConnectionFactory(connectionString),
-                retryOptions,
-                new SqlServerTransientErrorTester());
+                retryPolicy);
         }
 
-        public SqlServerConnectionFactoryWithRetry(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory)
+        public SqlServerConnectionFactoryWithRetry(SqlServerTransientRetryPolicy retryPolicy, IConnectionStringFactory connectionStringFactory)
         {
-            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+            if (retryPolicy == null) throw new ArgumentNullException(nameof(retryPolicy));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
                 connectionStringFactory == null ? new SqlServerConnectionFactory() : new SqlServerConnectionFactory(connectionStringFactory),
-                retryOptions,
-                new SqlServerTransientErrorTester());
+                retryPolicy);
         }
 
         public SqlServerConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout) :
-            this(new RetryOptions(maxAttempts, timeout))
+            this(new SqlServerTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public SqlServerConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, string connectionString) :
-            this(new RetryOptions(maxAttempts, timeout), connectionString)
+            this(new SqlServerTransientRetryPolicy(maxAttempts, timeout), connectionString)
         { }
 
         public SqlServerConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, IConnectionStringFactory connectionStringFactory) :
-            this(new RetryOptions(maxAttempts, timeout), connectionStringFactory)
+            this(new SqlServerTransientRetryPolicy(maxAttempts, timeout), connectionStringFactory)
         { }
 
         public DbConnection Open(string connectionString)

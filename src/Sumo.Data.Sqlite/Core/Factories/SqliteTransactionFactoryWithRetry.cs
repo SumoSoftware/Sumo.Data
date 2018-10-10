@@ -9,18 +9,17 @@ namespace Sumo.Data.Sqlite
     {
         private readonly ITransactionFactory _proxy;
         
-        public SqliteTransactionFactoryWithRetry(RetryOptions retryOptions)
+        public SqliteTransactionFactoryWithRetry(SqliteTransientRetryPolicy retryPolicy)
         {
-            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+            if (retryPolicy == null) throw new ArgumentNullException(nameof(retryPolicy));
 
             _proxy = RetryProxy.Create<ITransactionFactory>(
                 new TransactionFactory(),
-                retryOptions,
-                new SqliteTransientErrorTester());
+                retryPolicy);
         }
 
         public SqliteTransactionFactoryWithRetry(int maxAttempts, TimeSpan timeout) :
-            this(new RetryOptions(maxAttempts, timeout))
+            this(new SqliteTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public DbTransaction BeginTransaction(DbConnection dbConnection)

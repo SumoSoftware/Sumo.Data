@@ -8,12 +8,12 @@ namespace Sumo.Retry.Sample
         static ErrorCodesCanRetryMap()
         {
             var errorCodeType = typeof(ErrorCodes);
-            var retryAttributeType = typeof(SampleRetryAllowedAttribute);
+            var retryAllowedAttributeType = typeof(SampleRetryAllowedAttribute);
 
             foreach(var memberInfo in errorCodeType.GetMembers())
             {
                 _canRetryMap[(ErrorCodes)Enum.Parse(errorCodeType, memberInfo.Name)] = 
-                    memberInfo.GetCustomAttributes(retryAttributeType, false).Length != 0;
+                    memberInfo.GetCustomAttributes(retryAllowedAttributeType, false).Length != 0;
             }
         }
 
@@ -25,9 +25,13 @@ namespace Sumo.Retry.Sample
         }
     }
 
-    internal class SampleRetryTester : IRetryExceptionTester
+    internal class SampleCustomRetryPolicy : CustomRetryPolicy
     {
-        public bool CanRetry(Exception exception)
+        public SampleCustomRetryPolicy(int maxAttempts, TimeSpan timeout, TimeSpan? initialInterval = null) : base(maxAttempts, timeout, initialInterval)
+        {
+        }
+
+        public override bool IsRetryAllowed(Exception exception)
         {
             return exception is SampleException && ErrorCodesCanRetryMap.CanRetry(((SampleException)exception).ErrorCode);
         }

@@ -9,18 +9,17 @@ namespace Sumo.Data.SqlServer
     {
         private readonly ITransactionFactory _proxy;
 
-        public SqlServerTransactionFactoryWithRetry(RetryOptions retryOptions)
+        public SqlServerTransactionFactoryWithRetry(SqlServerTransientRetryPolicy retryPolicy)
         {
-            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+            if (retryPolicy == null) throw new ArgumentNullException(nameof(retryPolicy));
             
             _proxy = RetryProxy.Create<ITransactionFactory>(
                 new TransactionFactory(),
-                retryOptions,
-                new SqlServerTransientErrorTester());
+                retryPolicy);
         }
 
         public SqlServerTransactionFactoryWithRetry(int maxAttempts, TimeSpan timeout) :
-            this(new RetryOptions(maxAttempts, timeout))
+            this(new SqlServerTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public DbTransaction BeginTransaction(DbConnection dbConnection)

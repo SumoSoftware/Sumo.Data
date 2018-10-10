@@ -14,14 +14,14 @@ namespace Sumo.Data.SqlServer
     {
         private readonly IExpressionReader _proxy;
 
-        public SqlServerExpressionReaderWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
+        public SqlServerExpressionReaderWithRetry(DbConnection dbConnection, SqlServerTransientRetryPolicy retryPolicy)
         {
             var instance = new ExpressionReader(dbConnection, new SqlServerParameterFactory(), new SqlServerDataAdapterFactory());
-            _proxy = RetryProxy.Create<IExpressionReader>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = RetryProxy.Create<IExpressionReader>(instance, retryPolicy);
         }
 
         public SqlServerExpressionReaderWithRetry(DbConnection dbConnection, int maxAttempts, TimeSpan timeout) :
-            this(dbConnection, new RetryOptions(maxAttempts, timeout))
+            this(dbConnection, new SqlServerTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public DataSet Read(SqlExpression query, DbTransaction dbTransaction = null)

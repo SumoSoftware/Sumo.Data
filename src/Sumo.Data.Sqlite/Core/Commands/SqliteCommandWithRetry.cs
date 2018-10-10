@@ -10,14 +10,14 @@ namespace Sumo.Data.Sqlite
     {
         private readonly ICommand _proxy;
 
-        public SqliteCommandWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
+        public SqliteCommandWithRetry(DbConnection dbConnection, SqliteTransientRetryPolicy retryPolicy)
         {
             var instance = new Command(dbConnection, new SqliteParameterFactory());
-            _proxy = RetryProxy.Create<ICommand>(instance, retryOptions, new SqliteTransientErrorTester());
+            _proxy = RetryProxy.Create<ICommand>(instance, retryPolicy);
         }
 
         public SqliteCommandWithRetry(DbConnection dbConnection, int maxAttempts, TimeSpan timeout) :
-            this(dbConnection, new RetryOptions(maxAttempts, timeout))
+            this(dbConnection, new SqliteTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public void Dispose()

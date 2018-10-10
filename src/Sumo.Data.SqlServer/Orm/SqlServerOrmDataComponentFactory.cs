@@ -16,14 +16,14 @@ namespace Sumo.Data.Orm.SqlServer
             SqlStatementBuilder = new SqlServerSqlStatementBuilder(this);
         }
 
-        public SqlServerOrmDataComponentFactory(RetryOptions retryOptions) : base(retryOptions)
+        public SqlServerOrmDataComponentFactory(SqlServerTransientRetryPolicy retryPolicy) : base(retryPolicy)
         {
             SchemaParameterNames = new SqlServerSchemaParameterNames();
             ScriptBuilder = new SqlServerScriptBuilder();
             SqlStatementBuilder = new SqlServerSqlStatementBuilder(this);
         }
 
-        public SqlServerOrmDataComponentFactory(RetryOptions retryOptions, string connectionString) : base(retryOptions, connectionString)
+        public SqlServerOrmDataComponentFactory(SqlServerTransientRetryPolicy retryPolicy, string connectionString) : base(retryPolicy, connectionString)
         {
             SchemaParameterNames = new SqlServerSchemaParameterNames();
             ScriptBuilder = new SqlServerScriptBuilder();

@@ -9,20 +9,20 @@ namespace Sumo.Data.SqlServer
     {
         private readonly IReadProcedure _proxy;
 
-        public SqlServerReadProcedureWithRetry(DbConnection dbConnection, RetryOptions retryOptions)
+        public SqlServerReadProcedureWithRetry(DbConnection dbConnection, SqlServerTransientRetryPolicy retryPolicy)
         {
             var instance = new ReadProcedure(dbConnection, new SqlServerParameterFactory(), new SqlServerDataAdapterFactory());
-            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryPolicy);
         }
 
         public SqlServerReadProcedureWithRetry(DbConnection dbConnection, IDataAdapterFactory dataAdapterFactory, int maxAttempts, TimeSpan timeout) :
-            this(dbConnection, new RetryOptions(maxAttempts, timeout))
+            this(dbConnection, new SqlServerTransientRetryPolicy(maxAttempts, timeout))
         { }
 
-        public SqlServerReadProcedureWithRetry(IDataComponentFactory factory, RetryOptions retryOptions)
+        public SqlServerReadProcedureWithRetry(IDataComponentFactory factory, SqlServerTransientRetryPolicy retryPolicy)
         {
             var instance = new ReadProcedure(factory);
-            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryOptions, new SqlServerTransientErrorTester());
+            _proxy = RetryProxy.Create<IReadProcedure>(instance, retryPolicy);
         }
 
         public IProcedureReadResult Read<P>(P procedureParams, DbTransaction dbTransaction = null) where P : class

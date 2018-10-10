@@ -9,38 +9,36 @@ namespace Sumo.Data.Sqlite
     {
         private readonly IConnectionFactory _proxy;
 
-        public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions) : this(retryOptions, string.Empty) { }
+        public SqliteConnectionFactoryWithRetry(SqliteTransientRetryPolicy retryPolicy) : this(retryPolicy, string.Empty) { }
 
-        public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions, string connectionString) : base()
+        public SqliteConnectionFactoryWithRetry(SqliteTransientRetryPolicy retryPolicy, string connectionString) : base()
         {
-            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+            if (retryPolicy == null) throw new ArgumentNullException(nameof(retryPolicy));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
                 string.IsNullOrEmpty(connectionString) ? new SqliteConnectionFactory() : new SqliteConnectionFactory(connectionString),
-                retryOptions,
-                new SqliteTransientErrorTester());
+                retryPolicy);
         }
 
-        public SqliteConnectionFactoryWithRetry(RetryOptions retryOptions, IConnectionStringFactory connectionStringFactory)
+        public SqliteConnectionFactoryWithRetry(SqliteTransientRetryPolicy retryPolicy, IConnectionStringFactory connectionStringFactory)
         {
-            if (retryOptions == null) throw new ArgumentNullException(nameof(retryOptions));
+            if (retryPolicy == null) throw new ArgumentNullException(nameof(retryPolicy));
 
             _proxy = RetryProxy.Create<IConnectionFactory>(
                 connectionStringFactory == null ? new SqliteConnectionFactory() : new SqliteConnectionFactory(connectionStringFactory),
-                retryOptions,
-                new SqliteTransientErrorTester());
+                retryPolicy);
         }
 
         public SqliteConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout) :
-            this(new RetryOptions(maxAttempts, timeout))
+            this(new SqliteTransientRetryPolicy(maxAttempts, timeout))
         { }
 
         public SqliteConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, string connectionString) :
-            this(new RetryOptions(maxAttempts, timeout), connectionString)
+            this(new SqliteTransientRetryPolicy(maxAttempts, timeout), connectionString)
         { }
 
         public SqliteConnectionFactoryWithRetry(int maxAttempts, TimeSpan timeout, IConnectionStringFactory connectionStringFactory) :
-            this(new RetryOptions(maxAttempts, timeout), connectionStringFactory)
+            this(new SqliteTransientRetryPolicy(maxAttempts, timeout), connectionStringFactory)
         { }
 
         public DbConnection Open(string connectionString)
