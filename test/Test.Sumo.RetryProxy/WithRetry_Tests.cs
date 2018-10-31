@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Sumo.Retry;
 using System;
 using System.Threading.Tasks;
 
@@ -74,7 +73,7 @@ namespace Sumo.Retry.Tests
 
             var fr1 = await WithRetry.InvokeAsync(() => ac.Function(1));
 
-           await Assert.ThrowsExceptionAsync<ExceededMaxAttemptsException>(async () => { var fr = await WithRetry.InvokeAsync(() => ac.Exception(1)); });
+            await Assert.ThrowsExceptionAsync<ExceededMaxAttemptsException>(async () => { var fr = await WithRetry.InvokeAsync(() => ac.Exception(1)); });
 
             WithRetry.SetDefaultPolicy(new RetryPolicy(int.MaxValue, TimeSpan.FromMilliseconds(1)));
 
