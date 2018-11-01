@@ -32,7 +32,7 @@ namespace Sumo.Retry
         {
             object result = null;
 
-            var session = new RetrySession();
+            var session = new RetrySession(_retryPolicy);
             session.Begin();
 
             Exception exception = null;
@@ -63,7 +63,7 @@ namespace Sumo.Retry
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    var retryException = _retryPolicy.Check(session, exception);
+                    var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
                         throw retryException;

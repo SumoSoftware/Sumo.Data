@@ -29,7 +29,7 @@ namespace Sumo.Retry
                 throw new ArgumentNullException(nameof(retryPolicy));
             }
 
-            var session = new RetrySession();
+            var session = new RetrySession(retryPolicy);
             session.Begin();
 
             Exception exception = null;
@@ -59,7 +59,7 @@ namespace Sumo.Retry
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    var retryException = retryPolicy.Check(session, exception);
+                    var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
                         throw retryException;
@@ -94,7 +94,7 @@ namespace Sumo.Retry
 
             var result = default(T);
 
-            var session = new RetrySession();
+            var session = new RetrySession(retryPolicy);
             session.Begin();
 
             Exception exception = null;
@@ -124,7 +124,7 @@ namespace Sumo.Retry
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    var retryException = retryPolicy.Check(session, exception);
+                    var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
                         throw retryException;
@@ -160,7 +160,7 @@ namespace Sumo.Retry
 
             var result = default(T);
 
-            var session = new RetrySession();
+            var session = new RetrySession(retryPolicy);
             session.Begin();
 
             Exception exception = null;
@@ -190,7 +190,7 @@ namespace Sumo.Retry
                 // test the exception for can retry, exceeded max retry, and timeout
                 if (exception != null)
                 {
-                    var retryException = retryPolicy.Check(session, exception);
+                    var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
                         throw retryException;

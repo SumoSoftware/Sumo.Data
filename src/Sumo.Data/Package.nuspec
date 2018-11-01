@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data</id>
-        <version>5.3.4</version>
+        <version>5.3.5</version>
         <title>Sumo.Data, Sumo.Data.Schema, Sumo.Data.Orm and Sumo.Data.CSV</title>
         <authors>Mark Lauter, Kevin Wolf</authors>
         <owners>Sumo Software Corporation</owners>
@@ -17,12 +17,14 @@
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
 
         <dependencies>
-            <group>
+            <group targetFramework="net462">
                 <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
                 <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
             </group>
             <group targetFramework="NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
+                <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
+                <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

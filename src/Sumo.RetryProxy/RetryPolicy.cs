@@ -33,62 +33,9 @@ namespace Sumo.Retry
         public TimeSpan Timeout { get; }
         public TimeSpan InitialInterval { get; }
 
-        private RetryException CheckAttempts(RetrySession retrySession, Exception exception)
+        public virtual bool CanRetry(Exception exception)
         {
-            if (retrySession == null)
-            {
-                throw new ArgumentNullException(nameof(retrySession));
-            }
-            if (exception == null)
-            {
-                throw new ArgumentNullException(nameof(exception));
-            }
-
-            return ++retrySession.Attempts >= MaxAttempts
-                ? new ExceededMaxAttemptsException(retrySession, this, exception)
-                : null;
-        }
-
-        private RetryException CheckTimeout(RetrySession retrySession, Exception exception)
-        {
-            if (retrySession == null)
-            {
-                throw new ArgumentNullException(nameof(retrySession));
-            }
-            if (exception == null)
-            {
-                throw new ArgumentNullException(nameof(exception));
-            }
-
-            if (!retrySession.Active)
-            {
-                retrySession.Begin();
-            }
-
-            return retrySession.ElapsedTime >= Timeout
-                ? new ExceededMaxWaitTimeException(retrySession, this, exception)
-                : null;
-        }
-
-        public virtual RetryException Check(RetrySession retrySession, Exception exception)
-        {
-            if (exception == null)
-            {
-                throw new ArgumentNullException(nameof(exception));
-            }
-            if (retrySession == null)
-            {
-                throw new ArgumentNullException(nameof(retrySession));
-            }
-
-            retrySession.Exceptions.Add(exception);
-
-            var result = CheckAttempts(retrySession, exception);
-            if (result == null)
-            {
-                result = CheckTimeout(retrySession, exception);
-            }
-            return result;
+            return true;
         }
     }
 
@@ -110,28 +57,16 @@ namespace Sumo.Retry
         public List<Type> ExceptionWhiteList { get; }
         public List<Type> ExceptionBlackList { get; }
 
-        public override RetryException Check(RetrySession retrySession, Exception exception)
+        public override bool CanRetry(Exception exception)
         {
-            var result = base.Check(retrySession, exception);
-            if (result == null)
-            {
-                var type = exception.GetType();
-                if (!ExceptionWhiteList.Contains(type))
-                {
-                    result = new RetryNotAllowedException(retrySession, this, exception);
-                }
-                if (result == null && ExceptionBlackList.Contains(type))
-                {
-                    result = new RetryNotAllowedException(retrySession, this, exception);
-                }
-            }
-            return result;
+            var type = exception.GetType();
+            return ExceptionWhiteList.Contains(type) && !ExceptionBlackList.Contains(type);
         }
     }
 
     public sealed class FunctionalRetryPolicy : RetryPolicy
     {
-        public FunctionalRetryPolicy(RetryPolicy retryPolicy) : base(retryPolicy)
+        public FunctionalRetryPolicy(RetryPolicy retryPolicy, Func<Exception, bool> isRetryAllowed) : base(retryPolicy)
         {
         }
 
@@ -143,14 +78,9 @@ namespace Sumo.Retry
 
         public Func<Exception, bool> IsRetryAllowed { get; }
 
-        public override RetryException Check(RetrySession retrySession, Exception exception)
+        public override bool CanRetry(Exception exception)
         {
-            var result = base.Check(retrySession, exception);
-            if (result == null && !IsRetryAllowed(exception))
-            {
-                result = new RetryNotAllowedException(retrySession, this, exception);
-            }
-            return result;
+            return IsRetryAllowed(exception);
         }
     }
 
@@ -166,14 +96,9 @@ namespace Sumo.Retry
 
         public abstract bool IsRetryAllowed(Exception exception);
 
-        public override RetryException Check(RetrySession retrySession, Exception exception)
+        public override bool CanRetry(Exception exception)
         {
-            var result = base.Check(retrySession, exception);
-            if (result == null && !IsRetryAllowed(exception))
-            {
-                result = new RetryNotAllowedException(retrySession, this, exception);
-            }
-            return result;
+            return IsRetryAllowed(exception);
         }
     }
 }
