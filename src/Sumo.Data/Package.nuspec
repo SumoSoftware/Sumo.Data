@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data</id>
-        <version>5.3.1</version>
-        <title>Sumo.Data, Sumo.Data.Schema and Sumo.Data.Orm</title>
+        <version>5.3.3</version>
+        <title>Sumo.Data, Sumo.Data.Schema, Sumo.Data.Orm and Sumo.Data.CSV</title>
 
         <authors>Mark Lauter, Kevin Wolf</authors>
         <owners>Sumo Software Corporation</owners>
@@ -15,13 +15,16 @@
 
         <description>Sumo.Data is an IoC capable database access framework. It provides foundation interfaces and classes for database-independent data access. Sumo.Data.Sqlite and Sumo.Data.SqlServer provide database specific implementations of Sumo.Data, Sumo.Data.Schema, and Sumo.Data.Orm. Sumo.Data.Orm is a light-weight, IoC capable ORM.</description>
         
-        <releaseNotes>bug fixes</releaseNotes>
+        <releaseNotes>trying to fix nuget dependencies so we can use with .netframework 4.6.2</releaseNotes>
         <tags>database db orm ioc sumo sql ado schema</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
-            <group targetFramework=".NETStandard2.0">
-                <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
+            <group>
                 <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
+                <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+            </group>
+            <group targetFramework="NETStandard2.0">
+                <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
