@@ -2,9 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Retry</id>
-        <version>5.3.3</version>
+        <version>5.3.4</version>
         <title>Sumo.Retry - Retry Proxy Pattern</title>
-
         <authors>Mark Lauter</authors>
         <owners>Sumo Software Corporation</owners>
         <copyright>Copyright 2018 Sumo Software Corporation</copyright>
@@ -12,16 +11,22 @@
         <licenseUrl>https://github.com/SumoSoftware/Data/blob/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
         <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
-
         <description>Sumo.Retry uses DispatchProxy to create a retry pattern for any interface and implementation combination. RetryProxy wraps all the methods defined in an interface with retry logic. User can provide custom implementation of a test class that ensures the particular exception is eligible for retry, such as a Sql Server transient error.</description>
         <releaseNotes></releaseNotes>
         <tags>DispatchProxy RetryProxy Retry Pattern</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
+
         <dependencies>
+            <group>
+                <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
+            </group>
             <group targetFramework=".NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
-                <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
+    
+    <files>
+        <file src="bin\Release\**" target="lib" />
+    </files>    
 </package>

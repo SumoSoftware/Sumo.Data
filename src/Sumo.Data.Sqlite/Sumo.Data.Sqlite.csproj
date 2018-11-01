@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <!--<TargetFrameworks>netstandard2.0;net451</TargetFrameworks>-->
+        <!--<TargetFramework>netstandard2.0</TargetFramework>-->
+        <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
         <AssemblyName>Sumo.Data.Sqlite</AssemblyName>
         <Authors>Mark Lauter</Authors>
         <Company>Sumo Software Corporation</Company>
@@ -10,13 +10,15 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-      <DocumentationFile>bin\Release\netstandard2.0\Sumo.Data.Sqlite.xml</DocumentationFile>
+      <DocumentationFile></DocumentationFile>
         <NoWarn>1701;1702;1705;1591</NoWarn>
+        <OutputPath>bin\Release\</OutputPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
       <NoWarn>1701;1702;1705;1591</NoWarn>
-      <DocumentationFile>bin\Debug\netstandard2.0\Sumo.Data.Sqlite.xml</DocumentationFile>
+      <DocumentationFile></DocumentationFile>
+      <OutputPath>bin\Debug\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>

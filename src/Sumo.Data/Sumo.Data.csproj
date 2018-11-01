@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <!--<TargetFramework>netstandard2.0</TargetFramework>-->
@@ -15,34 +15,15 @@
         <DebugSymbols>true</DebugSymbols>
         <DocumentationFile></DocumentationFile>
         <NoWarn>1701;1702;1705;1591</NoWarn>
+        <OutputPath>bin\Debug\</OutputPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
       <DocumentationFile></DocumentationFile>
       <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
         <NoWarn>1701;1702;1705;1591</NoWarn>
+        <OutputPath>bin\Release\</OutputPath>
     </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-      <OutputPath>lib\</OutputPath>
-      <DebugType>portable</DebugType>
-      <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
-        <OutputPath>lib\</OutputPath>
-        <DebugType>portable</DebugType>
-        <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>    
-
-    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-      <OutputPath>bin\Debug\</OutputPath>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <Compile Remove="Common\**" />
-      <EmbeddedResource Remove="Common\**" />
-      <None Remove="Common\**" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
