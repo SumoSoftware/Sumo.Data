@@ -20,7 +20,7 @@
             <group>
                 <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
             </group>
-            <group targetFramework=".NETStandard2.0">
+            <group targetFramework="NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
             </group>
         </dependencies>

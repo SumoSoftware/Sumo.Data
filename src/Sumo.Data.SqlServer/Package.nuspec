@@ -25,7 +25,7 @@
                 <dependency id="Sumo.Data" version="5.3.4" exclude="Build,Analyzers" />
                 <dependency id="Sumo.Retry" version="5.3.4" exclude="Build,Analyzers" />
             </group>
-            <group targetFramework=".NETStandard2.0">
+            <group targetFramework="NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
             </group>
         </dependencies>
