@@ -4,8 +4,6 @@ using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 
-syntax error to test azure pipeline build process
-
 namespace Sumo.Data
 {
     public class Reader : Preparable, IReader
