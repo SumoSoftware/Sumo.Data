@@ -13,8 +13,8 @@
 *.keys
 *.private
 *.passwords
-*.secret
-*.secrets
+#*.secret
+#*.secrets
 *.connectionstrings
 
 # scripts
