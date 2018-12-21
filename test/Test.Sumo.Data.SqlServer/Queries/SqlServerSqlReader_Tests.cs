@@ -76,7 +76,7 @@ namespace Sumo.Data.SqlServer.Queries
             }
         }
 
-        public enum Statuses : System.Int32
+        public enum Statuses : int
         {
             Zero,
             One,
@@ -100,7 +100,10 @@ namespace Sumo.Data.SqlServer.Queries
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select * from Test");
+                //var x = new int[] { 1, 2 };
+                //var dataSet = reader.Read($"select * from Test where Id in ({System.String.Join(",", x)})");
+                var dataSet = reader.Read("select * from Test in");
+
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);
