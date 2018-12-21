@@ -37,6 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sumo.Procedure.CodeGen", "e
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Sumo.Data.Test", "test\Sumo.Data.Test\Sumo.Data.Test.sqlproj", "{64100D02-3AF8-47A4-91FF-F56C3522D656}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{BF7CF35C-24C0-45E3-8BCA-283D87347020}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\PackNPush_Local_Debug.ps1 = scripts\PackNPush_Local_Debug.ps1
+		scripts\PackNPush_Local_Release.ps1 = scripts\PackNPush_Local_Release.ps1
+		scripts\PackNPush_NugetOrg.ps1 = scripts\PackNPush_NugetOrg.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
