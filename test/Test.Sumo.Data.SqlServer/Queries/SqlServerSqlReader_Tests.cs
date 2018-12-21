@@ -17,7 +17,7 @@ namespace Sumo.Data.SqlServer.Queries
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
                 Assert.IsNotNull(reader);
-            }                 
+            }
         }
 
         [TestMethod]
@@ -69,10 +69,45 @@ namespace Sumo.Data.SqlServer.Queries
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select * from Test where TestId=@TestId", new Dictionary<string, object> { ["TestId"] = 1 });
+                var dataSet = reader.Read("select * from Test where Status=@Status", new Dictionary<string, object> { ["Status"] = 1 });
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.AreEqual(1, dataSet.Tables[0].Rows.Count);
+            }
+        }
+
+        public enum Statuses : System.Int32
+        {
+            Zero,
+            One,
+            Two
+        }
+
+        public class Test
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public Statuses Status { get; set; }
+        }
+
+        [TestMethod]
+        public void Read_ToArray()
+        {
+            IParameterFactory parameterFactory = new SqlServerParameterFactory();
+            IDataAdapterFactory dataAdapterFactory = new SqlServerDataAdapterFactory();
+            IConnectionFactory connectionFactory = new SqlServerConnectionFactory();
+
+            using (var connection = connectionFactory.Open(AppState.ConnectionString))
+            using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
+            {
+                var dataSet = reader.Read("select * from Test");
+                Assert.IsNotNull(dataSet);
+                Assert.AreEqual(1, dataSet.Tables.Count);
+                Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);
+
+                var records = dataSet.Tables[0].Rows.ToArray<Test>();
+                Assert.IsNotNull(records);
+                Assert.IsTrue(records.Length > 0);
             }
         }
     }
