@@ -9,13 +9,13 @@ namespace Sumo.Data
         [TestMethod]
         public void RecordSet_Constructor_DataTable()
         {
-            Recordset recordset = null;
+            PortableRecordset recordset = null;
             using (var dataset = TestDataProvider.GetDataSet())
             {
                 Assert.IsTrue(dataset.Tables.Count > 0);
                 using (var table = dataset.Tables[0])
                 {
-                    recordset = new Recordset(table);
+                    recordset = new PortableRecordset(table);
                     Assert.AreEqual(table.Columns.Count, recordset.Fields.Length);
                     Assert.AreEqual(table.Rows.Count, recordset.Records.Length);
                     for (var i = 0; i < table.Rows.Count; ++i)
@@ -35,13 +35,13 @@ namespace Sumo.Data
         [TestMethod]
         public void RecordSet_Constructor_DataTable_GarbageCollection()
         {
-            Recordset recordset = null;
+            PortableRecordset recordset = null;
             using (var dataset = TestDataProvider.GetDataSet())
             {
                 Assert.IsTrue(dataset.Tables.Count > 0);
                 using (var table = dataset.Tables[0])
                 {
-                    recordset = new Recordset(table);
+                    recordset = new PortableRecordset(table);
                     Assert.AreEqual(table.Columns.Count, recordset.Fields.Length);
                     Assert.AreEqual(table.Rows.Count, recordset.Records.Length);
                 }
@@ -77,7 +77,7 @@ namespace Sumo.Data
         [TestMethod]
         public void RecordSet_Constructor_RowsOnly()
         {
-            Recordset recordset = null;
+            PortableRecordset recordset = null;
             using (var dataset = TestDataProvider.GetDataSet())
             {
                 Assert.IsTrue(dataset.Tables.Count > 0);
@@ -89,7 +89,7 @@ namespace Sumo.Data
                         rows[i] = table.Rows[i].ItemArray;
                     }
 
-                    recordset = new Recordset(table.TableName, rows);
+                    recordset = new PortableRecordset(table.TableName, rows);
 
                     Assert.AreEqual(table.Columns.Count, recordset.Fields.Length);
                     Assert.AreEqual(table.Rows.Count, recordset.Records.Length);
@@ -119,7 +119,7 @@ namespace Sumo.Data
                 }
             }
 
-            var recordset = new Recordset("test", rows);
+            var recordset = new PortableRecordset("test", rows);
             Assert.AreEqual(size, recordset.Count);
             c = 0;
             for (var i = 0; i < size; ++i)
@@ -140,13 +140,13 @@ namespace Sumo.Data
         [TestMethod]
         public void RecordSet_JsonSerialization()
         {
-            Recordset recordset = null;
+            PortableRecordset recordset = null;
             using (var dataset = TestDataProvider.GetDataSet())
             {
                 Assert.IsTrue(dataset.Tables.Count > 0);
                 using (var table = dataset.Tables[0])
                 {
-                    recordset = new Recordset(table);
+                    recordset = new PortableRecordset(table);
                     Assert.AreEqual(table.Columns.Count, recordset.Fields.Length);
                     Assert.AreEqual(table.Rows.Count, recordset.Records.Length);
                     for (var i = 0; i < table.Rows.Count; ++i)
@@ -162,7 +162,7 @@ namespace Sumo.Data
                 }
             }
             var json = JsonConvert.SerializeObject(recordset);
-            var rc = JsonConvert.DeserializeObject<Recordset>(json);
+            var rc = JsonConvert.DeserializeObject<PortableRecordset>(json);
 
             // using to string to avoid the stupid int32 vs int64 casting issue
             for (var i = 0; i < recordset.Count; ++i)
