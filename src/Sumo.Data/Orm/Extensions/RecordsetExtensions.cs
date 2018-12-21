@@ -7,7 +7,7 @@ namespace Sumo.Data
 {
     public static class RecordsetExtensions
     {
-        public static T ToObject<T>(this Recordset recordset, long recordIndex) where T : class
+        public static T ToObject<T>(this PortableRecordset recordset, long recordIndex) where T : class
         {
             // allows activator to use non-public constructors
             var result = (T)Activator.CreateInstance(
@@ -37,7 +37,7 @@ namespace Sumo.Data
         /// </summary>
         /// <param name="recordset"></param>
         /// <returns></returns>
-        public static object[] ToObjectArray(this Recordset recordset)
+        public static object[] ToObjectArray(this PortableRecordset recordset)
         {
             var result = new object[recordset.Count];
             for (var i = 0; i < recordset.Count; ++i)
@@ -53,7 +53,7 @@ namespace Sumo.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="recordset"></param>
         /// <returns></returns>
-        public static T[] ToValueArray<T>(this Recordset recordset) where T : struct
+        public static T[] ToValueArray<T>(this PortableRecordset recordset) where T : struct
         {
             var result = new T[recordset.Count];
             if (recordset.Count > 0)
@@ -76,7 +76,7 @@ namespace Sumo.Data
         /// <typeparam name="TImplentation">The type to use to for the interface implementation. Must have public or protected constructor.</typeparam>
         /// <param name="recordset"></param>
         /// <returns></returns>
-        public static TInterface[] ToArray<TInterface, TImplentation>(this Recordset recordset) where TImplentation : class, TInterface
+        public static TInterface[] ToArray<TInterface, TImplentation>(this PortableRecordset recordset) where TImplentation : class, TInterface
         {
             var interfaceType = typeof(TInterface);
             if (!interfaceType.IsInterface) throw new OrmException($"Generic argument TInterface resolves to {interfaceType.FullName} which is not an interface.");
@@ -92,7 +92,7 @@ namespace Sumo.Data
             return result;
         }
 
-        public static T[] ToArray<T>(this Recordset recordset) where T : class
+        public static T[] ToArray<T>(this PortableRecordset recordset) where T : class
         {
             var result = new T[recordset.Count];
             for (var i = 0; i < recordset.Count; ++i)
@@ -102,7 +102,7 @@ namespace Sumo.Data
             return result;
         }
 
-        public static Task<T[]> ToArrayAsync<T>(this Recordset recordset) where T : class
+        public static Task<T[]> ToArrayAsync<T>(this PortableRecordset recordset) where T : class
         {
             return Task.Run(() =>
             {
@@ -115,7 +115,7 @@ namespace Sumo.Data
             });
         }
 
-        public static T[] ToArrayParallel<T>(this Recordset recordset) where T : class
+        public static T[] ToArrayParallel<T>(this PortableRecordset recordset) where T : class
         {
             var result = new T[recordset.Count];
             Parallel.For(0, recordset.Count, i =>
