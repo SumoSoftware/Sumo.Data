@@ -24,12 +24,24 @@ namespace Sumo.Data
                 if (!row.IsNull(propertyName))
                 {
                     var value = row[propertyName];
-                    if(value != null)
+                    if (value != null)
                     {
                         //todo: this can be optimized by passing in the table definition or a cache of row types from the ToArray methods
                         //todo: this can be optimized by getting the underlying nullable types in TypeInfoCache 
                         var propertyType = property.PropertyType.IsNullable() ? Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
-                        value = propertyType == value.GetType() ? value : Convert.ChangeType(value, propertyType);
+                        if(propertyType != value.GetType())
+                        {
+                            if (!propertyType.IsEnum)
+                            {
+                                value = Convert.ChangeType(value, propertyType);
+                            }
+                            else
+                            {
+                                //todo: should also check value type is numeric value
+                                //todo: should call IsEnumDefined() to validate that the value is within the enum limits
+                                value = Enum.ToObject(propertyType, value);
+                            }
+                        }
                         property.SetValue(result, value);
                     }
                 }
@@ -106,10 +118,16 @@ namespace Sumo.Data
         public static TInterface[] ToArray<TInterface, TImplentation>(this DataRowCollection rows) where TImplentation : class, TInterface
         {
             var interfaceType = typeof(TInterface);
-            if (!interfaceType.IsInterface) throw new OrmException($"Generic argument TInterface resolves to {interfaceType.FullName} which is not an interface.");
+            if (!interfaceType.IsInterface)
+            {
+                throw new OrmException($"Generic argument TInterface resolves to {interfaceType.FullName} which is not an interface.");
+            }
 
             var instanceType = typeof(TImplentation);
-            if (instanceType.GetInterface(interfaceType.Name) == null) throw new OrmException($"Genertic argument TImplentation{instanceType.FullName} must implement interface {interfaceType.FullName}");
+            if (instanceType.GetInterface(interfaceType.Name) == null)
+            {
+                throw new OrmException($"Genertic argument TImplentation{instanceType.FullName} must implement interface {interfaceType.FullName}");
+            }
 
             var result = new TInterface[rows.Count];
             for (var i = 0; i < rows.Count; ++i)
