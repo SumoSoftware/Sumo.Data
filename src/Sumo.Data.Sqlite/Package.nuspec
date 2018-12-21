@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.Sqlite</id>
-        <version>5.3.5</version>
+        <version>5.3.6</version>
         <title>Sumo.Data - SQLite Implementation</title>
 
         <authors>Mark Lauter, Kevin Wolf</authors>
@@ -18,25 +18,14 @@
         <tags>database db orm ioc sumo sql sqlite ado</tags>
         <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
         <dependencies>
-            <group targetFramework="net462">
-                <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
-                <dependency id="Microsoft.Data.Sqlite" version="2.1.0" exclude="Build,Analyzers" />
-                <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data" version="5.3.5" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="5.3.5" exclude="Build,Analyzers" />
-            </group>
             <group targetFramework="NETStandard2.0">
                 <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
                 <dependency id="System.Data.Common" version="4.3.0" exclude="Build,Analyzers" />
-                <dependency id="Microsoft.Data.Sqlite" version="2.1.0" exclude="Build,Analyzers" />
+                <dependency id="Microsoft.Data.Sqlite" version="2.2.0" exclude="Build,Analyzers" />
                 <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Data" version="5.3.5" exclude="Build,Analyzers" />
-                <dependency id="Sumo.Retry" version="5.3.5" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Data" version="5.3.6" exclude="Build,Analyzers" />
+                <dependency id="Sumo.Retry" version="5.3.6" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
-
-    <files>
-        <file src="bin\Release\**" target="lib" />
-    </files>
 </package>
