@@ -47,17 +47,6 @@ echo "location: " $location
 echo "pack n push <<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 echo "pack n push >>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-Set-Location .\src\Sumo.Data.Sqlite\
-[string]$location = Get-Location
-echo "location: " $location
-Invoke-Expression $scriptName
-Set-Location ..
-Set-Location ..
-[string]$location = Get-Location
-echo "location: " $location
-echo "pack n push <<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-
-echo "pack n push >>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 Set-Location .\src\Sumo.Data.SqlServer\
 [string]$location = Get-Location
 echo "location: " $location
