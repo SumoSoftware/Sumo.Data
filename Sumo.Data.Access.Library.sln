@@ -42,6 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{BF7C
 		scripts\PackNPush_Local_Debug.ps1 = scripts\PackNPush_Local_Debug.ps1
 		scripts\PackNPush_Local_Release.ps1 = scripts\PackNPush_Local_Release.ps1
 		scripts\PackNPush_NugetOrg.ps1 = scripts\PackNPush_NugetOrg.ps1
+		scripts\PackNPushAll.ps1 = scripts\PackNPushAll.ps1
 	EndProjectSection
 EndProject
 Global
