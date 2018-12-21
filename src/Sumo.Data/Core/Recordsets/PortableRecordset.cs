@@ -6,27 +6,27 @@ using System.IO;
 
 namespace Sumo.Data
 {
-    public class Recordset
+    public class PortableRecordset
     {
-        public Recordset() : base() { }
+        public PortableRecordset() : base() { }
 
-        public Recordset(string name) : base()
+        public PortableRecordset(string name) : base()
         {
             Name = name;
             Id = Guid.NewGuid();
         }
 
-        public Recordset(string name, Field[] fields) : this(name)
+        public PortableRecordset(string name, Field[] fields) : this(name)
         {
             Fields = fields ?? throw new ArgumentNullException(nameof(fields));
         }
 
-        public Recordset(string name, Field[] fields, object[][] records) : this(name, fields)
+        public PortableRecordset(string name, Field[] fields, object[][] records) : this(name, fields)
         {
             Records = records ?? throw new ArgumentNullException(nameof(records));
         }
 
-        public Recordset(DataTable table) : this(table?.TableName)
+        public PortableRecordset(DataTable table) : this(table?.TableName)
         {
             if (table == null) throw new ArgumentNullException(nameof(table));
 
@@ -48,7 +48,7 @@ namespace Sumo.Data
             }
         }
 
-        public Recordset(string name, string[] fields, List<List<object>> records) : this(name)
+        public PortableRecordset(string name, string[] fields, List<List<object>> records) : this(name)
         {
             if (fields == null) throw new ArgumentNullException(nameof(fields));
             if (records == null) throw new ArgumentNullException(nameof(records));
@@ -69,7 +69,7 @@ namespace Sumo.Data
             Fields = _fields;
         }
 
-        public Recordset(string name, string[] fields, object[][] records) : this(name)
+        public PortableRecordset(string name, string[] fields, object[][] records) : this(name)
         {
             if (fields == null) throw new ArgumentNullException(nameof(fields));
 
@@ -85,7 +85,7 @@ namespace Sumo.Data
             Fields = _fields;
         }
 
-        public Recordset(string name, object[][] records) : this(name)
+        public PortableRecordset(string name, object[][] records) : this(name)
         {
             Records = records ?? throw new ArgumentNullException(nameof(records));
 
@@ -201,13 +201,13 @@ namespace Sumo.Data
             //todo: use type code from fields to write rows to binary stream
         }
 
-        public static Recordset FromBytes(byte[] bytes)
+        public static PortableRecordset FromBytes(byte[] bytes)
         {
             throw new NotImplementedException(nameof(FromBytes));
             //todo: use type code from fields to read rows to binary stream
         }
 
-        public static Recordset FromStream(Stream bytes)
+        public static PortableRecordset FromStream(Stream bytes)
         {
             throw new NotImplementedException(nameof(FromBytes));
             //todo: use type code from fields to read rows to binary stream
