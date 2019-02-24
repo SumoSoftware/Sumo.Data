@@ -8,7 +8,6 @@ namespace Sumo.Retry
 {
     public class RetrySession
     {
-
         public RetrySession(RetryPolicy retryPolicy)
         {
             _retryPolicy = retryPolicy ?? throw new ArgumentNullException(nameof(retryPolicy));

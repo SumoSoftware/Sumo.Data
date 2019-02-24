@@ -12,7 +12,7 @@ namespace Sumo.Retry
             _defaultRetryPolicy = retryPolicy;
         }
 
-        #region void Invoke(Action action)
+        #region void InvokeAsync(Action action)
         public static Task InvokeAsync(Action action)
         {
             return InvokeAsync(_defaultRetryPolicy, action);
@@ -75,7 +75,7 @@ namespace Sumo.Retry
         }
         #endregion
 
-        #region T Invoke<T>(Func<T> function)
+        #region T InvokeAsync<T>(Func<T> function)
         public static Task<T> InvokeAsync<T>(Func<T> function)
         {
             return InvokeAsync(_defaultRetryPolicy, function);
