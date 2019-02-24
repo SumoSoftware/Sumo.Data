@@ -8,19 +8,19 @@ namespace Sumo.Retry
         public RetryException(RetrySession retrySession) : base()
         {
             RetrySession = retrySession ?? throw new ArgumentNullException(nameof(retrySession));
-            RetrySession.Stop();
+            RetrySession.End();
         }
 
         public RetryException(RetrySession retrySession, string message) : base(message)
         {
             RetrySession = retrySession ?? throw new ArgumentNullException(nameof(retrySession));
-            RetrySession.Stop();
+            RetrySession.End();
         }
 
         public RetryException(RetrySession retrySession, string message, Exception innerException) : base(message, innerException)
         {
             RetrySession = retrySession ?? throw new ArgumentNullException(nameof(retrySession));
-            RetrySession.Stop();
+            RetrySession.End();
         }
 
         public RetryException(RetrySession retrySession, Exception innerException) : this(retrySession, string.Empty, innerException)

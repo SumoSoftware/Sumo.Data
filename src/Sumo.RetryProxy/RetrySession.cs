@@ -66,17 +66,19 @@ namespace Sumo.Retry
             AdjustWaitTime();
         }
 
-        internal void Begin()
+        internal RetrySession Begin()
         {
             if (_stopwatch == null)
             {
                 _stopwatch = Stopwatch.StartNew();
             }
+            return this;
         }
 
-        internal void Stop()
+        internal RetrySession End()
         {
             _stopwatch?.Stop();
+            return this;
         }
 
         private RetryException CheckAttempts(Exception exception)

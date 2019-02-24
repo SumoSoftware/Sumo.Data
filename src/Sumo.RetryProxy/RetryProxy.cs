@@ -22,8 +22,7 @@ namespace Sumo.Retry
             where TInterface : class
             where TImplementation : class, new()
         {
-            var instance = Activator.CreateInstance<TImplementation>() as TInterface;
-            return Create(instance, retryPolicy);
+            return Create(Activator.CreateInstance<TImplementation>() as TInterface, retryPolicy);
         }
 
         private object _instance;
@@ -33,8 +32,8 @@ namespace Sumo.Retry
         {
             object result = null;
 
-            var session = new RetrySession(_retryPolicy);
-            session.Begin();
+            var session = new RetrySession(_retryPolicy)
+                .Begin();
 
             Exception exception = null;
 
@@ -77,6 +76,8 @@ namespace Sumo.Retry
                 // wait a bit before trying again
                 session.Sleep();
             } // while (!complete)
+
+            session.End();
 
             return result;
         }
