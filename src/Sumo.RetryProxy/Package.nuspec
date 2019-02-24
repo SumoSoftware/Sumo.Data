@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
-    <metadata>
-        <id>Sumo.Retry</id>
-        <version>5.3.7</version>
-        <title>Sumo.Retry - Retry Proxy Pattern</title>
-        <authors>Mark Lauter</authors>
-        <owners>Sumo Software Corporation</owners>
-        <copyright>Copyright 2018 Sumo Software Corporation</copyright>
-        <requireLicenseAcceptance>true</requireLicenseAcceptance>
-        <licenseUrl>https://github.com/SumoSoftware/Data/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
-        <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
-        <description>Sumo.Retry provides several types of retry policy, lambda based WithRetry extension methods and a RetryProxy based on System.Reflection.DispatchProxy.</description>
-        <releaseNotes></releaseNotes>
-        <tags>DispatchProxy RetryProxy Retry Pattern</tags>
-        <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
+  <metadata>
+    <id>Sumo.Retry</id>
+    <version>5.4.0</version>
+    <title>Sumo.Retry - Retry Proxy Pattern</title>
+    <authors>Mark Lauter</authors>
+    <owners>Sumo Software Corporation</owners>
+    <copyright>Copyright 2018 Sumo Software Corporation</copyright>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
+    <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
+    <description>Sumo.Retry provides several types of retry policy, lambda based WithRetry extension methods and a RetryProxy based on System.Reflection.DispatchProxy.</description>
+    <releaseNotes></releaseNotes>
+    <tags>DispatchProxy RetryProxy Retry Pattern</tags>
+    <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
 
-        <dependencies>
-          <group targetFramework="NETStandard2.0">
-            <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
-            <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
-          </group>
-        </dependencies>
-    </metadata>
+    <dependencies>
+      <group targetFramework="NETStandard2.0">
+        <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
+        <dependency id="System.Reflection.DispatchProxy" version="4.5.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
 </package>
