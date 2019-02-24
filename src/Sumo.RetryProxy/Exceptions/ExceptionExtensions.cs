@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Sumo.Retry
 {
-    internal static class RetryExtensions
+    internal static class ExceptionExtensions
     {
         internal static Exception GetPrimaryException(this TargetInvocationException ex)
         {

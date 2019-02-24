@@ -1,4 +1,4 @@
-﻿using Sumo.Retry;
+﻿using Sumo.Retry.Policies;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -30,7 +30,9 @@ namespace Sumo.Data.SqlServer
         public override bool IsRetryAllowed(Exception exception)
         {
             if (exception == null)
+            {
                 throw new ArgumentNullException(nameof(exception));
+            }
 
             return (exception is SqlException) && _transientErrors.Contains(((SqlException)exception).Number);
         }

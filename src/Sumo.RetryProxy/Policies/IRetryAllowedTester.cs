@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sumo.Retry
+namespace Sumo.Retry.Policies
 {
     public interface IRetryAllowedTester
     {

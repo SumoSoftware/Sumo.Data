@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sumo.Retry.Policies;
+using System;
 
 namespace Sumo.Retry
 {

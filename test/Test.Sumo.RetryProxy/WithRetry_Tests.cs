@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Sumo.Retry.Policies;
 using System;
 using System.Threading.Tasks;
 

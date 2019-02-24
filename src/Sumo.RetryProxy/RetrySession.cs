@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sumo.Retry.Policies;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -8,13 +9,15 @@ namespace Sumo.Retry
 {
     public class RetrySession
     {
-        public RetrySession(RetryPolicy retryPolicy)
+        private RetrySession() { }
+
+        internal RetrySession(RetryPolicy retryPolicy)
         {
             _retryPolicy = retryPolicy ?? throw new ArgumentNullException(nameof(retryPolicy));
             _waitTime = retryPolicy.InitialInterval;
         }
 
-        public RetrySession(RetrySession retrySession) : this(retrySession._retryPolicy)
+        internal RetrySession(RetrySession retrySession) : this(retrySession._retryPolicy)
         {
             Attempts = retrySession.Attempts;
             ElapsedTime = TimeSpan.FromTicks(retrySession.ElapsedTime.Ticks);
@@ -23,6 +26,17 @@ namespace Sumo.Retry
 
         private readonly RetryPolicy _retryPolicy;
         private TimeSpan _waitTime;
+        private TimeSpan _timeSpan = TimeSpan.FromTicks(0);
+        private Stopwatch _stopwatch = null;
+
+        public bool Active => _stopwatch != null;
+        public int Attempts { get; set; } = 0;
+        public TimeSpan ElapsedTime
+        {
+            get => _stopwatch == null ? _timeSpan : _stopwatch.Elapsed;
+            private set => _timeSpan = value;
+        }
+        public List<Exception> Exceptions { get; } = new List<Exception>();
 
         //todo: set wait time increment type in policy. for example: ExponentialRetryPolicy from service bus
         private void AdjustWaitTime()
@@ -33,41 +47,37 @@ namespace Sumo.Retry
                 : _waitTime.TotalMilliseconds);
         }
 
-        public void Sleep()
+        /// <summary>
+        /// uses thread.sleep
+        /// </summary>
+        internal void Sleep()
         {
             Thread.Sleep(_waitTime);
             AdjustWaitTime();
         }
 
-        public async Task SleepAsync()
+        /// <summary>
+        /// uses task.delay
+        /// </summary>
+        /// <returns></returns>
+        internal async Task SleepAsync()
         {
             await Task.Delay(_waitTime);
             AdjustWaitTime();
         }
 
-        private Stopwatch _stopwatch = null;
-        public void Begin()
+        internal void Begin()
         {
             if (_stopwatch == null)
             {
-                _stopwatch = new Stopwatch();
-                _stopwatch.Start();
+                _stopwatch = Stopwatch.StartNew();
             }
         }
 
-        public bool Active => _stopwatch != null;
-
-        public int Attempts { get; set; } = 0;
-
-        private TimeSpan _timeSpan = TimeSpan.FromTicks(0);
-        public TimeSpan ElapsedTime
+        internal void Stop()
         {
-            get => _stopwatch == null ? _timeSpan : _stopwatch.Elapsed;
-            set => _timeSpan = value;
+            _stopwatch?.Stop();
         }
-
-        public List<Exception> Exceptions { get; } = new List<Exception>();
-
 
         private RetryException CheckAttempts(Exception exception)
         {
@@ -88,7 +98,7 @@ namespace Sumo.Retry
                 : null;
         }
 
-        public virtual RetryException CheckException(Exception exception)
+        internal RetryException CheckException(Exception exception)
         {
             if (exception == null)
             {
@@ -109,6 +119,5 @@ namespace Sumo.Retry
 
             return result;
         }
-
     }
 }
