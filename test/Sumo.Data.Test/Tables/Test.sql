@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Test]
+﻿CREATE TABLE [Test].[Test]
 (
 	[Id] INT IDENTITY (1, 1) NOT NULL,
     [Name] NVARCHAR(256) NOT NULL,
