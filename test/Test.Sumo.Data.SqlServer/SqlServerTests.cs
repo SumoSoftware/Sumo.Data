@@ -16,7 +16,7 @@ namespace Sumo.Data.SqlServer
     {
         public long Id { get; } = 1;
         [OutputParameter]
-        public int Out { get; set; }
+        public string Out { get; set; }
     }
 
     public sealed class ReadParams
