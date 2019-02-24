@@ -65,6 +65,7 @@
     <Build Include="Schemas\Test.sql" />
     <Build Include="Tables\Test.sql" />
     <Build Include="Procedures\Get.sql" />
+    <Build Include="Procedures\ParamContextTest.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SchemaCompare.local.scmp" />

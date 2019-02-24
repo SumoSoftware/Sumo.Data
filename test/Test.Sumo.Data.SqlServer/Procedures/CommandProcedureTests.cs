@@ -53,7 +53,7 @@ namespace Test.Sumo.Data.SqlServer.Procedures
             using (var procedure = new CommandProcedure(connection, dataComponentFactory))
             {
                 var result = await procedure.ExecuteAsync(procedureContext);
-                Assert.AreEqual(99, result);
+                Assert.AreEqual(-1, result);
             }
 
             Assert.IsTrue(procedureContext.InDate.HasValue);

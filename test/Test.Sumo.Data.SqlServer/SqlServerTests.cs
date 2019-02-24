@@ -14,9 +14,9 @@ namespace Sumo.Data.SqlServer
     [EntityPrefix("Test")]
     public sealed class Get
     {
-        public long Id { get; } = 1;
+        public long Id { get; set; } = 1;
         [OutputParameter]
-        public string Out { get; set; }
+        public int Status { get; set; }
     }
 
     public sealed class ReadParams
@@ -26,8 +26,9 @@ namespace Sumo.Data.SqlServer
 
     public class Test
     {
-        public int TestId { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
+        public int Status { get; set; }
     }
 
     [TestClass]
@@ -40,19 +41,27 @@ namespace Sumo.Data.SqlServer
             var adapterFactory = new SqlServerDataAdapterFactory();
             var connectionFactory = new SqlServerConnectionFactory();
 
+            // on using transactions
+            // https://stackoverflow.com/questions/6418992/is-it-a-better-practice-to-explicitly-call-transaction-rollback-or-let-an-except
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
+            using (var transaction = connection.BeginTransaction())
             using (var proc = new ReadProcedure(connection, parameterFactory, adapterFactory))
             {
                 Assert.IsNotNull(proc);
-                var getParams = new Get();
-                var readResult = proc.Read(getParams);
+                var getParams = new Get
+                {
+                    Id = 1
+                };
+                var readResult = proc.Read(getParams, transaction);
 
-                Assert.AreEqual(99, readResult.ReturnValue);
+                Assert.AreEqual(-1, readResult.ReturnValue);
                 Assert.AreEqual(1, readResult.DataSet.Tables.Count);
                 Assert.AreEqual(1, readResult.DataSet.Tables[0].Rows.Count);
-                Assert.AreEqual(33, getParams.Out);
-                Assert.AreEqual(1, readResult.DataSet.Tables[0].Rows[0]["TestId"]);
+                Assert.AreEqual(1, getParams.Status);
+                Assert.AreEqual(1, readResult.DataSet.Tables[0].Rows[0]["Id"]);
                 Assert.AreEqual("one", readResult.DataSet.Tables[0].Rows[0]["Name"]);
+
+                transaction.Commit();
             }
         }
 
@@ -64,17 +73,23 @@ namespace Sumo.Data.SqlServer
             var connectionFactory = new SqlServerConnectionFactory();
 
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
+            using (var transaction = connection.BeginTransaction())
             using (var proc = new ReadProcedure(connection, parameterFactory, adapterFactory))
             {
-                var getParams = new Get();
-                var readResult = proc.Read(getParams);
+                var getParams = new Get
+                {
+                    Id = 1
+                };
+                var readResult = proc.Read(getParams, transaction);
                 var tests = readResult.DataSet.Tables[0].Rows.ToArray<Test>();
                 Assert.IsNotNull(tests);
                 Assert.AreEqual(1, tests.Length);
                 var test = tests.FirstOrDefault();
                 Assert.IsNotNull(test);
-                Assert.AreEqual(1, test.TestId);
+                Assert.AreEqual(1, test.Id);
                 Assert.AreEqual("one", test.Name);
+
+                transaction.Commit();
             }
         }
     }

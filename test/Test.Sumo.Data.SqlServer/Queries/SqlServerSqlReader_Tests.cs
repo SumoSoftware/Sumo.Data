@@ -102,7 +102,7 @@ namespace Sumo.Data.SqlServer.Queries
             {
                 //var x = new int[] { 1, 2 };
                 //var dataSet = reader.Read($"select * from Test where Id in ({System.String.Join(",", x)})");
-                var dataSet = reader.Read("select * from Test in");
+                var dataSet = reader.Read("select * from Test.Test");
 
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);

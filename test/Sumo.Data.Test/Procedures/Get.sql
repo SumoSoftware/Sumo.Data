@@ -1,8 +1,15 @@
 ﻿CREATE PROCEDURE [Test].[Get]
 	@Id bigint,
-	@Out nvarchar(256) out
+	@Status int out
 AS
-	select @Out = [Name] 
+
+	select @Status = [Status]
 	from Test.Test
 	where Id = @Id;
+
+	select *
+	from Test.Test
+	where Id = @Id;
+
+	return -1;
 RETURN 0
