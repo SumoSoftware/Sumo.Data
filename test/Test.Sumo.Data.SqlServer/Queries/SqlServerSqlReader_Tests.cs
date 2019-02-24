@@ -30,7 +30,7 @@ namespace Sumo.Data.SqlServer.Queries
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select * from Test");
+                var dataSet = reader.Read("select * from Test.Test");
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);
@@ -47,7 +47,7 @@ namespace Sumo.Data.SqlServer.Queries
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select count(*) from Test");
+                var dataSet = reader.Read("select count(*) from Test.Test");
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.IsTrue(dataSet.Tables[0].Rows.Count > 0);
@@ -69,7 +69,7 @@ namespace Sumo.Data.SqlServer.Queries
             using (var connection = connectionFactory.Open(AppState.ConnectionString))
             using (var reader = new SqlReader(connection, parameterFactory, dataAdapterFactory))
             {
-                var dataSet = reader.Read("select * from Test where Status=@Status", new Dictionary<string, object> { ["Status"] = 1 });
+                var dataSet = reader.Read("select * from Test.Test where Status=@Status", new Dictionary<string, object> { ["Status"] = 1 });
                 Assert.IsNotNull(dataSet);
                 Assert.AreEqual(1, dataSet.Tables.Count);
                 Assert.AreEqual(1, dataSet.Tables[0].Rows.Count);
