@@ -41,10 +41,7 @@ namespace Sumo.Retry
         //todo: set wait time increment type in policy. for example: ExponentialRetryPolicy from service bus
         private void AdjustWaitTime()
         {
-            // ratcheting up - allows wait times up to ~10 seconds per try
-            _waitTime = TimeSpan.FromMilliseconds(_waitTime.TotalMilliseconds <= 110
-                ? _waitTime.TotalMilliseconds * 1.25
-                : _waitTime.TotalMilliseconds);
+            _waitTime = TimeSpan.FromMilliseconds(_waitTime.TotalMilliseconds + _retryPolicy.InitialInterval.TotalMilliseconds);
         }
 
         /// <summary>
