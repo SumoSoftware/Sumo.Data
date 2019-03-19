@@ -26,15 +26,15 @@ namespace Sumo.Retry
 
         private readonly RetryPolicy _retryPolicy;
         private TimeSpan _waitTime;
-        private TimeSpan _timeSpan = TimeSpan.FromTicks(0);
+        private TimeSpan _elapsed = TimeSpan.FromTicks(0);
         private Stopwatch _stopwatch = null;
 
         public bool Active => _stopwatch != null;
         public int Attempts { get; set; } = 0;
         public TimeSpan ElapsedTime
         {
-            get => _stopwatch == null ? _timeSpan : _stopwatch.Elapsed;
-            private set => _timeSpan = value;
+            get => _stopwatch == null ? _elapsed : _stopwatch.Elapsed;
+            private set => _elapsed = value;
         }
         public List<Exception> Exceptions { get; } = new List<Exception>();
 
@@ -42,6 +42,9 @@ namespace Sumo.Retry
         private void AdjustWaitTime()
         {
             _waitTime = TimeSpan.FromMilliseconds(_waitTime.TotalMilliseconds + _retryPolicy.InitialInterval.TotalMilliseconds);
+            _waitTime = _waitTime > _retryPolicy.Timeout - ElapsedTime
+                ? _retryPolicy.Timeout - ElapsedTime
+                : _waitTime;
         }
 
         /// <summary>
