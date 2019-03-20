@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Sumo.Data.Sqlite</id>
-        <version>5.3.7</version>
+        <version>5.3.8</version>
         <title>Sumo.Data - SQLite Implementation</title>
 
         <authors>Mark Lauter, Kevin Wolf</authors>
