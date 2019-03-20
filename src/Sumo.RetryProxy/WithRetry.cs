@@ -1,5 +1,6 @@
 ﻿using Sumo.Retry.Policies;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -63,9 +64,11 @@ namespace Sumo.Retry
                     var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
+                        Debug.WriteLine($"{nameof(WithRetry)}.{nameof(InvokeAsync)} encountered exception '{exception.GetType().Name}' with message '{exception.Message}' - CAN'T RETRY");
                         throw retryException;
                     }
                     // wait a bit before trying again
+                    Debug.WriteLine($"{nameof(WithRetry)}.{nameof(InvokeAsync)} encountered exception '{exception.GetType().Name}' with message '{exception.Message}' - CAN RETRY AFTER SLEEP");
                     await session.SleepAsync();
                     //reset exception for next attempt
                     exception = null;
@@ -126,8 +129,11 @@ namespace Sumo.Retry
                     var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
+                        Debug.WriteLine($"{nameof(WithRetry)}.{nameof(InvokeAsync)} encountered exception '{exception.GetType().Name}' with message '{exception.Message}' - CAN'T RETRY");
                         throw retryException;
-                    }                    // wait a bit before trying again
+                    }
+                    // wait a bit before trying again
+                    Debug.WriteLine($"{nameof(WithRetry)}.{nameof(InvokeAsync)} encountered exception '{exception.GetType().Name}' with message '{exception.Message}' - CAN RETRY AFTER SLEEP");
                     await session.SleepAsync();
                     //reset exception for next attempt
                     exception = null;
@@ -189,9 +195,11 @@ namespace Sumo.Retry
                     var retryException = session.CheckException(exception);
                     if (retryException != null)
                     {
+                        Debug.WriteLine($"{nameof(WithRetry)}.{nameof(InvokeAsync)} encountered exception '{exception.GetType().Name}' with message '{exception.Message}' - CAN'T RETRY");
                         throw retryException;
                     }
                     // wait a bit before trying again
+                    Debug.WriteLine($"{nameof(WithRetry)}.{nameof(InvokeAsync)} encountered exception '{exception.GetType().Name}' with message '{exception.Message}' - CAN RETRY AFTER SLEEP");
                     await session.SleepAsync();
                     //reset exception for next attempt
                     exception = null;

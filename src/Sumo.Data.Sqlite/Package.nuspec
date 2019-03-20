@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Sumo.Data.Sqlite</id>
-    <version>5.3.9</version>
+    <version>5.3.10</version>
     <title>Sumo.Data - SQLite Implementation</title>
 
     <authors>Mark Lauter, Kevin Wolf</authors>
@@ -23,7 +23,7 @@
         <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Data.Sqlite" version="2.2.3" exclude="Build,Analyzers" />
         <dependency id="Sumo.Data" version="5.3.7" exclude="Build,Analyzers" />
-        <dependency id="Sumo.Retry" version="5.4.21" exclude="Build,Analyzers" />
+        <dependency id="Sumo.Retry" version="5.4.24" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

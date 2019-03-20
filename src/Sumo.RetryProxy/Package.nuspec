@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Sumo.Retry</id>
-    <version>5.4.21</version>
+    <version>5.4.24</version>
     <title>Sumo.Retry - Retry Proxy Pattern</title>
     
     <authors>Mark Lauter</authors>
@@ -14,7 +14,7 @@
     <iconUrl>http://sumosoftware.com/media/nuget-sumo.png</iconUrl>
     
     <description>Sumo.Retry provides several types of retry policy, lambda based WithRetry extension methods and a RetryProxy based on System.Reflection.DispatchProxy.</description>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>Added some debug output.</releaseNotes>
     <tags>DispatchProxy RetryProxy Retry Pattern</tags>
     <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
 
