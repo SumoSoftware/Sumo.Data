@@ -38,13 +38,15 @@ namespace Sumo.Retry
         }
         public List<Exception> Exceptions { get; } = new List<Exception>();
 
-        //todo: set wait time increment type in policy. for example: ExponentialRetryPolicy from service bus
         private void AdjustWaitTime()
         {
-            _waitTime = TimeSpan.FromMilliseconds(_waitTime.TotalMilliseconds + _retryPolicy.InitialInterval.TotalMilliseconds);
-            _waitTime = _waitTime > _retryPolicy.Timeout - ElapsedTime
-                ? _retryPolicy.Timeout - ElapsedTime
-                : _waitTime;
+            //todo: set wait time increment type in policy. for example: ExponentialRetryPolicy from service bus
+
+            var timeRemaining = _retryPolicy.Timeout - ElapsedTime;
+            var newWaitTime = _waitTime + _retryPolicy.InitialInterval;
+            _waitTime = newWaitTime > timeRemaining
+                ? timeRemaining
+                : newWaitTime;
         }
 
         /// <summary>

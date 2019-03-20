@@ -68,13 +68,11 @@ namespace Sumo.Retry
                     {
                         throw retryException;
                     }
+                    // wait a bit before trying again
+                    session.Sleep();
+                    //reset exception for next attempt
+                    exception = null;
                 }
-
-                //reset exception for next attempt
-                exception = null;
-
-                // wait a bit before trying again
-                session.Sleep();
             } // while (!complete)
 
             session.End();

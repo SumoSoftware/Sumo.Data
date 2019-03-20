@@ -65,13 +65,11 @@ namespace Sumo.Retry
                     {
                         throw retryException;
                     }
+                    // wait a bit before trying again
+                    await session.SleepAsync();
+                    //reset exception for next attempt
+                    exception = null;
                 }
-
-                //reset exception for next attempt
-                exception = null;
-
-                // wait a bit before trying again
-                await session.SleepAsync();
             } // while (!complete)
         }
         #endregion
@@ -129,14 +127,11 @@ namespace Sumo.Retry
                     if (retryException != null)
                     {
                         throw retryException;
-                    }
+                    }                    // wait a bit before trying again
+                    await session.SleepAsync();
+                    //reset exception for next attempt
+                    exception = null;
                 }
-
-                //reset exception for next attempt
-                exception = null;
-
-                // wait a bit before trying again
-                await session.SleepAsync();
             } // while (!complete)
             return result;
         }
@@ -196,13 +191,11 @@ namespace Sumo.Retry
                     {
                         throw retryException;
                     }
+                    // wait a bit before trying again
+                    await session.SleepAsync();
+                    //reset exception for next attempt
+                    exception = null;
                 }
-
-                //reset exception for next attempt
-                exception = null;
-
-                // wait a bit before trying again
-                await session.SleepAsync();
             } // while (!complete)
             return result;
         }
