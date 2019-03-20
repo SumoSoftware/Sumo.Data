@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Sumo.Data.SqlServer</id>
-    <version>5.3.7</version>
+    <version>5.3.9</version>
     <title>Sumo.Data - Microsoft Sql Server Implementation</title>
 
     <authors>Mark Lauter</authors>

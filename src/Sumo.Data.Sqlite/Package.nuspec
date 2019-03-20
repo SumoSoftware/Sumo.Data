@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Sumo.Data.Sqlite</id>
-    <version>5.3.8</version>
+    <version>5.3.9</version>
     <title>Sumo.Data - SQLite Implementation</title>
 
     <authors>Mark Lauter, Kevin Wolf</authors>
@@ -17,6 +17,7 @@
     <releaseNotes>bug fixes in Sumo.Data</releaseNotes>
     <tags>database db orm ioc sumo sql sqlite ado</tags>
     <repository type="git" url="https://github.com/SumoSoftware/Data.git" />
+    
     <dependencies>
       <group targetFramework="NETStandard2.0">
         <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
