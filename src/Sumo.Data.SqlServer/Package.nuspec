@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Sumo.Data.SqlServer</id>
-    <version>5.3.10</version>
+    <version>5.3.11</version>
     <title>Sumo.Data - Microsoft Sql Server Implementation</title>
 
     <authors>Mark Lauter</authors>
@@ -22,8 +22,8 @@
       <group targetFramework="NETStandard2.0">
         <dependency id="NetStandard.Library" version="2.0.3" exclude="Build,Analyzers" />
         <dependency id="System.Data.SqlClient" version="4.6" exclude="Build,Analyzers" />
-        <dependency id="Sumo.Data" version="5.3.7" exclude="Build,Analyzers" />
-        <dependency id="Sumo.Retry" version="5.4.24" exclude="Build,Analyzers" />
+        <dependency id="Sumo.Data" version="5.3.7-debug" exclude="Build,Analyzers" />
+        <dependency id="Sumo.Retry" version="5.4.24-debug" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
