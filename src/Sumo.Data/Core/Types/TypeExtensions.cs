@@ -129,15 +129,13 @@ namespace Sumo.Data
                 case DbType.DateTime2:
                     {
                         var ticks = reader.ReadInt64();
-                        var dt = new DateTime(ticks);
-                        return dt.ToLocalTime();
+                        return new DateTime(ticks, DateTimeKind.Utc);
                     }
                 case DbType.DateTimeOffset:
                     {
                         var offset = reader.ReadInt64();
                         var ticks = reader.ReadInt64();
-                        var dt = new DateTimeOffset(ticks, new TimeSpan(offset));
-                        return dt.ToLocalTime();
+                        return new DateTimeOffset(ticks, new TimeSpan(offset));
                     }
                 case DbType.Currency:
                 case DbType.VarNumeric:
@@ -175,11 +173,13 @@ namespace Sumo.Data
                 case DbType.Byte: writer.Write((byte)value); break;
                 case DbType.Date:
                 case DbType.DateTime:
-                case DbType.DateTime2: writer.Write(((DateTime)value).ToUniversalTime().Ticks); break;
+                case DbType.DateTime2:
+                    writer.Write(((DateTime)value).ToUniversalTime().Ticks);
+                    break;
                 case DbType.DateTimeOffset:
                     writer.Write(((DateTimeOffset)value).Offset.Ticks);
                     writer.Write(((DateTimeOffset)value).UtcTicks);
-                    return;
+                    break;
                 case DbType.Currency:
                 case DbType.VarNumeric:
                 case DbType.Decimal: writer.Write((decimal)value); break;

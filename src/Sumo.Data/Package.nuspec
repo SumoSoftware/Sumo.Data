@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Sumo.Data</id>
-    <version>5.3.7</version>
+    <version>5.3.9</version>
     <title>Sumo.Data, Sumo.Data.Schema, Sumo.Data.Orm and Sumo.Data.CSV</title>
 
     <authors>Mark Lauter</authors>
     <owners>Sumo Software Corporation</owners>
-    <copyright>Copyright 2018 Sumo Software Corporation</copyright>
+    <copyright>Copyright 2019 Sumo Software Corporation</copyright>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/SumoSoftware/Data</projectUrl>
